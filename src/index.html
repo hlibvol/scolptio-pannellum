@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Property Hatch</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Managing your land business has never been easier" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.ico" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <base href="/" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css"> -->
+    <link href="assets/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="assets/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <script src="assets/bower_components/chart.js/dist/Chart.min.js"></script>
+    <link href="assets/bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="assets/icon_fonts_assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="assets/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="assets/bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="assets/bower_components/dragula.js/dist/dragula.min.css" rel="stylesheet">
+    <!-- <link href="assets/css/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/ng2-toastr/ng2-toastr.min.css" /> -->
+    <link href="assets/css/main.css?version=4.3.0" rel="stylesheet">
+
+
+    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="assets/js/sweetalert2.min.js"></script> -->
+
+    
+    <script src="assets/env.js"></script>
+
+
+  </head>
+
+  <body class="menu-position-side menu-side-left full-screen">
+    <!-- <input id="pac-input" type="text" placeholder="Enter a location" /> -->
+    <app-root></app-root>
+
+    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="assets/bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/bower_components/moment/moment.js"></script>
+    <script src="assets/bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="assets/bower_components/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
+    <script src="assets/bower_components/ckeditor/ckeditor.js"></script>
+
+
+    <script src="assets/bower_components/bootstrap-validator/dist/validator.min.js"></script>
+    <script src="assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="assets/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+    <script src="assets/bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="assets/bower_components/editable-table/mindmup-editabletable.js"></script>
+    <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="assets/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="assets/bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="assets/bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/util.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/alert.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/button.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/carousel.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/collapse.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/dropdown.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/modal.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/tab.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/tooltip.js"></script>
+    <script src="assets/bower_components/bootstrap/js/dist/popover.js"></script>
+    <script src="assets/js/demo_customizer.js?version=4.3.0"></script>
+    <script src="assets/js/main.js?version=4.3.0"></script>
+    <!-- <script src="assets/js/uploadimage.js"></script> -->
+    <!-- <script src="assets/js/listbox.js"></script> -->
+    <script>
+      oTable = $('#example').DataTable();
+      $('#filterSearch').keyup(function () {
+        oTable.search($(this).val()).draw();
+      });
+      $("#checkAll").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+      });
+
+    </script>
+    <!--script for ckeditor-->
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/decoupled-document/ckeditor.js"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkgh7ckSQasqRYvX7BXOwEGEzunexf_EY&libraries=places&language=en"></script> -->
+    <script src="assets/js/main_rentals.js"></script>
+
+  </body>
+  <!-- END BODY -->
+
+</html>

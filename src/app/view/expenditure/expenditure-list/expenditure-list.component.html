@@ -1,0 +1,230 @@
+<div class="px-3 expenditure">
+  <div class="p-3">
+    <div class="rounded-xl mb-3 get__app">
+      <div class="row">
+        <div class="col-md-4 col-lg-5 col-xl-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="../../../../assets/banner_img/17.svg" style="width:70px;height:160px;" class="get__app__img">
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-5 col-xl-4 text-center-md">
+          <div class="py-4">
+            <h5 class="text-purple font-weight-bolder mb-1">Create and Record Expenditures</h5>
+            <p class="text-primary-dark mb-1">
+              Create and manage expenditures for your business like purchase closing costs, mailing costs, etc.
+            </p>
+            <button class="btn btn-sm btn-outline-purple rounded-pill">Learn more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="m-0 font-weight-bold">Expenditure</h5>
+      <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-sm btn-orange d-flex align-items-center py-3" data-toggle="modal"   //not sure to delete
+          data-target="#addExpenditure">
+         <div class="icon icon-control_point"></div>
+          <div class="pl-1">Add Expenditure</div>
+        </button>
+      </div>
+    </div> -->
+    <div class="p-3 bg-white border-primary-light rounded-xl-top">
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="m-0">Expenditure</h6>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-sm btn-orange d-flex align-items-center py-3" data-toggle="modal"
+          data-target="#addExpenditure">
+         <div class="icon icon-control_point"></div>
+          <div class="pl-1">Add Expenditure</div>
+        </button>
+        </div>
+      </div>
+      <!-- title -->
+      <!-- advance filter section -->
+        <div class="row advance-filter">
+          <div class="col-md-12 col-lg-12 col-xl-9 order-md-2 order-lg-2 order-xl-1">
+            <!-- flex -->
+            <div class="row no-gutters d-flex align-items-center">
+              <div class="col-md-12 col-lg-7 col-xl-6 d-flex mb-1">
+                <!-- search -->
+                <div class="mx-3 w-100">
+                  <div class="input-group border rounded-xl">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text btn-auto border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-search">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </span>
+                    </div>
+                    <input type="search" id="filter-search" class="form-control border-0"
+                    placeholder="Search description" (input)="onSearchList($event.target.value)" [(ngModel)]="searchKey">
+                  </div>
+                </div>
+                <!-- search -->
+              </div>
+              <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1">
+                <!-- advance filter -->
+                <div class="dropdown ml-3 border rounded-xl">
+                  <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                    data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-funnel" viewBox="0 0 16 16">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" style="min-width: 14rem;">
+                    <!-- card -->
+                    <div>
+                      <div class="px-3 py-2">
+                        Filter Property
+                        <!-- Toggle Button -->
+                        <a class="close" href="#" data-toggle="dropdown">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x" viewBox="0 0 16 16">
+                            <path
+                              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                          </svg>
+                        </a>
+                        <!-- End Toggle Button -->
+                      </div>
+
+                      <div class="p-3">
+                          <!-- Row -->
+                          <div class="d-flex flex-column">
+                            <div class="mb-2">
+                              <div class="small mb-1" style="padding-top: 5px;">Status<select class="form-control"
+                                style="padding-top: 6px; margin-top: 5px;" [(ngModel)]="searchStatus" (change)="onChange($event.target.value)">
+                                <option value="">Select</option>
+                                <option value="Data Purchase & Subscription">Data Purchase & Subscription</option>
+                                <option value="Mailing Cost">Mailing Cost</option>
+                                <option value="Property Photos">Property Photos</option>
+                                <option value="Listing Cost & Subscription">Listing Cost & Subscription</option>
+                                <option value="Closing Costs">Closing Costs</option>
+
+                              </select>
+                            </div>
+                            </div>
+                          </div>
+                          <!-- End Row -->
+                          <a class="btn btn-block btn-primary mt-4" (click)="actionFilter()">Apply</a>
+                      </div>
+                    </div>
+                    <!-- card -->
+                  </div>
+                </div>
+                <div *ngIf="visibleFilter">
+                <a class="btn" (click)="clearFilter()">Clear Filter</a>
+              </div>
+                <!-- advance filter -->
+              </div>
+            </div>
+            <!-- flex -->
+          </div>
+          <div class="col-md-12 col-lg-12 col-xl-3 d-flex justify-content-end order-md-1 order-lg-1 order-xl-2 mb-1">
+          </div>
+        </div>
+    </div>
+    <!-- <div class="d-flex justify-content-between align-items-center filter mb-3">
+      <div>Expenditure Records</div>
+      <div class="d-flex align-items-center">
+        <div class="form-group mb-0">
+          <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+        </div>
+        <div class="ml-3">
+          <div class="form-group mb-0">
+            <select class="form-control" name="Users" id="Users">
+              <option value="All Expenditure" selected>All Expenditure</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-md-12 text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+    </div>
+    <div *ngIf="!isLoading">
+      <table class="table bg-white rounded-xl">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expenditure of expenditureList; let i = index">
+            <td data-label="Expenditure Description">
+              <div class="responsive-td">
+                <span class="pl-1">{{expenditure.description}}</span>
+              </div>
+            </td>
+            <td data-label="Expenditure Type">
+              <div class="responsive-td">
+                <span class="pl-1">{{expenditure.type}}</span>
+              </div>
+            </td>
+            <td data-label="Expenditure Amount">
+              <div class="responsive-td">
+                <span class="pl-1">{{expenditure.amount}}</span>
+              </div>
+            </td>
+            <td data-label="Action">
+              <div class="dropdown">
+                <button type="button" class="btn btn-auto btn-light" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                  </svg>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editExpenditure"
+                    (click)="setSelectedExpenditure(expenditure)">Edit</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteExpenditure"
+                    (click)="setSelectedExpenditure(expenditure)">Delete</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && expenditureList && expenditureList.length < 1">
+            <td style="text-align: center !important;" colspan="12"><strong>No records found</strong>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <app-pagination [pageNumber]="pageNumber" [total]="total" [pageSize]="pageSize"
+        (pageChangeEvent)="onPaginationChange($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-right" id="addExpenditure" tabindex="-1" data-backdrop="static" role="dialog"
+  aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-expenditure-add (addSuccessEvent)="GetExpenditureTotalCount()"></app-expenditure-add>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-right" id="editExpenditure" tabindex="-1" data-backdrop="static" role="dialog"
+  aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-expenditure-edit [selectedExpenditure]="selectedExpenditure" (updateSuccessEvent)="GetExpenditureTotalCount()"></app-expenditure-edit>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-right" id="deleteExpenditure" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <app-expenditure-delete [selectedExpenditure]="selectedExpenditure" (deleteSuccessEvent)="GetExpenditureTotalCount()"></app-expenditure-delete>
+</div>

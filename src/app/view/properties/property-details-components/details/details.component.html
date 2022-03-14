@@ -1,0 +1,118 @@
+<div class="col-md-12 text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+</div>
+<div class="all-wrapper rentals" *ngIf="property">
+
+  <div class="property-single" style="margin-top: 10px; margin-left: 5px;">
+    <div class="property-info-w">
+
+      <div class="property-info-main" style="padding-top: 10px; padding-bottom: 10px;">
+        <div class="property-features-highlight">
+          <div class="feature">APN<span>{{property.apn}}</span></div>
+          <div class="feature">Acreage<span>{{property.lotArea + (property.lotAreaUnits === 'AC' ? ' acres' : ' sq-ft')}}</span></div>
+          <div class="feature">County<span>{{property.countyName}}</span></div>
+          <div class="feature">Last Sale Date<span>{{property.lastSaleDate}}</span></div>
+        </div>
+        <div class="property-section">
+          <div class="property-section-header">General Information<div class="filter-toggle"><i
+                class="os-icon-minus os-icon"></i></div>
+          </div>
+          <div class="property-section-body" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="row">
+              <div class="col-md-10">
+                <ul>
+                  <li>Site Address: <strong>{{property.propertyAddress}}, {{property.pCity}}, {{property.pState}},
+                      {{property.pZip}}</strong></li>
+                  <li>Legal Description: <strong>{{property.landUseDescription}}</strong></li>
+                  <li>Block/Lot: <strong>{{property.block}}/{{property.lotArea}}</strong></li>
+                  <li>Plat: <strong>{{property.pCity}}</strong></li>
+                  <li>Plat Book/Page: <strong>{{property.lastSalePageNumber}}/{{property.lastSalePageNumber}}</strong>
+                  </li>
+                  <li>Plat Recorded: <strong>03/01/2017</strong></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="property-section">
+          <div class="property-section-header">Owner Information<div class="filter-toggle"><i
+                class="os-icon-minus os-icon"></i></div>
+          </div>
+          <div class="property-section-body" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="row">
+              <div class="col-md-10">
+                <ul>
+                  <li>Owner 1 Name: <strong>{{property.owner1FName}} {{property.owner1LName}} </strong></li>
+                  <li>Owner 1 Address: <strong>{{property.mailAddress}}</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="property-section">
+          <div class="property-section-header">Property & Location Information<div class="filter-toggle"><i
+                class="os-icon-minus os-icon"></i></div>
+          </div>
+          <div class="property-section-body" style="padding-top: 10px; padding-bottom: 10px;">
+            <ul>
+              <li>Zoning: {{property.zoning}}</li>
+              <li>Property Type: {{property.propertyType}}</li>
+              <li>General Landuse: {{property.landUseDescription}}</li>
+              <li>Taxing Unit: {{property.taxRateCodeArea}}</li>
+              <li>Year Built: {{property.yearBuilt}}</li>
+              <li>Property Area: {{property.landUse}} acrees</li>
+              <li>Addresses: {{property.propertyAddress}}</li>
+              <li>City/Township: {{property.pCity}} </li>
+              <li>Latitude, Longitude: {{property.latitude}}, {{property.longitude}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="property-section">
+          <div class="property-section-header">Appraisal Information<div class="filter-toggle"><i
+                class="os-icon-minus os-icon"></i></div>
+          </div>
+          <div class="property-section-body" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="row">
+              <div class="col-md-2">
+                <ul>
+                  <strong>Year</strong>
+                  {{property.assessedYear}}
+
+                </ul>
+              </div>
+              <div class="col-md-4">
+                <ul>
+                  <strong>Appraised Value</strong>
+                  {{property.transfervalue}}
+
+                </ul>
+              </div>
+              <div class="col-md-4">
+                <ul>
+                  <strong>Accessed Value</strong>
+                  {{property.totalAssessedValue}}
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

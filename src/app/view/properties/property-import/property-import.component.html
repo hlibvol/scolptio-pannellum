@@ -1,0 +1,437 @@
+<div class="modal-header">
+  <h6 class="modal-title">
+    <div class="d-flex align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+        viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
+      <div class="pl-1">Import File</div>
+    </div>
+  </h6>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- form -->
+  <div class="property-section">
+
+    <div class="property-section-body" style="padding-top: 10px;">
+      <div class="element-box" style="padding-top: 0px;">
+        <form>
+          <!--start tab navs-->
+          <div class="os-tabs-controls">
+            <ul class="nav nav-tabs">
+              <li class="nav-item" (click)="tabSelected($event)">
+                <a class="nav-link active" data-toggle="tab" href="#tab_selectfile">Step 1 - Select File</a>
+              </li>
+              <li class="nav-item" (click)="tabSelected($event)"><a class="nav-link" data-toggle="tab"
+                  href="#tab_matchfields">Step 2 - Match
+                  Fields</a>
+              </li>
+              <li class="nav-item" (click)="tabSelected($event)"><a class="nav-link" data-toggle="tab"
+                  href="#tab_import"> Step 3 -
+                  Import data</a></li>
+              <li class="nav-item" (click)="tabSelected($event)"><a class="nav-link" data-toggle="tab"
+                  href="#tab_complete"> Step 4 -
+                  Complete</a></li>
+
+            </ul>
+          </div>
+          <!--end tab navs-->
+          <!-- Start Tabs content -->
+          <div class="tab-content" id="tab_content">
+            <!--start file select-->
+            <div class="tab-pane fade show active" id="tab_selectfile" role="tabpanel" aria-labelledby="tab_selectfile">
+              <div class="form-desc"> <i class="os-icon os-icon-alert-circle"></i>
+                Import your pre-downloaded property data here. Data formats allowed include csv and .xls </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group"><label for="">File Extension</label>
+                    <select class="form-control" [(ngModel)]="fileType" name="file-type">
+                      <option [value]="undefined">Select</option>
+                      <option value="csv">.csv</option>
+                      <option value="xls">.xls</option>
+
+                    </select>
+                  </div>
+                  <div *ngIf="fileTypeError">
+                    <small class="form-text text-danger">
+                      This field is required.
+                    </small>
+                    <br />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <form class="dropzone text-center" id="my-file-dropzone">
+                  <label for="file-to-import">
+                    <div class="dz-message">
+                      <div>
+                        <h4>{{selectdFileName ? 'Click to change' : 'Click to upload.'}}</h4>
+                        <div class="text-muted">{{selectdFileName ? selectdFileName : '(Selected file will be shown
+                          here)'}}</div>
+                      </div>
+                    </div>
+                  </label>
+                  <input type="file" name="file-to-import" (change)="onChangeFile($event)" #myFileInput
+                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    id="file-to-import" class="form-control d-none" placeholder="" required>
+                  <div *ngIf="fileInputError">
+                    <small class="form-text text-danger">
+                      This field is required.
+                    </small>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!--end file select-->
+            <!--start field matching-->
+            <div class="tab-pane fade" id="tab_matchfields" role="tabpanel" aria-labelledby="tab_matchfields">
+              <div class="form-desc"> <i class="os-icon os-icon-alert-circle"></i>
+                This section takes care of data cleanup for any property data imported into the system. The system
+                automatically
+                matches fields from your imported document. Use the field boxes below to update any unmatched
+                fields.</div>
+              <div class="tab-pane fade show active" id="tab_homepage" role="tabpanel" aria-labelledby="tab_homepage">
+
+                <div class="table-responsive">
+                  <div id="dataTable1_wrapper" class="dataTables_wrapper table-striped container-fluid dt-bootstrap4">
+                    <div class="row">
+                      <div class="col-sm-5" style="height: 90px;">
+                      </div>
+                      <div class="col-sm-4" style="height: 90px;">
+                        <div class="form-group"><label for=""></label>
+                          <select class="form-control" [(ngModel)]="propertyType" name="property-type">
+                            <option [value]="undefined">Select Property Type</option>
+                            <option value="land">Land</option>
+                            <option value="house">House</option>
+                          </select>
+                          <div *ngIf="propertyTypeError">
+                            <small class="form-text text-danger">
+                              This field is required.
+                            </small>
+                            <br />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3" style="height: 90px;">
+                        <div class="form-group"><label for=""></label>
+                          <select class="form-control" [(ngModel)]="listProvider" name="list-provider">
+                            <option [value]="undefined">Select List Provider</option>
+                            <option value="data_tree">DataTree</option>
+                            <option value="agent_pro">Agent247Pro</option>
+                            <option value="PRYCD">PRYCD</option>
+                          </select>
+                          <div *ngIf="listProviderError">
+                            <small class="form-text text-danger">
+                              This field is required.
+                            </small>
+                            <br />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="matchData && requiredColumnMapComplete">
+                      <legend style="margin-bottom: 5px; margin-top: 10px;"><span><i
+                            class="os-icon os-icon-plus-circle mr-2" (click)="toggleCollapse('unmapped-column-icon')"
+                            data-toggle="collapse" href="#unmatchedfields" id="unmapped-column-icon" role="button"
+                            aria-expanded="false" aria-controls="unmatchedfields"></i>Unmatched Fields
+                          <a class="badge badge-success badge-plain">{{totalColumnCount -
+                            mappedColumnCount}}/{{totalColumnCount}}</a></span> </legend>
+                      <div class="collapse" id="unmatchedfields">
+                        <div class="card card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <table id="dataTable1" width="100%" class="table table-lightborder dataTable" role="grid"
+                                aria-describedby="dataTable1_info" style="width: 100%;">
+                                <thead>
+                                  <tr role="row">
+                                    <th class="odd" tabindex="0" aria-controls="dataTable1" rowspan="1" colspan="1"
+                                      aria-sort="ascending" aria-label="" style="width: 145px;">Property Field
+                                    </th>
+                                    <th class="text-right" tabindex="0" aria-controls="dataTable1" rowspan="1"
+                                      colspan="1" aria-label="" style="width: 145px;">
+                                      Your Spreadsheet column header</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <tr role="row" class="even"
+                                    *ngFor="let dbColumn of getUnMappedColumns(); let i = index">
+                                    <!--This should be a searchable textbox-->
+                                    <td class="text-left">{{dbColumn.displayName}}</td>
+                                    <td class="text-right">
+                                      <div class="form-group" style="margin-bottom: 0rem;">
+                                        <select class="form-control" id="unmapped-column-{{i}}"
+                                          [(ngModel)]="dbColumn.columnName" name="unmapped-column-{{i}}">
+                                          <option>Select one</option>
+                                          <option [value]="colName" *ngFor="let colName of matchData['collumnsInCsv']">
+                                            {{colName}}</option>
+                                        </select>
+                                      </div>
+
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+                      <legend style="margin-bottom: 5px; margin-top: 10px;"><span><i
+                            class="os-icon os-icon-plus-circle mr-2" data-toggle="collapse" href="#matchedfields"
+                            (click)="toggleCollapse('mapped-column-icon')" id="mapped-column-icon" role="button"
+                            aria-expanded="false" aria-controls="matchedfields"></i>Matched Fields <a
+                            class="badge badge-success badge-plain">{{mappedColumnCount}}/{{totalColumnCount}}</a></span>
+                      </legend>
+                      <div class="collapse" id="matchedfields">
+                        <div class="card card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <table id="dataTable1" width="100%" class="table table-lightborder dataTable" role="grid"
+                                aria-describedby="dataTable1_info" style="width: 100%;">
+                                <thead>
+                                  <tr role="row">
+                                    <th class="odd" tabindex="0" aria-controls="dataTable1" rowspan="1" colspan="1"
+                                      aria-sort="ascending" aria-label="" style="width: 145px;">Property Field
+                                    </th>
+                                    <th class="text-right" tabindex="0" aria-controls="dataTable1" rowspan="1"
+                                      colspan="1" aria-label="" style="width: 145px;">
+                                      Your Spreadsheet column header</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <tr role="row" class="even"
+                                    *ngFor="let dbColumn of getMappedColumns(); let i = index">
+                                    <!--This should be a searchable textbox-->
+                                    <td class="text-left">{{dbColumn.displayName}}</td>
+                                    <td class="text-right">
+                                      <div class="form-group" style="margin-bottom: 0rem;">
+                                        <select class="form-control" id="mapped-column-{{i}}" name="mapped-column-{{i}}"
+                                          [(ngModel)]="dbColumn.columnName">
+                                          <option>Select one</option>
+                                          <option [value]="colName" *ngFor="let colName of matchData['collumnsInCsv']">
+                                            {{colName}}</option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!requiredColumnMapComplete" class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <a class="btn btn-sm btn-orange d-flex align-items-center px-3" href="#" data-toggle="modal"
+                          data-target="#requiredColumn">Map required column</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end field matching-->
+            <!--start complete-->
+            <div class="tab-pane fade" id="tab_import" role="tabpanel" aria-labelledby="tab_import">
+              <div *ngIf="!isInitiateImportComplete" class="element-box" style="padding-top: 0px;">
+                <div class="text-center">
+                  <h6>Ready to initiate import. Click next to proceed.</h6>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tab_complete" role="tabpanel" aria-labelledby="tab_complete">
+              <div *ngIf="isInitiateImportComplete">
+                <div class="form-group col-md-12 text-center">
+                  <i class="os-icon os-icon-check-circle" style="font-size: 60px; color: #00800078;"></i>
+                </div>
+                <div class="element-box" style="padding-top: 0px;">
+                  <div class="form-desc text-center">
+                    <h6>Yay!! Import completed successfully.</h6>
+                  </div>
+                  <span class="text-primary">{{initiateImportCompleteMsg}}</span><br />
+                  <span class="text-primary">Please click Migrate Data button to proceed.</span>
+                </div>
+              </div>
+            </div>
+            <!--end complete-->
+          </div>
+          <!-- End Tabs content -->
+
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- form -->
+</div>
+<div class="modal-footer">
+  <button *ngIf="selectedTab !== 1 && !isInitiateImportComplete" type="button" (click)="gotoPreviousTab()"
+    [ngStyle]="{'cursor': (isLoading || isSaving) ? 'not-allowed' : 'pointer' }" [disabled]="isLoading || isSaving"
+    class="btn btn-sm btn-orange d-flex align-items-center px-3">
+    <i class="fa fa-arrow-left"></i>
+    <div class="pl-1">&nbsp;Previous</div>
+  </button>
+  <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3"
+    *ngIf="selectedTab === 2 && !isSubmitMapReady"
+    [ngStyle]="{'cursor': ( isLoading || isSaving || !fileData) ? 'not-allowed' : 'pointer' }"
+    [disabled]="isLoading || isSaving || !fileData" (click)="GetMapImportHeader()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+      viewBox="0 0 16 16">
+      <path
+        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+    </svg>
+    <div class="pl-1">Next - Get Columns&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+        style="font-size:18px"></i>
+    </div>
+  </button>
+  <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3"
+    *ngIf="selectedTab === 2 && isSubmitMapReady"
+    [ngStyle]="{'cursor': ( isLoading || isSaving || !requiredColumnMapComplete || !fileData) ? 'not-allowed' : 'pointer' }"
+    [disabled]="isLoading || isSaving || !requiredColumnMapComplete || !fileData" (click)="MapProperty()">
+    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+    <div class="pl-1">Next&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin" style="font-size:18px"></i>
+    </div>
+  </button>
+  <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3"
+    *ngIf="selectedTab === 3 && !isInitiateImportComplete"
+    [ngStyle]="{'cursor': ( isLoading || isSaving || !fileData) ? 'not-allowed' : 'pointer' }"
+    [disabled]="isLoading || isSaving || !fileData" (click)="InitiateImport()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+      viewBox="0 0 16 16">
+      <path
+        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+    </svg>
+    <div class="pl-1">Next - Initiate Import&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+        style="font-size:18px"></i>
+    </div>
+  </button>
+  <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3"
+    *ngIf="selectedTab === 3 && isInitiateImportComplete"
+    [ngStyle]="{'cursor': ( isLoading || isSaving || !fileData) ? 'not-allowed' : 'pointer' }"
+    [disabled]="isLoading || isSaving || !fileData" (click)="MigrateData()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+      viewBox="0 0 16 16">
+      <path
+        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+    </svg>
+    <div class="pl-1">Migrate Data&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+        style="font-size:18px"></i>
+    </div>
+  </button>
+  <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3" *ngIf="selectedTab === 1"
+    [ngStyle]="{'cursor': ( isLoading || isSaving || !fileData) ? 'not-allowed' : 'pointer' }"
+    [disabled]="isLoading || isSaving || !fileData" (click)="Submt()">
+    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+    <div class="pl-1">Next&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin" style="font-size:18px"></i>
+    </div>
+  </button>
+</div>
+
+<!-- requiredColumn modal -->
+<div class="modal fade modal-right" id="requiredColumn" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">
+          <div class="d-flex align-items-center">
+            <div class="ml-1 pl-1">Map required column</div>
+          </div>
+        </h6>
+        <button type="button" class="close" aria-label="Close" (click)="CloseRequiredMap()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="matchData">
+        <div class="property-section">
+
+          <div class="property-section-body" style="padding-top: 10px;">
+            <div>
+              <h4>Default Columns</h4>
+            </div>
+            <div class="row pl-2" *ngIf="dbColumns && dbColumns.length > 0">
+              <div class="col-sm-4 p-2" *ngFor="let dbColumn of dbColumns; let i = index"
+                [hidden]="!dbColumn.isDefault">
+                <div class="row row-inline">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" disabled id="customCheck_default_{{i}}" name="customCheck_default_{{i}}"
+                      class="custom-control-input" [checked]="dbColumn.isChecked" [(ngModel)]="dbColumn.isChecked">
+                    <label for="customCheck_default_{{i}}" class="custom-control-label"></label>
+                  </div>
+                  <div>
+                    {{dbColumn.displayName}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <legend style="margin-bottom: 5px; margin-top: 10px;"><span><i class="os-icon os-icon-plus-circle mr-2"
+                data-toggle="collapse" href="#additionalfields" (click)="toggleCollapse('additional-column-icon')"
+                id="additional-column-icon" role="button" aria-expanded="false"
+                aria-controls="additionalfields"></i>Additional Fields</span>
+          </legend>
+          <div class="collapse" id="additionalfields">
+            <div class="card card-body">
+              <div class="row row-inline pl-2" *ngIf="dbColumns && dbColumns.length > 0">
+                <div class="col-sm-12 p-2">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" [(ngModel)]="checkAll" (change)="toggleCheckAll()" name="check_all" id="check_all" class="custom-control-input"/>
+                    <label for="check_all" class="custom-control-label">Check All</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row row-inline pl-2" *ngIf="dbColumns && dbColumns.length > 0">
+                <div class="{{!dbColumn.isDefault ? 'd-flex' : ''}} col-sm-4 p-2" *ngFor="let dbColumn of dbColumns; let i = index"
+                  [hidden]="dbColumn.isDefault">
+                    <div class="custom-control custom-checkbox">
+                      <input (change)="verifyCheckAll()" type="checkbox" id="customCheck_additional_{{i}}" name="customCheck_additional_{{i}}"
+                        class="custom-control-input" [checked]="dbColumn.isChecked" [(ngModel)]="dbColumn.isChecked">
+                      <label for="customCheck_additional_{{i}}" class="custom-control-label"></label>
+                    </div>
+                    <div>
+                      {{dbColumn.displayName}}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class=" ml-4 text-danger"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-orange d-flex align-items-center px-3" (click)="CloseRequiredMap()"
+          aria-label="Close">
+          <div class="pl-1">Close</div>
+        </button>
+        <button type="button" name="submit-default" class="btn btn-sm btn-orange d-flex align-items-center px-3"
+          [ngStyle]="{'cursor': isSaving ? 'not-allowed' : 'pointer' }" [disabled]="isSaving"
+          (click)="MapRequiredColumn()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+          </svg>
+          <div class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+              style="font-size:18px"></i></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

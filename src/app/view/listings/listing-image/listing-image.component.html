@@ -1,0 +1,10 @@
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Image Upload</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="hide()" >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-s3-multi-image-upload (ImageUploadSuccessEvent)="ImageUploadSuccess($event)"></app-s3-multi-image-upload>
+      <app-listing-image-view (DeleteImage)="DeleteImage($event)" (MainImage)="MainImage($event)" [images]="imageList" *ngIf="imageList?.length > 0"></app-listing-image-view>
+    </div>

@@ -1,0 +1,330 @@
+<!-- campaign list -->
+<div class="px-3 mailhouse">
+  <div class="pt-3 px-3">
+    <!-- ads -->
+    <div class="rounded-xl mb-3 get__app">
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-md-4 col-lg-5 col-xl-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="../../../../assets/banner_img/3.svg" class="get__app__img">
+          </div>
+        </div>
+        <!-- col -->
+        <!-- col -->
+        <div class="col-md-4 col-lg-5 col-xl-4 text-center-md">
+          <div class="py-4">
+            <h5 class="text-purple font-weight-bolder mb-1">Mailhouse Management</h5>
+            <p class="text-primary-dark mb-1">
+              Manage Mailhouse integrations for the entire system.
+            </p>
+            <button class="btn btn-outline-purple rounded-pill">Learn more</button>
+          </div>
+        </div>
+        <!-- col -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- ads -->
+    <!-- title -->
+    <!-- <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="m-0 font-weight-bold">Mail House</h5>
+      <div class="d-flex align-items-center"> -->
+        <!-- Button trigger modal -->
+        <!-- <button type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
+          data-target="#createMailHouse">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            <path fill-rule="evenodd"
+              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+          </svg>
+          <div class="pl-1">New Mailhouse</div>
+        </button>
+      </div>
+    </div> -->
+    <!-- title -->
+    <!-- statas overview -->
+    <div class="row">
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__primary"></div>
+          <div class="py-2 text-muted">Pending</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-primary">{{pending}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__purple"></div>
+          <div class="py-2 text-muted">Processing</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-purple">{{processing}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__danger"></div>
+          <div class="py-2 text-muted">Processed</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-danger">{{processed}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__success"></div>
+          <div class="py-2 text-muted">Delivered</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-success">{{delivered}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__dark"></div>
+          <div class="py-2 text-muted">Canceled</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-dark">{{canceled}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+        <div class="bg-white rounded-xl p-3 text-center">
+          <div class="status__marks__red"></div>
+          <div class="py-2 text-muted">Undeliverable</div>
+          <div class="d-flex justify-content-center">
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin " style="font-size:18px"></i>
+            <span *ngIf="!isLoading" class="btn btn-auto btn-red">{{undeliverable}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+    </div>
+    <!-- statas overview -->
+    <hr>
+    <!-- filter section -->
+    <div class="p-3 bg-white border-primary-light rounded-xl-top">
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="m-0">Active mail house</h6>
+        <div class="d-flex align-items-center">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
+            data-target="#createMailHouse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+              <path fill-rule="evenodd"
+                d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+            </svg>
+            <div class="pl-1">New Mailhouse</div>
+          </button>
+        </div>
+      </div>
+      <!-- title -->
+      <!-- advance filter section -->
+        <div class="row advance-filter">
+          <div class="col-md-12 col-lg-12 col-xl-9 order-md-2 order-lg-2 order-xl-1">
+            <!-- flex -->
+            <div class="row no-gutters d-flex align-items-center">
+              <div class="col-md-12 col-lg-7 col-xl-6 d-flex mb-1">
+                <!-- search -->
+                <div class="mx-3 w-100">
+                  <div class="input-group border rounded-xl">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text btn-auto border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-search">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </span>
+                    </div>
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+                  </div>
+                </div>
+                <!-- search -->
+              </div>
+              <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1"> 
+                <!-- advance filter -->
+                <div class="dropdown ml-3 border rounded-xl">
+                  <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                    data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-funnel" viewBox="0 0 16 16">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" style="min-width: 14rem;">
+                    <!-- card -->
+                    <div>
+                      <div class="px-3 py-2">
+                        Filter Property
+                        <!-- Toggle Button -->
+                        <a class="close" href="#" data-toggle="dropdown">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x" viewBox="0 0 16 16">
+                            <path
+                              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                          </svg>
+                        </a>
+                        <!-- End Toggle Button -->
+                      </div>
+
+                      <div class="p-3">
+                        <form>
+                          <!-- Row -->
+                          <div class="d-flex flex-column">
+                            <div class="mb-2">
+                              <div class="small mb-1">Zip Code</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search zip code">
+                              <!-- End search -->
+                            </div>
+                            <div class="mb-2">
+                              <div class="small mb-1">Owner</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search zip code">
+                              <!-- End search -->
+                            </div>
+                            <div>
+                              <div class="small mb-1">City</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search zip code">
+                              <!-- End search -->
+                            </div>
+                          </div>
+                          <!-- End Row -->
+                          <a class="btn btn-block btn-primary mt-4" href="#">Apply</a>
+                        </form>
+                      </div>
+                    </div>
+                    <!-- card -->
+                  </div>
+                </div>
+                <!-- advance filter -->
+              </div>
+            </div>
+            <!-- flex -->
+          </div>
+          <div class="col-md-12 col-lg-12 col-xl-3 d-flex justify-content-end order-md-1 order-lg-1 order-xl-2 mb-1">
+          </div>
+        </div>
+    </div>
+    <!-- filter section -->
+    <!-- data table -->
+    <table class="table bg-white rounded-xl">
+      <thead>
+        <tr>
+          <th>Mail House Name</th>
+          <th>API Key</th>
+          <th>Contact Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mailhouse of mailhouses;">
+          <td data-label="#"></td>
+          <td data-label="Mail House name">
+            {{mailhouse.name}}
+          </td>
+          <td data-label="apikey">
+            {{mailhouse.apiKey}}
+          </td>
+          <td data-label="Contact name">
+            <i class="os-icon os-icon-user-male-circle mr-1"></i>
+            <span>{{mailhouse.contactName}}</span>
+          </td>
+          <td data-label="Email">
+            {{mailhouse.contactEmail}}
+          </td>
+          <td data-label="Phone">
+            {{mailhouse.phoneNumber}}
+          </td>
+          <td class="nowrap"><span class="status-pill smaller "
+              [ngClass]="{'green': mailhouse.status === 'Active', 'red': mailhouse.status !== 'Active'}"></span><span>{{mailhouse.status
+              != null ?
+              mailhouse.status : 'Inactive'}}</span>
+          </td>
+          <td data-label="Action" class="text-right">
+            <div class="dropdown">
+              <button type="button" class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editMailHouse"
+                  (click)="setSelectedMailhouse(mailhouse)">Edit</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteMailHouse"
+                  (click)="setSelectedMailhouse(mailhouse)">Delete</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="!isLoading && mailhouses && mailhouses.length < 1">
+          <td style="text-align: center !important;" colspan="12"><strong>No records found</strong>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <!-- data table -->
+    <!-- pagination -->
+    <app-pagination [pageNumber]="pageNumber" [total]="total" [pageSize]="pageSize"
+    (pageChangeEvent)="onPaginationChange($event)"></app-pagination>
+    <!-- pagination -->
+  </div>
+</div>
+<!-- campaign list -->
+
+
+<!-- createMailHouse Modal -->
+<div class="modal fade modal-right" id="createMailHouse" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <app-mailhouse-add (addSuccessEvent)="getList()"></app-mailhouse-add>
+  </div>
+</div>
+
+<!-- editMailHouse Modal -->
+<div class="modal fade modal-right" id="editMailHouse" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <app-mailhouse-edit [selectedList]="selectedList" (updateSuccessEvent)="getList()">
+    </app-mailhouse-edit>
+  </div>
+</div>
+<!-- delete Mailhouse modal -->
+<div class="modal fade modal-right" id="deleteMailHouse" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <app-mailhouse-delete [selectedList]="selectedList" (deleteSuccessEvent)="getList()"></app-mailhouse-delete>
+</div>

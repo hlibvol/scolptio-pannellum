@@ -1,0 +1,285 @@
+<!--------------------
+        START - Main Menu
+        -------------------->
+<div class="my-sidebar">
+  <div
+    class="menu-w selected-menu-color-light menu-activated-on-click color-scheme-dark color-style-default sub-menu-color-light menu-position-side menu-side-left menu-layout-compact sub-menu-style-inside">
+    <div class="logo-w">
+      <a class="logo">
+        <div class="logo-element"></div>
+        <div class="logo-label">
+          Property Hatch
+        </div>
+      </a>
+    </div>
+    <div class="logged-user-w avatar-inline">
+      <div class="logged-user-i">
+        <div>
+          <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
+            class="profile-image" height="37px" width="37px">
+          <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px" alt=""
+            [src]="currentUser.profileImage">
+        </div>
+        <div class="logged-user-info-w">
+          <div class="logged-user-name">
+            {{currentUser?.DisplayName}}
+          </div>
+          <div class="logged-user-role">
+            {{currentUser?.occupation}}
+          </div>
+        </div>
+        <div class="logged-user-toggler-arrow">
+          <div class="os-icon os-icon-chevron-down"></div>
+        </div>
+        <div class="logged-user-menu color-style-bright sub-menu-style-inside">
+          <div class="logged-user-avatar-info">
+            <div>
+              <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
+                class="profile-image" height="37px" width="37px">
+              <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px"
+                alt="" [src]="currentUser.profileImage">
+            </div>
+            <div class="logged-user-info-w">
+              <div class="logged-user-name">
+                {{currentUser?.DisplayName}}
+              </div>
+              <div class="logged-user-role">
+                {{currentUser?.occupation}}
+              </div>
+            </div>
+          </div>
+          <div class="bg-icon">
+            <i class="os-icon os-icon-wallet-loaded"></i>
+          </div>
+          <ul>
+            <li>
+              <a [routerLink]="['/account-settings']"><i class="os-icon os-icon-user-male-circle2"></i><span>Account
+                  Details</span></a>
+            </li>
+            <li>
+              <a style="cursor: pointer;" (click)="logOut()"><i
+                  class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <h1 class="menu-page-header">
+      Page Header
+    </h1>
+    <ul class="main-menu">
+      <li class="sub-header">
+        <span>BUYING CYCLE</span>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/dashboard']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-layout"></div>
+          </div>
+          <span>Dashboard</span>
+        </a>
+
+      </li>
+
+      <li class=" has-sub-menu">
+        <a>
+          <div class="icon-w">
+            <div class="os-icon os-icon-map"></div>
+          </div>
+          <span>Property Leads</span>
+        </a>
+        <div class="sub-menu-w">
+          <div class="sub-menu-header">
+
+          </div>
+          <div class="sub-menu-icon">
+            <i class="os-icon os-icon-map"></i>
+          </div>
+          <div class="sub-menu-i">
+            <ul class="sub-menu">
+              <li>
+                <a [routerLink]="['/properties/property-list']">Property Records</a>
+              </li>
+              <li>
+                <a [routerLink]="['/properties/settings']">Settings</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/campaigns']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-mail-01"></div>
+          </div>
+          <span>Campaigns</span>
+        </a>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/mailhouse']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-delivery-box-2"></div>
+          </div>
+          <span>Mail House</span>
+        </a>
+      </li>
+      <li class="has-sub-menu">
+        <a>
+          <div class="icon-w">
+            <div class="os-icon os-icon-documents-17"></div>
+          </div>
+          <span>Documents</span>
+        </a>
+        <div class="sub-menu-w">
+          <div class="sub-menu-header">
+
+          </div>
+          <div class="sub-menu-icon">
+            <i class="os-icon os-icon-documents-17"></i>
+          </div>
+          <div class="sub-menu-i">
+            <ul class="sub-menu">
+              <li>
+                <a [routerLink]="['/documents']">Document Records</a>
+              </li>
+              <li>
+                <a [routerLink]="['/document-templates']">Document Templates</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/leads-website']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-globe"></div>
+          </div>
+          <span>Leads Website</span>
+        </a>
+      </li>
+
+
+      <li class="sub-header">
+        <span>SELLING CYCLE</span>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/listing']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-layers"></div>
+          </div>
+          <span>Listings</span>
+        </a>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/sales-website/list']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-globe"></div>
+          </div>
+          <span>Sales Website</span>
+        </a>
+      </li>
+
+      <li class="sub-header">
+        <span>ADMINISTRATION</span>
+      </li>
+      <li class=" has-sub-menu">
+        <a>
+          <div class="icon-w">
+            <div class="os-icon os-icon-wallet-loaded"></div>
+          </div>
+          <span>Finances</span>
+        </a>
+        <div class="sub-menu-w">
+          <div class="sub-menu-header">
+
+          </div>
+          <div class="sub-menu-icon">
+            <i class="os-icon os-icon-file-text"></i>
+          </div>
+          <div class="sub-menu-i">
+            <ul class="sub-menu">
+              <li>
+                <a [routerLink]="['/income']">Income</a>
+              </li>
+              <li>
+                <a [routerLink]="['/expenditure']">Expenditure</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class=" has-sub-menu">
+        <a>
+          <div class="icon-w">
+            <div class="os-icon os-icon-hierarchy-structure-2"></div>
+          </div>
+          <span>Teams</span>
+        </a>
+        <div class="sub-menu-w">
+          <div class="sub-menu-header">
+
+          </div>
+          <div class="sub-menu-icon">
+            <i class="os-icon os-icon-file-text"></i>
+          </div>
+          <div class="sub-menu-i">
+            <ul class="sub-menu">
+              <li>
+                <a [routerLink]="['/teams']">Team List</a>
+              </li>
+              <li>
+                <a [routerLink]="['/user-roles']">User Roles</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>      
+      <li class=" has-sub-menu">
+        <a>
+          <div class="icon-w">
+            <div class="os-icon os-icon-users"></div>
+          </div>
+          <span>Users</span>
+        </a>
+        <div class="sub-menu-w">
+          <div class="sub-menu-i">
+            <ul class="sub-menu">
+              <li>
+                <a [routerLink]="['/users']">User List</a>
+              </li>
+              <li>
+                <a [routerLink]="['/invitation']">Invitations</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="selected">
+        <a [routerLink]="['/organizations']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-grid-squares2"></div>
+          </div>
+          <span>Organizations</span>
+        </a>
+      </li>
+    </ul>
+    <div class="py-1">
+      <div class="side-menu-magic">
+        <h5>
+          Unlimited Updates
+        </h5>
+        <p>
+          24/7 Support
+        </p>
+        <div class="btn-w">
+          <a class="btn btn-white btn-rounded"
+            href="https://themeforest.net/item/light-admin-clean-bootstrap-dashboard-html-template/19760124?ref=Osetin"
+            target="_blank">Upgrade my plan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--------------------
+          END - Main Menu
+          -------------------->

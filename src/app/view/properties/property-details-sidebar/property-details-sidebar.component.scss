@@ -1,0 +1,26 @@
+.status {
+	display: flex;
+    gap: 50px;
+}
+
+.complete {
+	color: #24b314 !important;
+}
+
+.incomplete {
+	color: #e65252;
+}
+
+.timed-activity {
+    display: -webkit-box;
+    display: flex;
+    margin-bottom: 2rem;
+    font-size: 0.7rem;
+}
+
+.timed-activities.compact .timed-activity .ta-activity {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}

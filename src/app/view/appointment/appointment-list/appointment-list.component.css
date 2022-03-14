@@ -1,0 +1,167 @@
+body {
+  background-color: #f4f8f9;
+}
+
+.age {
+  color: #a8b0bf;
+}
+
+h6 {
+  color: #3c4358;
+}
+
+.appointment {
+  color: #9da6b8;
+}
+
+.contact {
+  color: #8490a7;
+}
+
+.table tbody {
+  border-left: 1px solid #e9f1fd;
+  border-bottom: 1px solid #e9f1fd;
+  border-right: 1px solid #e9f1fd;
+  border-radius: 5px;
+}
+
+.table td,
+.table th {
+  border-top: 1px solid #e9f1fd;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+.table thead th {
+  font-weight: 400;
+  font-size: 0.9rem;
+  border: 0px;
+  border-bottom: 1px solid #e9f1fd;
+}
+
+.btn-iteration {
+  width: 2rem;
+}
+
+.line-height-0 {
+  line-height: 1;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.dot_3 {
+  width: 30px;
+}
+
+.radious {
+  vertical-align: middle;
+}
+
+.bg-warning {
+  background-color: #fff9eb !important;
+  color: #f5aa35;
+}
+
+.bg-primary {
+  background-color: #f5f8fc !important;
+  color: #108fff;
+}
+
+.waited {
+  background-color: #fef6f6;
+  color: #ff657e;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+.arrived {
+  background-color: #e9fafc;
+  color: #4682f5;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+/*button*/
+
+/*tab area*/
+.nav-tabs .nav-link {
+  background-color: #4879ea;
+  color: #ffffff;
+  border: 0px;
+  padding-right: 100px;
+  font-size: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nav-tabs .active {
+  position: relative;
+  background-color: #fff;
+  color: #4879ea;
+  padding-right: 100px;
+  border: 0px;
+}
+
+.nav-tabs .active:after {
+  position: absolute;
+  background-color: #4879ea;
+  width: 4px;
+  height: 2.5rem;
+  left: 0;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.nav-tabs p {
+  margin-bottom: 0px;
+}
+
+.table tbody tr {
+  border-radius: 4px;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  position: relative;
+}
+
+.table tbody tr:hover {
+  box-shadow: 0px 2px 5px rgba(69, 101, 173, 0.1);
+  -webkit-transform: translateY(-1px) scale(1.01);
+  transform: translateY(-1px) scale(1.01);
+  background-color: #fff;
+}
+
+.table .appoint-new {
+  position: absolute;
+  background-color: #ffbe4e;
+  text-align: center;
+  color: #fff;
+  width: 3rem;
+  height: 1rem;
+  transform: translate(-0.75rem, -1.6rem);
+  content: "";
+  line-height: 1;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.table tbody td {
+  border-bottom: 4px solid #f2f4f8;
+}
+
+@media (max-width:1150px) {
+  .responsive {
+    min-width: 1150px;
+    overflow-x: auto;
+  }
+}

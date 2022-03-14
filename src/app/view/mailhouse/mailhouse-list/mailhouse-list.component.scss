@@ -1,0 +1,41 @@
+.mailhouse {
+  & .status__marks__primary,
+  & .status__marks__red,
+  & .status__marks__danger,
+  & .status__marks__success,
+  & .status__marks__purple,
+  & .status__marks__dark {
+    display: block;
+    height: 5px;
+    border-radius: 12px;
+  }
+
+  & .status__marks__primary {
+    background-color: #3572ed;
+  }
+  & .status__marks__success {
+    background-color: #20d489;
+  }
+  & .status__marks__danger {
+    background-color: #f66f4d;
+  }
+  & .status__marks__purple {
+    background-color: #751aff;
+  }
+  & .status__marks__red {
+    background-color: #c21a1a;
+  }
+  & .status__marks__dark {
+    background-color: #323c58;
+  }
+  & .btn-red {
+    background-color: #c21a1a;
+    border-color: #c21a1a !important;
+    color: #fff;
+  }
+  & .btn-dark {
+    background-color: #323c58;
+    border-color: #323c58 !important;
+    color: #fff;
+  }
+}

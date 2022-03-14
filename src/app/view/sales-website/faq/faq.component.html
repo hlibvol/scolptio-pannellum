@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">FAQ</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="faqFormGroup"
+        (ngSubmit)="onSubmit(faqFormGroup.value,faqFormGroup.valid)" *ngIf="faqFormGroup">
+        <div class="col-sm-12">
+            <div class="form-group"><label for="">Enter FAQ Question</label>
+                <input formControlName="faqQuestion" class="form-control" placeholder="Enter telephone" type="text">
+                <div class="text-danger" *ngIf="HasValidationError('faqQuestion','required')">
+                    <ng-container>FAQ Question is required</ng-container>
+                </div>
+                <!-- <div class="text-danger" *ngIf="HasValidationError('ContactPageTel1','mask')">
+            <ng-container>Enter Telephone 1 with correct format</ng-container>
+        </div> -->
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group"><label for="">Enter FAQ Answer</label>
+                <textarea formControlName="faqAwnser" class="form-control" placeholder="Enter FAQ Answer"></textarea>
+                <div class="text-danger" *ngIf="HasValidationError('faqAwnser','required')">
+                    <ng-container>FAQ Awnser is required</ng-container>
+                </div>
+                <!-- <div class="text-danger" *ngIf="HasValidationError('ContactPageTel1','mask')">
+            <ng-container>Enter Telephone 1 with correct format</ng-container>
+        </div> -->
+            </div>
+        </div>
+        <div class="col-sm-12 mb-5">
+            <button type="submit" class="btn btn-success pull-right">Submit</button>
+        </div>
+    </form>
+    <section class="accordion-section clearfix mt-3" aria-label="Question Accordions">
+        <div class="container">
+
+            <h4 style="margin-top: 50px; margin-bottom: 20px;" *ngIf="faqList?.length>0">Frequently Asked Questions
+            </h4>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" *ngIf="faqList">
+                <div class="panel panel-default" *ngFor="let item of faqList;let i = index">
+                    <ul>
+                        <li>{{i+1}}</li>
+                        <ul>
+                            <button (click)="remove(item.id)" class="os-icon os-icon-trash pull-right btn"></button>
+                            <li><span class="font-weight-bold">Question :</span>  {{item?.faqQuestion}}</li>
+                            <li><span class="font-weight-bold"> Answer :</span> {{item?.faqAwnser}} </li>
+                        </ul>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>

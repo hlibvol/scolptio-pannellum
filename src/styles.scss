@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ngx-toastr/toastr";
+
+.input-error {
+  border-color: #dc3545 !important;
+}
+
+.toast-info-custom {
+  flex-basis: 350px;
+  max-width: 350px;
+  font-size: 0.875rem;
+  background-color: hsla(0, 0%, 100%, 0.85) !important;
+  color: black !important;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 10%);
+  opacity: 0;
+  border-radius: 0.25rem;
+  margin-top: 50px !important;
+}
+
+.pac-container {
+  z-index: 10000 !important;
+}
+
+#map, #mapEdit {
+  height: 100vh;
+  border-style: solid;
+}
+#infowindow-content .title {
+  font-weight: bold;
+}
+#infowindow-content {
+  display: none;
+}
+#map #infowindow-content {
+  display: inline;
+}
+
+#mapEdit #infowindow-content {
+  display: inline;
+}
+.timed-activities{
+  max-height: 370px; 
+  &.scroll{
+    overflow-y: scroll;
+  }
+}

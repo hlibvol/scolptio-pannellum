@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <h6 class="modal-title">
+      <div class="d-flex align-items-center">
+        <div class="icon icon-control_point"></div>
+        <div class="pl-1">Edit Expenditure</div>
+      </div>
+    </h6>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(editExpenditureForm)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form id="editExpenditure" role="form" (ngSubmit)="save(editExpenditureForm)" novalidate #editExpenditureForm="ngForm" autocomplete="off">
+      <div class="modal-body h-100">
+          <div class="form-row">
+              <div class="form-group col-md-12">
+                  <label for="">Expenditure Description</label>
+                  <input type="text" name="expenditure-description-edit" id="expenditure-description-edit" class="form-control" placeholder="Expenditure Description"
+                      [ngClass]="{'input-error':  expenditureDescriptionInput.touched && expenditureDescriptionInput.errors?.required}"
+                      [(ngModel)]="expenditureDescription" #expenditureDescriptionInput="ngModel" required>
+                  <div *ngIf="expenditureDescriptionInput.invalid && (expenditureDescriptionInput.dirty || expenditureDescriptionInput.touched)">
+                      <small class="form-text text-danger" *ngIf="expenditureDescriptionInput.errors?.required">
+                          This field is required.
+                      </small>
+                  </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for=""> Type</label><select class="form-control"
+                        name="assigned-role" [(ngModel)]="expenditureType" [disabled]="isLoading">
+                        <option [value]="null">Select</option>
+                        <option value="Data Purchase & Subscription">Data Purchase & Subscription</option>
+                        <option value="Mailing Cost">Mailing Cost</option>
+                        <option value="Property Photos">Property Photos</option>
+                        <option value="Listing Cost & Subscription">Listing Cost & Subscription</option>
+                        <option value="Closing Costs">Closing Costs</option>
+                        <option value="Other">Other</option>
+                    </select></div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="">Amount</label>
+                <input type="text" name="expenditure-amount-edit" id="expenditure-amount-edit" class="form-control" placeholder="Amount"
+                    [ngClass]="{'input-error':  expenditureAmountInput.touched && expenditureAmountInput.errors?.required}"
+                    [(ngModel)]="expenditureAmount" #expenditureAmountInput="ngModel" required>
+                <div *ngIf="expenditureAmountInput.invalid && (expenditureAmountInput.dirty || expenditureAmountInput.touched)">
+                    <small class="form-text text-danger" *ngIf="expenditureAmountInput.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom"
+              [ngStyle]="{'cursor': ( editExpenditureForm.form.invalid || isSaving) ? 'not-allowed' : 'pointer' }"
+              [disabled]="editExpenditureForm.form.invalid || isSaving">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+                  viewBox="0 0 16 16">
+                  <path
+                      d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+              </svg>
+              <div class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                      style="font-size:18px"></i></div>
+          </button>
+      </div>
+  </form>

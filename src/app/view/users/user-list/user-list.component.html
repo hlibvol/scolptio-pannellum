@@ -1,0 +1,286 @@
+<!-- users -->
+<div class="px-3 users">
+  <div class="pt-3 px-3">
+    <!-- ads -->
+    <div class="rounded-xl mb-3 get__app" style="margin-top: 15px;">
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-sm-4 col-sm-5 col-sm-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="../../../../assets/banner_img/14.svg" class="get__app__img">
+          </div>
+        </div>
+        <!-- col -->
+        <!-- col -->
+        <div class="col-md-4 col-sm-5 col-sm-4 text-center-md">
+          <div class="py-4">
+            <h5 class="text-purple font-weight-bolder mb-1">Manage your team members</h5>
+            <p class="text-primary-dark mb-1">
+              Use our automated team invite link to invite new users to your team.
+            </p>
+            <button class="btn btn-sm btn-outline-purple rounded-pill">Learn more</button>
+          </div>
+        </div>
+        <!-- col -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- ads -->
+    <!-- head section -->
+    <div class="p-3 bg-white border-primary-light rounded-xl-top">
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="m-0">Users</h6>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
+            data-target="#inviteUser">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-user-plus">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <line x1="20" y1="8" x2="20" y2="14"></line>
+              <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+            <div class="pl-1">Invite User</div>
+          </button>
+        </div>
+      </div>
+      <!-- title -->
+      <!-- advance filter section -->
+      <div class="row advance-filter">
+        <div class="col-md-12 col-lg-12 col-xl-9 order-md-2 order-lg-2 order-xl-1">
+          <!-- flex -->
+          <div class="row no-gutters d-flex align-items-center">
+            <div class="col-md-12 col-lg-7 col-xl-6 d-flex mb-1">
+              <!-- checkbox -->
+              <!-- <div class="btn-group border rounded-xl">
+                <div class="btn btn-light pl-2 d-flex align-items-center">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkAll">
+                    <label class="custom-control-label" for="checkAll"></label>
+                  </div>
+                  <div class="dropdown ml-1">
+                    <div id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                        class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                      </svg>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">All</a>
+                      <a class="dropdown-item" href="#">None</a>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- checkbox -->
+
+              <!-- search -->
+              <div class="mx-3 w-100">
+                <div class="input-group border rounded-xl">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text btn-auto border-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
+                    </span>
+                  </div>
+                  <input type="search" id="filterSearch" class="form-control border-0"
+                    placeholder="Search name, email or phone.." (input)="onSearchList($event.target.value)" [(ngModel)]="searchKey">
+                </div>
+              </div>
+              <!-- search -->
+            </div>
+            <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1">
+                <!-- advance filter -->
+                <div class="dropdown ml-3 border rounded-xl">
+                  <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                    data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-funnel" viewBox="0 0 16 16">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" style="min-width: 14rem;">
+                    <!-- card -->
+                    <div>
+                      <div class="px-3 py-2">
+                        Filter Property
+                        <!-- Toggle Button -->
+                        <a class="close" href="#" data-toggle="dropdown">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x" viewBox="0 0 16 16">
+                            <path
+                              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                          </svg>
+                        </a>
+                        <!-- End Toggle Button -->
+                      </div>
+
+                      <div class="p-3">
+                          <!-- Row -->
+                          <div class="d-flex flex-column">
+                            <div class="mb-2">
+                              <div class="small mb-1">Name</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search name" [(ngModel)]="searchName" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                            <div class="mb-2">
+                              <div class="small mb-1">Email</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search email" [(ngModel)]="searchEmail" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                            <div>
+                              <div class="small mb-1">Phone</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search phone" [(ngModel)]="searchPhone" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                          </div>
+                          <!-- End Row -->
+                          <a class="btn btn-block btn-primary mt-4" (click)="actionFilter()">Apply</a>
+                      </div>
+                    </div>
+                    <!-- card -->
+                  </div>
+                </div>
+                <div *ngIf="visibleFilter">
+                <a class="btn" (click)="clearFilter()">Clear Filter</a>
+              </div>
+                <!-- advance filter -->
+            </div>
+          </div>
+          <!-- flex -->
+        </div>
+      </div>
+      <!-- advance filter section -->
+
+    </div>
+    
+    <div class="col-md-12 text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+    </div>
+    <div *ngIf="!isLoading">
+      <table class="table px-3">
+        <thead class="thead bg-white">
+          <tr>
+            <th width="280">Name</th>
+            <th width="200">Team</th>
+            <th width="200">Email</th>
+            <th width="200">Phone</th>
+            <th width="300">Address</th>
+            <th width="150">Role</th>
+            <th width="100">Status</th>
+            <th class="text-right pr-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+          <tr *ngFor="let user of userList; let i = index">
+            <td class="cell-with-media">
+              <img *ngIf="!user.profileImage" alt="" src="../../../assets/img/dummy-user.png"
+                style="height: 25px;width: 25px;">
+              <img *ngIf="user.profileImage" alt="" [src]="user.profileImage" style="height: 25px;width: 25px;">
+              <span class="ml-1"> {{user.displayName}}</span>
+            </td>
+            <td data-label="datecreated">
+              <div class="d-flex flex-column">
+                <span class="text-dark">{{user.teamName}}</span>
+              </div>
+            </td>
+            <td data-label="datecreated">
+              <div class="d-flex flex-column">
+                <span class="text-dark">{{user.email}}</span>
+              </div>
+            </td>
+            <td data-label="phoneNumber">
+              <div class="d-flex flex-column">
+                <span class="text-dark">{{user.phoneNumber}}</span>
+              </div>
+            </td>
+            <td data-label="webaddress">
+              <div class="d-flex flex-column">
+                <span class="text-dark">{{user.address}}</span>
+              </div>
+            </td>
+            <td class="roleName">
+              <div class="d-flex flex-column">
+                <span class="text-dark">{{user.roleName}}<span class="text-primary"
+                    *ngIf="user.roles && user.roles.length > 1">,&nbsp;+{{user.roles.length-1}} more</span></span>
+              </div>
+            </td>
+            <td class="nowrap"><span class="status-pill smaller "
+                [ngClass]="{'green': user.status === 'Active', 'red': user.status !== 'Active'}">
+              </span><span>{{user.status
+                != null ?
+                user.status : 'Inactive'}}</span>
+            </td>
+            <td data-label="Action">
+              <div class="dropdown">
+                <button type="button" class="btn btn-light btn-auto" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                  </svg>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editUser"
+                    (click)="setSelectedUser(user)">Edit</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteUser"
+                    (click)="setSelectedUser(user)">Delete</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && userList && userList.length < 1">
+            <td style="text-align: center !important;" colspan="12"><strong>No records found</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- table -->
+      <!-- pagination -->
+      <app-pagination [pageNumber]="pageNumber" [total]="total" [pageSize]="pageSize"
+        (pageChangeEvent)="onPaginationChange($event)"></app-pagination>
+      <!-- pagination -->
+    </div>
+  </div>
+</div>
+<!-- users -->
+
+<!-- inviteUser Modal -->
+<div class="modal fade modal-right" id="inviteUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-user-add (addSuccessEvent)="GetUserTotalCount()"></app-user-add>
+    </div>
+  </div>
+</div>
+
+<!-- editUser Modal -->
+<div class="modal fade modal-right" id="editUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-user-edit [selectedUser]="selectedUser" (updateSuccessEvent)="GetUserTotalCount()"></app-user-edit>
+    </div>
+  </div>
+</div>
+
+
+<!-- deleteUser Modal -->
+<div class="modal fade modal-right" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <app-user-delete [selectedUser]="selectedUser" (deleteSuccessEvent)="GetUserTotalCount()"></app-user-delete>
+</div>

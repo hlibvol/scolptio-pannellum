@@ -1,0 +1,33 @@
+.listing {
+}
+
+.btn-primary {
+    color: #fff;
+    border-radius: 0px;
+    height: 1.5rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge {
+    display: -webkit-box;
+    display: flex;
+    height: 1.1rem;
+    overflow: hidden;
+    font-size: 0.675rem;
+    background-color: #e9ecef;
+    border-radius: 0px;
+    -ms-transform: skewX(-10deg);
+    -webkit-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+   
+}
+
+.get__app__img {
+    width: 200px;
+    margin: auto;
+    margin-top: -2rem !important;
+}
+
+

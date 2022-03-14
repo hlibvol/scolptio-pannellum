@@ -1,0 +1,52 @@
+#dataTable1 {
+  & tbody td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    & .form-control {
+      height: 1.5rem;
+      border-radius: 4px;
+      padding: 0;
+    }
+  }
+}
+
+.btn-primary {
+  color: #fff;
+  border-radius: 0px;
+  height: 1.5rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.badge {
+  display: -webkit-box;
+  display: flex;
+  height: 1.1rem;
+  overflow: hidden;
+  font-size: 0.675rem;
+  background-color: #e9ecef;
+  border-radius: 0px;
+  -ms-transform: skewX(-10deg);
+  -webkit-transform: skewX(-10deg);
+  transform: skewX(-10deg);
+}
+
+.view-campaign {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 780px) {
+  .table .comps-column {
+    height: 83px !important;
+  }
+}
+
+.input-group>.form-control, .input-group>.form-control-plaintext, .input-group>.custom-select, .input-group>.custom-file {
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 0.6 1 0%;
+  min-width: 0;
+  margin-bottom: 0;
+}

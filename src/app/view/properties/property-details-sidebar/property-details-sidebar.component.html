@@ -1,0 +1,187 @@
+<!--START - To Do SIDEBAR-->
+<div class="todo-sidebar property" style="padding-left: 15px; padding-right: 15px;">
+	<div class="todo-sidebar-section" style="margin-bottom: 0px; padding-bottom: 0px;">
+		<h4 class="todo-sidebar-section-header">
+			<span>Property Details</span><i class="os-icon os-icon-ui-02 starred"></i><a class="todo-sidebar-section-toggle"
+				href="#"><i class="os-icon os-icon-ui-23"></i></a>
+		</h4>
+		<div class="todo-sidebar-section-contents" style="margin-top: 0px;">
+			<div class="todo-sidebar-section-sub-section">
+				<div class="todo-sidebar-section-sub-section-toggler">
+				</div>
+				<div class="todo-sidebar-section-sub-header" style="padding-top: 0px;">
+				</div>
+				<div class="todo-sidebar-section-sub-section-content">
+					<ul class="items-list">
+						<li>
+							<a><strong>Offer Price:</strong> {{ property?.offerPrice ? (property.offerPrice  | currency:'$':'symbol') : 'Not set' }}</a> <br>
+							<a><strong>Market Value:</strong> {{ property?.totalAssessedValue ? (property.totalAssessedValue  | currency:'$':'symbol') : 'Not set' }}</a>
+						</li>
+						<li>
+							<a><i class="os-icon os-icon-map mr-2"></i>{{property?.propertyAddress}},
+							{{property?.pCity}}, {{property?.pState}}, {{property?.pZip}}</a>
+						</li>
+						<li>
+							<a><i class="os-icon os-icon-user mr-2"></i>{{property?.ownerNameFormatted}}</a>
+						</li>
+						<li>
+							<i class="os-icon os-icon-alert-octagon mr-2"></i><button class="mr-2 mb-2 btn btn-outline-primary"
+								data-original-title="Click to manually change status" data-placement="right" title data-toggle="tooltip"
+								type="button" data-target="#propertyStatusUpdateModal" data-toggle="modal">
+							Offer
+							Generated</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--start status change modal-->
+			<div aria-labelledby="propertyStatusUpdateModal" class="modal fade" id="propertyStatusUpdateModal" role="dialog"
+				tabindex="-1" aria-hidden="true" style="display: none;">
+				<div class="modal-dialog" role="document">
+					<form id="addPropertyStatus" role="form" (ngSubmit)="save()" novalidate #addPropertyStatusForm="ngForm"
+					autocomplete="off">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="propertystatusModal1">Manually Change Property Status</h5>
+							<button
+								aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">
+							×</span></button>
+						</div>
+						<div class="modal-body">
+							<div class="form-desc">Note: Property status changes occur automatically. Manually changing here can be
+								used
+								under special circumstances.
+							</div>
+							<div class="form-group">
+								<label for=""> Set Property Status</label><select class="form-control" required
+								[ngClass]="{'input-error':  propertyStatusInput.touched && propertyStatusInput.errors?.required}"
+								#propertyStatusInput="ngModel" name="property-Status" [(ngModel)]="propertyStatus">
+								<option [value]="null">Select</option>
+								<option value="Inactive">Inactive</option>
+								<option value="Offer Generated">Offer Generated</option>
+								<option value="Mail Sent">Mail Sent</option>
+								<option value="Mail Received">Mail Received</option>
+								<option value="Mail Failed">Mail Failed</option>
+								<option value="Under Sale Contract">Under Sale Contract</option>
+								<option value="Marketing">Marketing</option>
+								<option value="Under Purchase Contract">Under Purchase Contract</option>
+								<option value="Sold">Sold</option>
+								</select>
+								<div
+									*ngIf="propertyStatusInput.invalid && (propertyStatusInput.dirty || propertyStatusInput.touched)">
+									<small class="form-text text-danger" *ngIf="propertyStatusInput.errors?.required">
+									This field is required.
+									</small>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+							<button class="btn btn-primary" type="submit"
+							[ngStyle]="{'cursor': ( addPropertyStatusForm.form.invalid || isSaving) ? 'not-allowed' : 'pointer' }"
+							[disabled]="addPropertyStatusForm.form.invalid || isSaving">
+							Save changes&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+								style="font-size:18px"></i></button>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!--end status change modal-->
+			<div class="todo-sidebar-section-sub-section">
+				<div class="todo-sidebar-section-sub-section-toggler">
+					<i class="os-icon os-icon-ui-23"></i>
+				</div>
+				<div class="todo-sidebar-section-sub-header">
+					<i class="os-icon os-icon-mail-18"></i>
+					<h6>
+						Buying Cycle
+					</h6>
+				</div>
+				<div class="todo-sidebar-section-sub-section-content">
+					<ul class="items-list">
+						<li>
+							<a [routerLink]="['overview']" [state]="{data: property}" routerLinkActive="router-link-active"
+							routerLinkActiveOptions="{exact:true}">Overview</a>
+						</li>
+						<li>
+							<a [routerLink]="['gis-maps']" [state]="{data: property}" routerLinkActive="router-link-active"
+							routerLinkActiveOptions="{exact:true}">GIS</a>
+						</li>
+						<li>
+							<a [routerLink]="['images']" [state]="{data: property}" routerLinkActive="router-link-active"
+							routerLinkActiveOptions="{exact:true}">Images</a>
+						</li>
+						<li>
+							<a [routerLink]="['documents']" [state]="{data: property}" routerLinkActive="router-link-active"
+							routerLinkActiveOptions="{exact:true}">Documents</a>
+						</li>
+						<li>
+							<a [routerLink]="['Comparables']" [state]="{data: property}" routerLinkActive="router-link-active"
+							routerLinkActiveOptions="{exact:true}">Comparables</a>
+						</li>
+						<div class="status">
+							<li>
+								<a [routerLink]="['due-deligence']" [state]="{data: property}" routerLinkActive="router-link-active"
+								routerLinkActiveOptions="{exact:true}">Due Deligence</a>
+							</li>
+							<span class="incomplete" [ngClass]="{'complete':  status }"> {{ this.statusTxt }} </span>
+						</div>
+					</ul>
+				</div>
+			</div>
+			<div class="todo-sidebar-section-sub-section">
+				<div class="todo-sidebar-section-sub-section-toggler">
+					<i class="os-icon os-icon-ui-23"></i>
+				</div>
+				<div class="todo-sidebar-section-sub-header">
+					<i class="os-icon os-icon-grid-10"></i>
+					<h6>
+						Selling Cycle
+					</h6>
+				</div>
+				<div class="todo-sidebar-section-sub-section-content">
+					<ul class="items-list">
+						<li>
+							<a [routerLink]="['county-planner']" routerLinkActive="router-link-active"
+								routerLinkActiveOptions="{exact:true}">County Planner</a>
+						</li>
+						<li>
+							<a [routerLink]="['marketing-details']" routerLinkActive="router-link-active"
+								routerLinkActiveOptions="{exact:true}">Marketing Details</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="todo-sidebar-section">
+		<h4 class="todo-sidebar-section-header">
+			<span>Property Timeline</span><a class="todo-sidebar-section-toggle" href="#">
+			<i class="os-icon os-icon-ui-23"></i>
+			</a>
+		</h4>
+		<div class="timed-activities compact {{timeline?.getScrollClass()}}">
+			<div class="timed-activity" style="margin-bottom: 5px;" *ngFor="let singleDay of timeline?.getSingleDayEventLists()">
+				<ng-template [ngIf]="singleDay.tuples">
+					<div class="ta-date" style="margin-bottom: 5px">
+            <span>
+              {{singleDay.tuples[0].item1 | date}}
+            </span>
+          </div>
+					<div class="ta-record-w">
+						<div class="ta-record" *ngFor="let tuples of singleDay?.tuples">
+							<div class="ta-timestamp">
+                {{tuples.item1 | date:'shortTime' }}
+              </div>
+							<div class="ta-activity" style="padding-bottom: 5px; margin-bottom: 5px;">
+                {{tuples.item2}}
+              </div>
+						</div>
+					</div>
+        </ng-template>
+			</div>
+		</div>
+	</div>
+</div>
+<!--END - To Do SIDEBAR-->

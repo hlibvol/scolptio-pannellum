@@ -1,0 +1,386 @@
+<!-- .row -->
+<div class="row no-gutters">
+  <!-- col -->
+
+  <div class="col-md-3 col-lg-3 col-xl-3" style="padding-right: 0;">
+    <form #f="ngForm" (keydown.enter)="$event.preventDefault()" [formGroup]="editorForm"
+      (ngSubmit)="onSubmit(editorForm.value,editorForm.valid)" *ngIf="editorForm">
+      <input type="hidden" formControlName="id">
+      <!-- filter -->
+      <div class="rentals-list-w">
+        <div class="filter-side">
+          <div class="filters-header">
+            <h4>
+              Customize Website
+            </h4>
+
+            <div class="reset-filters">
+              <i class="os-icon-close os-icon"></i><span>Reset</span>
+            </div>
+          </div>
+          <div class="filter-w>">
+            <button [disabled]="isSaving" type="submit"
+              class="w-100 btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+                viewBox="0 0 16 16">
+                <path
+                  d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+              </svg>
+              <div *ngIf="!id" class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                  style="font-size:18px"></i>
+              </div>
+              <div *ngIf="id" class="pl-1">Update&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                style="font-size:18px"></i>
+            </div>
+            </button>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Website Info
+            </h6>
+            <div class="col-sm-12">
+              <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1" [fileSize]="300000"
+                #cropper></app-ngx-copper>
+              <div class="form-group"><label for="">Website Logo</label>
+                <div class="d-flex align-items-center"><img [src]="websiteLogoImage" alt="avatar" class="shadow avatar"
+                    style="max-width: 75px; max-height: 72px;">
+                  <button *ngIf="editorForm.get('WebsiteLogo').errors" type="button"
+                    class="form-control form-control-sm border-0 ml-3" id="my-file"
+                    (click)="cropper.inputImage.nativeElement.click()"
+                    style="width: auto; background-color: transparent;">Change</button>
+                  <button *ngIf="!editorForm.get('WebsiteLogo').errors" (click)="removeWebsiteLogo()" type="button"
+                    class="form-control form-control-sm border-0 ml-3"
+                    style="width: auto; background-color: transparent;">Remove</button>
+                </div>
+                <input type="file" formControlName="WebsiteLogo" id="userUpload" placeholder="" required=""
+                  class="form-control d-none">
+                <div class="text-danger" *ngIf="HasValidationError('WebsiteLogo','required')">
+                  <ng-container>Website Logo is required</ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-8" style="padding-left: 15px;">
+                <div class="form-group"><label for="">Website Status</label>
+                  <select formControlName="Status" class="form-control">
+                    <option value="">Select</option>
+                    <option value="0">Draft</option>
+                    <option value="1">Published</option>
+                    <option value="2">InActive</option>
+                  </select>
+                </div>
+                <div class="text-danger" *ngIf="HasValidationError('Status','required')">
+                  <ng-container>Website Status is required</ng-container>
+                </div>
+              </div>
+              <button class="mr-2 mb-2 my-4 btn btn-sm btn-outline-primary" style="height: 37px;"
+                type="button">Publish</button>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="form-group"><label for=""> Website Name</label>
+                <input formControlName="WebsiteName" class="form-control" placeholder="Enter name" type="text">
+                <div class="text-danger" *ngIf="HasValidationError('WebsiteName','required')">
+                  <ng-container>Website Name is required</ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12" *ngIf="!hideWebsiteAddressSection">
+              <div class="form-group"><label for="">Website Address</label> (Want to use a custom domain?
+                <a href="javascript:void(0);" (click)="visibleCustomDomainSection()">Click here</a>)
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                  <input formControlName="WebAddress" class="form-control" placeholder="company" value="">
+                  <div class="input-group-append">
+                    <div class="input-group-text">.propertyhatch.com</div>
+                  </div>
+                  <div class="text-danger" *ngIf="HasValidationError('WebAddress','required')">
+                    <ng-container>Web Address is required</ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w" *ngIf="hideWebsiteAddressSection">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Custom Domain
+            </h6>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for=""> DNS Record Type</label>
+                    <select formControlName="Type" class="form-control">
+                      <option value="">Select</option>
+                      <option value="A">A</option>
+                      <option value="CNAME">CNAME</option>
+                    </select>
+                    <div class="text-danger" *ngIf="HasValidationError('Type','required')">
+                      <ng-container>Type is required</ng-container>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group"><label for="">Record Value</label>
+                    <input formControlName="RecordValue" class="form-control" placeholder="Enter value" type="text">
+                    <div class="text-danger" *ngIf="HasValidationError('RecordValue','required')">
+                      <ng-container>Record Value is required</ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Home Page
+            </h6>
+            <div class="filter-body" style="padding-left: 5px; padding-right: 5px;">
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Navbar Color</label>
+                  <select formControlName="HomeNavColor" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Default">Default</option>
+                    <option value="White">White</option>
+                    <option value="Transparent">Transparent</option>
+                  </select>
+                  <div class="text-danger" *ngIf="HasValidationError('HomeNavColor','required')">
+                    <ng-container>Home NavColor is required</ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Header Text 1</label>
+                  <input formControlName="HomeHeaderText1" class="form-control" placeholder="Enter text" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('HomeHeaderText1','required')">
+                    <ng-container>Header Text 1 is required</ng-container>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Header Text 2</label>
+                  <input formControlName="HomeHeaderText2" class="form-control" placeholder="Enter text" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('HomeHeaderText2','required')">
+                    <ng-container>Header Text 2 is required</ng-container>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Header Text 3</label>
+                  <input formControlName="HomeHeaderText3" class="form-control" placeholder="Enter text" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('HomeHeaderText3','required')">
+                    <ng-container>Header Text 3 is required</ng-container>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Footer Text</label>
+                  <quill-editor formControlName="HomeFooterText"></quill-editor>
+                  <div class="text-danger" *ngIf="HasValidationError('HomeFooterText','required')">
+                    <ng-container>Footer Text is required</ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Inventory Page
+            </h6>
+            <div class="col-sm-12">
+              <div class="form-group"><label for="">Inventory Header</label>
+                <input formControlName="HomeInventoryHeading" class="form-control" placeholder="Enter text" type="text">
+                <div class="text-danger" *ngIf="HasValidationError('HomeInventoryHeading','required')">
+                  <ng-container>Inventory Header is required</ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group"><label for="">Inventory Sub Heading</label>
+                <input formControlName="HomeInvenotrySub" class="form-control" placeholder="Enter text" type="text">
+                <div class="text-danger" *ngIf="HasValidationError('HomeInvenotrySub','required')">
+                  <ng-container>Inventory Sub Heading is required</ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="filter-body" style="padding-left: 5px; padding-right: 5px;">
+              <div class="col-sm-12">
+                <app-ngx-copper (returnData)="onReturnDataBannerPhoto($event)" [ratioWidth]="3" [ratioHeight]="2"
+                  [fileSize]="2000000" #cropper1></app-ngx-copper>
+                <div class="form-group"><label for="">Banner Photo</label>
+                  <div class="d-flex align-items-center"><img [src]="inventoryHomeImage" alt="avatar"
+                      class="shadow avatar" style="max-width: 75px; max-height: 72px;">
+                    <button *ngIf="editorForm.get('InventoryHeaderPhoto').errors" type="button"
+                      class="form-control form-control-sm border-0 ml-3" id="my-file"
+                      (click)="cropper1.inputImage.nativeElement.click()"
+                      style="width: auto; background-color: transparent;">Change</button>
+                    <button *ngIf="!editorForm.get('InventoryHeaderPhoto').errors"
+                      (click)="removeInventoryHeaderPhoto()" type="button"
+                      class="form-control form-control-sm border-0 ml-3"
+                      style="width: auto; background-color: transparent;">Remove</button>
+                  </div>
+                  <input type="file" formControlName="InventoryHeaderPhoto" id="userUpload1" placeholder="" required=""
+                    class="form-control d-none">
+                  <div class="text-danger" *ngIf="HasValidationError('InventoryHeaderPhoto','required')">
+                    <ng-container>Inventory Header Photo is required</ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              About Page
+            </h6>
+            <div class="filter-body" style="padding-left: 5px; padding-right: 5px;">
+              <div class="col-sm-12">
+                <app-ngx-copper (returnData)="onReturnAboutPagePhoto($event)" [ratioWidth]="3" [ratioHeight]="2"
+                  [fileSize]="2000000" #cropper2></app-ngx-copper>
+                <div class="form-group"><label for="">Banner Photo</label>
+                  <div class="d-flex align-items-center"><img [src]="aboutUsImage" alt="avatar" class="shadow avatar"
+                      style="max-width: 75px; max-height: 72px;">
+                    <button *ngIf="editorForm.get('AboutPagePhoto').errors" type="button"
+                      class="form-control form-control-sm border-0 ml-3" id="my-file"
+                      (click)="cropper2.inputImage.nativeElement.click()"
+                      style="width: auto; background-color: transparent;">Change</button>
+                    <button *ngIf="!editorForm.get('AboutPagePhoto').errors" (click)="removeAboutPagephoto()"
+                      type="button" class="form-control form-control-sm border-0 ml-3"
+                      style="width: auto; background-color: transparent;">Remove</button>
+                  </div>
+                  <input type="file" formControlName="AboutPagePhoto" id="userUpload2" placeholder="" required=""
+                    class="form-control d-none">
+                  <div class="text-danger" *ngIf="HasValidationError('AboutPagePhoto','required')">
+                    <ng-container>About Page Photo is required</ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Contact Us Page
+            </h6>
+            <div class="filter-body" style="padding-left: 5px; padding-right: 5px;">
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Company Address</label>
+                  <input formControlName="ContactPageAddress" class="form-control" placeholder="Enter address"
+                    type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageAddress','required')">
+                    <ng-container>Company Address is required</ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Telephone 1</label>
+                  <input #ContactPageTel1 prefix="+1 " mask="000 000 0000" [validation]="true"
+                    formControlName="ContactPageTel1" class="form-control" placeholder="Enter telephone" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageTel1','required')">
+                    <ng-container>Telephone 1 is required</ng-container>
+                  </div>
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageTel1','mask')">
+                    <ng-container>Enter Telephone 1 with correct format</ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Telephone 2</label>
+                  <input #ContactPageTel2 prefix="+1 " mask="000 000 0000" [validation]="true"
+                    formControlName="ContactPageTel2" class="form-control" placeholder="Enter telephone" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageTel2','required')">
+                    <ng-container>Telephone 2 is required</ng-container>
+                  </div>
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageTel2','mask')">
+                    <ng-container>Enter Telephone 2 with correct format</ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group"><label for="">Contact Email</label>
+                  <input formControlName="ContactPageEmail" class="form-control" placeholder="Enter email" type="text">
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageEmail','required')">
+                    <ng-container>Contact Email is required</ng-container>
+                  </div>
+                  <div class="text-danger" *ngIf="HasValidationError('ContactPageEmail','email')">
+                    <ng-container>Contact Email is not valid</ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Terms & Conditions Page
+            </h6>
+            <div class="filter-body" style="padding-left: 5px; padding-right: 5px;">
+              <div class="col-sm-12">
+                <quill-editor formControlName="TermsDescription"></quill-editor>
+              </div>
+              <div class="text-danger" *ngIf="HasValidationError('TermsDescription','required')">
+                <ng-container>Terms Description is required</ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="filter-w">
+            <div class="filter-toggle">
+              <i class="os-icon-minus os-icon"></i>
+            </div>
+            <h6 class="filter-header">
+              Frequently Asked Questions (FAQs)
+            </h6>
+            <div class="filter-body text-center">
+              <button type="button" *ngIf="faqList?.length==0" (click)="openModal(faqModal)" class="btn btn-success">Add</button>
+              <button type="button" *ngIf="faqList?.length>0" (click)="openModal(faqModal)" class="btn btn-success">View or Edit</button>
+              <div class="text-danger" *ngIf="HasValidationError('faqList','required')">
+                <ng-container>FAQ list is required</ng-container>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </form>
+    <!-- filter -->
+  </div>
+
+  <!-- col -->
+  <!-- col -->
+  <div class="col-md-9 col-lg-9 col-xl-9 bg-white">
+    <!-- padding -->
+    <iframe [src]="siteUrl | byPassSecurity" height="100%" width="100%" target="_self"></iframe>
+    <!-- padding -->
+  </div>
+  <!-- col -->
+</div>
+<!-- .row -->
+<!-- property search -->
+<ng-template #faqModal>
+  <app-faq [faqListInput]="faqList" [modalRef]="modalRef" (faqListOutput)="addFaqListToForm($event)">
+
+  </app-faq>
+</ng-template>

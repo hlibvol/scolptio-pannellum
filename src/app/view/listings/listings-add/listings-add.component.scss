@@ -1,0 +1,10 @@
+#submitBtn {
+	height: 2.5rem;
+	border-radius: 12px;
+	color: white;
+	background-color: #f66f4d;
+}
+
+#submitBtn:disabled {
+	cursor: not-allowed;
+}

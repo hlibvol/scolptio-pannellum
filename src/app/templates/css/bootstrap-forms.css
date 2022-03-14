@@ -1,0 +1,217 @@
+.my-card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  border-radius: .25rem;
+ }
+ 
+ /* form heading title */
+ .my-title {
+  padding: 1rem 0;
+  background: #5b32bc;
+  Color: #fff;
+ }
+ 
+ /* custom input design */
+ .form-control {
+  padding-left: 2rem;
+  position: relative;
+ }
+ 
+ /* left & rignt line with text */
+ .line-heading {
+  overflow: hidden;
+  text-align: center;
+  color: #919191;
+ }
+ 
+ .line-heading:after, .line-heading:before {
+  background-color: #919191;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+ }
+ 
+ .line-heading:before {
+  right: 10px;
+  margin-left: -40%;
+ }
+ 
+ .line-heading:after {
+  left: 10px;
+  margin-right: -40%;
+ }
+ 
+ /* custom form control */
+ .my-form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+ }
+ 
+ /* custom switch design */
+ .switch input {
+  display: none;
+ }
+ 
+ .switch {
+  display: inline-block;
+  width: 55px;
+  height: 25px;
+  transform: translateY(50%);
+  position: relative;
+ }
+ 
+ .slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 30px;
+  box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+  cursor: pointer;
+  border: 4px solid transparent;
+  overflow: hidden;
+  transition: .4s;
+ }
+ 
+ .slider:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #777;
+  border-radius: 30px;
+  transform: translateX(-30px);
+  transition: .4s;
+ }
+ 
+ input:checked+.slider:before {
+  transform: translateX(30px);
+  background: #007bff;
+ }
+ 
+ input:checked+.slider {
+  box-shadow: 0 0 0 2px #e1e8ee, 0 0 2px #007bff;
+ }
+ 
+ /* custom input type file */
+ .input-file-container {
+  position: relative;
+  line-height: 140px;
+  background: rgba(0, 0, 0, .01);
+  vertical-align: middle;
+  margin: 0 2rem;
+ }
+ 
+ .js .input-file-trigger {
+  display: block;
+  text-align: center;
+  color: #323232;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+  padding: 32.5px 0px 32.5px 0px;
+  height: 217px;
+ }
+ 
+ .js .input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 225px;
+  vertical-align: middle;
+  opacity: 0;
+  padding: 14px 0;
+  cursor: pointer;
+ }
+ 
+ .js .input-file:hover+.input-file-trigger,
+ .js .input-file:focus+.input-file-trigger,
+ .js .input-file-trigger:hover,
+ .js .input-file-trigger:focus {
+  background: rgba(0, 0, 0, .16);
+  color: #111;
+ }
+ 
+ .file-return {
+  margin: 0;
+ }
+ 
+ .file-return:not(:empty) {
+  margin: 1em 0;
+ }
+ 
+ .js .file-return {
+  font-style: italic;
+  font-size: .9em;
+  font-weight: bold;
+ }
+ 
+ .js .file-return:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: normal;
+ }
+ 
+ /* file upload section */
+ .f-upload {
+  color: rgba(0, 0, 0, .25);
+  margin-top: 1.4rem;
+ }
+ 
+ /* line break */
+ .ln-break {
+  display: block;
+  margin-top: 0.5rem !important;
+  color: rgba(0, 0, 0, .45);
+ }
+ 
+ /* custom primary button */
+ .my-btn-primary {
+  color: #fff;
+  background-color: #5b32bc;
+  border-color: #5b32bc;
+  padding: 0.5rem 3rem;
+  border-radius: 50px;
+ }
+ 
+ /* label under input area icon */
+ .f-icon {
+  position: absolute;
+  z-index: 1;
+  left: 1rem;
+  top: 2.7rem;
+  color: #007bff;
+  cursor: pointer;
+  width: 0;
+ }
+ form label{
+    margin-bottom: 2px !important;
+    font-size:1rem;
+ }  
+ #savebtn:hover{
+   color:#000
+ }
+ 
+ 

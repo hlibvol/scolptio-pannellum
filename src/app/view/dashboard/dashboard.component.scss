@@ -1,0 +1,15 @@
+.el-tablo .value {
+    font-size: 1.43rem;
+    font-weight: 500;
+    font-family: "Avenir Next W01", "Lato", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.no-transistion {
+ transition: none;
+ animation-name: none;
+ animation-duration: 0ms;
+}

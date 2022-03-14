@@ -1,0 +1,18 @@
+<h2>Gallery Items</h2>
+<div class="row mt-1">
+  <div class="col-sm-4 mb-4" *ngFor="let item of imageURLs; let i = index" style="height: auto;
+  overflow: auto;">
+    <img [src]="item.imgUrl" height="300" width="400" style="cursor: pointer;float: right;" (click)="openImage(i)">
+    <div class="row">
+      <div class="col-md-6 form-check">
+        <input class="form-check-input" name="mainimage" [checked]="item.isPrimary" type="radio" (change)="MaingImage(item.image)" [value]="item.image" [id]="i">
+        <label class="form-check-label" for="defaultCheck1">
+          Main Image
+        </label>
+      </div>
+      <button class="col-md-6 btn carousel-button pull-right" (click)="DeleteFile(item.image, i)">
+        <i class="fa fa-times-circle"></i> Remove
+      </button>
+    </div>
+  </div>
+</div>

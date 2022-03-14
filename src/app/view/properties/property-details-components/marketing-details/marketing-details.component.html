@@ -1,0 +1,208 @@
+<div class="property-single" style="margin-top: 10px; margin-left: 5px;">
+  <div class="property-info-w">
+
+    <div class="property-info-main" style="padding-top: 10px; padding-bottom: 10px;">
+      <!--start marketing-->
+      <div class="property-section">
+        <div class="property-section-header">Marketing Information<div class="filter-toggle"><i
+              class="os-icon-minus os-icon"></i></div>
+        </div>
+        <div class="property-section-body" style="padding-top: 10px;">
+          <div class="element-box" style="padding-top: 0px;">
+            <form>
+              <div class="form-desc"><i class="os-icon os-icon-alert-circle mr-2"></i>Use this section to complete
+                due deligency on this property. All fields used here are default fields and can
+                be edited to match your needs. You can edit or add new fields by clicking <a href="#">here</a>.
+              </div>
+              <legend><span>Pricing Information</span></legend>
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group"><label for="">Listing Price</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0"><input class="form-control"
+                        placeholder="Enter Amount..." name="listingPrice" type="number" [(ngModel)]="list.listingPrice" (input)="onChangeData($event.target.value)">
+                      <div class="input-group-append">
+                        <div class="input-group-text">USD</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="form-group"><label for="">Market Value</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0"><input class="form-control"
+                        placeholder="Enter Amount..." name="marketValue" type="number" [(ngModel)]="list.marketValue" (input)="onChangeData($event.target.value)">
+                      <div class="input-group-append">
+                        <div class="input-group-text">USD</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-group"><label for="">Savings</label>
+                    <div class="" style="padding-top: 5px; padding-left: 5px;">{{list.savings}}%</div>
+                  </div>
+                </div>
+              </div>
+              <legend><span>Basic Information</span></legend>
+              <div class="form-group"><label for=""> APN #:</label><input class="form-control" placeholder="Enter value"
+                  type="text" name="apn" [(ngModel)]="list.apn"></div>
+              <div class="form-group"><label for=""> Address</label><input class="form-control"
+                  placeholder="Enter value" type="text" name="address" [(ngModel)]="list.address"></div>
+              <div class="form-group"><label for="">Listing Title</label><input class="form-control"
+                  placeholder="Enter listing title" type="text" name="title" [(ngModel)]="list.title"></div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group"><label for=""> County</label><input class="form-control" placeholder=""
+                      type="text" name="country" [(ngModel)]="list.country"></div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group"><label for="">Parcel Size</label><input class="form-control"
+                      placeholder="parcelsize" type="text" name="parcelsize" [(ngModel)]="list.parcelSize">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group"><label for="">HOA Fees</label><input class="form-control" type="text"
+                      name="hoA_Fees" [(ngModel)]="list.hoA_Fees"></div>
+                </div>
+              </div>
+              <legend><span>Additional Information</span></legend>
+              <div class="row">
+                <div class="col-sm-4">
+                  <label for=""> Access Type</label>
+                  <select class="form-control" name="accessType" [(ngModel)]="list.accessType">
+                    <option [value]="undefined">Select</option>
+                    <option value="Dirt road">Dirt road</option>
+                    <option value="Non-existent">Non-existent</option>
+                    <option value="Road">Road</option>
+                    <option value="Not sure">Not sure</option>
+                  </select>
+                </div>
+                <div class="col-sm-4"><label for=""> Visual Access</label>
+                  <select class="form-control" name="visualAccess" [(ngModel)]="list.visualAccess">
+                    <option [value]="undefined">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Not sure">Not sure</option>
+                  </select>
+                </div>
+                <div class="col-sm-4"><label for=""> Topography</label>
+                  <select class="form-control" name="topography" [(ngModel)]="list.topography">
+                    <option [value]="undefined">Select</option>
+                    <option value="Flat">Flat</option>
+                    <option value="Sloped">Sloped</option>
+                    <option value="Rolling">Rolling</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group"><label for=""> Power Available</label>
+                    <select class="form-control" name="powerAvailable" [(ngModel)]="list.powerAvailable">
+                      <option [value]="undefined">Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group"><label for="">Gas Available</label>
+                    <select class="form-control" name="gasAvailable" [(ngModel)]="list.gasAvailable">
+                      <option [value]="undefined">Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group"><label for=""> Pert Test</label>
+                    <select class="form-control" name="pertTest" [(ngModel)]="list.pertTest">
+                      <option [value]="undefined">Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group"><label for=""> Flood Zone</label>
+                    <select class="form-control" name="floodZone" [(ngModel)]="list.floodZone">
+                      <option [value]="undefined">Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group"><label for=""> Survey</label>
+                    <select class="form-control" name="survey" [(ngModel)]="list.survey">
+                      <option [value]="undefined">Select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group"><label for=""> Zoning</label>
+                    <select class="form-control" name="zoning" [(ngModel)]="list.zoning">
+                      <option [value]="null">Select</option>
+                      <option value="RA (Residential)">RA (Residential)</option>
+                      <option value="Commercial">Commercial</option>
+                      <option value="Agricultural">Agricultural</option>
+                      <option value="Industrial">Industrial</option>
+                      <option value="Rural">Rural</option>
+                      <option value="Combination">Combination</option>
+                      <option value="Historic">Historic</option>
+                      <option value="Aesthetic">Aesthetic</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <label for=""> Utilities:&nbsp;&nbsp;</label>
+                    <ng-select [multiple]="true" name="utilities"
+                      [items]="utilitiesList" 
+                      [(ngModel)]="list.utilities">
+                    </ng-select>
+                  </div>
+                </div>
+                <legend><span>Listing Description</span></legend>
+
+                <div class="element-box" style="padding-top: 0px;">
+                  <ckeditor [editor]="Editor" [data]="descriptionData" [(ngModel)]="descriptionData"
+                    name="descriptionData" (change)="onChange($event)"></ckeditor>
+                </div>
+
+
+              </div>
+
+              <legend><span>Map Information</span></legend>
+              <div class="property-section">
+
+                <div class="property-section-body"><iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26466.220546263787!2d-118.35266418131052!3d33.98540355993257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b79824efa317%3A0x29dd07e1734487f2!2sPark+Mesa+Heights%2C+Los+Angeles%2C+CA!5e0!3m2!1sen!2sus!4v1502593931845"
+                    width="600" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe></div>
+              </div>
+              <div class="form-buttons-w">
+                <button class="btn btn-primary" type="button" (click)="save()"
+                  [ngStyle]="{'cursor': isSaving ? 'not-allowed' : 'pointer' }" [disabled]="isSaving"> Save
+                  Changes&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin" style="font-size:18px"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end marketing-->
+  </div>
+</div>

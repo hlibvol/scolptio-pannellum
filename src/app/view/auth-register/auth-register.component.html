@@ -1,0 +1,171 @@
+<div id="main-wrapper" class="oxyy-login-register">
+  <div class="container-fluid px-0">
+    <div class="row no-gutters min-vh-100">
+      <!-- Register Form
+      ========================= -->
+      <div class="col-md-6 d-flex flex-column order-2 order-md-1">
+        <div class="container my-auto py-5">
+          <div class="row">
+            <div class="col-11 col-lg-9 col-xl-8 mx-auto text-center" *ngIf="!isRegistrationSuccess">
+              <div class="logo mb-4"> <a title="Oxyy"><img src="assets/img/logo1.png" alt="logo"
+                    style="width:200px; height:60px;"></a> </div>
+              <form id="registerForm" role="form" (ngSubmit)="save()" novalidate #registerForm="ngForm"
+                autocomplete="off">
+                <div class="vertical-input-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control"
+                      [ngClass]="{'input-error':(firstName.touched && firstName.errors?.required)}" id="firstName"
+                      name="firstName" required placeholder="First Name" [(ngModel)]="appUser.firstName"
+                      #firstName="ngModel">
+                  </div>
+                  <!-- <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                    <small class="form-text text-danger" *ngIf="firstName.errors?.required">
+                      This field is required.
+                    </small>
+                  </div> -->
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="lastName" name="lastName" required
+                      [ngClass]="{'input-error':(lastName.touched && lastName.errors?.required)}"
+                      placeholder="Last Name" [(ngModel)]="appUser.lastName" #lastName="ngModel">
+                  </div>
+                  <div class="input-group">
+                    <input type="email" class="form-control" id="emailAddress" name="emailAddress" required
+                      [pattern]="emailPattern" (change)="isEmailExist()"
+                      [ngClass]="{'input-error':(emailAddress.touched && (emailAddress.errors?.required || emailAddress.errors?.pattern))}"
+                      placeholder="Email Address" [(ngModel)]="appUser.email" #emailAddress="ngModel" [disabled]="isParamsAvaliable">
+                  </div>
+                  <!-- <div class="input-group">
+                    <input type="text" class="form-control" id="address" name="address" required placeholder="Address"
+                      [ngClass]="{'input-error':(address.touched && address.errors?.required)}"
+                      [(ngModel)]="appUser.address" #address="ngModel">
+                  </div> -->
+                  <!-- <div class="input-group">
+                    <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of birth" required
+                      [ngClass]="{'input-error':(dob.touched && dob.errors?.required)}" [(ngModel)]="appUser.dob"
+                      #dob="ngModel">
+                  </div>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="salutation" name="salutation" required
+                      [ngClass]="{'input-error':(salutation.touched && salutation.errors?.required)}"
+                      placeholder="Salutation" [(ngModel)]="appUser.salutation" #salutation="ngModel">
+                  </div>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="countryName" name="countryName" required
+                      [ngClass]="{'input-error':(countryName.touched && countryName.errors?.required)}"
+                      placeholder="Country" [(ngModel)]="appUser.countryName" #countryName="ngModel">
+                  </div> -->
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="organizationTitle" name="organizationTitle" required
+                      [ngClass]="{'input-error':(organizationTitle.touched && organizationTitle.errors?.required)}"
+                      placeholder="Company Name" [(ngModel)]="appUser.organizationTitle" #organizationTitle="ngModel" [disabled]="isParamsAvaliable">
+                  </div>
+                  <!-- <div class="input-group">
+                    <input type="text" class="form-control" id="displayName" name="displayName" required
+                      [ngClass]="{'input-error':(displayName.touched && displayName.errors?.required)}"
+                      placeholder="Display Name" [(ngModel)]="appUser.displayName" #displayName="ngModel">
+                  </div> -->
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" required
+                      pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                      [ngClass]="{'input-error':(password.touched && password.errors?.required)}" placeholder="Password"
+                      [(ngModel)]="appUser.password" #password="ngModel">
+                  </div>
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" required
+                      [ngClass]="{'input-error':(confirmPassword.touched && confirmPassword.errors?.required)}"
+                      placeholder="Confirm Password" [(ngModel)]="appUser.confirmPassword" #confirmPassword="ngModel">
+                  </div>
+                </div>
+                <div class="mt-2" *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
+                  <small class="form-text text-danger" *ngIf="emailAddress.errors?.pattern">
+                    Invalid email address.
+                  </small>
+                </div>
+                <div class="mt-2" *ngIf="errorMsg && errorMsg.length > 0">
+                  <small class="form-text text-danger">
+                    {{errorMsg}}
+                  </small>
+                </div>
+                <div class="mt-2" *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <small class="form-text text-danger">
+                    Password must be minimum 8 characters and contain at least one uppercase, lowercase and special
+                    character.
+                  </small>
+                </div>
+                <div class="mt-2" *ngIf="isExist">
+                  <small class="form-text text-danger">
+                    Email already used. Please try another email.
+                  </small>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="form-check text-2 custom-control custom-checkbox">
+                    <input id="agree" name="agree" class="custom-control-input" type="checkbox"
+                      [(ngModel)]="termsAccept">
+                    <label class="custom-control-label text-muted" for="agree">I agree to the <a href="#">Terms</a> and
+                      <a href="#">Privacy Policy</a>.</label>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block shadow-none my-3"
+                  [ngStyle]="{'cursor': (!termsAccept || registerForm.form.invalid || isSaving || isExist) ? 'not-allowed' : 'pointer' }"
+                  type=" submit" [disabled]="!termsAccept || registerForm.form.invalid || isSaving || isExist">Create
+                  Account&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                    style="font-size:18px"></i></button>
+              </form>
+              <div class="d-flex align-items-center my-3">
+                <hr class="flex-grow-1">
+                <span class="mx-2 text-2 text-muted">OR</span>
+                <hr class="flex-grow-1">
+              </div>
+              <div class="d-flex  flex-column align-items-center mb-4">
+                <ul class="social-icons social-icons-circle">
+                  <li class="social-icons-facebook"><a href="#" data-toggle="tooltip"
+                      data-original-title="Log In with Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                  <li class="social-icons-google"><a href="#" data-toggle="tooltip"
+                      data-original-title="Log In with Google"><i class="fab fa-google"></i></a></li>
+                  <li class="social-icons-linkedin"><a href="#" data-toggle="tooltip"
+                      data-original-title="Log In with Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+              </div>
+              <p class="text-muted text-2">Already have an account? <a class="btn-link" routerLink="/login">Sign In</a>
+              </p>
+            </div>
+            <div class="col-11 col-lg-9 col-xl-8 mx-auto text-center" *ngIf="isRegistrationSuccess">
+              <div class="logo mb-4"> <a title="Oxyy"><img src="assets/img/logo1.png" alt="logo"
+                style="width:200px; height:60px;"></a> </div>
+              <p class="text-primary text-lg" style="font-size: larger;"><strong>Registration successful, an email has been sent to your email address. Please confirm your email
+                address.</strong> </p>
+            </div>
+          </div>
+        </div>
+        <div class="container py-2">
+          <p class="text-2 text-muted text-center mb-0">Copyright © 2021 <a
+              href="www.propertyhatch.com">PropertyHatch</a>. All Rights
+            Reserved.</p>
+        </div>
+      </div>
+      <!-- Register Form End -->
+
+      <!-- Welcome Text
+      ========================= -->
+      <div class="col-md-6 order-1 order-md-2">
+        <div class="hero-wrap d-flex align-items-center h-100">
+          <div class="hero-mask opacity-8 bg-secondary"></div>
+          <div class="hero-bg hero-bg-scroll"
+            style="background-image:url('./assets/auth-pages/images/login-bg-2.jpg');"></div>
+          <div class="hero-content mx-auto w-100 h-100 d-flex flex-column">
+            <div class="row no-gutters my-auto py-5">
+              <div class="col-10 col-lg-9 mx-auto">
+                <p class="text-4 text-white">Sign up to get started!</p>
+                <h1 class="text-10 text-white mb-4">Welcome to PropertyHatch</h1>
+                <a class="btn btn-outline-light shadow-none video-btn mt-2" href="#"
+                  data-src="https://www.youtube.com/embed/7e90gBu4pas" data-toggle="modal"
+                  data-target="#videoModal"><span class="mr-2"><i class="fas fa-play-circle"></i></span>Watch demo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Welcome Text End -->
+    </div>
+  </div>
+</div>

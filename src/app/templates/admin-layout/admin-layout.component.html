@@ -1,0 +1,34 @@
+<div hidden id="main-layout" class="all-wrapper with-side-panel solid-bg-all" style="margin:0px;height: 100%;">
+  <div class="row" style="height: 100%;">
+    <!-- <div>
+            <app-document></app-document>
+        </div> -->
+    <div class="search-with-suggestions-w">
+      <app-search-with-suggestions></app-search-with-suggestions>
+    </div>
+
+    <div class="layout-w w-100">
+      <div class="row" style="min-width: 100%;height: 100%;">
+        <!-- <div class="menu-mobile menu-activated-on-click color-scheme-dark" data-ng-include="'tpl/loggers.html'">
+                    <app-loggers></app-loggers>
+                </div> -->
+        <div id="Main"
+          class="menu-w color-scheme-light color-style-default menu-position-side menu-side-left menu-layout-compact sub-menu-style-inside sub-menu-color-light selected-menu-color-light menu-activated-on-click menu-has-selected-link col-sm-2"
+          style="float: left; ;padding-right: 0px;transition:.5s;">
+          <app-sidebar></app-sidebar>
+        </div>
+        <div class="content-w col-sm-12"
+          style="float:left;min-height: 757.5px !important;height: 100%; padding-left: 0px; padding-right: 0px;">
+          <div class="headerMenu">
+            <app-header></app-header>
+          </div>
+          <div class="breadcrumb">
+            <app-breadcumb></app-breadcumb>
+          </div>
+
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<body class="menu-position-side menu-side-left full-screen">
+  <div class="all-wrapper no-padding-content solid-bg-all">
+
+    <div class="layout-w">
+
+      <div class="content-w">
+        <!--------------------
+          START - Top Bar
+          -------------------->
+        <div class="top-bar color-scheme-light">
+          <ul class="w-100">
+
+            <div class="element-box-content example-content" style="margin-left: 20px;">
+              <div class="progress w-100">
+                <!-- row -->
+                <div class="row no-gutters w-100">
+                  <!-- col -->
+                  <div class="col-md-4 col-sm-12 d-flex">
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="15" class="progress-bar bg-success"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Inactive</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="30" class="progress-bar bg-progress"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Offer Generated</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Mail Sent</div>
+                  </div>
+                  <!-- col -->
+                  <!-- col -->
+                  <div class="col-md-4 col-sm-12 d-flex">
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Mail Received</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Mail Failed</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 120%; margin-right: 2px;">Under Sale Contract</div>
+                  </div>
+                  <!-- col -->
+                  <!-- col -->
+                  <div class="col-md-4 col-sm-12 d-flex">
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Marketing</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 150%; margin-right: 2px;">Under Purchase Contract</div>
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" class="progress-bar bg-info"
+                      role="progressbar" style="width: 100%; margin-right: 2px;">Sold</div>
+                  </div>
+                  <!-- col -->
+                </div>
+                <!-- row -->
+
+              </div>
+
+            </div>
+          </ul>
+
+
+
+        </div>
+        <!--------------------
+          END - Top Bar
+          -------------------->
+        <div class="content-i">
+          <div class="content-box">
+            <!--START - To Do Application-->
+            <div class="todo-app-w">
+
+              <!--start property-detail-sidebar-component-->
+              <app-property-details-sidebar style="width:30%" [selectedProperty]="property"></app-property-details-sidebar>
+              <!--end property-detail-sidebar-component-->
+
+              <!-- <div class="todo-content">
+    <h4 class="todo-content-header">
+      <i class="os-icon os-icon-agenda-1"></i><span>Details</span>
+    </h4>
+
+  </div> -->
+              <!--start details-->
+              <!-- <app-details style="width: 70%;margin-left: 20px;margin-right: 20px;"></app-details> -->
+              <router-outlet></router-outlet>
+
+
+              <!--End details-->
+            </div>
+            <!--END - To Do Application-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="display-type"></div>
+  </div>
+
+</body>

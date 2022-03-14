@@ -1,0 +1,188 @@
+{
+    "Buying Cycle": [
+        {
+            "title": "Property Leads",
+            "group": "Property Leads",
+            "view": {
+                "id": "901983a1-ce57-48a4-ac85-a75086e671dc",
+                "isActive": true
+            },
+            "edit": {
+                "id": "6354879f-c892-458e-beab-75da0e033c5b",
+                "isActive": true
+            },
+            "add": {
+                "id": "9051ec42-79fc-45a9-8ee9-0a028ed0d84c",
+                "isActive": true
+            },
+            "delete": {
+                "id": "f1df263b-ec74-453c-b54f-88fa35be90e3",
+                "isActive": true
+            }
+        },
+        {
+            "title": "Campaigns",
+            "group": "Campaigns",
+            "view": {
+                "id": "45607347-6c39-4682-98e3-61f3942c4cff",
+                "isActive": true
+            },
+            "edit": {
+                "id": "a7fc1b17-ea94-4df2-83a5-e17f893aac5c",
+                "isActive": true
+            },
+            "add": {
+                "id": "9dbf07f3-8bd5-4f2b-9f4f-61668bd2ab9d",
+                "isActive": true
+            },
+            "delete": {
+                "id": "90ce0723-910e-44da-b167-5c865f71c5ee",
+                "isActive": true
+            }
+        },
+        {
+            "title": "Mail House",
+            "group": "Mail House",
+            "view": {
+                "id": "4f7b0724-e041-40f0-bff5-e81adb023f85",
+                "isActive": true
+            },
+            "edit": {
+                "id": "8ef54639-32fe-4c44-8051-3431b1391b61",
+                "isActive": true
+            },
+            "add": {
+                "id": "ea32cf55-cb30-4dfd-8ab2-eeb23a69c526",
+                "isActive": true
+            },
+            "delete": {
+                "id": "ae22679d-77b5-428a-b624-b01e2d9b5a68",
+                "isActive": true
+            }
+        },
+        {
+            "title": "Documents",
+            "group": "Documents",
+            "view": {
+                "id": "bc9cdb36-f571-4e0c-90ff-29285fbe0151",
+                "isActive": true
+            },
+            "edit": {
+                "id": "bdc1cb37-26cd-4802-ba5c-aea3e884f5eb",
+                "isActive": true
+            },
+            "add": {
+                "id": "d5f0cf74-8d5f-4bf5-8584-fc6e1c03377a",
+                "isActive": true
+            },
+            "delete": {
+                "id": "de3edfab-7aea-45a8-bacc-4bec21174dd2",
+                "isActive": true
+            }
+        }
+    ],
+    "Selling Cycle": [
+        {
+            "title": "Listings",
+            "group": "Listing",
+            "view": {
+                "id": "559731fe-e562-451a-ad8e-3d78f80fec56",
+                "isActive": true
+            },
+            "edit": {
+                "id": "a5d7c67f-ee1f-40a3-a1a5-1cbf5cb97057",
+                "isActive": true
+            },
+            "add": {
+                "id": "5c4429a9-6371-4fe3-9ac6-ceeb3eafec41",
+                "isActive": true
+            },
+            "delete": {
+                "id": "d05c4b61-73c4-423a-b865-5e7aacebc8e0",
+                "isActive": true
+            }
+        },
+        {
+            "title": "Sales Website",
+            "group": "Sales Website",
+            "view": {
+                "id": "dfde6d41-6c32-406c-8e53-8dd2723251d3",
+                "isActive": true
+            },
+            "edit": {
+                "id": "09fa5081-287f-4ede-ad07-8f286d58d9f6",
+                "isActive": true
+            },
+            "add": {
+                "id": "e7983604-274e-4ff5-a617-4579cb0034b2",
+                "isActive": true
+            },
+            "delete": {
+                "id": "87e8dea6-ab56-40b0-a7e0-7a5d1286a8bb",
+                "isActive": true
+            }
+        }
+    ],
+    "Administration": [
+        {
+            "title": "Teams",
+            "group": "Teams",
+            "view": {
+                "id": "469bbd31-cb32-4ed3-be5f-1a4db5c99b42",
+                "isActive": true
+            },
+            "edit": {
+                "id": "54ab08ff-6f28-4185-bb98-7c1325329f9b",
+                "isActive": true
+            },
+            "add": {
+                "id": "4374e0b8-cd86-43af-8476-2ad7a96cc9d4",
+                "isActive": true
+            },
+            "delete": {
+                "id": "3cd62e27-5c0c-46bf-91fd-f5c2758f7e55",
+                "isActive": true
+            }
+        },
+        {
+            "title": "User",
+            "group": "User",
+            "view": {
+                "id": "a317aba1-d9a5-4949-8f4e-85501daae8e3",
+                "isActive": true
+            },
+            "edit": {
+                "id": "adc35590-aa71-4bd6-9b37-c747dc6cf6fc",
+                "isActive": true
+            },
+            "add": {
+                "id": "45ab6cef-ad72-4d3b-9986-6c7cd482e352",
+                "isActive": true
+            },
+            "delete": {
+                "id": "55b4ac36-be13-4542-9b46-ba8c6ea60720",
+                "isActive": true
+            }
+        },
+        {
+            "title": "User Role",
+            "group": "User Role",
+            "view": {
+                "id": "7bb37ebf-598c-48e0-a005-c13a2ef29ee3",
+                "isActive": true
+            },
+            "edit": {
+                "id": "b4029be7-1d09-4fab-a0dd-a492c631b6ca",
+                "isActive": true
+            },
+            "add": {
+                "id": "c2696fb4-4a0e-4281-800a-98f00c7e44a5",
+                "isActive": true
+            },
+            "delete": {
+                "id": "d7454a51-5978-47c7-b410-fadac2f9b93a",
+                "isActive": true
+            }
+        }
+    ]
+}

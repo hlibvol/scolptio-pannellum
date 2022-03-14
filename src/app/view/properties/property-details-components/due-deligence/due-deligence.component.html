@@ -1,0 +1,262 @@
+<div class="property-single" style="margin-top: 10px; margin-left: 5px; width: 800px;">
+    <div class="property-info-w">
+
+      <div class="property-info-main" style="padding-top: 10px; padding-bottom: 10px;">
+       <!--start due deligence-->
+       <div class="property-section">
+        <div class="property-section-header">Due Deligence<div class="filter-toggle"><i
+              class="os-icon-minus os-icon"></i></div>
+        </div>
+        <div class="property-section-body" style="padding-top: 10px;">
+          <div class="element-box" style="padding-top: 0px;">
+              <div class="form-desc"><i class="os-icon os-icon-alert-circle mr-2"></i>Use this section to complete
+                due deligency on this property. All fields used here are default fields and can
+                be edited to match your needs. You can edit or add new fields by clicking <a href="#">here</a>.
+              </div>
+              <div class="form-group">
+                <label for=""> Market Value</label>
+                <input class="form-control" placeholder="Enter value" type="text" [(ngModel)]="property.totalAssessedValue" (input)="onChangeData($event.target.value)" [ngClass]="{'input-error':  marketInput.touched && marketInput.errors?.required}" #marketInput="ngModel" required>
+              </div>
+              <div *ngIf="marketInput.invalid && (marketInput.dirty || marketInput.touched)">
+                <small class="form-text text-danger" *ngIf="marketInput.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+              <div class="form-group">
+                <label for=""> Property Dimensions/Shape</label>
+                <input class="form-control" placeholder="Enter dimensions" type="text" [(ngModel)]="property.propertyDimension" (input)="onChangeData($event.target.value)" [ngClass]="{'input-error':  demensionInput.touched && demensionInput.errors?.required}" #demensionInput="ngModel" required>
+              </div>
+              <div *ngIf="demensionInput.invalid && (demensionInput.dirty || demensionInput.touched)">
+                <small class="form-text text-danger" *ngIf="demensionInput.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+              <div class="form-group">
+                <label for=""> HOA Restrictions</label>
+                <input class="form-control" placeholder="Enter restrictions" type="text" [(ngModel)]="property.hoaRestriction" (input)="onChangeData($event.target.value)" [ngClass]="{'input-error':  hoaInput.touched && hoaInput.errors?.required}" #hoaInput="ngModel" required>
+              </div>
+              <div *ngIf="hoaInput.invalid && (hoaInput.dirty || hoaInput.touched)">
+                <small class="form-text text-danger" *ngIf="hoaInput.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+              <div class="form-group">
+                <label for=""> Zoning/Development Restrictions</label>
+                <input class="form-control" placeholder="Enter restrictions" type="text" [(ngModel)]="property.zoningRestriction" (input)="onChangeData($event.target.value)" [ngClass]="{'input-error':  zoningDevInput.touched && zoningDevInput.errors?.required}" #zoningDevInput="ngModel" required>
+              </div>
+              <div *ngIf="zoningDevInput.invalid && (zoningDevInput.dirty || zoningDevInput.touched)">
+                <small class="form-text text-danger" *ngIf="zoningDevInput.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Access Type</label>
+                        <select class="form-control" [(ngModel)]="property.accessType" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  accessTypeInput.touched && accessTypeInput.errors?.required}" #accessTypeInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Dirt road">Dirt road</option>
+                          <option value="Non-existent">Non-existent</option>
+                          <option value="Road">Road</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                      <div *ngIf="accessTypeInput.invalid && (accessTypeInput.dirty || accessTypeInput.touched)">
+                        <small class="form-text text-danger" *ngIf="accessTypeInput.errors?.required">
+                          This field is required.
+                        </small>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for=""> Visual Access</label>
+                      <select class="form-control" [(ngModel)]="property.visualAccess" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  visualAccessInput.touched && visualAccessInput.errors?.required}" #visualAccessInput="ngModel" required>
+                        <option [value]="undefined">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Not sure">Not sure</option>
+                      </select>
+                    <div *ngIf="visualAccessInput.invalid && (visualAccessInput.dirty || visualAccessInput.touched)">
+                      <small class="form-text text-danger" *ngIf="visualAccessInput.errors?.required">
+                        This field is required.
+                      </small>
+                    </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Topography</label>
+                        <select class="form-control" [(ngModel)]="property.topography" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  topographyInput.touched && topographyInput.errors?.required}" #topographyInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Flat">Flat</option>
+                          <option value="Sloped">Sloped</option>
+                          <option value="Rolling">Rolling</option>
+                        </select>
+                        <div *ngIf="topographyInput.invalid && (topographyInput.dirty || topographyInput.touched)">
+                          <small class="form-text text-danger" *ngIf="topographyInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Power Available</label>
+                        <select class="form-control" [(ngModel)]="property.powerAvailable" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  powerAvailableInput.touched && powerAvailableInput.errors?.required}" #powerAvailableInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                        <div *ngIf="powerAvailableInput.invalid && (powerAvailableInput.dirty || powerAvailableInput.touched)">
+                          <small class="form-text text-danger" *ngIf="powerAvailableInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="">Gas Available</label>
+                        <select class="form-control" [(ngModel)]="property.gasAvailable" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  gasAvailableInput.touched && gasAvailableInput.errors?.required}" #gasAvailableInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                        <div *ngIf="gasAvailableInput.invalid && (gasAvailableInput.dirty || gasAvailableInput.touched)">
+                          <small class="form-text text-danger" *ngIf="gasAvailableInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>  
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Pert Test</label>
+                        <select class="form-control" [(ngModel)]="property.pertTest" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  pertInput.touched && pertInput.errors?.required}" #pertInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                        <div *ngIf="pertInput.invalid && (pertInput.dirty || pertInput.touched)">
+                          <small class="form-text text-danger" *ngIf="pertInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>          
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Flood Zone</label>
+                        <select class="form-control" [(ngModel)]="property.floodZone" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  floodInput.touched && floodInput.errors?.required}" #floodInput="ngModel" required> 
+                          <option [value]="undefined">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                        <div *ngIf="floodInput.invalid && (floodInput.dirty || floodInput.touched)">
+                          <small class="form-text text-danger" *ngIf="floodInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Survey</label>
+                        <select class="form-control" [(ngModel)]="property.survey" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  surveyInput.touched && surveyInput.errors?.required}" #surveyInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Not sure">Not sure</option>
+                        </select>
+                        <div *ngIf="surveyInput.invalid && (surveyInput.dirty || surveyInput.touched)">
+                          <small class="form-text text-danger" *ngIf="surveyInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for=""> Zoning</label>
+                        <select class="form-control" [(ngModel)]="property.zoning" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  zoningInput.touched && zoningInput.errors?.required}" #zoningInput="ngModel" required>
+                          <option [value]="undefined">Select</option>
+                          <option value="RA (Residential)">RA (Residential)</option>
+                          <option value="Commercial">Commercial</option>
+                          <option value="Agricultural">Agricultural</option>
+                          <option value="Industrial">Industrial</option>
+                          <option value="Rural">Rural</option>
+                          <option value="Combination">Combination</option>
+                          <option value="Historic">Historic</option>
+                          <option value="Aesthetic">Aesthetic</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <div *ngIf="zoningInput.invalid && (zoningInput.dirty || zoningInput.touched)">
+                          <small class="form-text text-danger" *ngIf="zoningInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>           
+                  </div>
+                  <div class="row">
+                    <!-- <div class="col-sm-4">
+                      <div class="form-group"><label for=""> Pert Test</label><select class="form-control">
+                        <option>Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Not sure</option>
+                      </select></div>
+                    </div> -->
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label for=""> Utilities</label>
+                        <select class="form-control select2" multiple="true" [(ngModel)]="property.utilities" name="utilities-add" id="utilities-add" (change)="onChangeData($event.target.value)" [ngClass]="{'input-error':  utilInput.touched && utilInput.errors?.required}" #utilInput="ngModel" required>
+                          <option value="City electric">
+                            City electric
+                          </option>
+                          <option value="Sewer">
+                            Sewer
+                          </option>
+                          <option value="Sewer needed">
+                            Sewer needed
+                          </option>
+                          <option value="Electric needed">
+                            Electric needed
+                          </option>
+                          <option value="Sewer and electric needed">
+                            Sewer and electric needed
+                          </option>
+                          <option value="Not sure">
+                            Not sure
+                          </option>
+                        </select>
+                        <div *ngIf="utilInput.invalid && (utilInput.dirty || utilInput.touched)">
+                          <small class="form-text text-danger" *ngIf="utilInput.errors?.required">
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>                 
+                    </div>   
+                 
+                  </div>
+              <div class="form-buttons-w">
+                <button class="btn btn-primary" (click)="save()" id="submitBtn" [disabled]="isDisabled"> Save Changes</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!--end due deligence-->
+
+        
+      </div>
+
+    </div>
+
+  </div>

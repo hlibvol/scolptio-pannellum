@@ -1,0 +1,3 @@
+<ul>
+  <li *ngFor="let crumb of breadcumbs" class="breadcrumb-item"><a [routerLink]="[crumb.url]">{{ crumb.pathname }}</a></li>
+</ul>

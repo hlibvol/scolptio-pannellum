@@ -1,0 +1,103 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading__icon {
+  background-color: #fef8e7;
+  padding: 0.45rem 0.6rem;
+}
+
+.heading__icon svg {
+  color: #947005;
+}
+
+.heading__icon__primary {
+  background-color: #e6f2ff !important;
+}
+
+.bg-cal-title {
+  background-color: #e6f2ff !important;
+  color: #0063cc;
+}
+
+.heading__icon__primary svg {
+  color: #0063cc;
+}
+
+.btn__theme {
+  padding: 0.55rem 1rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-box-shadow: 0px 0px 21px -16px rgba(51, 51, 51, 1);
+  -moz-box-shadow: 0px 0px 21px -16px rgba(51, 51, 51, 1);
+  box-shadow: 0px 0px 21px -16px rgba(51, 51, 51, 1);
+}
+
+.btn__theme__active {
+  background-color: #047bf8 !important;
+  color: #fff;
+  border-color: #0d6efd !important;
+  -webkit-box-shadow: 0px 0px 41px -16px rgba(4, 123, 248, 1);
+  -moz-box-shadow: 0px 0px 41px -16px rgba(4, 123, 248, 1);
+  box-shadow: 0px 0px 41px -16px rgba(4, 123, 248, 1);
+}
+
+.line__separate {
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* calendar */
+.evenly {
+  justify-content: space-evenly;
+}
+
+.prev-month svg {
+  color: #adb5bd;
+}
+
+.next-month svg {
+  color: #adb5bd;
+}
+
+/* found active day inside styles css */
+
+/* custom modal */
+.modal {
+  width: 35% !important;
+  padding: 0 !important;
+  left: auto;
+  right: 0 !important;
+}
+
+.modal-dialog {
+  height: 100%;
+  margin: 0 !important;
+}
+
+.modal-content {
+  height: 100%;
+  border-radius: 0 !important;
+}
+
+.custom-control {
+  padding-left: 1.75rem !important;
+}
+
+.custom-control-label::before {
+  left: -1.5rem !important;
+}
+
+.custom-control-label::after {
+  left: -1.5rem !important;
+}
+
+/* custom modal */
+
+/* calendar */

@@ -1,0 +1,262 @@
+<!-- listing -->
+<div class="px-3 listing">
+  <div class="pt-3 px-3"> 
+    <!-- ads -->
+    <div class="rounded-xl mb-3 get__app" style="margin-top: 15px;">
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-sm-4 col-sm-5 col-sm-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="../../../../assets/banner_img/2.svg" class="get__app__img">
+          </div>
+        </div>
+        <!-- col -->
+        <!-- col -->
+        <div class="col-md-4 col-sm-5 col-sm-4 text-center-md">
+          <div class="py-4">
+            <h5 class="text-purple font-weight-bolder mb-1">Manage your listings in one place</h5>
+            <p class="text-primary-dark mb-1">
+              All property leads with a status of "Marketing" are automatically pulled into this list and assigned a
+              "draft" status. Set status to "Publish" to show property on your Sales Site.
+            </p>
+            <button class="btn btn-sm btn-outline-purple rounded-pill">Learn more</button>
+          </div>
+        </div>
+        <!-- col -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- ads -->
+    <!-- head section -->
+    <div class="p-3 bg-white border-primary-light rounded-xl-top">
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="m-0">Listings</h6>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-sm btn-orange" data-toggle="modal" data-target="#createListing">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+            <div class="pl-1">New Listing</div>
+          </button>
+        </div>
+      </div>
+      <!-- title -->
+      <!-- advance filter section -->
+      <div class="row advance-filter">
+        <div class="col-md-12 col-lg-12 col-xl-9 order-md-2 order-lg-2 order-xl-1">
+          <!-- flex -->
+          <div class="row no-gutters d-flex align-items-center">
+            <div class="col-md-12 col-lg-7 col-xl-6 d-flex mb-1">
+              <!-- search -->
+              <div class="mx-3 w-100">
+                <div class="input-group border rounded-xl">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text btn-auto border-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
+                    </span>
+                  </div>
+                  <input type="search" id="filterSearch" class="form-control border-0"
+                    placeholder="Search address" (input)="onSearchList($event.target.value)" [(ngModel)]="searchKey">
+                </div>
+              </div>
+              <!-- search -->
+            </div>
+            <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1">
+              <!-- advance filter -->
+              <div class="dropdown ml-3 border rounded-xl">
+                <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                  data-toggle="dropdown">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-funnel" viewBox="0 0 16 16">
+                    <path
+                      d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                  </svg>
+                </button>
+                <div class="dropdown-menu" style="min-width: 14rem;">
+                  <!-- card -->
+                  <div>
+                    <div class="px-3 py-2">
+                      Filter Property
+                      <!-- Toggle Button -->
+                      <a class="close" href="#" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-x" viewBox="0 0 16 16">
+                          <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                      </a>
+                      <!-- End Toggle Button -->
+                    </div>
+
+                    <div class="p-3">
+                        <!-- Row -->
+                        <div class="d-flex flex-column">
+                          <div class="mb-2">
+                            <div class="small mb-1" style="padding-top: 5px;">Access Type<select class="form-control"
+                              style="padding-top: 6px; margin-top: 5px;" [(ngModel)]="searchAccessType" (change)="onChange($event.target.value)">
+                              <option value="">Select</option>
+                              <option value="Dirt road">Dirt road</option>
+                              <option value="Non-existent">Non-existent</option>
+                              <option value="Road">Road</option>
+                              <option value="Not sure">Not sure</option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <!-- End Row -->
+                        <a class="btn btn-block btn-primary mt-4" (click)="actionFilter()">Apply</a>
+                    </div>
+                  </div>
+                  <!-- card -->
+                </div>
+              </div>
+              <!-- advance filter -->
+            </div>
+            <div *ngIf="visibleFilter">
+            <a class="btn" (click)="clearFilter()">Clear Filter</a>
+          </div>
+          </div>
+          <!-- flex -->
+        </div>
+        <div class="col-md-12 col-lg-12 col-xl-3 d-flex justify-content-end order-md-1 order-lg-1 order-xl-2 mb-1">
+        </div>
+      </div>
+    </div>
+    <!-- advance filter section -->
+    <!-- head section -->
+    <!-- table -->
+    <table class="table px-3">
+      <thead class="thead bg-white">
+        <tr>
+          <th width="300">Property Address</th>
+          <th width="200">County</th>
+          <th width="100">Parcel Size</th>
+          <th width="150">Pricing</th>
+          <th width="150">Utilities</th>
+          <th width="150" class="text-center">Active Campaigns</th>
+          <th width="100">Status</th>
+          <th class="text-right pr-3">Action</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let list of lists;">
+          <td data-label="Property Address">
+            <div class="d-flex flex-column text-left">
+              <span class="text-dark">{{list.address}}</span>
+              <small> APN: {{list.apn}}</small>
+            </div>
+          </td>
+          <td data-label="County">
+            <div class="d-flex flex-column">
+              <span class="text-dark">{{list.country}}</span>
+            </div>
+          </td>
+          <td data-label="Parchelsize">
+            <div class="d-flex flex-column">
+              <span class="text-dark">{{list.parcelSize}}</span>
+            </div>
+          </td>
+          <td data-label="Property Address">
+            <div class="d-flex flex-column">
+              <span class="text-dark"><small>Market Price: {{list.marketValue}}</small></span>
+              <small class="text-dark">Listing Price: {{list.listingPrice}}</small>
+            </div>
+          </td>
+          <td data-label="Comps" style="height: 20px;">
+            <div class="d-flex flex-column">
+              <div *ngFor="let util of list.utilities;  let i = index">
+                <span class="comps" style="height: 20px;">
+                  <div class="badge mb-1 mt-1"
+                    [ngClass]="{'badge-primary': i === 0, 'badge-purple': i === 1, 'badge-danger': i === 2}">
+                    {{util}}
+                  </div>
+                </span>
+              </div>
+            </div>
+          </td>
+          <td data-label="Campaign Status">
+            <span>
+              <button class="btn btn-sm btn-primary" data-container="body" data-content="Kingsville county campaign"
+                data-placement="top" data-toggle="popover" title="" type="button" data-original-title="Active Campaigns"
+                aria-describedby="popover525718">1</button>
+            </span>
+          </td>
+          <td data-label="Property Status">
+            <span>
+              Draft
+            </span>
+          </td>
+          <td data-label="Action">
+            <div class="dropdown">
+              <button type="button" class="btn btn-light btn-auto" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editListing"
+                  (click)="onSelectItem(list)">Edit</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteListing"
+                  (click)="onSelectItem(list)">Delete</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="openModal(listingimg,list.id)">Image Upload</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="!isLoading && lists && lists.length < 1">
+          <td style="text-align: center !important;" colspan="12"><strong>No records found</strong>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <!-- table -->
+    <!-- pagination -->
+    <app-pagination [pageNumber]="pageNumber" [total]="total" [pageSize]="pageSize"
+    (pageChangeEvent)="onPaginationChange($event)"></app-pagination>
+    <!-- pagination -->
+  </div>
+</div>
+<!-- listing -->
+
+<!-- createListing modal -->
+<div class="modal fade modal-right" id="createListing" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <app-listings-add [organizationId]="this.currentUser.OrgId" (addSuccessEvent)="getList()"></app-listings-add>
+  </div>
+</div>
+
+<!-- editListing modal -->
+<div class="modal fade modal-right" id="editListing" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <app-listings-edit [organizationId]="this.currentUser.OrgId" [selectedList]="selectedList"
+      (updateSuccessEvent)="getList()">
+    </app-listings-edit>
+  </div>
+</div>
+<!-- deleteListing modal -->
+<div class="modal fade modal-right" id="deleteListing" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <app-listings-delete [selectedList]="selectedList" (deleteSuccessEvent)="getList()"></app-listings-delete>
+</div>
+
+<ng-template #listingimg>
+  <app-listing-image [template]="modalRef" [listingId]="listingId">
+
+  </app-listing-image>
+</ng-template>

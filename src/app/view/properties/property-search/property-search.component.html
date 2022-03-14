@@ -1,0 +1,778 @@
+<!-- property search -->
+<!-- .row -->
+<div class="row no-gutters">
+  <!-- col -->
+  <div class="col-md-4 col-lg-3 col-xl-4" style="padding-right: 0;">
+    <!-- filter -->
+    <div class="rentals-list-w">
+      <div class="filter-side">
+        <div class="filters-header">
+          <h4>
+            Advance Search
+          </h4>
+          <div class="reset-filters">
+            <i class="os-icon-close os-icon"></i><span>Reset Filters</span>
+          </div>
+        </div>
+        <div class="filter-w">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Property Type
+          </h6>
+          <div class="filter-body" style="padding-bottom: 20px;">
+            <div class="toggled-buttons">
+              <a class="btn btn-toggled on" href="#">Land</a>
+              <a class="btn btn-toggled off" href="#">Houses</a>
+              <a class="btn btn-toggled off" href="#">Show All</a>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-10" style="padding-left: 20px;">
+              <input type="text" name="name" id="name" class="form-control" placeholder="Search city, state, or county">
+            </div>
+            <button class="mr-2 mb-2 btn btn-sm btn-outline-primary" style="height: 37px;" type="button"><i
+                class="os-icon os-icon-search2"></i></button>
+          </div>
+        </div>
+        <div class="filter-w">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Land Characteristics
+          </h6>
+          <div class="filter-body">
+            <div>
+              <span class="irs irs--flat js-irs-0">
+                <span class="irs">
+                  <span class="irs-line" tabindex="0"></span>
+
+                  <span class="irs-max" style="visibility: hidden;">$1 000 000</span>
+                  <span class="irs-from" style="visibility: visible; left: 18.1699%;">$250 000</span><span
+                    class="irs-to" style="visibility: visible; left: 70.4199%;">$800 000</span><span class="irs-single"
+                    style="visibility: hidden; left: 35.3476%;">$250 000 — $800 000</span></span><span
+                  class="irs-grid"></span><span class="irs-bar" style="left: 26.25%; width: 52.25%;"></span><span
+                  class="irs-shadow shadow-from" style="display: none;"></span><span class="irs-shadow shadow-to"
+                  style="display: none;"></span><span class="irs-handle from type_last"
+                  style="left: 23.75%;"><i></i><i></i><i></i></span><span class="irs-handle to"
+                  style="left: 76%;"><i></i><i></i><i></i></span>Acreage</span>
+              <input class="ion-range-slider irs-hidden-input" type="text" tabindex="-1" readonly="">
+            </div>
+            <div class="my-4">
+              <span class="irs irs--flat js-irs-0">
+                <span class="irs">
+                  <span class="irs-line" tabindex="0"></span>
+                  <span class="irs-max" style="visibility: hidden;">$1 000 000</span>
+                  <span class="irs-from" style="visibility: visible; left: 18.1699%;">$250 000</span><span
+                    class="irs-to" style="visibility: visible; left: 70.4199%;">$800 000</span><span class="irs-single"
+                    style="visibility: hidden; left: 35.3476%;">$250 000 — $800 000</span></span><span
+                  class="irs-grid"></span><span class="irs-bar" style="left: 26.25%; width: 52.25%;"></span><span
+                  class="irs-shadow shadow-from" style="display: none;"></span><span class="irs-shadow shadow-to"
+                  style="display: none;"></span><span class="irs-handle from type_last"
+                  style="left: 23.75%;"><i></i><i></i><i></i></span><span class="irs-handle to"
+                  style="left: 76%;"><i></i><i></i><i></i></span>Market Value</span>
+
+              <input class="ion-range-slider irs-hidden-input" type="text" tabindex="-1" readonly="">
+            </div>
+            <div>
+              <span class="irs irs--flat js-irs-0">
+                <span class="irs">
+                  <span class="irs-line" tabindex="0"></span>
+                  <span class="irs-max" style="visibility: hidden;">$1 000 000</span>
+                  <span class="irs-from" style="visibility: visible; left: 18.1699%;">$250 000</span><span
+                    class="irs-to" style="visibility: visible; left: 70.4199%;">$800 000</span><span class="irs-single"
+                    style="visibility: hidden; left: 35.3476%;">$250 000 — $800 000</span></span><span
+                  class="irs-grid"></span><span class="irs-bar" style="left: 26.25%; width: 52.25%;"></span><span
+                  class="irs-shadow shadow-from" style="display: none;"></span><span class="irs-shadow shadow-to"
+                  style="display: none;"></span><span class="irs-handle from type_last"
+                  style="left: 23.75%;"><i></i><i></i><i></i></span><span class="irs-handle to"
+                  style="left: 76%;"><i></i><i></i><i></i></span>Purchase Price</span>
+              <input class="ion-range-slider irs-hidden-input" type="text" tabindex="-1" readonly="">
+            </div>
+          </div>
+        </div>
+        <div class="filter-w collapsed">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Land Use
+          </h6>
+          <div class="filter-body">
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="select-all">
+              <label class="custom-control-label" for="select-all">Select All</label>
+            </div>
+            <div class="toggled-buttons solid">
+              <div class="row small land-use">
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Agricultural">
+                    <label class="custom-control-label" for="Agricultural">Agricultural</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Agricultural-Land">
+                    <label class="custom-control-label" for="Agricultural-Land">Agricultural Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Agricultural-Plant">
+                    <label class="custom-control-label" for="Agricultural-Plant">Agricultural Plant</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Animal-Farm">
+                    <label class="custom-control-label" for="Animal-Farm">Animal Farm</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Avocado-Grova">
+                    <label class="custom-control-label" for="Avocado-Grova">Avocado Grova</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Barren-Land">
+                    <label class="custom-control-label" for="Barren-Land">Barren-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Citrus-Grove">
+                    <label class="custom-control-label" for="Citrus-Grove">Citrus-Grove</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Commercial-Acreage">
+                    <label class="custom-control-label" for="Commercial-Acreage">Commercial-Acreage</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Commercial-Lot">
+                    <label class="custom-control-label" for="Commercial-Lot">Commercial-Lot</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Common-Land">
+                    <label class="custom-control-label" for="Common-Land">Common-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Dairy-Farm">
+                    <label class="custom-control-label" for="Dairy-Farm">Dairy-Farm</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Desert">
+                    <label class="custom-control-label" for="Desert">Desert</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Fallow-Land">
+                    <label class="custom-control-label" for="Fallow-Land">Fallow-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Farma">
+                    <label class="custom-control-label" for="Farma">Farma</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Fish-and-Seed">
+                    <label class="custom-control-label" for="Fish-and-Seed">Fish-and-Seed</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Fisheries">
+                    <label class="custom-control-label" for="Fisheries">Fisheries</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Forest">
+                    <label class="custom-control-label" for="Forest">Forest</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Greenbelt">
+                    <label class="custom-control-label" for="Greenbelt">Greenbelt</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Livestock">
+                    <label class="custom-control-label" for="Livestock">Livestock</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Marshland">
+                    <label class="custom-control-label" for="Marshland">Marshland</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Mobile-Home-Lot">
+                    <label class="custom-control-label" for="Mobile-Home-Lot">Mobile-Home-Lot</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Mountainius-Land">
+                    <label class="custom-control-label" for="Mountainius-Land">Mountainius-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Multi-Family-Lot">
+                    <label class="custom-control-label" for="Multi-Family-Lot">Multi-Family-Lot</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Native-American-Property">
+                    <label class="custom-control-label" for="Native-American-Property">Native-American-Property</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Natural-Resources">
+                    <label class="custom-control-label" for="Natural-Resources">Natural-Resources</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Nursery/Horticulture">
+                    <label class="custom-control-label" for="Nursery/Horticulture">Nursery/Horticulture</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Open-Space">
+                    <label class="custom-control-label" for="Open-Space">Open-Space</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Orchard">
+                    <label class="custom-control-label" for="Orchard">Orchard</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Pasture">
+                    <label class="custom-control-label" for="Pasture">Pasture</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Poultry-Ranch">
+                    <label class="custom-control-label" for="Poultry-Ranch">Poultry-Ranch</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Ranch">
+                    <label class="custom-control-label" for="Ranch">Ranch</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Real-Property">
+                    <label class="custom-control-label" for="Real-Property">Real-Property</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Recreational-Acreage">
+                    <label class="custom-control-label" for="Recreational-Acreage">Recreational-Acreage</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Residential-Lot">
+                    <label class="custom-control-label" for="Residential-Lot">Residential-Lot</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Rural-Homestite">
+                    <label class="custom-control-label" for="Rural-Homestite">Rural-Homestite</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Stockyard">
+                    <label class="custom-control-label" for="Stockyard">Stockyard</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Truck-Crops">
+                    <label class="custom-control-label" for="Truck-Crops">Truck-Crops</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Vacant-Land">
+                    <label class="custom-control-label" for="Vacant-Land">Vacant-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Vacant-Lmtd">
+                    <label class="custom-control-label" for="Vacant-Lmtd">Vacant-Lmtd</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Vacant-Mobile-Home">
+                    <label class="custom-control-label" for="Vacant-Mobile-Home">Vacant-Mobile-Home</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Vineyard">
+                    <label class="custom-control-label" for="Vineyard">Vineyard</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Waste-Land">
+                    <label class="custom-control-label" for="Waste-Land">Waste-Land</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Wildlife-Refuge">
+                    <label class="custom-control-label" for="Wildlife-Refuge">Wildlife-Refuge</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Winery">
+                    <label class="custom-control-label" for="Winery">Winery</label>
+                  </div>
+                </div>
+                <!-- col end -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-w collapsed">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Owner Features
+          </h6>
+          <div class="filter-body">
+            <div class="row small owner-feature">
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Corporate Owned</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Do Not Mail</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Owner Name</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>In State Owner</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>In County Owner</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Owner Occupied</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Mailling Zip Code</option>
+                  </select>
+                </div>
+              </div>
+              <!-- col end -->
+            </div>
+          </div>
+        </div>
+        <div class="filter-w collapsed">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Assessor Tax Filters
+          </h6>
+          <div class="filter-body">
+            <div class="row small assessor-filter">
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Assessed Improvment</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Assessed Value</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Market Improvment Value</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Delinquency</option>
+                  </select>
+                </div>
+              </div>
+              <!-- col end -->
+            </div>
+          </div>
+        </div>
+        <div class="filter-w collapsed">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Situs Information Filters
+          </h6>
+          <div class="filter-body">
+            <div class="row small assessor-filter">
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Census <i class="fas fa-traffic-light-stop    "></i></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Zoning</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Cities</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Zip Code</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Living Area (Sq Ft)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>HOA</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>APN Range</option>
+                  </select>
+                </div>
+              </div>
+              <!-- col end -->
+            </div>
+          </div>
+        </div>
+        <div class="filter-w collapsed">
+          <div class="filter-toggle">
+            <i class="os-icon-minus os-icon"></i>
+          </div>
+          <h6 class="filter-header">
+            Sale Information Filters
+          </h6>
+          <div class="filter-body">
+            <div class="row small assessor-filter">
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Last Sale Date</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <select class="form-control" name="" id="">
+                    <option>Last Sale Price</option>
+                  </select>
+                </div>
+              </div>
+              <!-- col end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- filter -->
+  </div>
+  <!-- col -->
+  <!-- col -->
+  <div class="col-md-8 col-lg-9 col-xl-8 bg-white">
+    <!-- padding -->
+    <div class="px-3">
+      <!-- flex -->
+      <div class="d-flex align-items-center justify-content-between py-3">
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="text-primary"
+              viewBox="0 0 16 16">
+              <path
+                d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
+              <path
+                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+              <path
+                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+            </svg>
+            <div class="d-flex flex-column ml-2">
+              <span class="font-weight-bold h5 mb-0">Analysis Results</span>
+              <p class="mb-0 text-muted small">172,3694 Total DataTree Owner records</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="rounded-lg btn btn-danger mr-3">
+            For sale and sold comps
+          </button>
+          <button type="button" class="rounded-lg btn btn-purple" data-toggle="modal" data-target="#completeModal">
+            Continue
+          </button>
+        </div>
+      </div>
+      <!-- flex -->
+      <!-- status -->
+      <div class="border rounded-xl">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-6 border-right">
+            <div class="p-3">
+              <div class="font-weight-bold">Total Records</div>
+              <div class="font-weight-bold text-muted">147,325</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3">
+              <div class="font-weight-bold">Total Cost</div>
+              <div class="font-weight-bold text-muted">$1,325</div>
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- status -->
+      <!-- filter -->
+      <div class="d-flex align-items-center mt-3 justify-content-between">
+        <div class="d-flex align-items-center">
+          <div class="custom-control custom-checkbox form-control" style="width: auto;">
+            <input type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label" for="customCheck1">Select All</label>
+          </div>
+          <div class="d-flex align-items-center ml-4">
+            <span>Sort By</span>
+            <div class="pl-2">
+              <select name="" class="form-control">
+                <option value="">Rank</option>
+                <option value="">All</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="rounded-lg btn btn-purple">
+            Export
+          </button>
+        </div>
+      </div>
+      <!-- filter -->
+      <!-- table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Export?</th>
+            <th>Rank</th>
+            <th>Count</th>
+            <th>Total Comps</th>
+            <th>Market Ratio</th>
+            <th>County</th>
+            <th>State</th>
+            <th>Acreege</th>
+            <th>Offer Price</th>
+            <th>Market Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1"></label>
+              </div>
+            </td>
+            <td>1</td>
+            <td>39</td>
+            <td>28</td>
+            <td>35.25%</td>
+            <td>Clarke</td>
+            <td>Alabama</td>
+            <td>30.0 - 39.99</td>
+            <td>$756.25</td>
+            <td>$3,024.15</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1"></label>
+              </div>
+            </td>
+            <td>2</td>
+            <td>39</td>
+            <td>28</td>
+            <td>35.25%</td>
+            <td>Clarke</td>
+            <td>Alabama</td>
+            <td>30.0 - 39.99</td>
+            <td>$756.25</td>
+            <td>$3,024.15</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1"></label>
+              </div>
+            </td>
+            <td>3</td>
+            <td>39</td>
+            <td>28</td>
+            <td>35.25%</td>
+            <td>Clarke</td>
+            <td>Alabama</td>
+            <td>30.0 - 39.99</td>
+            <td>$756.25</td>
+            <td>$3,024.15</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- table -->
+    </div>
+    <!-- padding -->
+  </div>
+  <!-- col -->
+</div>
+<!-- .row -->
+<!-- property search -->
+
+<!-- Modal -->
+<div class="modal modal-right fade" id="completeModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Scrub Filters</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Blank-owners">
+          <label class="custom-control-label" for="Blank-owners">Blank owners</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Blank-Addresses">
+          <label class="custom-control-label" for="Blank-Addresses">Blank Addresses</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Duplicate-Owners">
+          <label class="custom-control-label" for="Duplicate-Owners">Duplicate Owners</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Non-U.S-Addresses">
+          <label class="custom-control-label" for="Non-U.S-Addresses">Non U.S Addresses</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Same-Zip-Code-as-Parcel">
+          <label class="custom-control-label" for="Same-Zip-Code-as-Parcel">Same Zip Code as Parcel</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Last-Sale-Price-Value">
+          <label class="custom-control-label" for="Last-Sale-Price-Value">Last Sale Price Value</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input" id="Custom-PRYCD-Owner-Filter">
+          <label class="custom-control-label" for="Custom-PRYCD-Owner-Filter">Custom PRYCD Owner Filter</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Export</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,473 @@
+<!-- campaign list -->
+<div class="px-3 campaign">
+  <div class="pt-3 px-3">
+    <!-- ads -->
+    <div class="rounded-xl mb-3 get__app">
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-md-4 col-lg-5 col-xl-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="../../../../assets/banner_img/12.svg" class="get__app__img">
+          </div>
+        </div>
+        <!-- col -->
+        <!-- col -->
+        <div class="col-md-4 col-lg-5 col-xl-4 text-center-md">
+          <div class="py-4">
+            <h5 class="text-purple font-weight-bolder mb-1">Manage Documents for All Properties</h5>
+            <p class="text-primary-dark mb-1">
+              View and manage all your properties related documents in one place.
+            </p>
+            <button class="btn btn-outline-purple rounded-pill">Learn more</button>
+          </div>
+        </div>
+        <!-- col -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- ads -->
+
+    <!-- title -->
+    <div class="p-3 bg-white border-primary-light rounded-xl-top">
+      <!-- title -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="m-0">Documents</h6>
+        <div class="d-flex align-items-center">
+          <div class="btn-group mr-1 mb-1">
+            <button aria-expanded="false" aria-haspopup="true"
+            class="btn btn-sm btn-orange dropdown-toggle" data-toggle="dropdown" id="dropdownNewDocButton"
+            type="button">Action</button>
+          <div aria-labelledby="dropdownNewDocButton" class="dropdown-menu">
+            <a class="dropdown-item" href="#">Upload document</a>
+            <a class="dropdown-item" href="#">Generate Offer</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        </div>
+      </div>
+      <!-- title -->
+      <!-- advance filter section -->
+        <div class="row advance-filter">
+          <div class="col-md-12 col-lg-12 col-xl-9 order-md-2 order-lg-2 order-xl-1">
+            <!-- flex -->
+            <div class="row no-gutters d-flex align-items-center">
+              <div class="col-md-12 col-lg-7 col-xl-6 d-flex mb-1">
+                <!-- search -->
+                <div class="mx-3 w-100">
+                  <div class="input-group border rounded-xl">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text btn-auto border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-search">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </span>
+                    </div>
+                      <input (input)="onSearchChange($event.target.value)" type="text" name="searchlist" id="searchlist"
+                        class="form-control" placeholder="Search name"  (keydown.enter)="search($event)" [(ngModel)]="searchKey" />
+                  </div>
+                </div>
+                <!-- search -->
+              </div>
+              <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1">
+                <!-- advance filter -->
+                <div class="dropdown ml-3 border rounded-xl">
+                  <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                    data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-funnel" viewBox="0 0 16 16">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" style="min-width: 14rem;">
+                    <!-- card -->
+                    <div>
+                      <div class="px-3 py-2">
+                        Filter Property
+                        <!-- Toggle Button -->
+                        <a class="close" href="#" data-toggle="dropdown">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x" viewBox="0 0 16 16">
+                            <path
+                              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                          </svg>
+                        </a>
+                        <!-- End Toggle Button -->
+                      </div>
+
+                      <div class="p-3">
+                          <!-- Row -->
+                          <div class="d-flex flex-column">
+                            <div class="mb-2">
+                              <div class="small mb-1">Zip Code</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search zip code" [(ngModel)]="searchZipCode" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                            <div class="mb-2">
+                              <div class="small mb-1">Owner</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search owner" [(ngModel)]="searchOwner" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                            <div>
+                              <div class="small mb-1">City</div>
+                              <!-- search -->
+                              <input type="search" id="filterSearch" class="form-control" placeholder="Search city" [(ngModel)]="searchCity" (input)="onChange($event.target.value)">
+                              <!-- End search -->
+                            </div>
+                          </div>
+                          <!-- End Row -->
+                          <a class="btn btn-block btn-primary mt-4" href="#">Apply</a>
+                      </div>
+                    </div>
+                    <!-- card -->
+                  </div>
+                </div>
+                <div *ngIf="visibleFilter">
+                <a class="btn" (click)="clearFilter()">Clear Filter</a>
+              </div>
+                <!-- advance filter -->
+              </div>
+            </div>
+            <!-- flex -->
+          </div>
+          <div class="col-md-12 col-lg-12 col-xl-3 d-flex justify-content-end order-md-1 order-lg-1 order-xl-2 mb-1">
+          </div>
+        </div>
+    </div>
+    <!-- filter section -->
+    <!-- data table -->
+    <table class="table bg-white rounded-xl">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Document Name</th>
+          <th>Type</th>
+          <th>Related Property</th>
+          <th>Created By</th>
+          <th>Date Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of documentData;let i= index">
+          <td data-label="#">{{i + 1}}</td>
+          <td data-label="Campaign name">
+            {{item.name}}
+          </td>
+          <td data-label="Created by">
+            {{getDocumentType(item.documentType)}}
+          </td>
+          <td data-label="# of properties">
+            {{item.propertyData?.propertyAddress}}
+          </td>
+          <td data-label="# of properties">
+            {{item.createdBy}}
+          </td>
+          <td data-label="# of properties">
+            {{item.addedDate | date:'short'}}
+          </td>
+
+          <td data-label="Action" class="text-right">
+            <div class="dropdown">
+              <button type="button" class="btn btn-light btn-auto" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="updateDocument(item)">Edit</a>
+                <a class="dropdown-item" (click)="deleteDocument(item.id)">Delete</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <!-- data table -->
+    <!-- pagination -->
+    <app-pagination [pageNumber]="pageNumber" [total]="total" [pageSize]="pageSize"
+      (pageChangeEvent)="onPaginationChange($event)"></app-pagination>
+    <!-- pagination -->
+  </div>
+</div>
+<!-- campaign list -->
+
+
+<!-- createCampaign Modal -->
+<div class="modal fade modal-right" id="createCampaign" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">
+          <div class="d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus"
+              viewBox="0 0 16 16">
+              <path
+                d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
+              <path
+                d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z" />
+            </svg>
+            <div class="pl-1">Add New Campaign</div>
+          </div>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Campaign name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Campaign name">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="">Created by</label>
+            <input type="text" name="cname" id="cname" class="form-control" placeholder="Created by name">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="">Import properties</label>
+            <!-- row -->
+            <div class="row">
+              <!-- col -->
+              <div class="col-md-12">
+                <div class="bg-light rounded-xl p-3">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <input type="text" name="search" id="search" class="form-control w-100" placeholder="Search">
+                    <button class="btn btn-orange d-flex align-items-center px-3 ml-2" type="button" id="sortAsc">
+                      <svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-sort-alpha-down" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11A.5.5 0 0 1 4 2z" />
+                        <path fill-rule="evenodd"
+                          d="M6.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L4 12.793l1.646-1.647a.5.5 0 0 1 .708 0z" />
+                        <path
+                          d="M9.664 7l.418-1.371h1.781L12.281 7h1.121l-1.78-5.332h-1.235L8.597 7h1.067zM11 2.687l.652 2.157h-1.351l.652-2.157H11zM9.027 14h3.934v-.867h-2.645v-.055l2.567-3.719v-.691H9.098v.867h2.507v.055l-2.578 3.719V14z" />
+                      </svg>
+                    </button>
+                    <button class="btn btn-orange d-flex align-items-center px-3 ml-2" type="button" id="sortDesc">
+                      <svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-sort-alpha-up-alt"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 14a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-1 0v11a.5.5 0 0 0 .5.5z" />
+                        <path fill-rule="evenodd"
+                          d="M6.354 4.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L4 3.207l1.646 1.647a.5.5 0 0 0 .708 0z" />
+                        <path
+                          d="M9.027 7h3.934v-.867h-2.645v-.055l2.567-3.719v-.691H9.098v.867h2.507v.055L9.027 6.309V7zm.637 7l.418-1.371h1.781L12.281 14h1.121l-1.78-5.332h-1.235L8.597 14h1.067zM11 9.687l.652 2.157h-1.351l.652-2.156H11z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <!-- list -->
+                  <ul class="list-group mt-2 rounded-xl" id="list">
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Rabbani</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Mostafa</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Rabbani</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Mostafa</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Rabbani</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Mostafa</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Rabbani</label>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Golam Mostafa</label>
+                      </div>
+                    </li>
+                  </ul>
+                  <!-- list -->
+                </div>
+              </div>
+              <!-- col -->
+            </div>
+            <!-- row -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-orange d-flex align-items-center px-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+          </svg>
+          <div class="pl-1">Submit</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editCampaign Modal -->
+<div class="modal fade modal-right" id="editDocument" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">
+          <div class="d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+              <path fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+            </svg>
+            <div class="pl-1">Edit Property Document</div>
+          </div>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="editDocumentData" class="form-row">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="campaignName">Name</label>
+              <input [(ngModel)]="editDocumentData.name" type="text" name="campaignName" id="name" class="form-control"
+                placeholder="Document name" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="editcreatedBy">Created by</label>
+              <input readonly="true" [(ngModel)]="editDocumentData.createdBy" type="text" name="editcreatedBy"
+                id="editcreatedBy" class="form-control" placeholder="Created by name" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="editStatus">Type</label>
+              <select [(ngModel)]="editDocumentData.documentType"
+                class="form-control">
+                <option value="">Select</option>
+                <option value="1">Offer Letters</option>
+                <option value="2">Neighbor Letters</option>
+                <option value="3">Blind Offer Envelopes</option>
+                <option value="4">BLIND OFFERS (2nd offer)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label for="">Import properties</label>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="bg-light rounded-xl p-3">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <input (input)="onPropertySearchChange($event.target.value)" type="text" name="searchEdit"
+                      id="searchEdit" class="form-control w-100" placeholder="Search" />
+                    <button (click)="sorting('asc')" class="btn btn-orange d-flex align-items-center px-3 ml-2"
+                      type="button" id="sortAsc">
+                      <svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-sort-alpha-down" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11A.5.5 0 0 1 4 2z" />
+                        <path fill-rule="evenodd"
+                          d="M6.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L4 12.793l1.646-1.647a.5.5 0 0 1 .708 0z" />
+                        <path
+                          d="M9.664 7l.418-1.371h1.781L12.281 7h1.121l-1.78-5.332h-1.235L8.597 7h1.067zM11 2.687l.652 2.157h-1.351l.652-2.157H11zM9.027 14h3.934v-.867h-2.645v-.055l2.567-3.719v-.691H9.098v.867h2.507v.055l-2.578 3.719V14z" />
+                      </svg>
+                    </button>
+                    <button (click)="sorting('desc')" class="btn btn-orange d-flex align-items-center px-3 ml-2"
+                      type="button" id="sortDesc">
+                      <svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-sort-alpha-up-alt"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 14a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-1 0v11a.5.5 0 0 0 .5.5z" />
+                        <path fill-rule="evenodd"
+                          d="M6.354 4.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L4 3.207l1.646 1.647a.5.5 0 0 0 .708 0z" />
+                        <path
+                          d="M9.027 7h3.934v-.867h-2.645v-.055l2.567-3.719v-.691H9.098v.867h2.507v.055L9.027 6.309V7zm.637 7l.418-1.371h1.781L12.281 14h1.121l-1.78-5.332h-1.235L8.597 14h1.067zM11 9.687l.652 2.157h-1.351l.652-2.156H11z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <ul class="list-group mt-2 rounded-xl" id="list">
+                    <li class="list-group-item" *ngFor="let property of properties;let i = index">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="propertyEdit{{i}}"
+                          name="propertyEdit{{i}}" [checked]="property.selected" />
+                        <label class="custom-control-label" for="propertyEdit{{i}}"
+                          (click)="getSelected(property)">{{property?.propertyAddress}}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="saveDocument()" type="button" class="btn btn-orange d-flex align-items-center px-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+          </svg>
+          <div class="pl-1">Submit</div>
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</div>
