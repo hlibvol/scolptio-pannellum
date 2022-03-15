@@ -17,47 +17,47 @@ const routes: Routes = [
         path: "dashboard",
         loadChildren: () => import('./view/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      {
-        path: "properties",
-        loadChildren: () => import('./view/properties/properties.module').then(m => m.PropertiesModule)
-      },
+      // {
+      //   path: "properties",
+      //   loadChildren: () => import('./view/properties/properties.module').then(m => m.PropertiesModule)
+      // },
       // {
       //   path: 'properties/property-details',
       //   loadChildren: () => import('./view/properties/property-detail/property-details.module').then(m => m.PropertyDetailsModule)
       // },
-      {
-        path: 'properties/settings',
-        loadChildren: () => import('./view/properties/properties-settings/properties-settings.module').then(m => m.PropertiesSettingsModule)
-      },
+      // {
+      //   path: 'properties/settings',
+      //   loadChildren: () => import('./view/properties/properties-settings/properties-settings.module').then(m => m.PropertiesSettingsModule)
+      // },
       // {
       //   path: 'properties/property-list',
       //   loadChildren: () => import('./view/properties/property-list/property-list.module').then(m => m.PropertyListModule)
       // },
-      {
-        path: 'properties/property-search',
-        loadChildren: () => import('./view/properties/property-search/property-serach.module').then(m => m.PropertySerachModule)
-      },
-      {
-        path: "sales-website",
-        loadChildren: () => import('./view/sales-website/sales-website.module').then(m => m.SalesWebsiteModule)
-      },
+      // {
+      //   path: 'properties/property-search',
+      //   loadChildren: () => import('./view/properties/property-search/property-serach.module').then(m => m.PropertySerachModule)
+      // },
+      // {
+      //   path: "sales-website",
+      //   loadChildren: () => import('./view/sales-website/sales-website.module').then(m => m.SalesWebsiteModule)
+      // },
 
-      {
-        path: "mailhouse",
-        loadChildren: () => import('./view/mailhouse/mailhouse.module').then(m => m.MailhouseModule)
-      },
-      {
-        path: "listing",
-        loadChildren: () => import('./view/listings/listing.module').then(m => m.ListingModule)
-      },
+      // {
+      //   path: "mailhouse",
+      //   loadChildren: () => import('./view/mailhouse/mailhouse.module').then(m => m.MailhouseModule)
+      // },
+      // {
+      //   path: "listing",
+      //   loadChildren: () => import('./view/listings/listing.module').then(m => m.ListingModule)
+      // },
       {
         path: "account-settings",
         loadChildren: () => import('./view/account-settings/account-settings.module').then(m => m.AccountSettingsModule)
       },
-      {
-        path: "campaigns",
-        loadChildren: () => import('./view/campaign/campaign.module').then(m => m.CampaignModule)
-      },
+      // {
+      //   path: "campaigns",
+      //   loadChildren: () => import('./view/campaign/campaign.module').then(m => m.CampaignModule)
+      // },
       {
         path: "income",
         loadChildren: () => import('./view/income/income.module').then(m => m.IncomeModule)
@@ -78,18 +78,18 @@ const routes: Routes = [
         path: "users",
         loadChildren: () => import('./view/users/user.module').then(m => m.UserModule)
       },
-      {
-        path: "documents",
-        loadChildren: () => import('./view/contract-docs/contract-docs.module').then(m => m.ContractDocsModule)
-      },
-      {
-        path: "document-templates",
-        loadChildren: () => import('./view/contract-docs/document-template.module').then(m => m.DocumentTemplateModule)
-      },
-      {
-        path: "leads-website",
-        loadChildren: () => import('./view/leads-website/leads-website.module').then(m => m.LeadsWebsiteModule)
-      },
+      // {
+      //   path: "documents",
+      //   loadChildren: () => import('./view/contract-docs/contract-docs.module').then(m => m.ContractDocsModule)
+      // },
+      // {
+      //   path: "document-templates",
+      //   loadChildren: () => import('./view/contract-docs/document-template.module').then(m => m.DocumentTemplateModule)
+      // },
+      // {
+      //   path: "leads-website",
+      //   loadChildren: () => import('./view/leads-website/leads-website.module').then(m => m.LeadsWebsiteModule)
+      // },
       {
         path: "organizations",
         loadChildren: () => import('./view/organizations/organization.module').then(m => m.OrganizationsModule)
