@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "landhub": {
+    "scolptio-crm": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -89,18 +89,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "landhub:build"
+            "browserTarget": "scolptio-crm:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "landhub:build:production"
+              "browserTarget": "scolptio-crm:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "landhub:build"
+            "browserTarget": "scolptio-crm:build"
           }
         },
         "test": {
@@ -134,18 +134,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "landhub:serve"
+            "devServerTarget": "scolptio-crm:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "landhub:serve:production"
+              "devServerTarget": "scolptio-crm:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "landhub",
+  "defaultProject": "scolptio-crm",
   "cli": {
     "analytics": false
   }
