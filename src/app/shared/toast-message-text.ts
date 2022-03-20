@@ -68,6 +68,7 @@ export const income_add = {
     add_income_error: 'Something went wrong, could not add income.'
 }
 
+
 export const income_edit = {
     edit_income_success: success_icon + 'Income updated successfully.',
     edit_income_error: 'Something went wrong, could not update income.'
@@ -76,6 +77,22 @@ export const income_edit = {
 export const income_delete = {
     delete_income_success: success_icon + 'Income deleted successfully.',
     delete_income_error: 'Something went wrong, could not delete income.'
+}
+
+export const clients_add = {
+    add_client_success: success_icon + 'Client added successfully.',
+    add_client_error: 'Something went wrong, could not add client.'
+}
+
+export const client_edit = {
+    edit_client_success: success_icon + 'Client updated successfully.',
+    edit_client_error: 'Something went wrong, could not update client.'
+}
+
+
+export const client_delete = {
+    delete_client_success: success_icon + 'Client deleted successfully.',
+    delete_client_error: 'Something went wrong, could not delete client.'
 }
 
 export const expenditure_add = {

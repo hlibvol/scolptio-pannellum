@@ -1,1 +1,89 @@
-<p>client-edit works!</p>
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title">
+            <div class="d-flex align-items-center">
+                <div class="icon icon-control_point"></div>
+                <div class="pl-1">Edit client</div>
+            </div>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(clientForm)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="clientForm"
+        (ngSubmit)="onSubmit(clientForm.value,clientForm.valid)" *ngIf="clientForm">
+        <div class="modal-body">
+            <input type="hidden" formControlName="Id">
+            <div class="form-row col-12">
+                <div class="form-group col-12"><label for="">First Name</label>
+                    <input formControlName="FirstName" class="form-control" placeholder="Enter first name" type="text">
+                    <div class="text-danger" *ngIf="HasValidationError('FirstName','required')">
+                        <ng-container>First Name is required</ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-12"><label for="">Last Name</label>
+                    <input formControlName="LastName" class="form-control" placeholder="Enter last name" type="text">
+                    <div class="text-danger" *ngIf="HasValidationError('LastName','required')">
+                        <ng-container>Last Name is required</ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-12"><label for="">Email</label>
+                    <input formControlName="Email" class="form-control" placeholder="Enter email" type="text">
+                    <div class="text-danger" *ngIf="HasValidationError('Email','required')">
+                        <ng-container>Email is required</ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-12"><label for="">Phone Number</label>
+                    <input formControlName="PhoneNumber" class="form-control" placeholder="Enter phone number"
+                        type="text">
+                    <div class="text-danger" *ngIf="HasValidationError('PhoneNumber','required')">
+                        <ng-container>PhoneNumber is required</ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-12"><label for="">Company Name</label>
+                    <input formControlName="CompanyName" class="form-control" placeholder="Enter company name" type="text">
+                </div>
+                <div class="form-group col-12"><label for="">Company address</label>
+                    <input id="txtEditSearchPlaces" formControlName="CompanyAdress" class="form-control" placeholder="Enter address" type="text">
+                </div>
+                <div class="col-sm-12">
+                    <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1"
+                        [fileSize]="300000" #cropper></app-ngx-copper>
+                    <div class="form-group col-12"><label for="">Website Logo</label>
+                        <div class="d-flex align-items-center">
+                            <img [src]="websiteLogoImage" alt="avatar" class="shadow avatar"
+                                style="max-width: 75px; max-height: 72px;">
+                            <button *ngIf="!clientForm.get('Logo').value" type="button"
+                                class="form-control form-control-sm border-0 ml-3" id="my-file"
+                                (click)="cropper.inputImage.nativeElement.click()"
+                                style="width: auto; background-color: transparent;">Change</button>
+                            <button *ngIf="clientForm.get('Logo').value" (click)="removeWebsiteLogo()" type="button"
+                                class="form-control form-control-sm border-0 ml-3"
+                                style="width: auto; background-color: transparent;">Remove</button>
+                        </div>
+                        <input type="file" formControlName="Logo" id="userUpload" placeholder=""
+                            class="form-control d-none">
+                    </div>
+                </div>
+                <div class="form-group col-12"><label for="">Website</label>
+                    <input formControlName="Website" class="form-control" placeholder="Enter Website" type="text">
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-orange d-flex align-items-center px-3"
+                [ngStyle]="{'cursor': ( isSaving) ? 'not-allowed' : 'pointer' }" [disabled]="isSaving">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                </svg>
+                <div class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                        style="font-size:18px"></i></div>
+            </button>
+        </div>
+    </form>
+</div>
