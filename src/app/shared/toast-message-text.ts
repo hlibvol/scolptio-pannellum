@@ -95,6 +95,22 @@ export const client_delete = {
     delete_client_error: 'Something went wrong, could not delete client.'
 }
 
+export const project_add = {
+    add_project_success: success_icon + 'project added successfully.',
+    add_project_error: 'Something went wrong, could not add project.'
+}
+
+export const project_edit = {
+    edit_project_success: success_icon + 'project updated successfully.',
+    edit_project_error: 'Something went wrong, could not update project.'
+}
+
+
+export const project_delete = {
+    delete_project_success: success_icon + 'project deleted successfully.',
+    delete_project_error: 'Something went wrong, could not delete project.'
+}
+
 export const expenditure_add = {
     add_expenditure_success: success_icon + 'Expenditure added successfully.',
     add_expenditure_error: 'Something went wrong, could not add expenditure.'
