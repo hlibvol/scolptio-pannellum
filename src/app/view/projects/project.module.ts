@@ -26,7 +26,7 @@ import { ProjectOverviewComponent } from './project-overview/project-overview.co
     SharedModule,
     RouterModule.forChild([
       { path: '', component: ProjectListComponent },
-      { path: '/projects/project-overview', component: ProjectOverviewComponent }
+      { path: 'project-overview', component: ProjectOverviewComponent }
     ])
   ]
 })
