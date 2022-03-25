@@ -6,8 +6,8 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { RouterModule } from '@angular/router';
 import { ProjectDeleteComponent } from './project-delete/project-delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 
 
 
@@ -16,7 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ProjectAddComponent,
     ProjectEditComponent,
     ProjectListComponent,
-    ProjectDeleteComponent
+    ProjectDeleteComponent,
+    ProjectOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: ProjectListComponent }
+      { path: '', component: ProjectListComponent },
+      { path: 'project-overview', component: ProjectOverviewComponent }
     ])
   ]
 })

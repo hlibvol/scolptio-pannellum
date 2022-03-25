@@ -39,3 +39,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - Project Board (sub menu under projects. View design - https://mannatthemes.com/dastone/default/apps-project-board.html#)
 -- Following columns in the board - Planning, CAD drawing, 3D Modeling, Final Rendering, Completed
 - Invoices (sub menu under projects. Integrated to Strip api for creating and sending invoices)
+
+## File upload requirements for project details page
+1. During file upload, every new file must be overwrittend and prepended with {project_name}_{a number}.png. For example, wetherel_1.png
+2. When a client is created, create new folder in s3 with client name 
+3. When a project is created, create new folder in s3 with project name under that client.
