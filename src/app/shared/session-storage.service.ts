@@ -23,6 +23,7 @@ export class AppSessionStorageService {
     }
 
     storeCurrentUser(value: any) {
+        debugger;
         sessionStorage.setItem(this.current_user, value);
     }
 

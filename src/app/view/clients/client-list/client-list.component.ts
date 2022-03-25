@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
+import { AppUser } from '../../auth-register/auth-register.model';
 import { Income } from '../../income/income.model';
 import { ClientsService } from '../clients.service';
 
@@ -26,9 +28,13 @@ export class ClientListComponent implements OnInit {
   searchStatus = '';
   visibleFilter = false;
   filterObj: any;
+  currentUser:AppUser;
   constructor(private _clientService: ClientsService,
+    private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
-    
+      if (this.appSessionStorageService.getCurrentUser() != null) {
+        this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      }
   }
 
   ngOnInit(): void {
@@ -37,7 +43,7 @@ export class ClientListComponent implements OnInit {
 
   GetAllclient() {
     this.isLoading = true;
-    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj).subscribe((data: any[]) => {
+    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.ClientId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.clientList = this.finalClientList = data;
     }, (error) => {

@@ -34,6 +34,8 @@ export class AppUser {
         public profileImageUrl?: string,
         public given_name?: string,
         public occupation?: string,
-        public profileImage?: string) {
+        public profileImage?: string,
+        public ClientId?:string
+        ) {
     }
 }

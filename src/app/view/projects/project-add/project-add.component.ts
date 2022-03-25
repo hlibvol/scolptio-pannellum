@@ -4,7 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
+import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { project_add } from 'src/app/shared/toast-message-text';
+import { AppUser } from '../../auth-register/auth-register.model';
 import { ClientsService } from '../../clients/clients.service';
 import { ProjectService } from '../project.service';
 declare var $: any;
@@ -33,9 +35,13 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   clientList:any=[];
   startDate:any;
   deadLine:any;
-  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  currentUser:AppUser;
+  constructor( private appSessionStorageService: AppSessionStorageService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _projectService: ProjectService,private _clientService : ClientsService) {
     this.incomeType = null;
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+    }
   }
 
   ngOnInit(): void {
@@ -51,7 +57,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   }
 
   getClients(){
-    this._clientService.GetAllClients(-1,1,null,null).subscribe(res=>{
+    this._clientService.GetAllClients(-1,1,null,null,this.currentUser.ClientId).subscribe(res=>{
       this.clientList = res;
     })
   }

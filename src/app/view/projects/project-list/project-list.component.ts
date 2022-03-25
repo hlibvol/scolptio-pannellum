@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
+import { AppUser } from '../../auth-register/auth-register.model';
 import { ProjectService } from '../project.service';
 
 @Component({
@@ -24,9 +26,13 @@ export class ProjectListComponent implements OnInit {
   searchStatus = '';
   visibleFilter = false;
   filterObj: any;
+  currentUser: AppUser;
   constructor(private _projectService: ProjectService,
+    private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
-    
+      if (this.appSessionStorageService.getCurrentUser() != null) {
+        this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      }
   }
 
   ngOnInit(): void {
@@ -35,7 +41,7 @@ export class ProjectListComponent implements OnInit {
 
   GetAllproject() {
     this.isLoading = true;
-    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj).subscribe((data: any[]) => {
+    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.ClientId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.projectList = this.finalprojectList = data;
     }, (error) => {
