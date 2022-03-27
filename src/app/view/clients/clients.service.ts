@@ -12,13 +12,13 @@ export class ClientsService extends BaseService {
     super(_injector);
   }
 
-  public GetAllClients = (pageNumber: number, pageSize: number, searchKey: string, filterObj: any,clientId:any): any => {
+  public GetAllClients = (pageNumber: number, pageSize: number, searchKey: string, filterObj: any,teamId:any): any => {
     const requestBody = {
       searchKey: searchKey,
       pageNumber: pageNumber,
       pageSize: pageSize,
       filterObj: filterObj,
-      clientId: clientId
+      teamId: teamId
     };
     return this.post('Clients/GetAll', requestBody).pipe(
       catchError(this.handleError)

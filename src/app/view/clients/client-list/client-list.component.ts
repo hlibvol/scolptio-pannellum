@@ -43,7 +43,7 @@ export class ClientListComponent implements OnInit {
 
   GetAllclient() {
     this.isLoading = true;
-    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.ClientId).subscribe((data: any[]) => {
+    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.TeamId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.clientList = this.finalClientList = data;
     }, (error) => {

@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ClientDeleteComponent } from './client-delete/client-delete.component';
+import { TeamService } from '../team/team.service';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -29,6 +30,7 @@ const maskConfig: Partial<IConfig> = {
     RouterModule.forChild([
       {path:'',component:ClientListComponent}
     ])
-  ]
+  ],
+  providers:[TeamService]
 })
 export class ClientModule { }

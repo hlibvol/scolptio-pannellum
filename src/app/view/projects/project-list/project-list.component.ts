@@ -41,7 +41,7 @@ export class ProjectListComponent implements OnInit {
 
   GetAllproject() {
     this.isLoading = true;
-    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.ClientId).subscribe((data: any[]) => {
+    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.TeamId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.projectList = this.finalprojectList = data;
     }, (error) => {

@@ -12,13 +12,13 @@ export class ProjectService extends BaseService {
     super(_injector);
   }
 
-  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, filterObj: any,clientId:any): any => {
+  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, filterObj: any,teamId:any): any => {
     const requestBody = {
       searchKey: searchKey,
       pageNumber: pageNumber,
       pageSize: pageSize,
       filterObj: filterObj,
-      clientId : clientId
+      teamId : teamId
     };
     return this.post('Project/GetAll', requestBody).pipe(
       catchError(this.handleError)

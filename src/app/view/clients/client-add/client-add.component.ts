@@ -5,8 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
 import { S3File } from 'src/app/shared/shared.model';
-import { clients_add, income_add } from 'src/app/shared/toast-message-text';
+import { clients_add, common_error_message, income_add } from 'src/app/shared/toast-message-text';
 import { IncomeService } from '../../income/income.service';
+import { Team } from '../../team/team.model';
+import { TeamService } from '../../team/team.service';
 import { ClientsService } from '../clients.service';
 declare var $: any;
 declare const google;
@@ -30,7 +32,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   isSaving = false;
   websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
-  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  teamList: Team[];
+  constructor(private teamService: TeamService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _clientService: ClientsService) {
     this.incomeType = null;
   }
@@ -44,10 +47,24 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       CompanyName: [''],
       CompanyAdress: [''],
       Logo: [''],
-      Website: ['']
+      Website: [''],
+      TeamId : ['',Validators.compose([Validators.required])]
     });
+    this.GetAllTeam();
     this.loadAutoComplete();
   }
+
+  GetAllTeam() {
+    this.isLoading = true;
+    this.teamService.GetAllTeam(-1,-1,null,null).subscribe((data: any[]) => {
+      this.isLoading = false;
+      this.teamList =  data;
+    }, (error) => {
+      this.toastr.error(common_error_message);
+      this.isLoading = false;
+    })
+  }
+
 
   private loadScript(url) {
     return new Promise((resolve, reject) => {
