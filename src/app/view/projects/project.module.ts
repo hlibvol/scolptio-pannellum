@@ -8,6 +8,8 @@ import { ProjectDeleteComponent } from './project-delete/project-delete.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
+import { ImagesComponent } from './project-overview/images/images.component';
+import { DocumentsComponent } from './project-overview/documents/documents.component';
 
 
 
@@ -17,7 +19,9 @@ import { ProjectOverviewComponent } from './project-overview/project-overview.co
     ProjectEditComponent,
     ProjectListComponent,
     ProjectDeleteComponent,
-    ProjectOverviewComponent
+    ProjectOverviewComponent,
+    ImagesComponent,
+    DocumentsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,7 @@ import { ProjectOverviewComponent } from './project-overview/project-overview.co
     SharedModule,
     RouterModule.forChild([
       { path: '', component: ProjectListComponent },
-      { path: 'project-overview', component: ProjectOverviewComponent }
+      { path: 'project-overview/:id', component: ProjectOverviewComponent }
     ])
   ]
 })

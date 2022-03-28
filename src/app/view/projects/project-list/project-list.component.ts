@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
@@ -29,7 +30,8 @@ export class ProjectListComponent implements OnInit {
   currentUser: AppUser;
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) {
       if (this.appSessionStorageService.getCurrentUser() != null) {
         this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       }
@@ -111,5 +113,9 @@ export class ProjectListComponent implements OnInit {
 
   getLogo(logo){
     return logo + "?v="+ Math.random()
+  }
+
+  openProject(project){
+    this.router.navigate(['/projects/project-overview/' + project.id]);
   }
 }
