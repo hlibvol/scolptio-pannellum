@@ -22,6 +22,8 @@ export class ImagesComponent implements OnInit {
   projectId: string = '';
   @Input()
   documentType: string = '';
+  @Input()
+  header: string = '';
   imageList = [];
   items: GalleryItem[];
   isMultiSelect = false;

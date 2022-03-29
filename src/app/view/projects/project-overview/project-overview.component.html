@@ -53,17 +53,17 @@
       </div>
       <div class="todo-content">
         <!-- TO:DO: Consider router for this -->
-        <app-images [projectId]="id" documentType="HandSketchesAndDrawings" *ngIf="activeSection==='HandSketchesAndDrawings'"></app-images>
-        <app-documents [projectId]="id" documentType="CADDrawings" *ngIf="activeSection==='CADDrawings'"></app-documents>
-        <app-documents [projectId]="id" documentType="OtherReferences" *ngIf="activeSection==='OtherReferences'"></app-documents>
-        <app-images [projectId]="id" documentType="CurrentPhotos" *ngIf="activeSection==='CurrentPhotos'"></app-images>
-        <app-images [projectId]="id" documentType="ReferencePhotos" *ngIf="activeSection==='ReferencePhotos'"></app-images>
-        <app-images [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"></app-images>
-        <app-images [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"></app-images>
-        <app-images [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"></app-images>
-        <app-images [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"></app-images>
-        <app-images [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"></app-images>
-        <app-images [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'"></app-images>
+        <app-images [projectId]="id" documentType="HandSketchesAndDrawings" *ngIf="activeSection==='HandSketchesAndDrawings'" header="Hand Sketches and Drawings"></app-images>
+        <app-documents [projectId]="id" documentType="CADDrawings" *ngIf="activeSection==='CADDrawings'" header="CAD Drawings"></app-documents>
+        <app-documents [projectId]="id" documentType="OtherReferences" *ngIf="activeSection==='OtherReferences'" header="Other References"></app-documents>
+        <app-images [projectId]="id" documentType="CurrentPhotos" *ngIf="activeSection==='CurrentPhotos'" header="Current Photos"></app-images>
+        <app-images [projectId]="id" documentType="ReferencePhotos" *ngIf="activeSection==='ReferencePhotos'" header="Reference Photos"></app-images>
+        <app-images [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'" header="Reference Videos"></app-images>
+        <app-images [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'" header="Pre-rendered Photos"></app-images>
+        <app-images [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'" header="Rendered Photos"></app-images>
+        <app-images [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'" header="Videos / Animations"></app-images>
+        <app-images [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'" header="3D Model Viewer"></app-images>
+        <app-images [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'" header="AR Model Viewer"></app-images>
         <div aria-hidden="true" class="modal fade" id="taskModal" role="dialog" tabindex="-1">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

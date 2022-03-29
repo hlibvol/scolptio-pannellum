@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { common_error_message, s3_document } from 'src/app/shared/toast-message-text';
 import { S3BucketService } from '../../../../shared/s3-bucket.service';
-import { AppSessionStorageService } from '../../../../shared/session-storage.service';
 import { PropertyFile } from '../../../../shared/shared.model';
 import { FileUpload } from '../../../properties/properties.model';
 import { ProjectService } from '../../project.service';
@@ -19,6 +17,8 @@ export class DocumentsComponent implements OnInit {
   projectId:string = '';
   @Input()
   documentType: string = '';
+  @Input()
+  header: string = '';
   documents: PropertyFile[];
   isSaving = false;
 
