@@ -10,7 +10,7 @@ trigger:
 pool: Default
 
 variables:
-  - group: dev-ph-saas-ui
+  - group: scolptio-crm-ui
   - name: DOCKER_REPOSITORY
     value: $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(DOCKER_REPOSITORY_NAME)
   
