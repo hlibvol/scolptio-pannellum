@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
+import { AppUser } from '../../auth-register/auth-register.model';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 
@@ -26,9 +28,14 @@ export class UserListComponent implements OnInit {
   searchEmail = '';
   searchPhone = '';
   visibleFilter = false;
+  currentUser:AppUser;
   constructor(private userService: UserService,
+    private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
     this.selectedUser = new User();
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+    }
   }
 
   ngOnInit(): void {
@@ -49,7 +56,7 @@ export class UserListComponent implements OnInit {
 
   GetAll() {
     this.isLoading = true;
-    this.userService.GetUsersInformationByOrg(this.pageNumber, this.pageSize, this.searchKey, this.filterObj).subscribe((data: any[]) => {
+    this.userService.GetUsersInformationByOrg(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.TeamId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.userList = this.finaluserList = data;
     }, (error) => {

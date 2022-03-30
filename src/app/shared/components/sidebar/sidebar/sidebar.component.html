@@ -72,7 +72,7 @@
       <li class="sub-header">
         <span>BUYING CYCLE</span>
       </li>
-      <li class="selected">
+      <li *ngIf="!currentUser?.TeamId" class="selected">
         <a [routerLink]="['/dashboard']">
           <div class="icon-w">
             <div class="os-icon os-icon-layout"></div>
@@ -81,7 +81,7 @@
         </a>
 
       </li>
-      <li>
+      <li *ngIf="!currentUser?.TeamId" >
         <a [routerLink]="['/clients']">
           <div class="icon-w">
             <div class="os-icon os-icon-layout"></div>
@@ -119,7 +119,7 @@
       <li class="sub-header">
         <span>ADMINISTRATION</span>
       </li>
-      <li class=" has-sub-menu">
+      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
         <a>
           <div class="icon-w">
             <div class="os-icon os-icon-wallet-loaded"></div>
@@ -145,7 +145,7 @@
           </div>
         </div>
       </li>
-      <li class=" has-sub-menu">
+      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
         <a>
           <div class="icon-w">
             <div class="os-icon os-icon-hierarchy-structure-2"></div>
@@ -171,7 +171,7 @@
           </div>
         </div>
       </li>      
-      <li class=" has-sub-menu">
+      <li  class=" has-sub-menu">
         <a>
           <div class="icon-w">
             <div class="os-icon os-icon-users"></div>
@@ -191,7 +191,7 @@
           </div>
         </div>
       </li>
-      <li class="selected">
+      <li *ngIf="!currentUser?.TeamId"  class="selected">
         <a [routerLink]="['/organizations']">
           <div class="icon-w">
             <div class="os-icon os-icon-grid-squares2"></div>

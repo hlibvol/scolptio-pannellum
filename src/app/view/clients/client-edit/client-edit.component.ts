@@ -4,7 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
-import { client_edit } from 'src/app/shared/toast-message-text';
+import { client_edit, common_error_message } from 'src/app/shared/toast-message-text';
+import { Team } from '../../team/team.model';
+import { TeamService } from '../../team/team.service';
 import { ClientsService } from '../clients.service';
 declare var $: any;
 declare const google;
@@ -30,7 +32,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   isSaving = false;
   websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
-  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  teamList: Team[];
+  constructor(private teamService: TeamService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _clientService: ClientsService) {
     this.incomeType = null;
   }
@@ -45,8 +48,21 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       CompanyName: [''],
       CompanyAdress: [''],
       Logo: [''],
-      Website: ['']
+      Website: [''],
+      TeamId : ['',Validators.compose([Validators.required])]
     });
+    this.GetAllTeam();
+  }
+
+  GetAllTeam() {
+    this.isLoading = true;
+    this.teamService.GetAllTeam(-1,-1,null,null).subscribe((data: any[]) => {
+      this.isLoading = false;
+      this.teamList =  data;
+    }, (error) => {
+      this.toastr.error(common_error_message);
+      this.isLoading = false;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,6 +92,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
     //   .setValue(this.client.logo);
     (this.clientForm.controls.Website as FormControl)
       .setValue(this.client.website);
+    (this.clientForm.controls.TeamId as FormControl)
+      .setValue(this.client.teamId);
   }
 
   private loadScript(url) {

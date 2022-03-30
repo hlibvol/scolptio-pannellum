@@ -180,7 +180,7 @@
             <th width="300">Address</th>
             <th width="150">Role</th>
             <th width="100">Status</th>
-            <th class="text-right pr-3">Action</th>
+            <th *ngIf="!currentUser?.TeamId"  class="text-right pr-3">Action</th>
           </tr>
         </thead>
         <tbody class="bg-white">
@@ -217,13 +217,13 @@
                     *ngIf="user.roles && user.roles.length > 1">,&nbsp;+{{user.roles.length-1}} more</span></span>
               </div>
             </td>
-            <td class="nowrap"><span class="status-pill smaller "
+            <td [ngClass]="{'text-left':currentUser?.TeamId}" class="nowrap"><span class="status-pill smaller "
                 [ngClass]="{'green': user.status === 'Active', 'red': user.status !== 'Active'}">
               </span><span>{{user.status
                 != null ?
                 user.status : 'Inactive'}}</span>
             </td>
-            <td data-label="Action">
+            <td *ngIf="!currentUser?.TeamId"  data-label="Action">
               <div class="dropdown">
                 <button type="button" class="btn btn-light btn-auto" id="dropdownMenuButton" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">

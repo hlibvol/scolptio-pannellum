@@ -28,21 +28,6 @@
                       </small>
                   </div>
               </div>
-              <div class="form-group">
-                  <label for=""> Members&nbsp;&nbsp;</label><select class="form-control select2" multiple="true"
-                      name="members-edit" id="members-edit">
-                      <option *ngFor="let member of members" [value]="member.id">
-                          {{member.firstName + ' ' + member.lastName}}
-                      </option>
-                  </select>
-              </div>
-              <div class="col-sm-12">
-                  <div class="form-group"><label for=""> Assigned Role</label><select class="form-control"
-                          name="assigned-role" [(ngModel)]="selectedRole" [disabled]="isLoading">
-                          <option [value]="undefined">Select One</option>
-                          <option *ngFor="let userRole of userRoles" [value]="userRole.id">{{userRole.title}}</option>
-                      </select></div>
-              </div>
           </div>
       </div>
       <div class="modal-footer">
