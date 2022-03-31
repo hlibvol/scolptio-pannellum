@@ -23,7 +23,7 @@ export class UserService extends BaseService {
     pageSize: number,
     searchKey: string,
     filterObj: any,
-    teamId : string
+    teamId : string = null
   ): any => {
      
     const requestBody = {
