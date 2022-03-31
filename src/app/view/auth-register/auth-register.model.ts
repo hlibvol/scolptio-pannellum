@@ -35,7 +35,8 @@ export class AppUser {
         public given_name?: string,
         public occupation?: string,
         public profileImage?: string,
-        public ClientId?:string
+        public ClientId?:string,
+        public TeamId?:string,
         ) {
     }
 }

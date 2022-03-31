@@ -22,14 +22,16 @@ export class UserService extends BaseService {
     pageNumber: number,
     pageSize: number,
     searchKey: string,
-    filterObj: any
+    filterObj: any,
+    teamId : string
   ): any => {
      
     const requestBody = {
       searchKey: searchKey,
       pageNumber: pageNumber,
       pageSize: pageSize,
-      filterObj: filterObj
+      filterObj: filterObj,
+      teamId : teamId
     };
     return this.post('Account/GetUsersInformationByOrg', requestBody).pipe(
       catchError(this.handleError)

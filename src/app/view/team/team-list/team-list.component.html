@@ -146,8 +146,6 @@
         <thead>
           <tr>
             <th>Team name</th>
-            <th>Assigned Members</th>
-            <th>Role</th>
             <th>Date Created</th>
             <th>Created By</th>
             <th>ACTION</th>
@@ -159,25 +157,6 @@
               <div class="responsive-td">
                 <span class="pl-1">{{team.teamName}}</span>
               </div>
-            </td>
-            <td>
-              <div class="cell-image-list">
-                <div class="cell-img" *ngIf="team.users[2]" style="background-color: aliceblue;"
-                  [style.background-image]="'url(' + team.users[2].profileImage  + ')'"
-                  [title]="team.users[2]?.displayName"></div>
-                <div class="cell-img" *ngIf="team.users[1]" style="background-color: aliceblue;"
-                  [style.background-image]="'url(' + team.users[1].profileImage  + ')'"
-                  [title]="team.users[1]?.displayName"></div>
-                <div class="cell-img mr-1" *ngIf="team.users[0]" style="background-color: aliceblue;"
-                  [style.background-image]="'url(' + team.users[0].profileImage  + ')'"
-                  [title]="team.users[0]?.displayName"></div>
-                <div class="cell-img-more shadow" *ngIf="team.users && team.users.length > 3">+ {{team.users.length-3}}
-                  more
-                </div>
-              </div>
-            </td>
-            <td data-label="Role">
-              {{team.role}}
             </td>
             <td data-label="Created at">
               {{team.createdDate | date:'mediumDate'}}
