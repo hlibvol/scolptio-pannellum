@@ -8,7 +8,8 @@
       <a class="logo">
         <div class="logo-element"></div>
         <div class="logo-label">
-          Property Hatch
+          
+      Scolptio CRM
         </div>
       </a>
     </div>
@@ -80,105 +81,41 @@
         </a>
 
       </li>
+      <li>
+        <a [routerLink]="['/clients']">
+          <div class="icon-w">
+            <div class="os-icon os-icon-layout"></div>
+          </div>
+          <span>Clients</span>
+        </a>
 
+      </li>
       <li class=" has-sub-menu">
         <a>
           <div class="icon-w">
-            <div class="os-icon os-icon-map"></div>
+            <div class="os-icon os-icon-wallet-loaded"></div>
           </div>
-          <span>Property Leads</span>
+          <span>Projects</span>
         </a>
         <div class="sub-menu-w">
           <div class="sub-menu-header">
 
           </div>
           <div class="sub-menu-icon">
-            <i class="os-icon os-icon-map"></i>
+            <i class="os-icon os-icon-file-text"></i>
           </div>
           <div class="sub-menu-i">
             <ul class="sub-menu">
               <li>
-                <a [routerLink]="['/properties/property-list']">Property Records</a>
+                <a [routerLink]="['/projects']">Projects</a>
               </li>
               <li>
-                <a [routerLink]="['/properties/settings']">Settings</a>
+                <a [routerLink]="['/projectboard']">Project Board</a>
               </li>
             </ul>
           </div>
         </div>
       </li>
-      <li class="selected">
-        <a [routerLink]="['/campaigns']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-mail-01"></div>
-          </div>
-          <span>Campaigns</span>
-        </a>
-      </li>
-      <li class="selected">
-        <a [routerLink]="['/mailhouse']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-delivery-box-2"></div>
-          </div>
-          <span>Mail House</span>
-        </a>
-      </li>
-      <li class="has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-documents-17"></div>
-          </div>
-          <span>Documents</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
-
-          </div>
-          <div class="sub-menu-icon">
-            <i class="os-icon os-icon-documents-17"></i>
-          </div>
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/documents']">Document Records</a>
-              </li>
-              <li>
-                <a [routerLink]="['/document-templates']">Document Templates</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li class="selected">
-        <a [routerLink]="['/leads-website']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-globe"></div>
-          </div>
-          <span>Leads Website</span>
-        </a>
-      </li>
-
-
-      <li class="sub-header">
-        <span>SELLING CYCLE</span>
-      </li>
-      <li class="selected">
-        <a [routerLink]="['/listing']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-layers"></div>
-          </div>
-          <span>Listings</span>
-        </a>
-      </li>
-      <li class="selected">
-        <a [routerLink]="['/sales-website/list']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-globe"></div>
-          </div>
-          <span>Sales Website</span>
-        </a>
-      </li>
-
       <li class="sub-header">
         <span>ADMINISTRATION</span>
       </li>

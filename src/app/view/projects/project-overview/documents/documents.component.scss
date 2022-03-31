@@ -1,0 +1,20 @@
+.property-section{
+    .property-section-header{
+        height: 72px;
+        .filter-toggle{
+            position: relative;
+            top: 0px;
+            background: none;
+            margin-bottom: 2px;
+            background-color: rgba(0, 0, 0, 0.02);
+            padding: 0px;
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.02);
+            }
+        }
+    }
+    .property-section-body{
+        padding: 20px 0px;
+
+    }
+}

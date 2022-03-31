@@ -1,515 +1,118 @@
-<div class="content-i">
-  <div class="content-box">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="element-wrapper">
-          <div class="element-actions">
-            <form class="form-inline justify-content-sm-end">
-              <select (change)="filterChange($event.target.value,false)" class="form-control form-control-sm">
-                <option value="all">
-                  All
-                </option>
-                <option value="today">
-                  Today
-                </option>
-                <option value="week">
-                  Last Week
-                </option>
-                <option value="month">
-                  Last 30 Days
-                </option>
-              </select>
-            </form>
-          </div>
-          <h6 class="element-header">
-            Properties Overview
-          </h6>
-          <div class="element-content">
-            <div class="row">
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="propertiesloader"
-                  [ngClass]="!isPropertiesAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+<div class="content-w">
+  <div class="content-i">
+    <div class="content-box">
+      <div class="element-wrapper compact pt-4">
+        <div class="element-actions"><a class="btn btn-primary btn-sm" href="#"><i
+              class="os-icon os-icon-ui-22"></i><span>Add Project</span></a><a class="btn btn-success btn-sm"
+            href="#"><i class="os-icon os-icon-grid-10"></i><span>Add Client</span></a></div>
+        <h6 class="element-header">Project Overview</h6>
+        <div class="element-box-tp">
+          <div class="row">
+            <div class="col-lg-7 col-xxl-6">
+              <div class="element-content">
+                <div class="row">
+                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
+                      <div class="label">Total Projects</div>
+                      <div class="value">57</div>
+                      <div class="trending trending-up-basic"><span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
+                      </div>
+                    </a></div>
+                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
+                      <div class="label">In Progress</div>
+                      <div class="value">7</div>
+                      <div class="trending trending-down-basic"><span>12%</span><i
+                          class="os-icon os-icon-arrow-down"></i></div>
+                    </a></div>
+                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
+                      <div class="label">Completed</div>
+                      <div class="value">15</div>
+                      <div class="trending trending-down-basic"><span>9%</span><i
+                          class="os-icon os-icon-arrow-down"></i></div>
+                    </a></div>              
                 </div>
-                <a *ngIf="!propertiesloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Total Property Leads
-                  </div>
-                  <div class="value">
-                    {{propertiesCount}}
-                  </div>
-                  <div *ngIf="propertiesCountPercentage!=0" class="trending"
-                    [ngClass]="propertiesCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{propertiesCountPercentage | percent}}</span><i *ngIf="propertiesCountPercentage != 0"
-                      class="os-icon "
-                      [ngClass]="propertiesCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Properties Purchased
-                  </div>
-                  <div class="value">
-                    5700
-                  </div>
-                  <div class="trending trending-up-basic">
-                    <span></span><i class="os-icon os-icon-arrow-up2"></i>
-                  </div>
-                </a>
-              </div>
-
-              <div class="col-sm-4 col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Properties Sold
-                  </div>
-                  <div class="value">
-                    1
-                  </div>
-                  <div class="trending trending-down-basic">
-                    <span>9%</span><i class="os-icon os-icon-arrow-down"></i>
-                  </div>
-                </a>
               </div>
             </div>
-          </div>
-          <div class="element-content">
-            <div class="row">
-              <div class="col-sm-4 col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Under Purchase Contract
-                  </div>
-                  <div class="value">
-                    3
-                  </div>
-                  <div class="trending trending-up-basic">
-                    <span>1%</span><i class="os-icon os-icon-arrow-up2"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Under Sales Contract
-                  </div>
-                  <div class="value">
-                    0
-                  </div>
-                  <div class="trending trending-down-basic">
-                    <span>12%</span><i class="os-icon os-icon-arrow-down"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Average Hold Time
-                  </div>
-                  <div class="value">
-                    2 Days
-                  </div>
-                  <div class="trending trending-down-basic">
-                    <span>20%</span><i class="os-icon os-icon-arrow-down"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <h6 class="element-header">
-            Financial Overview
-          </h6>
-          <div class="element-content">
-            <div class="row">
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="incomeloader" [ngClass]="!isincomeAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!incomeloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Income
-                  </div>
-                  <div class="value">
-                    {{incomeCount | currency}}
-                  </div>
-                  <div *ngIf="incomeCountPercentage!=0" class="trending"
-                    [ngClass]="incomeCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{incomeCountPercentage | percent}}</span><i *ngIf="incomeCountPercentage != 0"
-                      class="os-icon " [ngClass]="incomeCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="expenditureloader"
-                  [ngClass]="!isexpenditureAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!expenditureloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Expenditure
-                  </div>
-                  <div class="value">
-                    {{expenditureCount | currency}}
-                  </div>
-                  <div *ngIf="expenditureCountPercentage!=0" class="trending"
-                    [ngClass]="expenditureCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{expenditureCountPercentage | percent}}</span><i *ngIf="expenditureCountPercentage != 0"
-                      class="os-icon "
-                      [ngClass]="expenditureCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="expenditureloader || incomeloader"
-                  [ngClass]="!isexpenditureAnimationFirstTimePgaeLoad && !isincomeAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!expenditureloader && !incomeloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Net Profits
-                  </div>
-                  <div class="value">
-                    {{netProfitInpercentage | percent : '1.2'}}
-                  </div>
-                  <div *ngIf="PreviousNetprofitInPercentage && PreviousNetprofitInPercentage!==0" class="trending"
-                    [ngClass]="{'trending-down-basic':netProfitCountIsLow==2 , 'trending-up-basic':netProfitCountIsLow==1}">
-                    <span>{{PreviousNetprofitInPercentage | percent : '1.2'}}</span>
-                    <i *ngIf="PreviousNetprofitInPercentage && PreviousNetprofitInPercentage!==0" class="os-icon "
-                      [ngClass]="{'os-icon-arrow-down':netProfitCountIsLow ==2, 'os-icon-arrow-up2':netProfitCountIsLow ==1} "></i>
-                  </div>
-                </a>
-              </div>
-              <div class="d-none d-xxxl-block col-xxxl-3">
-                <a class="element-box el-tablo" href="#">
-                  <div class="label">
-                    Under Sales Contract
-                  </div>
-                  <div class="value">
-                    2
-                  </div>
-                  <div class="trending trending-up-basic">
-                    <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-                  </div>
-                </a>
+            <div class="col-lg-5 col-xxl-6">
+              <div class="alert alert-warning borderless">
+                <h5 class="alert-heading">Refer Friends. Get Rewarded</h5>
+                <p>You can earn: 15,000 Membership Rewards points for each approved referral – up to 55,000 Membership
+                  Rewards points per calendar year.</p>
+                <div class="alert-btn"><a class="btn btn-white-gold" href="#"><i
+                      class="os-icon os-icon-ui-92"></i><span>Send Referral</span></a></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12 col-xxxl-9">
-        <div class="element-wrapper">
-          <h6 class="element-header">
-            Mailing & Campaign Overview
-          </h6>
-          <div class="element-content">
-            <div class="row">
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="totalCampaignloader"
-                  [ngClass]="!istotalCampaignAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!totalCampaignloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Total Campaigns
-                  </div>
-                  <div class="value">
-                    {{totalCampaignCount}}
-                  </div>
-                  <div *ngIf="totalCampaignCountPercentage!=0" class="trending"
-                    [ngClass]="totalCampaignCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{totalCampaignCountPercentage | percent}}</span><i *ngIf="totalCampaignCountPercentage != 0"
-                      class="os-icon "
-                      [ngClass]="totalCampaignCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="activeCampaignloader"
-                  [ngClass]="!isactiveCampaignAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!activeCampaignloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Active Campaigns
-                  </div>
-                  <div class="value">
-                    {{activeCampaignCount}}
-                  </div>
-                  <div *ngIf="activeCampaignCountPercentage!=0" class="trending"
-                    [ngClass]="activeCampaignCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{activeCampaignCountPercentage | percent}}</span><i *ngIf="activeCampaignCountPercentage != 0"
-                      class="os-icon "
-                      [ngClass]="activeCampaignCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-sm-4 col-xxxl-3">
-                <div *ngIf="completedCampaignloader"
-                  [ngClass]="!iscompletedCampaignAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                  class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-                  <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                </div>
-                <a *ngIf="!completedCampaignloader" class="no-transistion element-box el-tablo" href="#">
-                  <div class="label">
-                    Completed Campaigns
-                  </div>
-                  <div class="value">
-                    {{completedCampaignCount}}
-                  </div>
-                  <div *ngIf="completedCampaignCountPercentage!=0" class="trending"
-                    [ngClass]="completedCampaignCountIsLow ? 'trending-down-basic': 'trending-up-basic'">
-                    <span>{{completedCampaignCountPercentage | percent}}</span><i
-                      *ngIf="completedCampaignCountPercentage !=0" class="os-icon "
-                      [ngClass]="completedCampaignCountIsLow  ? 'os-icon-arrow-down': 'os-icon-arrow-up2'"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="element-box">
-            <div class="os-tabs-w">
-              <div class="os-tabs-controls">
-                <ul class="nav nav-tabs smaller">
-                  <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab_overview">Overview</a>
-                  </li>
-                </ul>
-                <ul class="nav nav-pills smaller d-none d-md-flex">
-                  <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#" (click)="filterChange('all')">All</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#" (click)="filterChange('week')">7 Days</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#" (click)="filterChange('biweekly')">14 Days</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#" (click)="filterChange('month')">Last Month</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#" (click)="filterChange('year')">Year to Date</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="tab-content">
-                <div class="tab-pane active" id="tab_overview">
-                  <div class="el-tablo bigger">
-                    <div class="label">
-                      Daily Mailings
-                    </div>
-                    <div class="value">
-                      {{totalOrderCount}}
-                    </div>
-                  </div>
-                  <div class="el-chart-w">
-                    <div class="chartjs-size-monitor">
-                      <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
-                      </div>
-                      <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
-                      </div>
-                    </div>
-                    <!-- <canvas height="139" id="lineChart" width="557" class="chartjs-render-monitor"
-                      style="display: block; width: 557px; height: 139px;"></canvas> -->
-                    <div *ngIf="orderloader" [ngClass]="!isorderAnimationFirstTimePgaeLoad ? 'no-transistion' : ''"
-                      class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center"
-                      style="box-shadow: none;">
-                      <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-                    </div>
-                    <canvas *ngIf="lineChartData?.length>0 && !orderloader" ngChartjs [datasets]="lineChartData"
-                      [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
-                      [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
+     
+      <div class="element-wrapper">
+        <h6 class="element-header">Recent Project Status</h6>
+        <div class="element-box-tp">
+          <div class="table-responsive">
+            <table class="table table-padded">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th class="text-center">Category</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
+                  <td><span>Today</span><span class="smaller lighter">1:52am</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span>Banana
+                      Shakes LLC</span></td>
+                  <td class="text-center"><a class="badge badge-success" href="">Shopping</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-success">+ 1,250 USD</span></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller red"></span><span>Declined</span></td>
+                  <td><span>Jan 19th</span><span class="smaller lighter">3:22pm</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company2.png" style="height: 25px;"><span>Stripe
+                      Payment Processing</span></td>
+                  <td class="text-center"><a class="badge badge-danger" href="">Cafe</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-success">+ 952.23 USD</span></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller yellow"></span><span>Pending</span></td>
+                  <td><span>Yesterday</span><span class="smaller lighter">7:45am</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company3.png" style="height: 25px;"><span>MailChimp
+                      Services</span></td>
+                  <td class="text-center"><a class="badge badge-warning" href="">Restaurants</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-danger">- 320 USD</span></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller yellow"></span><span>Pending</span></td>
+                  <td><span>Jan 23rd</span><span class="smaller lighter">2:12pm</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span>Starbucks
+                      Cafe</span></td>
+                  <td class="text-center"><a class="badge badge-primary" href="">Shopping</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-success">+ 17.99 USD</span></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
+                  <td><span>Jan 12th</span><span class="smaller lighter">9:51am</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company4.png" style="height: 25px;"><span>Ebay
+                      Marketplace</span></td>
+                  <td class="text-center"><a class="badge badge-danger" href="">Groceries</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-danger">- 244 USD</span></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><span class="status-pill smaller yellow"></span><span>Pending</span></td>
+                  <td><span>Jan 9th</span><span class="smaller lighter">12:45pm</span></td>
+                  <td class="cell-with-media"><img alt="" src="img/company2.png" style="height: 25px;"><span>Envato
+                      Templates Inc</span></td>
+                  <td class="text-center"><a class="badge badge-primary" href="">Business</a></td>
+                  <td class="text-right bolder nowrap"><span class="text-success">+ 340 USD</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <div class="d-none d-xxxl-block col-xxxl-3">
-        <div class="element-wrapper">
-          <h6 class="element-header">
-            Daily Mailings
-          </h6>
-          <div class="element-box less-padding">
-            <div class="el-chart-w">
-              <canvas height="0" id="donutChart1" width="0" class="chartjs-render-monitor"
-                style="display: block; width: 0px; height: 0px;"></canvas>
-              <div class="inside-donut-chart-label">
-                <strong>1,248</strong><span>Visitors</span>
-              </div>
-            </div>
-            <div class="el-legend condensed">
-              <div class="row">
-                <div class="col-auto col-xxxxl-6 ml-sm-auto mr-sm-auto">
-                  <div class="legend-value-w">
-                    <div class="legend-pin legend-pin-squared" style="background-color: #6896f9;"></div>
-                    <div class="legend-value">
-                      <span>Safari</span>
-                      <div class="legend-sub-value">
-                        17%, 12 Visits
-                      </div>
-                    </div>
-                  </div>
-                  <div class="legend-value-w">
-                    <div class="legend-pin legend-pin-squared" style="background-color: #85c751;"></div>
-                    <div class="legend-value">
-                      <span>Chrome</span>
-                      <div class="legend-sub-value">
-                        22%, 763 Visits
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 d-none d-xxxxl-block">
-                  <div class="legend-value-w">
-                    <div class="legend-pin legend-pin-squared" style="background-color: #806ef9;"></div>
-                    <div class="legend-value">
-                      <span>Firefox</span>
-                      <div class="legend-sub-value">
-                        3%, 7 Visits
-                      </div>
-                    </div>
-                  </div>
-                  <div class="legend-value-w">
-                    <div class="legend-pin legend-pin-squared" style="background-color: #d97b70;"></div>
-                    <div class="legend-value">
-                      <span>Explorer</span>
-                      <div class="legend-sub-value">
-                        15%, 45 Visits
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <!--------------------
-    START - Sidebar
-    -------------------->
-  <div class="content-panel">
-    <div class="content-panel-close">
-      <i class="os-icon os-icon-close"></i>
-    </div>
-    <div class="element-wrapper">
-      <h6 class="element-header">
-        Quick Links
-      </h6>
-      <div class="element-box-tp">
-        <div class="el-buttons-list full-width">
-          <a class="btn btn-white btn-sm" href="#" data-toggle="modal" data-target="#import-file"><i
-              class="os-icon os-icon-map"></i><span>Import
-              Properties</span></a>
-          <a class="btn btn-white btn-sm" data-toggle="modal" data-target="#createListing"><i
-              class="os-icon os-icon-layers"></i><span>Create
-              New
-              Listing</span></a>
-          <a class="btn btn-white btn-sm" [routerLink]="['/campaigns/action/dashboard/add']"><i
-              class="os-icon os-icon-mail-01"></i><span>Create New Campaign</span></a>
-          <a class="btn btn-white btn-sm" data-toggle="modal" data-target="#addExpenditure"><i
-              class="os-icon os-icon-documents-15"></i><span>Add
-              Expense</span></a>
-          <a class="btn btn-white btn-sm" data-toggle="modal" data-target="#addIncome"><i
-              class="os-icon os-icon-wallet-loaded"></i><span>Add
-              Income</span></a>
-        </div>
-      </div>
-    </div>
-    <!--------------------
-      START - Team Members
-      -------------------->
-    <div class="element-wrapper">
-      <h6 class="element-header">
-        Team Members
-      </h6>
-      <div class="element-box-tp">
-        <div class="input-search-w">
-          <input (keyup)="change($event)" class="form-control rounded bright" placeholder="Search team members..."
-            type="search">
-        </div>
-        <div *ngIf="isLoading" class=" col-md-12 text-primary text-center bg-white element-box el-tablo-center">
-          <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
-        </div>
-        <div class="users-list-w" *ngIf="!isLoading && userList?.length>0">
-          <div class="user-w" *ngFor="let item of userList">
-            <div class="user-avatar-w">
-              <div class="user-avatar">
-                <img *ngIf="!item?.profileImage" alt="" src="../../../assets/img/avatar1.jpg" />
-                <img *ngIf="item?.profileImage" alt="" [src]="item?.profileImage" />
-              </div>
-            </div>
-            <div class="user-name">
-              <h6 class="user-title">
-                {{item?.displayName}}
-              </h6>
-              <div class="user-role">
-                {{item?.roleName}}
-              </div>
-            </div>
-            <a class="user-action" href="mailto:{{item?.email}}">
-              <div class="os-icon os-icon-email-forward"></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--------------------
-      END - Team Members
-      -------------------->
-  </div>
-  <!--------------------
-    END - Sidebar
-    -------------------->
-</div>
-<div class="modal fade modal-right" id="import-file" data-backdrop="static" tabindex="-1" role="dialog"
-  aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content overflow-auto">
-      <app-property-import (addSuccessEvent)="GetUserOrganizationTotalCount()"></app-property-import>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade modal-right" id="createListing" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <app-listings-add [organizationId]="this.currentUser.OrgId" (addSuccessEvent)="getList()"></app-listings-add>
-  </div>
-</div>
-
-<div class="modal fade modal-right" id="addIncome" tabindex="-1" data-backdrop="static" role="dialog"
-  aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <app-income-add (addSuccessEvent)="GetIncomeTotalCount()"></app-income-add>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade modal-right" id="addExpenditure" tabindex="-1" data-backdrop="static" role="dialog"
-  aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <app-expenditure-add (addSuccessEvent)="GetExpenditureTotalCount()"></app-expenditure-add>
     </div>
   </div>
 </div>

@@ -2,10 +2,10 @@
 FROM nginx:latest
 LABEL author="Kevin"
 
-ARG API_URL=http://ph-saas-api.propertyhatch.com:50574
+ARG API_URL=http://app-api.scolptio.com:50574
 ENV API_URL $API_URL
 ENV BUCKET $BUCKET
-ENV SALESSITEURL $SALESSITEURL
+
 
 ## Remove default NGINX web files
 RUN rm -rf /usr/share/nginx/html/*

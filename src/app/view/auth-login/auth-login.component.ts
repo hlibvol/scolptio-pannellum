@@ -31,6 +31,7 @@ export class AuthLoginComponent implements OnInit {
     this.errorMsg = '';
     this.isSaving = true;
     this.authLoginService.Login(this.email, this.password).subscribe((data: any) => {
+      debugger;
       this.appSessionStorageService.storeToken(data.toString());
       const currentUser = jwt_decode(data) as AppUser;
       const user_permissions = JSON.parse(currentUser.Permissions ? currentUser.Permissions : null);
@@ -47,6 +48,7 @@ export class AuthLoginComponent implements OnInit {
 
   getUserInformation() {
     this.authLoginService.GetUserInformation().subscribe((data: any) => {
+      debugger;
       if (this.appSessionStorageService.getCurrentUser() != null) {
         const currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
         currentUser.DisplayName = data.firstName + ' ' + data.lastName;
