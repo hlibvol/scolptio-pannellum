@@ -7,8 +7,7 @@ name: scolptio-crm-ui
 trigger:
 - development
 
-pool: 
-  vmImage: 'ubuntu-latest'
+pool: Default
 
 variables:
   - group: scolptio-crm-ui
