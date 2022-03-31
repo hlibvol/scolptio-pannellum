@@ -1,0 +1,21 @@
+.image-button-container{
+    float: right;
+    position: relative;
+    right: 100px;
+    bottom: 5px;
+}
+.property-section{
+    .property-section-header{
+        height: 72px;
+        .filter-toggle{
+            margin-bottom: 2px;
+            background-color: rgba(0, 0, 0, 0.02);
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.02);
+            }
+            button {
+                padding: 0;
+            }
+        }
+    }
+}

@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
+import { FileUpload } from '../properties/properties.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +64,40 @@ export class ProjectService extends BaseService {
     }
     //  
     return throwError(errorMessage);
+  }
+  public AddFile = (imageUpload: FileUpload): any => {
+    const requestURL = 'File/Add';
+    const requestBody = {
+      fileKey: imageUpload.fileKey,
+      name: imageUpload.fileName,
+      extension: imageUpload.extension,
+      fileSize: imageUpload.fileSize,
+      url: imageUpload.url,
+      uploadDate: "2021-08-02T22:25:06.609Z",
+      description: imageUpload.type
+    }
+    return this.post(requestURL, requestBody, { responseType: 'text' }).pipe(catchError(this.handleError));
+  }
+  public DeleteFile = (fileId: string): any => {
+    const requestURL = 'File/Delete';
+    const requestBody = {
+      fileId
+    }
+    return this.post(requestURL, requestBody).pipe(catchError(this.handleError));
+  }
+  public UpdateProjectResource = (projectId: string, files: any[], resourceType): any => {
+    const requestURL = 'Project/UpdateProjectResource';
+    const requestBody = {
+      projectId,
+      resourceType,
+      files
+    }
+    return this.post(requestURL, requestBody).pipe(catchError(this.handleError));
+  }
+  public GetDocuments = (projectId: string, documentType: string): Observable<any> => {
+    return this.post('Project/GetDocuments', {projectId, documentType})
+  }
+  public DeleteDocument = (fileId: string) => {
+    return this.delete('Project/Document?s3FileName=' + fileId);
   }
 }

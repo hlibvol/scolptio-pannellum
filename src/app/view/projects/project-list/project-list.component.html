@@ -122,7 +122,7 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#" data-toggle="modal" [routerLink]="['/projects/project-overview']"
-                      (click)="setSelectedproject(project)">Details</a>
+                      (click)="openProject(project)">Details</a>
                     <a *ngIf="!currentUser?.TeamId"  class="dropdown-item" href="#" data-toggle="modal" data-target="#editproject"
                       (click)="setSelectedproject(project)">Edit</a>
                     <a *ngIf="!currentUser?.TeamId"  class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteproject"
