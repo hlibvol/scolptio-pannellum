@@ -40,9 +40,9 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getClients(){
-    this._clientService.GetAllClients(-1,1,null,null).subscribe(res=>{
-      this.clientList = res;
-    })
+    // this._clientService.GetAllClients(-1,1,null,null).subscribe(res=>{
+    //   this.clientList = res;
+    // })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
