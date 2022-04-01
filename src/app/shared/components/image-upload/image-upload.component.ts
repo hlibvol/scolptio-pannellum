@@ -86,14 +86,14 @@ export class ImageUploadComponent implements OnInit {
 
       const client = new S3Client({
         credentials: {
-          accessKeyId: "AKIAQ7DY7O7IM4XWIN5I",
-          secretAccessKey: "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"
+          accessKeyId: "AKIAYRELZPYTB44GTA42",
+          secretAccessKey: "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"
         },
         region: "us-east-2"
       });
 
       const params = {
-        Bucket: "ph-saas-bucket-us-east-2",
+        Bucket: "scolptio-crm-bucket",
         Key: imageFileName,
         Body: this.imageFile
       };

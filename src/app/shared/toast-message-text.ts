@@ -191,3 +191,11 @@ export const doc_template = {
     edit: 'Document template updated successfully',
     delete: 'Document template deleted successfully'
 }
+
+export const s3_model = {
+    model_add_success: success_icon + 'Model upload successfully.',
+    model_add_error: 'Something went wrong. Could not upload model.',
+    model_delete_success: success_icon + 'Model deleted successfully.',
+    model_delete_error: 'Something went wrong. Could not delete.',
+    download_model_info: 'Please wait. Your download will start soon.'
+}
