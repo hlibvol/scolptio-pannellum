@@ -6,6 +6,7 @@ import { PropertyFile } from 'src/app/shared/shared.model';
 import { common_error_message, s3_model } from 'src/app/shared/toast-message-text';
 import { FileUpload } from 'src/app/view/properties/properties.model';
 
+declare var $: any;
 @Component({
   selector: 'app-models',
   templateUrl: './models.component.html',
@@ -20,6 +21,7 @@ export class ModelsComponent implements OnInit {
   models: PropertyFile[];
   modelList = [];
   isSaving = false;
+  folderName: string;
 
   constructor(private s3BucketService: S3BucketService,
     private modelFileService: ModelFileService,
@@ -37,6 +39,7 @@ export class ModelsComponent implements OnInit {
         return {
           id: x.id,
           name: x.fileName,
+          folderName: x.folderName,
           fileKey: x.s3FileName,
           uploadDate: x.uploadDateTime
         }
@@ -51,13 +54,21 @@ export class ModelsComponent implements OnInit {
   ModelUploadSuccess(modelUploads: FileUpload[]) {
     for (let modelUpload of modelUploads) {
       this.AddModelFile(modelUpload);
+      this.folderName = modelUpload.folderName;
     }
+    $("#uploadTexture").modal("toggle");
   }
+
+  TextureUploadSuccess(data: any) {
+    console.log(data);
+  }
+
   AddModelFile(modelUpload: FileUpload) {
     let requestBody = {
       projectId: this.projectId,
       s3FileName: modelUpload.fileKey,
-      fileName: modelUpload.fileName
+      fileName: modelUpload.fileName,
+      folderName: modelUpload.folderName
     }
     this.modelFileService.UploadModelFile(requestBody).subscribe((data: any) => {
       if(!this.models?.length)
@@ -65,10 +76,11 @@ export class ModelsComponent implements OnInit {
       this.models.push({
         id: data,
         name: modelUpload.fileName,
+        folderName: modelUpload.folderName,
         fileKey: modelUpload.fileKey,
         uploadDate: new Date().toString()
       })
-      this.toastr.info(s3_model.model_add_success);
+      // this.toastr.info(s3_model.model_add_success);
     }, (error) => {
       this.toastr.error(s3_model.model_add_error);
     })
@@ -88,7 +100,13 @@ export class ModelsComponent implements OnInit {
 
   async DownloadFile(doc: PropertyFile) {
     this.toastr.info(s3_model.download_model_info);
-    const url = await this.s3BucketService.GetUrl(doc.fileKey);
+    const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
     this.path = url;
+    $("#playModel").modal("toggle");
+  }
+
+  UploadTextureFile(doc: PropertyFile) {
+    this.folderName = doc.folderName;
+    $("#uploadTexture").modal("toggle");
   }
 }

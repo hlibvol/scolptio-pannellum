@@ -6,7 +6,7 @@ import { ConfigsLoaderService } from 'src/app/services/configs-loader.service';
 import { FileUpload } from 'src/app/view/properties/properties.model';
 import { S3BucketService } from '../../s3-bucket.service';
 import { S3File } from '../../shared.model';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand, PutObjectRequest, S3Client } from '@aws-sdk/client-s3';
 
 declare var $: any;
 @Component({
@@ -24,6 +24,7 @@ export class ModelUploadComponent implements OnInit {
   isSaving = 0;
   fileUploads: FileUpload[];
   hasSucces = false;
+  folderName = uuidv4();
   protected _configLoaderService: ConfigsLoaderService;
 
   constructor(private _injector: Injector,
@@ -34,10 +35,10 @@ export class ModelUploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 
   close() {
+    console.log(this.folderName);
     if (this.fileUploads && this.fileUploads.length > 0) {
       this.ModelUploadSuccessEvent.emit(this.fileUploads);
     }
@@ -52,6 +53,7 @@ export class ModelUploadComponent implements OnInit {
     this.fileUploads = new Array();
     this.hasSucces = false;
     this.isSaving = 0;
+    this.folderName = uuidv4();
   }
 
   prepareView() {
@@ -96,10 +98,10 @@ export class ModelUploadComponent implements OnInit {
       region: "us-east-2"
     });
 
-    const params = {
+    const params: PutObjectRequest = {
       Bucket: "scolptio-crm-bucket",
-      Key: modelFileName,
-      Body: modelFile.file
+      Key: `${this.folderName}/${modelFileName}`,
+      Body: modelFile.file,
     };
 
     const command = new PutObjectCommand(params);
@@ -109,14 +111,16 @@ export class ModelUploadComponent implements OnInit {
       (data) => {
         this.isSaving--;
         modelFile.status = 'success';
-        const modelUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${modelFileName}`;
+        const modelUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${this.folderName}/${modelFileName}`;
 
         const modelUpload = new FileUpload();
         modelUpload.fileName = modelFile.file.name;
+        modelUpload.folderName = this.folderName;
         modelUpload.fileKey = modelFileName;
         modelUpload.extension = extension;
         modelUpload.fileSize = modelFile.file.size.toString();
         modelUpload.url = modelUrl;
+
         
         this.fileUploads.push(modelUpload);
         this.hasSucces = true;

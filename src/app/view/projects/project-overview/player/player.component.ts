@@ -11,12 +11,14 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
+export class PlayerComponent implements OnDestroy, OnChanges {
 
   @ViewChild('canvas')
   private canvasRef: ElementRef;
-  @ViewChild('text')
-  private textRef: ElementRef;
+  @ViewChild('select')
+  private selectRef: ElementRef;
+  @ViewChild('progress')
+  private progressRef: ElementRef;
 
   @Input() darkMode: boolean;
   @Input() path: string;
@@ -37,7 +39,8 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
   mixer: any;
   clock = new THREE.Clock();
   action: any;
-
+  animations: any[];
+  selectedAnimation: any;
   //
   threeDPath: string;
   requestId;
@@ -46,8 +49,16 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.path.firstChange) {
-      this.renderer.dispose();
-      cancelAnimationFrame(this.requestId);
+      
+      if (this.renderer) {
+        this.renderer.dispose();
+        cancelAnimationFrame(this.requestId);
+      }
+
+      this.select.style.display = "none";
+      this.animations = [];
+      this.selectedAnimation = null;
+      this.progress.style.display = "block";
 
       this.threeDPath = changes.path.currentValue;
       setTimeout(() => {
@@ -67,27 +78,21 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
     return this.canvasRef.nativeElement;
   }
 
-  private get text(): HTMLCanvasElement {
-    return this.textRef.nativeElement;
+  private get select(): HTMLCanvasElement {
+    return this.selectRef.nativeElement;
   }
 
-  ngOnInit(): void {
-    this.threeDPath = this.path;
-    setTimeout(() => {
-      this.loaderType = this.threeDPath.substr(this.threeDPath.lastIndexOf('.') + 1);
-      this.play3D();
-      this.onWindowResize();
-      this.animate();
-    });
-    this.render = this.render.bind(this);
-    this.onWindowResize = this.onWindowResize.bind(this);
-    this.onProgress = this.onProgress.bind(this);
-    this.animate = this.animate.bind(this);
+  private get progress(): HTMLCanvasElement {
+    return this.progressRef.nativeElement;
   }
 
   ngOnDestroy() {
     this.renderer.dispose();
     cancelAnimationFrame(this.requestId);
+    this.select.style.display = "none";
+    this.animations = [];
+    this.selectedAnimation = null;
+    this.progress.style.display = "block";
   }
 
   animate() {
@@ -120,26 +125,23 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
 
 
     // add camera
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+    this.scene.add(new THREE.AmbientLight(0x404040));
     this.camera = new THREE.PerspectiveCamera(45, domElement.clientWidth / domElement.clientHeight, 1, 2000);
-    this.camera.add(new THREE.PointLight(0xffffff, 0.8));
+    this.camera.add(new THREE.PointLight(0xffffff, 1, 100));
 
     this.scene.add(this.camera);
 
     // add light
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xa0a0a0);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
     hemiLight.position.set(0, 20, 0);
     this.scene.add(hemiLight);
 
-    const dirLight = new THREE.DirectionalLight(0xaaaaaa);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
     dirLight.position.set(-3, 10, -10);
     dirLight.castShadow = true;
-    dirLight.shadow.camera.top = 2;
-    dirLight.shadow.camera.bottom = -2;
-    dirLight.shadow.camera.left = -2;
-    dirLight.shadow.camera.right = 2;
     dirLight.shadow.camera.near = 0.1;
     dirLight.shadow.camera.far = 40;
+
     this.scene.add(dirLight);
 
     // axes
@@ -197,9 +199,12 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
         // animation
         // Create an AnimationMixer, and get the list of AnimationClip instances
 
+        this.mixer = new THREE.AnimationMixer(objLoaded);
         if (objLoaded.animations.length > 0) {
-          this.mixer = new THREE.AnimationMixer(objLoaded);
-          this.action = this.mixer.clipAction(objLoaded.animations[0]);
+          this.select.style.display = "block";
+          this.animations = objLoaded.animations;
+          this.selectedAnimation = this.animations[0];
+          this.action = this.mixer.clipAction(this.selectedAnimation);
 
           // Play a specific animation
           this.action.play();
@@ -224,13 +229,23 @@ export class PlayerComponent implements OnInit, OnDestroy, OnChanges {
     window.addEventListener('resize', this.onWindowResize, false);
   }
 
+  selectChange(event:any) {
+    this.action.stop();
+    this.action = this.mixer.clipAction(this.selectedAnimation);
+    this.action.play();
+  }
+
   onProgress(xhr: any) {
     if (xhr.lengthComputable) {
       const percentComplete = (xhr.loaded / xhr.total) * 100;
       this.value = percentComplete;
-      this.text.innerHTML = 'model imported ' + percentComplete.toFixed(1) + '%'
+      let progressBar = this.progress.firstElementChild;
+      progressBar.style.width = percentComplete.toFixed(0) + '%'
+      progressBar.innerHTML = percentComplete.toFixed(0) + '%'
       if (percentComplete == 100) {
-        this.text.innerHTML = "";
+        this.progress.style.display = "none";
+        progressBar.style.width = "0%";
+        progressBar.innerHTML = "0%";
       }
     }
   }

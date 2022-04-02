@@ -17,6 +17,7 @@ import { IncomeAddComponent } from '../view/income/income-add/income-add.compone
 import { ExpenditureAddComponent } from '../view/expenditure/expenditure-add/expenditure-add.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { ModelUploadComponent } from './components/model-upload/model-upload.component';
+import { TextureUploadComponent } from './components/texture-upload/texture-upload.component';
 
 
 
@@ -40,7 +41,8 @@ import { ModelUploadComponent } from './components/model-upload/model-upload.com
         ListingsAddComponent,
         IncomeAddComponent,
         ExpenditureAddComponent,
-        ModelUploadComponent
+        ModelUploadComponent,
+        TextureUploadComponent
     ],
     providers: [DataService, S3BucketService],
     entryComponents: [],
@@ -60,7 +62,8 @@ import { ModelUploadComponent } from './components/model-upload/model-upload.com
         ListingsAddComponent,
         IncomeAddComponent,
         ExpenditureAddComponent,
-        ModelUploadComponent
+        ModelUploadComponent,
+        TextureUploadComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
