@@ -132,11 +132,11 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     this.scene.add(this.camera);
 
     // add light
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
     hemiLight.position.set(0, 20, 0);
     this.scene.add(hemiLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 3);
     dirLight.position.set(-3, 10, -10);
     dirLight.castShadow = true;
     dirLight.shadow.camera.near = 0.1;
@@ -239,7 +239,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     if (xhr.lengthComputable) {
       const percentComplete = (xhr.loaded / xhr.total) * 100;
       this.value = percentComplete;
-      let progressBar = this.progress.firstElementChild;
+      let progressBar = <HTMLElement>this.progress.firstElementChild;
       progressBar.style.width = percentComplete.toFixed(0) + '%'
       progressBar.innerHTML = percentComplete.toFixed(0) + '%'
       if (percentComplete == 100) {
