@@ -129,11 +129,21 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
     // add camera
     this.camera = new THREE.PerspectiveCamera(45, domElement.clientWidth / domElement.clientHeight, 1, 2000);
-    this.camera.add(new THREE.PointLight(0xffffff));
+    //this.camera.add(new THREE.PointLight(0xffffff));
 
     this.scene.add(this.camera);
 
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444))
+    //this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444));
+    this.scene.add(new THREE.AmbientLight(0xa6a6a6, 3))
+    const dirLight1 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
+    dirLight1.position.set(100,0,100)
+    this.scene.add(dirLight1)
+
+    const dirLight2 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
+    dirLight2.position.set(-100,0,100)
+    this.scene.add(dirLight2)
+
+
 
     // axes
     // this.scene.add(new THREE.AxesHelper(20));
