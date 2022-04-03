@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RoomEnvironment  } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 @Component({
@@ -49,7 +50,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.path.firstChange) {
-      
+
       if (this.renderer) {
         this.renderer.dispose();
         cancelAnimationFrame(this.requestId);
@@ -122,27 +123,17 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     // create scene
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xeeeeee);
-
+    
+    const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+    this.scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
 
     // add camera
-    this.scene.add(new THREE.AmbientLight(0x404040));
     this.camera = new THREE.PerspectiveCamera(45, domElement.clientWidth / domElement.clientHeight, 1, 2000);
-    this.camera.add(new THREE.PointLight(0xffffff, 1, 100));
+    this.camera.add(new THREE.PointLight(0xffffff));
 
     this.scene.add(this.camera);
 
-    // add light
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
-    hemiLight.position.set(0, 20, 0);
-    this.scene.add(hemiLight);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-    dirLight.position.set(-3, 10, -10);
-    dirLight.castShadow = true;
-    dirLight.shadow.camera.near = 0.1;
-    dirLight.shadow.camera.far = 40;
-
-    this.scene.add(dirLight);
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444))
 
     // axes
     // this.scene.add(new THREE.AxesHelper(20));
@@ -229,7 +220,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     window.addEventListener('resize', this.onWindowResize, false);
   }
 
-  selectChange(event:any) {
+  selectChange(event: any) {
     this.action.stop();
     this.action = this.mixer.clipAction(this.selectedAnimation);
     this.action.play();
