@@ -101,6 +101,7 @@ export class Properties {
 export class FileUpload {
     constructor(
         public fileName?: string,
+        public folderName?: string,
         public fileKey?: string,
         public fileSize?: string,
         public extension?: string,

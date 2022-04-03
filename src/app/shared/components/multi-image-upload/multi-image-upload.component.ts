@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { v4 as uuidv4 } from 'uuid';
 import { FileUpload } from '../../../view/properties/properties.model';
 import { S3File } from '../../shared.model';
+import { S3BucketService } from '../../s3-bucket.service';
 
 declare var $: any;
 @Component({
@@ -25,7 +26,7 @@ export class MultiImageUploadComponent implements OnInit {
   protected _configLoaderService: ConfigsLoaderService;
 
   constructor(private _injector: Injector,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private s3BucketService: S3BucketService) {
     this._configLoaderService = _injector.get(ConfigsLoaderService);
     this.imageFiles = new Array();
     this.fileUploads = new Array();
@@ -86,14 +87,14 @@ export class MultiImageUploadComponent implements OnInit {
 
     const client = new S3Client({
       credentials: {
-        accessKeyId: "AKIAQ7DY7O7IM4XWIN5I",
-        secretAccessKey: "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"
+        accessKeyId: "AKIAYRELZPYTB44GTA42",
+        secretAccessKey: "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"
       },
       region: "us-east-2"
     });
 
     const params = {
-      Bucket: "ph-saas-bucket-us-east-2",
+      Bucket: "scolptio-crm-bucket",
       Key: imageFileName,
       Body: imgFile.file
     };
