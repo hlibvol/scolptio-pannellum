@@ -49,7 +49,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       CompanyAdress: [''],
       Logo: [''],
       Website: [''],
-      TeamId : ['',Validators.compose([Validators.required])]
+      TeamId : ['',Validators.compose([Validators.required])],
+      InviteOption:['',Validators.compose([Validators.required])]
     });
     this.GetAllTeam();
   }
@@ -94,6 +95,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.client.website);
     (this.clientForm.controls.TeamId as FormControl)
       .setValue(this.client.teamId);
+      (this.clientForm.controls.InviteOption as FormControl)
+      .setValue(this.getInviteValue(this.client.inviteOption));
   }
 
   private loadScript(url) {
@@ -232,5 +235,17 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onChangeData(val) {
+  }
+
+  getInviteValue(invite) {
+    switch (invite) {
+      case "Invited":
+        return 1;
+        break;
+      case "Registerd":
+        return 2;
+        break;
+
+    }
   }
 }

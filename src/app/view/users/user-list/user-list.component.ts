@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
   finaluserList: User[];
   errorMsg = '';
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 15;
   total = 0;
   selectedUser: User;
   searchKey: '';
