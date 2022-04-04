@@ -118,9 +118,9 @@ const routes: Routes = [
   {
     path: "login", component: AuthLoginComponent
   },
-  {
-    path: "register", component: AuthRegisterComponent
-  },
+  // {
+  //   path: "register", component: AuthLoginComponent
+  // },
   {
     path: "locked", component: AuthLockscreenComponent
   },
