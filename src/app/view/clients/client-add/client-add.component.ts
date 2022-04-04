@@ -48,7 +48,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       CompanyAdress: [''],
       Logo: [''],
       Website: [''],
-      TeamId : ['',Validators.compose([Validators.required])]
+      TeamId : ['',Validators.compose([Validators.required])],
+      InviteOption:['',Validators.compose([Validators.required])]
     });
     this.GetAllTeam();
     this.loadAutoComplete();

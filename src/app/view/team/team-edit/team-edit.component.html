@@ -1,46 +1,56 @@
 <div class="modal-header">
-    <h6 class="modal-title">
-      <div class="d-flex align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-user">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        <div class="pl-1">Edit Team</div>
+  <h6 class="modal-title">
+    <div class="d-flex align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="feather feather-user">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <div class="pl-1">Edit Team</div>
+    </div>
+  </h6>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(editTeamForm)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form id="editTeam" role="form" (ngSubmit)="save(editTeamForm)" novalidate #editTeamForm="ngForm" autocomplete="off">
+  <div class="modal-body h-100">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="">Team Name</label>
+        <input type="text" name="team-name-edit" id="team-name-edit" class="form-control" placeholder="Team Name"
+               [ngClass]="{'input-error':  teamNameInput.touched && teamNameInput.errors?.required}"
+               [(ngModel)]="teamName" #teamNameInput="ngModel" required>
+        <div *ngIf="teamNameInput.invalid && (teamNameInput.dirty || teamNameInput.touched)">
+          <small class="form-text text-danger" *ngIf="teamNameInput.errors?.required">
+            This field is required.
+          </small>
+        </div>
       </div>
-    </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(editTeamForm)">
-      <span aria-hidden="true">&times;</span>
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for=""> Assigned Role</label><select class="form-control"
+                                                      name="assigned-role" [(ngModel)]="selectedRole" [disabled]="isLoading">
+            <option [value]="undefined">Select One</option>
+            <option *ngFor="let userRole of userRoles" [value]="userRole.id">{{userRole.title}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom"
+            [ngStyle]="{'cursor': ( editTeamForm.form.invalid || isSaving) ? 'not-allowed' : 'pointer' }"
+            [disabled]="editTeamForm.form.invalid || isSaving">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
+           viewBox="0 0 16 16">
+        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+      </svg>
+      <div class="pl-1">
+        Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
+                             style="font-size:18px"></i>
+      </div>
     </button>
   </div>
-  <form id="editTeam" role="form" (ngSubmit)="save(editTeamForm)" novalidate #editTeamForm="ngForm" autocomplete="off">
-      <div class="modal-body h-100">
-          <div class="form-row">
-              <div class="form-group col-md-12">
-                  <label for="">Team Name</label>
-                  <input type="text" name="team-name-edit" id="team-name-edit" class="form-control" placeholder="Team Name"
-                      [ngClass]="{'input-error':  teamNameInput.touched && teamNameInput.errors?.required}"
-                      [(ngModel)]="teamName" #teamNameInput="ngModel" required>
-                  <div *ngIf="teamNameInput.invalid && (teamNameInput.dirty || teamNameInput.touched)">
-                      <small class="form-text text-danger" *ngIf="teamNameInput.errors?.required">
-                          This field is required.
-                      </small>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-          <button type="submit" class="btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom"
-              [ngStyle]="{'cursor': ( editTeamForm.form.invalid || isSaving) ? 'not-allowed' : 'pointer' }"
-              [disabled]="editTeamForm.form.invalid || isSaving">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
-                  viewBox="0 0 16 16">
-                  <path
-                      d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-              </svg>
-              <div class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
-                      style="font-size:18px"></i></div>
-          </button>
-      </div>
-  </form>
+</form>

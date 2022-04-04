@@ -10,9 +10,9 @@ import { ClientsService } from '../clients.service';
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
   styleUrls: [
-  './client-list.component.scss',
-  '../../../../assets/css/app.css',
-  '../../../../assets/css/icons.css']
+    './client-list.component.scss',
+    '../../../../assets/css/app.css',
+    '../../../../assets/css/icons.css']
 })
 export class ClientListComponent implements OnInit {
 
@@ -28,13 +28,13 @@ export class ClientListComponent implements OnInit {
   searchStatus = '';
   visibleFilter = false;
   filterObj: any;
-  currentUser:AppUser;
+  currentUser: AppUser;
   constructor(private _clientService: ClientsService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
-      if (this.appSessionStorageService.getCurrentUser() != null) {
-        this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
-      }
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+    }
   }
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class ClientListComponent implements OnInit {
 
   GetAllclient() {
     this.isLoading = true;
-    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.TeamId).subscribe((data: any[]) => {
+    this._clientService.GetAllClients(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.clientList = this.finalClientList = data;
     }, (error) => {
@@ -79,8 +79,8 @@ export class ClientListComponent implements OnInit {
   onSearchList(searchValue) {
     if (searchValue != '')
       this.clientList = this.finalClientList.filter(x => x.firstName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-      x.lastName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-      x.email.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
+        x.lastName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
+        x.email.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
     else
       this.clientList = this.finalClientList;
   }
@@ -101,18 +101,29 @@ export class ClientListComponent implements OnInit {
 
   actionFilter() {
     this.filterObj = [
-      this.searchStatus,  
+      this.searchStatus,
     ]
     this.GetAllclient();
   }
 
   search(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13) {
       this.GetAllclient();
     }
   }
 
-  getLogo(logo){
-    return logo + "?v="+ Math.random()
+  getLogo(logo) {
+    return logo + "?v=" + Math.random()
+  }
+  getInviteText(invite) {
+    switch (invite) {
+      case 1:
+        return "Sent invite";
+        break;
+      case 2:
+        return "Registerd";
+        break;
+
+    }
   }
 }
