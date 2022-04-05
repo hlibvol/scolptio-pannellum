@@ -71,7 +71,7 @@ export class ModelsComponent implements OnInit {
       folderName: modelUpload.folderName
     }
     this.modelFileService.UploadModelFile(requestBody).subscribe((data: any) => {
-      if(!this.models?.length)
+      if (!this.models?.length)
         this.models = [];
       this.models.push({
         id: data,
@@ -108,5 +108,22 @@ export class ModelsComponent implements OnInit {
   UploadTextureFile(doc: PropertyFile) {
     this.folderName = doc.folderName;
     $("#uploadTexture").modal("toggle");
+  }
+
+  sort(event: PointerEvent) {
+    console.log(event);
+    let target = <HTMLElement>event.target;
+    switch (target.className) {
+      case "fa fa-fw fa-sort":
+      case "fa fa-fw fa-sort-asc":
+        this.models.sort((a, b) => (b.uploadDate >= a.uploadDate) ? 1 : -1);
+        target.className = "fa fa-fw fa-sort-desc";
+        break;
+      case "fa fa-fw fa-sort-desc":
+      default:
+        this.models.sort((a, b) => (a.uploadDate >= b.uploadDate) ? 1 : -1);
+        target.className = "fa fa-fw fa-sort-asc";
+        break;
+    }
   }
 }
