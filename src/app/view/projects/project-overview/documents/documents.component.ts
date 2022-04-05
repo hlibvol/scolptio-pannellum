@@ -14,7 +14,7 @@ import { ProjectService } from '../../project.service';
 export class DocumentsComponent implements OnInit {
 
   @Input()
-  projectId:string = '';
+  projectId: string = '';
   @Input()
   documentType: string = '';
   @Input()
@@ -56,7 +56,7 @@ export class DocumentsComponent implements OnInit {
 
   AddDocumentFile(documentUpload: FileUpload) {
     this.projectService.AddFile(documentUpload).subscribe((data: any) => {
-      if(!this.documents?.length)
+      if (!this.documents?.length)
         this.documents = [];
       this.documents.push({
         extension: documentUpload.extension,
@@ -108,4 +108,20 @@ export class DocumentsComponent implements OnInit {
     }
   }
 
+  sort(event: PointerEvent) {
+    console.log(event);
+    let target = <HTMLElement>event.target;
+    switch (target.className) {
+      case "fa fa-fw fa-sort":
+      case "fa fa-fw fa-sort-asc":
+        this.documents.sort((a, b) => (b.uploadDate >= a.uploadDate) ? 1 : -1);
+        target.className = "fa fa-fw fa-sort-desc";
+        break;
+      case "fa fa-fw fa-sort-desc":
+      default:
+        this.documents.sort((a, b) => (a.uploadDate >= b.uploadDate) ? 1 : -1);
+        target.className = "fa fa-fw fa-sort-asc";
+        break;
+    }
+  }
 }
