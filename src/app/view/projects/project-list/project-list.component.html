@@ -14,7 +14,7 @@
         <!-- title -->
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h6 class="m-0">Project List</h6>
-          <div *ngIf="!currentUser?.TeamId"  class="d-flex align-items-center">
+          <div  *ngIf="isHide" class="d-flex align-items-center">
             <button type="button" class="btn btn-sm btn-orange d-flex align-items-center py-3" data-toggle="modal"
               data-target="#addproject">
               <div class="icon icon-control_point"></div>
@@ -123,9 +123,9 @@
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#" data-toggle="modal" [routerLink]="['/projects/project-overview']"
                       (click)="openProject(project)">Details</a>
-                    <a *ngIf="!currentUser?.TeamId"  class="dropdown-item" href="#" data-toggle="modal" data-target="#editproject"
+                    <a *ngIf="isHide"   class="dropdown-item" href="#" data-toggle="modal" data-target="#editproject"
                       (click)="setSelectedproject(project)">Edit</a>
-                    <a *ngIf="!currentUser?.TeamId"  class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteproject"
+                    <a *ngIf="isHide"  class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteproject"
                       (click)="setSelectedproject(project)">Delete</a>
                   </div>
                 </div>

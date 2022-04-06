@@ -72,7 +72,7 @@
       <li class="sub-header">
         <span>BUYING CYCLE</span>
       </li>
-      <li *ngIf="!currentUser?.TeamId" class="selected">
+      <li *ngIf="isDesignerHide" class="selected">
         <a [routerLink]="['/dashboard']">
           <div class="icon-w">
             <div class="os-icon os-icon-layout"></div>
@@ -81,7 +81,7 @@
         </a>
 
       </li>
-      <li *ngIf="!currentUser?.TeamId" >
+      <li *ngIf="isHide" >
         <a [routerLink]="['/clients']">
           <div class="icon-w">
             <div class="os-icon os-icon-layout"></div>
@@ -110,95 +110,95 @@
                 <a [routerLink]="['/projects']">Projects</a>
               </li>
               <li>
-                <a [routerLink]="['/projectboard']">Project Board</a>
+                <a *ngIf="isDesignerHide" [routerLink]="['/projectboard']">Project Board</a>
               </li>
             </ul>
           </div>
         </div>
       </li>
-      <li class="sub-header">
-        <span>ADMINISTRATION</span>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-wallet-loaded"></div>
+      <ng-container *ngIf="isDesignerHide">
+        <li  class="sub-header">
+          <span>ADMINISTRATION</span>
+        </li>
+        <li *ngIf="isClientHide" class=" has-sub-menu">
+          <a>
+            <div class="icon-w">
+              <div class="os-icon os-icon-wallet-loaded"></div>
+            </div>
+            <span>Finances</span>
+          </a>
+          <div class="sub-menu-w">
+            <div class="sub-menu-header">
+            </div>
+            <div class="sub-menu-icon">
+              <i class="os-icon os-icon-file-text"></i>
+            </div>
+            <div class="sub-menu-i">
+              <ul class="sub-menu">
+                <li>
+                  <a [routerLink]="['/income']">Income</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/expenditure']">Expenditure</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <span>Finances</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
-
+        </li>
+        <li *ngIf="isClientHide"  class=" has-sub-menu">
+          <a>
+            <div class="icon-w">
+              <div class="os-icon os-icon-hierarchy-structure-2"></div>
+            </div>
+            <span>Teams</span>
+          </a>
+          <div class="sub-menu-w">
+            <div class="sub-menu-header">
+            </div>
+            <div class="sub-menu-icon">
+              <i class="os-icon os-icon-file-text"></i>
+            </div>
+            <div class="sub-menu-i">
+              <ul class="sub-menu">
+                <li>
+                  <a [routerLink]="['/teams']">Team List</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/user-roles']">User Roles</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="sub-menu-icon">
-            <i class="os-icon os-icon-file-text"></i>
+        </li>
+        <li  class=" has-sub-menu">
+          <a>
+            <div class="icon-w">
+              <div class="os-icon os-icon-users"></div>
+            </div>
+            <span>Users</span>
+          </a>
+          <div class="sub-menu-w">
+            <div class="sub-menu-i">
+              <ul class="sub-menu">
+                <li>
+                  <a [routerLink]="['/users']">User List</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/invitation']">Invitations</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/income']">Income</a>
-              </li>
-              <li>
-                <a [routerLink]="['/expenditure']">Expenditure</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-hierarchy-structure-2"></div>
-          </div>
-          <span>Teams</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
-
-          </div>
-          <div class="sub-menu-icon">
-            <i class="os-icon os-icon-file-text"></i>
-          </div>
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/teams']">Team List</a>
-              </li>
-              <li>
-                <a [routerLink]="['/user-roles']">User Roles</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>      
-      <li  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-users"></div>
-          </div>
-          <span>Users</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/users']">User List</a>
-              </li>
-              <li>
-                <a [routerLink]="['/invitation']">Invitations</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class="selected">
-        <a [routerLink]="['/organizations']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-grid-squares2"></div>
-          </div>
-          <span>Organizations</span>
-        </a>
-      </li>
+        </li>
+        <li *ngIf="isClientHide"  class="selected">
+          <a [routerLink]="['/organizations']">
+            <div class="icon-w">
+              <div class="os-icon os-icon-grid-squares2"></div>
+            </div>
+            <span>Organizations</span>
+          </a>
+        </li>
+      </ng-container>
     </ul>
     <div class="py-1">
       <div class="side-menu-magic">
