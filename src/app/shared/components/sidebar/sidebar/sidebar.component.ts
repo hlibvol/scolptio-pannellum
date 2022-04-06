@@ -12,13 +12,23 @@ declare var $: any;
 export class SidebarComponent implements OnInit, AfterViewInit {
 
   currentUser: AppUser;
-
+  isHide : boolean = true;
+  isDesignerHide : boolean = true;
+  isClientHide : boolean = true;
   constructor(private appSessionStorageService: AppSessionStorageService,
     private router: Router) { }
 
   ngOnInit(): void {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      if(this.currentUser.Role == "Client"){
+        this.isHide = false;
+        this.isClientHide = false;
+      }
+      else if(this.currentUser.Role == "Designer"){
+        this.isHide = false;
+        this.isDesignerHide = false;
+      }
     }
   }
 

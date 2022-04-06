@@ -28,12 +28,19 @@ export class ProjectListComponent implements OnInit {
   visibleFilter = false;
   filterObj: any;
   currentUser: AppUser;
+  isHide: boolean = true;
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
     private router: Router) {
       if (this.appSessionStorageService.getCurrentUser() != null) {
         this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+        if(this.currentUser.Role == "Client"){
+          this.isHide = false;
+        }
+        else if(this.currentUser.Role == "Designer"){
+          this.isHide = false;
+        }
       }
   }
 

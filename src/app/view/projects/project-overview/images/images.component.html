@@ -17,11 +17,11 @@
 							</button>
 							<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect()">{{isMultiSelect === false?'Select' : 'Cancel Select'}}</a>
-								<a class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
+								<a *ngIf="isHide" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
 							</div>
 						</div>
 					</div>
-					<div class="image-button-container">
+					<div *ngIf="isHide" class="image-button-container">
 						<!-- <app-s3-image-upload (ImageUploadSuccessEvent)="ImageUploadSuccess($event)"></app-s3-image-upload> -->
 						<button type="button" class="btn btn-primary d-flex align-items-center" data-toggle="modal"
 							data-target="#uploadMultiImage">

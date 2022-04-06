@@ -64,6 +64,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.layoutService.TokenExchange(orgId).subscribe((data: any) => {
       this.appSessionStorageService.storeToken(data.toString());
       const currentUser = jwt_decode(data) as AppUser;
+      debugger;
       const user_permissions = JSON.parse(currentUser.Permissions ? currentUser.Permissions : null);
 
       if (this.appSessionStorageService.getCurrentUser() != null) {
