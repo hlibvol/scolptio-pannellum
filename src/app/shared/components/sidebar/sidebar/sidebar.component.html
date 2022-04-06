@@ -70,7 +70,7 @@
     </h1>
     <ul class="main-menu">
       <li class="sub-header">
-        <span>BUYING CYCLE</span>
+        <span>MANAGEMENT</span>
       </li>
       <li *ngIf="isDesignerHide" class="selected">
         <a [routerLink]="['/dashboard']">
@@ -84,21 +84,19 @@
       <li *ngIf="isHide" >
         <a [routerLink]="['/clients']">
           <div class="icon-w">
-            <div class="os-icon os-icon-layout"></div>
+            <div class="os-icon os-icon-users"></div>
           </div>
           <span>Clients</span>
         </a>
 
       </li>
-      <li class=" has-sub-menu">
-        <a>
+      <li>
+        <a [routerLink]="['/projects']">
           <div class="icon-w">
-            <div class="os-icon os-icon-wallet-loaded"></div>
+            <div class="os-icon os-icon-documents-11"></div>
           </div>
           <span>Projects</span>
         </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
 
           </div>
           <div class="sub-menu-icon">
@@ -201,17 +199,12 @@
       </ng-container>
     </ul>
     <div class="py-1">
-      <div class="side-menu-magic">
-        <h5>
-          Unlimited Updates
-        </h5>
-        <p>
-          24/7 Support
-        </p>
+      <div class="side-menu-magic" style="background-image:url('./assets/auth-pages/images/sidebar.jpg');">
+      
         <div class="btn-w">
           <a class="btn btn-white btn-rounded"
-            href="https://themeforest.net/item/light-admin-clean-bootstrap-dashboard-html-template/19760124?ref=Osetin"
-            target="_blank">Upgrade my plan</a>
+            href="mailto:contact@scolptio.com"
+            target="_blank">Contact Us</a>
         </div>
       </div>
     </div>

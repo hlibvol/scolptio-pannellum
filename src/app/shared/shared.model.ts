@@ -22,6 +22,7 @@ export class PropertyFile {
     constructor(
         public id?: string,
         public name?: string,
+        public folderName?: string,
         public uploadedBy?: string,
         public description?: string,
         public extension?: string,

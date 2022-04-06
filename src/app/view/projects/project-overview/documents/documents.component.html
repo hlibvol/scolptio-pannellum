@@ -35,7 +35,7 @@
 								<tr>
 									<th>#</th>
 									<th>Document</th>
-									<th>Date Uploaded</th>
+									<th>Date Uploaded <i class="fa fa-fw fa-sort" (click)="sort($event)"></i></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -46,7 +46,7 @@
 										{{doc.name}}
 									</td>
 									<td>
-										{{doc.uploadDate | date: 'dd/MM/yyyy'}}
+										{{doc.uploadDate | date: 'MM/dd/yyyy HH:mm:ss'}}
 									</td>
 									<td data-label="Action">
 										<div class="dropdown">

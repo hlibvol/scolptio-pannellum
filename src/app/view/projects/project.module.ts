@@ -10,8 +10,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { ImagesComponent } from './project-overview/images/images.component';
 import { DocumentsComponent } from './project-overview/documents/documents.component';
-
-
+import { PlayerComponent } from './project-overview/player/player.component';
+import { ModelsComponent } from './project-overview/models/models.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,9 @@ import { DocumentsComponent } from './project-overview/documents/documents.compo
     ProjectDeleteComponent,
     ProjectOverviewComponent,
     ImagesComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    PlayerComponent,
+    ModelsComponent
   ],
   imports: [
     CommonModule,
