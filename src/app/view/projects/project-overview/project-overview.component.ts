@@ -1,6 +1,8 @@
 import { Component,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
+import { AppUser } from '../../auth-register/auth-register.model';
 
 @Component({
   selector: 'app-project-overview',
@@ -10,8 +12,20 @@ import { ToastrService } from 'ngx-toastr';
 export class ProjectOverviewComponent implements OnInit {
 
   id: string = ''
-  activeSection:string="HandSketchesAndDrawings"
-  constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService) { }
+  activeSection:string="HandSketchesAndDrawings";
+  isHide: boolean = true;
+  currentUser:AppUser;
+  constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService,private appSessionStorageService: AppSessionStorageService,) { 
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      if(this.currentUser.Role == "Client"){
+        this.isHide = false;
+      }
+      else if(this.currentUser.Role == "Designer"){
+        this.isHide = false;
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params) => {

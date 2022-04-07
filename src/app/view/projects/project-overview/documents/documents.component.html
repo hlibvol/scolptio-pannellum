@@ -5,7 +5,7 @@
 			<div class="property-section">
 				<div class="property-section-header d-flex justify-content-between">
 					{{header}}
-					<div class="filter-toggle">
+					<div *ngIf="isAddHide" class="filter-toggle">
 						<div class="document-button-container">
 							<button type="button" class="btn btn-primary d-flex align-items-center" data-toggle="modal"
 								data-target="#uploadNewDoc">
@@ -60,7 +60,7 @@
 											</button>
 											<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 												<a class="dropdown-item" style="cursor: pointer;" (click)="DownloadFile(doc)">Download</a>
-												<a class="dropdown-item" style="cursor: pointer;" (click)="DeleteFile(doc.fileKey)">Delete</a>
+												<a *ngIf="isDeleteHide" class="dropdown-item" style="cursor: pointer;" (click)="DeleteFile(doc.fileKey)">Delete</a>
 											</div>
 										</div>
 									</td>

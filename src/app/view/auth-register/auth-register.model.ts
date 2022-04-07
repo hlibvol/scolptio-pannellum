@@ -15,7 +15,7 @@ export class User {
         public displayName?: string,
         public organizationTitle?: string,
         public profileImage?: string,
-        public signature?:string,
+        public signature?: string,
         public occupation?: string) {
     }
 }
@@ -35,8 +35,9 @@ export class AppUser {
         public given_name?: string,
         public occupation?: string,
         public profileImage?: string,
-        public ClientId?:string,
-        public TeamId?:string,
-        ) {
+        public ClientId?: string,
+        public TeamId?: string,
+        public Role?: string
+    ) {
     }
 }

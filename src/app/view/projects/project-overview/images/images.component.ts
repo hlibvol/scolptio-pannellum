@@ -1,11 +1,12 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
 import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
+import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
 import { FileUpload, Properties } from '../../../properties/properties.model';
 import { ProjectService } from '../../project.service';
@@ -16,7 +17,7 @@ declare var $: any;
   templateUrl: './images.component.html',
   styleUrls: ['./images.component.scss']
 })
-export class ImagesComponent implements OnInit {
+export class ImagesComponent implements OnInit, OnChanges {
 
   @Input()
   projectId: string = '';
@@ -27,23 +28,42 @@ export class ImagesComponent implements OnInit {
   imageList = [];
   items: GalleryItem[];
   isMultiSelect = false;
-
+  currentUser: AppUser;
+  isHide: boolean = true;
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
-    public gallery: Gallery, 
+    public gallery: Gallery,
     public lightbox: Lightbox,
-    private s3BucketService: S3BucketService) {
-      
+    private s3BucketService: S3BucketService,
+    private appSessionStorageService: AppSessionStorageService,) {
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
+  }
   async prepareImages() {
     var images = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
-    if(images && images.length)
+    if (images && images.length)
       this.imageList = images.map(x => x.s3FileName);
     this.prepareSlideData();
   }
 
   ngOnInit(): void {
     this.prepareImages(); // Non blocking call
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.currentUser.Role == "Client" && (changes.documentType.currentValue == "PrerenderedPhotos" ||
+      changes.documentType.currentValue == "RenderedPhotos" ||
+      changes.documentType.currentValue == "VideosOrAnimations" ||
+      changes.documentType.currentValue == "3DModelViewer" ||
+      changes.documentType.currentValue == "ARModelViewer")) {
+      this.isHide = false;
+    }
+    else if (this.currentUser.Role == "Designer" && (changes.documentType.currentValue == "HandSketchesAndDrawings" ||
+      changes.documentType.currentValue == "CADDrawings" ||
+      changes.documentType.currentValue == "OtherReferences"
+    )) {
+      this.isHide = false;
+    }
   }
 
   async prepareSlideData() {
