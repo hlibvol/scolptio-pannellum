@@ -1,210 +1,210 @@
 <!--------------------
         START - Main Menu
         -------------------->
-<div class="my-sidebar">
-  <div
-    class="menu-w selected-menu-color-light menu-activated-on-click color-scheme-dark color-style-default sub-menu-color-light menu-position-side menu-side-left menu-layout-compact sub-menu-style-inside">
-    <div class="logo-w">
-      <a class="logo">
-        <div class="logo-element"></div>
-        <div class="logo-label">
-          
-      Scolptio CRM
-        </div>
-      </a>
-    </div>
-    <div class="logged-user-w avatar-inline">
-      <div class="logged-user-i">
-        <div>
-          <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
-            class="profile-image" height="37px" width="37px">
-          <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px" alt=""
-            [src]="currentUser.profileImage">
-        </div>
-        <div class="logged-user-info-w">
-          <div class="logged-user-name">
-            {{currentUser?.DisplayName}}
-          </div>
-          <div class="logged-user-role">
-            {{currentUser?.occupation}}
-          </div>
-        </div>
-        <div class="logged-user-toggler-arrow">
-          <div class="os-icon os-icon-chevron-down"></div>
-        </div>
-        <div class="logged-user-menu color-style-bright sub-menu-style-inside">
-          <div class="logged-user-avatar-info">
-            <div>
-              <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
-                class="profile-image" height="37px" width="37px">
-              <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px"
-                alt="" [src]="currentUser.profileImage">
+        <div class="my-sidebar">
+          <div
+            class="menu-w selected-menu-color-light menu-activated-on-click color-scheme-dark color-style-default sub-menu-color-light menu-position-side menu-side-left menu-layout-compact sub-menu-style-inside">
+            <div class="logo-w">
+              <a class="logo">
+                <div class="logo-element"></div>
+                <div class="logo-label">
+                  
+              Scolptio CRM
+                </div>
+              </a>
             </div>
-            <div class="logged-user-info-w">
-              <div class="logged-user-name">
-                {{currentUser?.DisplayName}}
+            <div class="logged-user-w avatar-inline">
+              <div class="logged-user-i">
+                <div>
+                  <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
+                    class="profile-image" height="37px" width="37px">
+                  <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px" alt=""
+                    [src]="currentUser.profileImage">
+                </div>
+                <div class="logged-user-info-w">
+                  <div class="logged-user-name">
+                    {{currentUser?.DisplayName}}
+                  </div>
+                  <div class="logged-user-role">
+                    {{currentUser?.occupation}}
+                  </div>
+                </div>
+                <div class="logged-user-toggler-arrow">
+                  <div class="os-icon os-icon-chevron-down"></div>
+                </div>
+                <div class="logged-user-menu color-style-bright sub-menu-style-inside">
+                  <div class="logged-user-avatar-info">
+                    <div>
+                      <img *ngIf="currentUser && !currentUser.profileImage" alt="" src="../../../assets/img/dummy-user.png"
+                        class="profile-image" height="37px" width="37px">
+                      <img *ngIf="currentUser && currentUser.profileImage" class="profile-image" height="37px" width="37px"
+                        alt="" [src]="currentUser.profileImage">
+                    </div>
+                    <div class="logged-user-info-w">
+                      <div class="logged-user-name">
+                        {{currentUser?.DisplayName}}
+                      </div>
+                      <div class="logged-user-role">
+                        {{currentUser?.occupation}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-icon">
+                    <i class="os-icon os-icon-wallet-loaded"></i>
+                  </div>
+                  <ul>
+                    <li>
+                      <a [routerLink]="['/account-settings']"><i class="os-icon os-icon-user-male-circle2"></i><span>Account
+                          Details</span></a>
+                    </li>
+                    <li>
+                      <a style="cursor: pointer;" (click)="logOut()"><i
+                          class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div class="logged-user-role">
-                {{currentUser?.occupation}}
+            </div>
+            <h1 class="menu-page-header">
+              Page Header
+            </h1>
+            <ul class="main-menu">
+              <li class="sub-header">
+                <span>MANAGEMENT</span>
+              </li>
+              <li *ngIf="!currentUser?.TeamId" class="selected">
+                <a [routerLink]="['/dashboard']">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-layout"></div>
+                  </div>
+                  <span>Dashboard</span>
+                </a>
+        
+              </li>
+              <li *ngIf="!currentUser?.TeamId" >
+                <a [routerLink]="['/clients']">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-users"></div>
+                  </div>
+                  <span>Clients</span>
+                </a>
+        
+              </li>
+              <li>
+                <a [routerLink]="['/projects']">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-documents-11"></div>
+                  </div>
+                  <span>Projects</span>
+                </a>
+        
+              </li>
+              <li>
+                <a [routerLink]="['/projectboard']">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-tasks-checked"></div>
+                  </div>
+                  <span>Project Board</span>
+                </a>
+        
+              </li>
+             
+              <li class="sub-header">
+                <span>ADMINISTRATION</span>
+              </li>
+              <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
+                <a>
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Finances</span>
+                </a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+        
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-file-text"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a [routerLink]="['/income']">Income</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/expenditure']">Expenditure</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
+                <a>
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-hierarchy-structure-2"></div>
+                  </div>
+                  <span>Teams</span>
+                </a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+        
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-file-text"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a [routerLink]="['/teams']">Team List</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/user-roles']">User Roles</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>      
+              <li  class=" has-sub-menu">
+                <a>
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-users"></div>
+                  </div>
+                  <span>Users</span>
+                </a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a [routerLink]="['/users']">User List</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/invitation']">Invitations</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="!currentUser?.TeamId"  class="selected">
+                <a [routerLink]="['/organizations']">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-grid-squares2"></div>
+                  </div>
+                  <span>Organizations</span>
+                </a>
+              </li>
+            </ul>
+            <div class="py-1">
+              <div class="side-menu-magic" style="background-image:url('./assets/auth-pages/images/sidebar.jpg');">
+              
+                <div class="btn-w">
+                  <a class="btn btn-white btn-rounded"
+                    href="mailto:contact@scolptio.com"
+                    target="_blank">Contact Us</a>
+                </div>
               </div>
             </div>
           </div>
-          <div class="bg-icon">
-            <i class="os-icon os-icon-wallet-loaded"></i>
-          </div>
-          <ul>
-            <li>
-              <a [routerLink]="['/account-settings']"><i class="os-icon os-icon-user-male-circle2"></i><span>Account
-                  Details</span></a>
-            </li>
-            <li>
-              <a style="cursor: pointer;" (click)="logOut()"><i
-                  class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
-            </li>
-          </ul>
         </div>
-      </div>
-    </div>
-    <h1 class="menu-page-header">
-      Page Header
-    </h1>
-    <ul class="main-menu">
-      <li class="sub-header">
-        <span>MANAGEMENT</span>
-      </li>
-      <li *ngIf="!currentUser?.TeamId" class="selected">
-        <a [routerLink]="['/dashboard']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-layout"></div>
-          </div>
-          <span>Dashboard</span>
-        </a>
-
-      </li>
-      <li *ngIf="!currentUser?.TeamId" >
-        <a [routerLink]="['/clients']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-users"></div>
-          </div>
-          <span>Clients</span>
-        </a>
-
-      </li>
-      <li>
-        <a [routerLink]="['/projects']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-documents-11"></div>
-          </div>
-          <span>Projects</span>
-        </a>
-
-      </li>
-      <li>
-        <a [routerLink]="['/projectboard']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-tasks-checked"></div>
-          </div>
-          <span>Project Board</span>
-        </a>
-
-      </li>
-     
-      <li class="sub-header">
-        <span>ADMINISTRATION</span>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-wallet-loaded"></div>
-          </div>
-          <span>Finances</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
-
-          </div>
-          <div class="sub-menu-icon">
-            <i class="os-icon os-icon-file-text"></i>
-          </div>
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/income']">Income</a>
-              </li>
-              <li>
-                <a [routerLink]="['/expenditure']">Expenditure</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-hierarchy-structure-2"></div>
-          </div>
-          <span>Teams</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-header">
-
-          </div>
-          <div class="sub-menu-icon">
-            <i class="os-icon os-icon-file-text"></i>
-          </div>
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/teams']">Team List</a>
-              </li>
-              <li>
-                <a [routerLink]="['/user-roles']">User Roles</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>      
-      <li  class=" has-sub-menu">
-        <a>
-          <div class="icon-w">
-            <div class="os-icon os-icon-users"></div>
-          </div>
-          <span>Users</span>
-        </a>
-        <div class="sub-menu-w">
-          <div class="sub-menu-i">
-            <ul class="sub-menu">
-              <li>
-                <a [routerLink]="['/users']">User List</a>
-              </li>
-              <li>
-                <a [routerLink]="['/invitation']">Invitations</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li *ngIf="!currentUser?.TeamId"  class="selected">
-        <a [routerLink]="['/organizations']">
-          <div class="icon-w">
-            <div class="os-icon os-icon-grid-squares2"></div>
-          </div>
-          <span>Organizations</span>
-        </a>
-      </li>
-    </ul>
-    <div class="py-1">
-      <div class="side-menu-magic" style="background-image:url('./assets/auth-pages/images/sidebar.jpg');">
-      
-        <div class="btn-w">
-          <a class="btn btn-white btn-rounded"
-            href="mailto:contact@scolptio.com"
-            target="_blank">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--------------------
-          END - Main Menu
-          -------------------->
+        <!--------------------
+                  END - Main Menu
+                  -------------------->
