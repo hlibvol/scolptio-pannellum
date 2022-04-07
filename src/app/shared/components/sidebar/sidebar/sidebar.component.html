@@ -72,7 +72,7 @@
               <li class="sub-header">
                 <span>MANAGEMENT</span>
               </li>
-              <li *ngIf="!currentUser?.TeamId" class="selected">
+              <li appPermission module="Dashboard" action="view" *ngIf="!currentUser?.TeamId" class="selected">
                 <a [routerLink]="['/dashboard']">
                   <div class="icon-w">
                     <div class="os-icon os-icon-layout"></div>
@@ -81,7 +81,7 @@
                 </a>
         
               </li>
-              <li *ngIf="!currentUser?.TeamId" >
+              <li appPermission module="Client" action="view"  >
                 <a [routerLink]="['/clients']">
                   <div class="icon-w">
                     <div class="os-icon os-icon-users"></div>

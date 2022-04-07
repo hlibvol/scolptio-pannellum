@@ -58,6 +58,7 @@ import { ProjectAddComponent } from './view/projects/project-add/project-add.com
 import { ProjectEditComponent } from './view/projects/project-edit/project-edit.component';
 import { InvoiceListComponent } from './view/invoices/invoice-list/invoice-list.component';
 import { InvoiceAddComponent } from './view/invoices/invoice-add/invoice-add.component'
+import { PermissionDirective } from './shared/directives/permission.directive';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { InvoiceAddComponent } from './view/invoices/invoice-add/invoice-add.com
     LeadsWebsiteAddComponent,
     AuthLayoutComponent,
     InvoiceListComponent,
-    InvoiceAddComponent
+    InvoiceAddComponent,
+    PermissionDirective
   ],
   imports: [
     HttpClientModule,
