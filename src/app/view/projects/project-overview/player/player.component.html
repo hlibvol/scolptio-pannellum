@@ -9,5 +9,13 @@
     <option *ngFor="let animation of animations;" [ngValue]="animation">{{animation.name}}</option>
 </select>
 <div class="canvas-container">
+    <div #loader class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <canvas #canvas id="canvas" style="width: 100%; height: 100%;"></canvas>
 </div>
