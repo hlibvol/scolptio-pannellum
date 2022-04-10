@@ -13,6 +13,7 @@ export class ProjectOverviewComponent implements OnInit {
 
   id: string = ''
   activeSection:string="HandSketchesAndDrawings";
+  module:string = "Floor-Plans"
   isHide: boolean = true;
   currentUser:AppUser;
   constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService,private appSessionStorageService: AppSessionStorageService,) { 
@@ -35,7 +36,8 @@ export class ProjectOverviewComponent implements OnInit {
         this.toastr.error('Something went wrong. Please try again later.');
     });
   }
-  showSection(section: string){
+  showSection(section: string,module:any){
     this.activeSection = section;
+    this.module = module;
   }
 }

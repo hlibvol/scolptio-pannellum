@@ -12,6 +12,7 @@ import { ImagesComponent } from './project-overview/images/images.component';
 import { DocumentsComponent } from './project-overview/documents/documents.component';
 import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
+import { PermissionDirective } from 'src/app/shared/directives/permission.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ModelsComponent } from './project-overview/models/models.component';
     ImagesComponent,
     DocumentsComponent,
     PlayerComponent,
-    ModelsComponent
+    ModelsComponent,
+    PermissionDirective
   ],
   imports: [
     CommonModule,

@@ -5,9 +5,9 @@ import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../session-storage.service';
 
 @Directive({
-  selector: '[appPermission]'
+  selector: '[appPermission2]'
 })
-export class PermissionDirective implements OnInit,OnChanges {
+export class PermissionDirective2 implements OnInit,OnChanges {
 @Input('appPermission') option:any;  
 @Input("module") module : any;
 @Input("action") action : any;
@@ -30,8 +30,7 @@ currentUser: AppUser;
   }
 
   ngOnInit(): void {
-    debugger;
-    this.elementRef.nativeElement.style.setProperty('display', 'none', 'important');
+    this.elementRef.nativeElement.style.display = "none";
     this.loadConfigs();
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,11 +42,9 @@ currentUser: AppUser;
     return this.httpClient.get('/assets/permission.json').pipe(settings => settings)
       .toPromise()
       .then(settings => {
+        debugger;
         this.data = settings as PermissionObj; 
         let isPermission = this.data.permission.find(m=>m.module == this.module && m.action == this.action && m.role == this.role);
-        if(this.module == "Projects"){
-          console.log("data",isPermission);
-        }
         if(isPermission.show){
           this.elementRef.nativeElement.style.display = "block";
         }
