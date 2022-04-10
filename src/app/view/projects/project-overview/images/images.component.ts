@@ -25,6 +25,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   documentType: string = '';
   @Input()
   header: string = '';
+  @Input() module:any;
   imageList = [];
   items: GalleryItem[];
   isMultiSelect = false;
@@ -51,6 +52,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.prepareImages(); // Non blocking call
   }
   ngOnChanges(changes: SimpleChanges): void {
+    debugger;
     if (this.currentUser.Role == "Client" && (changes.documentType.currentValue == "PrerenderedPhotos" ||
       changes.documentType.currentValue == "RenderedPhotos" ||
       changes.documentType.currentValue == "VideosOrAnimations" ||
