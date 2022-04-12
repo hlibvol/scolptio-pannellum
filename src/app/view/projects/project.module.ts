@@ -13,6 +13,7 @@ import { DocumentsComponent } from './project-overview/documents/documents.compo
 import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PermissionDirective } from 'src/app/shared/directives/permission.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ImagesComponent,
     DocumentsComponent,
     PlayerComponent,
-    ModelsComponent
+    ModelsComponent,
+    PermissionDirective
   ],
   imports: [
     CommonModule,

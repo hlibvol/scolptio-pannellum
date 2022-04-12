@@ -65,3 +65,14 @@ export interface Configs {
   s3SecretAccessKey:string;
   salesSiteUrl:string;
 }
+
+export interface Permission {
+  module: string;
+  action: string;
+  show: boolean;
+  role: string;
+}
+
+export interface PermissionObj {
+  permission: Permission[];
+}

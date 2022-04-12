@@ -13,10 +13,10 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings')">Hand
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings','Floor-Plans')">Hand
                   Sketches/drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings')">CAD Drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences')">Other References</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings','Floor-Plans')">CAD Drawings</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences','Floor-Plans')">Other References</a></li>
             </ul>
           </div>
         </div>
@@ -27,9 +27,9 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos')">Current Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos')">Reference Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos')">Reference Videos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos','Photos')">Current Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos','Photos')">Reference Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos','Photos')">Reference Videos</a></li>
             </ul>
           </div>
         </div>
@@ -40,11 +40,11 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos')">Pre-Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos')">Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations')">Videos/Animations</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer')">3D Model Viewer</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ARModelViewer' ? 'active' : ''}}" (click)="showSection('ARModelViewer')">AR Model Viewer</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model')">Pre-Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model')">Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model')">Videos/Animations</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model')">3D Model Viewer</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ARModelViewer' ? 'active' : ''}}" (click)="showSection('ARModelViewer','3D-Model')">AR Model Viewer</a></li>
             </ul>
           </div>
         </div>
@@ -54,27 +54,27 @@
   </div>
   <div class="todo-content">
     <!-- TO:DO: Consider router for this -->
-    <app-images [projectId]="id" documentType="HandSketchesAndDrawings"
+    <app-images [module]="module" [projectId]="id" documentType="HandSketchesAndDrawings"
       *ngIf="activeSection==='HandSketchesAndDrawings'" header="Hand Sketches and Drawings"></app-images>
     <app-documents [projectId]="id" documentType="CADDrawings" *ngIf="activeSection==='CADDrawings'"
       header="CAD Drawings"></app-documents>
     <app-documents [projectId]="id" documentType="OtherReferences" *ngIf="activeSection==='OtherReferences'"
       header="Other References"></app-documents>
-    <app-images [projectId]="id" documentType="CurrentPhotos" *ngIf="activeSection==='CurrentPhotos'"
+    <app-images [module]="module" [projectId]="id" documentType="CurrentPhotos" *ngIf="activeSection==='CurrentPhotos'"
       header="Current Photos"></app-images>
-    <app-images [projectId]="id" documentType="ReferencePhotos" *ngIf="activeSection==='ReferencePhotos'"
+    <app-images [module]="module" [projectId]="id" documentType="ReferencePhotos" *ngIf="activeSection==='ReferencePhotos'"
       header="Reference Photos"></app-images>
-    <app-images [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
+    <app-images [module]="module" [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
       header="Reference Videos"></app-images>
-    <app-images [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
+    <app-images [module]="module" [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
       header="Pre-rendered Photos"></app-images>
-    <app-images [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"
+    <app-images [module]="module" [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"
       header="Rendered Photos"></app-images>
-    <app-images [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
+    <app-images [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
       header="Videos / Animations"></app-images>
     <app-models [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"
       header="3D Model Viewer"></app-models>
-    <app-images [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'"
+    <app-images [module]="module" [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'"
       header="AR Model Viewer"></app-images>
   
   </div>

@@ -14,7 +14,7 @@
         <!-- title -->
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h6 class="m-0">Client List</h6>
-          <div class="d-flex align-items-center">
+          <div appPermission module="Client" action="create" class="d-flex align-items-center">
             <button type="button" class="btn btn-sm btn-orange d-flex align-items-center py-3" data-toggle="modal"
               data-target="#addclient">
               <div class="icon icon-control_point"></div>
@@ -127,9 +127,9 @@
                     </svg>
                   </button>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editClient"
+                    <a appPermission module="Client" action="edit" class="dropdown-item" href="#" data-toggle="modal" data-target="#editClient"
                       (click)="setSelectedclient(client)">Edit</a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteClient"
+                    <a appPermission module="Client" action="delete" class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteClient"
                       (click)="setSelectedclient(client)">Delete</a>
                   </div>
                 </div>
