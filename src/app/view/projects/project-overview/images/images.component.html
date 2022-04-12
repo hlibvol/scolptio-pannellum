@@ -18,6 +18,8 @@
 							<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect()">{{isMultiSelect === false?'Select' : 'Cancel Select'}}</a>
 								<a appPermission [module]="module" action="delete" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
+								<a *ngIf="isHide" class="dropdown-item" style="cursor: pointer;" (click)="setImageType(1)">Mark as internal</a>
+								<a *ngIf="isHide" class="dropdown-item" style="cursor: pointer;" (click)="setImageType(2)">Mark as external</a>
 							</div>
 						</div>
 					</div>
@@ -34,6 +36,33 @@
 							</svg>
 							<span class="pl-2">Upload Images</span>
 						</button>
+					</div>
+				</div>
+				<div class="property-section-body">
+					<div class="property-details">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="form-control-label">
+										Type
+									</label>
+                    				<ng-select [multiple]="true"
+                    					[items]="typeOptions" 
+                      					[(ngModel)]="selectedTypes">
+                    				</ng-select>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-1">
+							<div class="col-sm-4 mb-4 d-flex flex-column" *ngFor="let item of items; let i = index">
+								<ng-template [ngIf]="getFilter(i)">
+									<input type="checkbox" id="imageCheckbox_{{i}}" [hidden]="!isMultiSelect" />
+									<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect"></label>
+									<img [src]="item.data.src" height="220" width="220" style="cursor: pointer;" (click)="openImage(i)">
+									<span class="text-muted">{{getLabel(i)}}</span>
+								</ng-template>
+							</div>
+						  </div>
 					</div>
 				</div>
 			</div>

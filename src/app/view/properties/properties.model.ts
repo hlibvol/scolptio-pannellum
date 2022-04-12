@@ -107,6 +107,17 @@ export class FileUpload {
         public extension?: string,
         public url?: string,
         public type?: string
-    ) {
+        
+    ) {   }
+    // Different fileName and s3FileName are used interchangably in other files, so create accessors
+    public get s3FileName(): string{
+        return this.fileKey;
     }
+    public set s3FileName(value: string){
+        this.fileKey = value
+    }
+}
+
+export class ImageFileUpload extends FileUpload {
+    public imageType: number = 0;
 }

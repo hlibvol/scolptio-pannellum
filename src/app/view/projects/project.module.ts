@@ -12,6 +12,7 @@ import { ImagesComponent } from './project-overview/images/images.component';
 import { DocumentsComponent } from './project-overview/documents/documents.component';
 import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { PermissionDirective } from 'src/app/shared/directives/permission.directive';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PermissionDirective } from 'src/app/shared/directives/permission.direct
     RouterModule.forChild([
       { path: '', component: ProjectListComponent },
       { path: 'project-overview/:id', component: ProjectOverviewComponent }
-    ])
+    ]),
+    NgSelectModule
   ]
 })
 export class ProjectModule { }
