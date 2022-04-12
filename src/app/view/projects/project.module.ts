@@ -12,6 +12,7 @@ import { ImagesComponent } from './project-overview/images/images.component';
 import { DocumentsComponent } from './project-overview/documents/documents.component';
 import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ModelsComponent } from './project-overview/models/models.component';
     RouterModule.forChild([
       { path: '', component: ProjectListComponent },
       { path: 'project-overview/:id', component: ProjectOverviewComponent }
-    ])
+    ]),
+    NgSelectModule
   ]
 })
 export class ProjectModule { }

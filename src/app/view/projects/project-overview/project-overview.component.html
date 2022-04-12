@@ -13,10 +13,10 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" (click)="showSection('HandSketchesAndDrawings')">Hand
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings')">Hand
                   Sketches/drawings</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('CADDrawings')">CAD Drawings</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('OtherReferences')">Other References</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings')">CAD Drawings</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences')">Other References</a></li>
             </ul>
           </div>
         </div>
@@ -27,9 +27,9 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" (click)="showSection('CurrentPhotos')">Current Photos</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('ReferencePhotos')">Reference Photos</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('ReferenceVideos')">Reference Videos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos')">Current Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos')">Reference Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos')">Reference Videos</a></li>
             </ul>
           </div>
         </div>
@@ -40,11 +40,11 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" (click)="showSection('PrerenderedPhotos')">Pre-Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('RenderedPhotos')">Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('VideosOrAnimations')">Videos/Animations</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('3DModelViewer')">3D Model Viewer</a></li>
-              <li><a href="javascript:void(0)" (click)="showSection('ARModelViewer')">AR Model Viewer</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos')">Pre-Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos')">Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations')">Videos/Animations</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer')">3D Model Viewer</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ARModelViewer' ? 'active' : ''}}" (click)="showSection('ARModelViewer')">AR Model Viewer</a></li>
             </ul>
           </div>
         </div>

@@ -1,6 +1,5 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgOption } from '@ng-select/ng-select';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
@@ -8,7 +7,7 @@ import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
-import { FileUpload, Properties } from '../../../properties/properties.model';
+import {  ImageFileUpload } from '../../../properties/properties.model';
 import { ProjectService } from '../../project.service';
 
 declare var $: any;
@@ -30,6 +29,12 @@ export class ImagesComponent implements OnInit, OnChanges {
   isMultiSelect = false;
   currentUser: AppUser;
   isHide: boolean = true;
+  typeOptions: NgOption[] = [
+    { value: 0, label: 'Unmarked' },
+    { value: 1, label: 'Internal' },
+    { value: 2, label: 'External' }
+  ]
+  selectedTypes = this.typeOptions;
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     public gallery: Gallery,
@@ -43,7 +48,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   async prepareImages() {
     var images = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
     if (images && images.length)
-      this.imageList = images.map(x => x.s3FileName);
+      this.imageList = images;
     this.prepareSlideData();
   }
 
@@ -69,7 +74,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   async prepareSlideData() {
     const urls = [];
     for (let img of this.imageList) {
-      urls.push(await this.s3BucketService.GetUrl(img));
+      urls.push(await this.s3BucketService.GetUrl(img.s3FileName));
     }
     this.items = urls.map(url => new ImageItem({ src: url, thumb: url }));
 
@@ -89,34 +94,37 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.lightbox.open(index, 'lightbox', { panelClass: 'fullscreen' });
   }
 
-  ImageUploadSuccess(imageUploads: FileUpload[]) {
+  ImageUploadSuccess(imageUploads: ImageFileUpload[]) {
     for (let imageUpload of imageUploads) {
       this.AddImageFile(imageUpload);
     }
   }
 
-  AddImageFile(imageUpload: FileUpload) {
+  AddImageFile(imageUpload: ImageFileUpload) {
     this.projectService.AddFile(imageUpload).subscribe(async (data: any) => {
+      imageUpload.imageType = 0;
       this.imageList.push(imageUpload);
-      this.UpdateProjectResource();
+      await this.UpdateProjectResource();
       const url = await this.s3BucketService.GetUrl(imageUpload.fileKey);
       this.items.push(new ImageItem({ src: url, thumb: url }))
-    }, (error) => {
-
     })
   }
 
-  UpdateProjectResource() {
-    var payload = this.imageList.map(x => {
-      return {
-        key: x.fileKey,
-        value: x.fileName
-      }
-    })
-    this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).subscribe((data: any) => {
-    }, (error) => {
+  async UpdateProjectResource(): Promise<void> {
+    try{
+      var payload = this.imageList.map(x => {
+        return {
+          s3FileName: x.s3FileName,
+          fileName: x.fileName,
+          imageType: x.imageType ? x.imageType : 0
+        }
+      })
+      await this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).toPromise()
+    }
+    catch(err){
       this.toastr.error(common_error_message);
-    })
+      throw err;// abort other operations
+    }
   }
 
   DeleteFile(url: string) {
@@ -161,6 +169,8 @@ export class ImagesComponent implements OnInit, OnChanges {
           this.items.splice(i, 1);
         }
       }
+      this.imageList = this.imageList.filter(x => !selectedImageSrcs.some(y => y.includes(x.s3FileName)))
+      this.UpdateProjectResource();
     } else {
       this.toastr.error(s3_image.image_select_count_error);
     }
@@ -177,5 +187,28 @@ export class ImagesComponent implements OnInit, OnChanges {
   close() {
     $('#uploadMultiImage').modal('toggle');
   }
-
+  async setImageType(type: number):Promise<void>{
+    let itemsSelected: boolean = false;
+    for (let item of this.items) {
+      const i = this.items.indexOf(item);
+      if (i > -1) {
+        const galleryImage = document.getElementById('imageCheckbox_' + i) as HTMLInputElement;
+        if (galleryImage && galleryImage.checked) {
+          itemsSelected = true;
+          let imageListIndex: number = this.imageList.findIndex(x => item.data.src.includes(x.s3FileName));
+          this.imageList[imageListIndex].imageType = type;
+        }
+      }
+    }
+    if(!itemsSelected)
+      this.toastr.error(s3_image.image_select_count_error);
+    else
+      this.UpdateProjectResource();
+  }
+  getLabel(i: number):string{
+    return this.typeOptions.filter(x => x.value === this.imageList[i].imageType)[0]?.label
+  }
+  getFilter(i: number):boolean{
+    return this.selectedTypes.map(x => x.value).includes(this.imageList[i].imageType)
+  }
 }

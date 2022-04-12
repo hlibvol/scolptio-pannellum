@@ -358,3 +358,12 @@
     font-weight: 600;
   }
   // progress
+.todo-app-w{
+  .todo-sidebar{
+    .section-link{
+      &.active{
+        color: #047bf8;
+      }
+    }
+  }
+}
