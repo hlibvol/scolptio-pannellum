@@ -44,8 +44,8 @@ export class ProjectBoardListComponent implements OnInit {
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
     private router: Router,
-    private dragulaService: DragulaService, 
-    private projectService: ProjectService ) {
+    private dragulaService: DragulaService,
+    private projectService: ProjectService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       if (this.currentUser.Role == "Client") {
@@ -55,9 +55,49 @@ export class ProjectBoardListComponent implements OnInit {
         this.isHide = false;
       }
     }
+    dragulaService.drag("PROJECT")
+      .subscribe(({ el }) => {
+        let status = el.parentElement.getAttribute("data-target");
+        switch (status) {
+          case "Planing":
+            this.planCount--;
+            break;
+          case "CAD Drawing":
+            this.cadCount--;
+            break;
+          case "3D Modeling":
+            this.modelCount--;
+            break;
+          case "Final Rendering":
+            this.renderCount--;
+            break;
+          case "Completed":
+            this.completeCount--;
+            break;
+        }
+      })
+
     dragulaService.drop("PROJECT")
       .subscribe(({ el }) => {
         let status = el.parentElement.getAttribute("data-target");
+
+        switch (status) {
+          case "Planing":
+            this.planCount++;
+            break;
+          case "CAD Drawing":
+            this.cadCount++;
+            break;
+          case "3D Modeling":
+            this.modelCount++;
+            break;
+          case "Final Rendering":
+            this.renderCount++;
+            break;
+          case "Completed":
+            this.completeCount++;
+            break;
+        }
         let projectId = el.children[1].id;
         let project = this.projectList.find(item => item.id == projectId);
         project.status = status;
