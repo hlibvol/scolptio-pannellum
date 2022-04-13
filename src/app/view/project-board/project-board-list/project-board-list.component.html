@@ -1,13 +1,11 @@
 <div class="content-i">
   <div class="content-box">
-    <div class="control-header">     
-    </div>
     <div class="pipelines-w">
-      <div class="text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+      <div class="text-primary text-center mt-4 bg-white h-100 p-4 d-flex justify-content-center align-items-center" *ngIf="isLoading">
         <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
       </div>
-      <div class="row" *ngIf="!isLoading">
-        <div class="col">
+      <div class="record" *ngIf="!isLoading">
+        <div class="column">
           <div class="pipeline white lined-warning">
             <div class="pipeline-header">
               <h5 class="pipeline-name">Planning</h5>
@@ -55,7 +53,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="column">
           <div class="pipeline white lined-danger">
             <div class="pipeline-header">
               <h5 class="pipeline-name">CAD Drawing</h5>
@@ -103,7 +101,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="column">
           <div class="pipeline white lined-success">
             <div class="pipeline-header">
               <h5 class="pipeline-name">3D Modeling</h5>
@@ -151,7 +149,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="column">
           <div class="pipeline white lined-primary">
             <div class="pipeline-header">
               <h5 class="pipeline-name">Final Rendering</h5>
@@ -199,7 +197,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="column">
           <div class="pipeline white lined-success">
             <div class="pipeline-header">
               <h5 class="pipeline-name">Completed</h5>
