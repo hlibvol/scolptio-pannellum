@@ -3,7 +3,10 @@
     <div class="control-header">     
     </div>
     <div class="pipelines-w">
-      <div class="row">
+      <div class="text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+        <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+      </div>
+      <div class="row" *ngIf="!isLoading">
         <div class="col">
           <div class="pipeline white lined-warning">
             <div class="pipeline-header">
