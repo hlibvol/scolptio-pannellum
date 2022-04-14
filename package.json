@@ -46,6 +46,7 @@
     "leaflet-illustrate": "0.0.3",
     "ng-chartjs": "^0.1.1",
     "ng-gallery": "^5.0.0",
+    "ng2-dragula": "^2.1.1",
     "ngx-bootstrap": "^7.0.0",
     "ngx-mask": "^12.0.0",
     "ngx-quill": "^14.0.0",

@@ -1,0 +1,43 @@
+.column {
+    width: 300px !important;
+    margin: 10px;
+}
+
+:host {
+    flex-grow: 1;
+}
+
+.content-i {
+    display: block !important;
+    height: 100%;
+
+    .content-box {
+        height: 100%;
+
+        .pipelines-w {
+            height: 100%;
+            position: relative;
+
+            .record {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 0;
+                margin-bottom: 8px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                .column {
+                    box-sizing: border-box;
+                    display: inline-block;
+                    height: 100%;
+                    margin: 0 10px;
+                    vertical-align: top;
+                    white-space: nowrap;
+                    width: 300px;
+                }
+            }
+        }
+    }
+}

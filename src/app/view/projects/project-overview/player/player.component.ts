@@ -1,10 +1,8 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { RoomEnvironment  } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 @Component({
@@ -16,6 +14,8 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
   @ViewChild('canvas')
   private canvasRef: ElementRef;
+  @ViewChild('loader')
+  private loaderRef: ElementRef;
   @ViewChild('select')
   private selectRef: ElementRef;
   @ViewChild('progress')
@@ -79,6 +79,10 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     return this.canvasRef.nativeElement;
   }
 
+  private get loader(): HTMLCanvasElement {
+    return this.loaderRef.nativeElement;
+  }
+
   private get select(): HTMLCanvasElement {
     return this.selectRef.nativeElement;
   }
@@ -112,6 +116,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
   play3D() {
     const domElement = this.canvas;
+    const loadElement = this.loader;
     this.renderer = new THREE.WebGLRenderer({
       canvas: domElement
     });
@@ -123,9 +128,9 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     // create scene
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xeeeeee);
-    
-    const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
-    this.scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
+
+    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
 
     // add camera
     this.camera = new THREE.PerspectiveCamera(45, domElement.clientWidth / domElement.clientHeight, 1, 2000);
@@ -136,11 +141,11 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     //this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444));
     this.scene.add(new THREE.AmbientLight(0xa6a6a6, 3))
     const dirLight1 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
-    dirLight1.position.set(100,0,100)
+    dirLight1.position.set(100, 0, 100)
     this.scene.add(dirLight1)
 
     const dirLight2 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
-    dirLight2.position.set(-100,0,100)
+    dirLight2.position.set(-100, 0, 100)
     this.scene.add(dirLight2)
 
 
@@ -163,8 +168,34 @@ export class PlayerComponent implements OnDestroy, OnChanges {
     // const grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
     // this.scene.add(grid);
 
+    const manager = new THREE.LoadingManager();
+    manager.onStart = function (url, itemsLoaded, itemsTotal) {
+
+      console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+      loadElement.style.display = "block";
+      loadElement.style.width = domElement.clientWidth + "px";
+      loadElement.style.height = domElement.clientHeight + "px";
+    };
+
+    manager.onLoad = function () {
+      console.log('Loading complete!');
+      loadElement.style.display = "none";
+    };
+
+
+    manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+
+      console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+    };
+
+    manager.onError = function (url) {
+
+      console.log('There was an error loading ' + url);
+
+    };
     // loader FBX
-    const loader = new FBXLoader();
+    const loader = new FBXLoader(manager);
     loader.load(
       this.threeDPath,
       (objLoaded: any) => {

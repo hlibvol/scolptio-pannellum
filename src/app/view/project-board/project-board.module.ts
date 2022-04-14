@@ -4,6 +4,7 @@ import { ProjectBoardAddComponent } from './project-board-add/project-board-add.
 import { ProjectBoardEditComponent } from './project-board-edit/project-board-edit.component';
 import { ProjectBoardListComponent } from './project-board-list/project-board-list.component';
 import { RouterModule } from '@angular/router';
+import { DragulaModule } from 'ng2-dragula';
 
 
 
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    DragulaModule.forRoot(),
     RouterModule.forChild([{
       path: '', component: ProjectBoardListComponent
     }])
