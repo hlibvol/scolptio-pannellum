@@ -23,8 +23,8 @@ export class BaseService {
   ): Observable<T> {
     return this.httpClient.post<T>(this.baseUrl + url, data, responseType ? responseType : {});
   }
-  public get<T>(url: string): Observable<T> {
-    return this.httpClient.get<T>(this.baseUrl+url);
+  public get<T>(url: string, options?: Object | string): Observable<T> {
+    return this.httpClient.get<T>(this.baseUrl+url, options ? options : {});
   }
   public put<T>(url: string, data: Object | string): Observable<T> {
     return this.httpClient.put<T>(this.baseUrl + url, data);
