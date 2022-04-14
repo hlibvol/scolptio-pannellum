@@ -11,37 +11,12 @@
               <h5 class="pipeline-name">Planning</h5>
               <div class="pipeline-header-numbers">
                 
-                <div class="pipeline-count">{{planCount}} Projects</div>
+                <div class="pipeline-count">{{planCount}} Project(s)</div>
               </div>
-              <div class="pipeline-settings os-dropdown-trigger"><i class="os-icon os-icon-hamburger-menu-1"></i>
-                <div class="os-dropdown">
-                  <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                  <ul>
-                    <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                  </ul>
-                </div>
-              </div>
+             
             </div>
             <div class="pipeline-body" dragula="PROJECT" data-target="Planing">
-              <div class="pipeline-item" *ngFor="let project of planingProjectList; let i = index">
-                <div class="pi-controls">
-                  <div class="pi-settings os-dropdown-trigger"><i class="os-icon os-icon-ui-46"></i>
-                    <div class="os-dropdown">
-                      <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                      <ul>
-                        <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="status status-green" data-placement="top" data-toggle="tooltip" title=""
-                    data-original-title="Active Status"></div>
-                </div>
+              <div class="pipeline-item" *ngFor="let project of planingProjectList; let i = index">              
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
                   <div class="pi-info">
@@ -57,39 +32,12 @@
           <div class="pipeline white lined-danger">
             <div class="pipeline-header">
               <h5 class="pipeline-name">CAD Drawing</h5>
-              <div class="pipeline-header-numbers">
-                
-                <div class="pipeline-count">{{cadCount}} Projects</div>
-              </div>
-              <div class="pipeline-settings os-dropdown-trigger"><i class="os-icon os-icon-hamburger-menu-1"></i>
-                <div class="os-dropdown">
-                  <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                  <ul>
-                    <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                  </ul>
-                </div>
-              </div>
+              <div class="pipeline-header-numbers">                
+                <div class="pipeline-count">{{cadCount}} Project(s)</div>
+              </div>            
             </div>
             <div class="pipeline-body" dragula="PROJECT" data-target="CAD Drawing">
-              <div class="pipeline-item" *ngFor="let project of cadProjectList; let i = index">
-                <div class="pi-controls">
-                  <div class="pi-settings os-dropdown-trigger"><i class="os-icon os-icon-ui-46"></i>
-                    <div class="os-dropdown">
-                      <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                      <ul>
-                        <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="status status-green" data-placement="top" data-toggle="tooltip" title=""
-                    data-original-title="Active Status"></div>
-                </div>
+              <div class="pipeline-item" *ngFor="let project of cadProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
                   <div class="pi-info">
@@ -107,37 +55,11 @@
               <h5 class="pipeline-name">3D Modeling</h5>
               <div class="pipeline-header-numbers">
                 
-                <div class="pipeline-count">{{modelCount}} Projects</div>
-              </div>
-              <div class="pipeline-settings os-dropdown-trigger"><i class="os-icon os-icon-hamburger-menu-1"></i>
-                <div class="os-dropdown">
-                  <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                  <ul>
-                    <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                  </ul>
-                </div>
-              </div>
+                <div class="pipeline-count">{{modelCount}} Project(s)</div>
+              </div>             
             </div>
             <div class="pipeline-body" dragula="PROJECT" data-target="3D Modeling">
-              <div class="pipeline-item" *ngFor="let project of modelProjectList; let i = index">
-                <div class="pi-controls">
-                  <div class="pi-settings os-dropdown-trigger"><i class="os-icon os-icon-ui-46"></i>
-                    <div class="os-dropdown">
-                      <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                      <ul>
-                        <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="status status-green" data-placement="top" data-toggle="tooltip" title=""
-                    data-original-title="Active Status"></div>
-                </div>
+              <div class="pipeline-item" *ngFor="let project of modelProjectList; let i = index">              
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
                   <div class="pi-info">
@@ -155,37 +77,11 @@
               <h5 class="pipeline-name">Final Rendering</h5>
               <div class="pipeline-header-numbers">
                 
-                <div class="pipeline-count">{{renderCount}} Projects</div>
-              </div>
-              <div class="pipeline-settings os-dropdown-trigger"><i class="os-icon os-icon-hamburger-menu-1"></i>
-                <div class="os-dropdown">
-                  <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                  <ul>
-                    <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                  </ul>
-                </div>
-              </div>
+                <div class="pipeline-count">{{renderCount}} Project(s)</div>
+              </div>           
             </div>
             <div class="pipeline-body" dragula="PROJECT" data-target="Final Rendering">
-              <div class="pipeline-item" *ngFor="let project of renderProjectList; let i = index">
-                <div class="pi-controls">
-                  <div class="pi-settings os-dropdown-trigger"><i class="os-icon os-icon-ui-46"></i>
-                    <div class="os-dropdown">
-                      <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                      <ul>
-                        <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="status status-green" data-placement="top" data-toggle="tooltip" title=""
-                    data-original-title="Active Status"></div>
-                </div>
+              <div class="pipeline-item" *ngFor="let project of renderProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
                   <div class="pi-info">
@@ -203,37 +99,11 @@
               <h5 class="pipeline-name">Completed</h5>
               <div class="pipeline-header-numbers">
                 
-                <div class="pipeline-count">{{completeCount}} Projects</div>
-              </div>
-              <div class="pipeline-settings os-dropdown-trigger"><i class="os-icon os-icon-hamburger-menu-1"></i>
-                <div class="os-dropdown">
-                  <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                  <ul>
-                    <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                    <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                  </ul>
-                </div>
-              </div>
+                <div class="pipeline-count">{{completeCount}} Project(s)</div>
+              </div>              
             </div>
             <div class="pipeline-body" dragula="PROJECT" data-target="Completed">
-              <div class="pipeline-item" *ngFor="let project of completeProjectList; let i = index">
-                <div class="pi-controls">
-                  <div class="pi-settings os-dropdown-trigger"><i class="os-icon os-icon-ui-46"></i>
-                    <div class="os-dropdown">
-                      <div class="icon-w"><i class="os-icon os-icon-ui-46"></i></div>
-                      <ul>
-                        <li><a href="#"><i class="os-icon os-icon-ui-49"></i><span>Edit Record</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-grid-10"></i><span>Duplicate Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-15"></i><span>Remove Item</span></a></li>
-                        <li><a href="#"><i class="os-icon os-icon-ui-44"></i><span>Archive Project</span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="status status-green" data-placement="top" data-toggle="tooltip" title=""
-                    data-original-title="Active Status"></div>
-                </div>
+              <div class="pipeline-item" *ngFor="let project of completeProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
                   <div class="pi-info">
