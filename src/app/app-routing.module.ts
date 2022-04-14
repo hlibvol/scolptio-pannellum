@@ -119,7 +119,7 @@ const routes: Routes = [
     path: "login", component: AuthLoginComponent
   },
   {
-    path: "register", component: AuthLoginComponent
+    path: "register", component: AuthRegisterComponent
   },
   {
     path: "locked", component: AuthLockscreenComponent
