@@ -89,6 +89,10 @@ export const client_edit = {
     edit_client_error: 'Something went wrong, could not update client.'
 }
 
+export const client_invite = {
+    edit_client_success: success_icon + 'Client invited successfully.',
+    edit_client_error: 'Something went wrong, could not update client.'
+}
 
 export const client_delete = {
     delete_client_success: success_icon + 'Client deleted successfully.',

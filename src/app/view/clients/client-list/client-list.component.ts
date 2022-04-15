@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
-import { common_error_message } from 'src/app/shared/toast-message-text';
+import { client_edit, client_invite, common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { Income } from '../../income/income.model';
 import { ClientsService } from '../clients.service';
-
+declare var $: any;
 @Component({
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
@@ -29,6 +29,7 @@ export class ClientListComponent implements OnInit {
   visibleFilter = false;
   filterObj: any;
   currentUser: AppUser;
+  client:any;
   constructor(private _clientService: ClientsService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
@@ -126,4 +127,25 @@ export class ClientListComponent implements OnInit {
 
     }
   }
+
+  inviteClient(client){
+    client.isInvited = true;
+    this.client = client;
+    $('#list-inviteClient').modal('show');
+  }
+
+  selectedOption(isSent) {
+    $('#list-inviteClient').modal('hide');
+    if (!isSent) {
+      this.client.isInvited = false;
+      return false;
+    }
+    this._clientService.UpdateClients(this.client).subscribe(res => {
+      this.toastr.info(client_invite.edit_client_success);
+      this.GetAllclient();
+    }, error => {
+      this.toastr.info(client_invite.edit_client_error);
+    })
+  }
+
 }

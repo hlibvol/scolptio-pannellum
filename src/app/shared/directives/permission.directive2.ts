@@ -3,6 +3,7 @@ import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '
 import { Configs, PermissionObj } from 'src/app/services/configs-loader.service';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../session-storage.service';
+import { permission } from './permission';
 
 @Directive({
   selector: '[appPermission2]'
@@ -14,6 +15,7 @@ export class PermissionDirective2 implements OnInit,OnChanges {
 @Input() role : any;
 data: PermissionObj;
 currentUser: AppUser;
+isLoadCompleted:boolean = false;
   constructor(private appSessionStorageService: AppSessionStorageService,private elementRef: ElementRef,private httpClient : HttpClient) { 
     this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     if(!this.currentUser) return;
@@ -37,18 +39,15 @@ currentUser: AppUser;
     console.log("changes",changes);
   }
 
-  public async loadConfigs() : Promise<any> {
-    if(!this.currentUser) return;
-    return this.httpClient.get('/assets/permission.json').pipe(settings => settings)
-      .toPromise()
-      .then(settings => {
-        debugger;
-        this.data = settings as PermissionObj; 
-        let isPermission = this.data.permission.find(m=>m.module == this.module && m.action == this.action && m.role == this.role);
-        if(isPermission.show){
-          this.elementRef.nativeElement.style.display = "block";
-        }
-      });
+  public async loadConfigs(): Promise<any> {
+    if (!this.currentUser) return;
+    this.data = permission as PermissionObj;
+    let isPermission = this.data.permission.find(m => m.module == this.module && m.action == this.action && m.role == this.role);
+    if (isPermission && isPermission.show) {
+      this.elementRef.nativeElement.style.display = "block";
+    }
+
   }
+
 
 }
