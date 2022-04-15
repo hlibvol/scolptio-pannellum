@@ -7,7 +7,7 @@
         <div class="container my-auto py-5">
           <div class="row">
             <div class="col-11 col-lg-9 col-xl-8 mx-auto text-center" *ngIf="!isRegistrationSuccess">
-              <div class="logo mb-4"> <a title="Oxyy"><img src="assets/img/logo1.png" alt="logo"
+              <div class="logo mb-4"> <a title="Oxyy"><img src="assets/img/logo.png" alt="logo"
                 style="width:80px; height:70px;"></a> </div>
               <form id="registerForm" role="form" (ngSubmit)="save()" novalidate #registerForm="ngForm"
                 autocomplete="off">
@@ -111,21 +111,7 @@
                   Account&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
                     style="font-size:18px"></i></button>
               </form>
-              <div class="d-flex align-items-center my-3">
-                <hr class="flex-grow-1">
-                <span class="mx-2 text-2 text-muted">OR</span>
-                <hr class="flex-grow-1">
-              </div>
-              <div class="d-flex  flex-column align-items-center mb-4">
-                <ul class="social-icons social-icons-circle">
-                  <li class="social-icons-facebook"><a href="#" data-toggle="tooltip"
-                      data-original-title="Log In with Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                  <li class="social-icons-google"><a href="#" data-toggle="tooltip"
-                      data-original-title="Log In with Google"><i class="fab fa-google"></i></a></li>
-                  <li class="social-icons-linkedin"><a href="#" data-toggle="tooltip"
-                      data-original-title="Log In with Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
-              </div>
+         
               <p class="text-muted text-2">Already have an account? <a class="btn-link" routerLink="/login">Sign In</a>
               </p>
             </div>
