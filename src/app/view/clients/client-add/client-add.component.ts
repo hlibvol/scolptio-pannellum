@@ -33,7 +33,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
   teamList: Team[];
-  constructor(private teamService: TeamService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  formModel: any;
+  constructor(private teamService: TeamService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _clientService: ClientsService) {
     this.incomeType = null;
   }
@@ -48,8 +49,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       CompanyAdress: [''],
       Logo: [''],
       Website: [''],
-      TeamId : ['',Validators.compose([Validators.required])],
-      InviteOption:['',Validators.compose([Validators.required])]
+      TeamId: ['', Validators.compose([Validators.required])],
+      IsInvited: [false]
     });
     this.GetAllTeam();
     this.loadAutoComplete();
@@ -57,9 +58,9 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
 
   GetAllTeam() {
     this.isLoading = true;
-    this.teamService.GetAllTeam(-1,-1,null,null).subscribe((data: any[]) => {
+    this.teamService.GetAllTeam(-1, -1, null, null).subscribe((data: any[]) => {
       this.isLoading = false;
-      this.teamList =  data;
+      this.teamList = data;
     }, (error) => {
       this.toastr.error(common_error_message);
       this.isLoading = false;
@@ -97,8 +98,13 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
+    this.formModel = model;
     if (!isValid)
       return false;
+    if (model.IsInvited) {
+      $('#inviteClient').modal('show');
+      return false;
+    }
     this.isSaving = true;
     model.Logo = this.websiteLogoImage;
     this._clientService.SaveClients(model).subscribe(res => {
@@ -113,6 +119,29 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       this.toastr.info(clients_add.add_client_error);
     })
   }
+
+  selectedOption(isSent) {
+    $('#inviteClient').modal('hide');
+    if (!isSent) {
+      
+      return false;
+    }
+
+    this.isSaving = true;
+    this.formModel.Logo = this.websiteLogoImage;
+    this._clientService.SaveClients(this.formModel).subscribe(res => {
+      this.isSaving = false;
+      this.formSubmitAttempt = false;
+      this.addSuccessEvent.emit("value");
+      this.toastr.info(clients_add.add_client_success);
+      this.close(null);
+    }, error => {
+      this.isSaving = false;
+      this.formSubmitAttempt = false;
+      this.toastr.info(clients_add.add_client_error);
+    })
+  }
+
 
   public async dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
 
@@ -159,7 +188,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
     const infowindow = new google.maps.InfoWindow();
     const infowindowContent = this.document.getElementById("infowindow-content") as HTMLInputElement;
     infowindow.setContent(infowindowContent);
-    
+
     autocomplete.addListener("place_changed", () => {
       infowindow.close();
       const place = autocomplete.getPlace();
@@ -197,11 +226,11 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
         ].join(" ");
       }
       (this.clientForm.controls.CompanyAdress as FormControl)
-      .setValue(address);
-      
+        .setValue(address);
+
     });
   }
 
-  onChangeData(val){
+  onChangeData(val) {
   }
 }

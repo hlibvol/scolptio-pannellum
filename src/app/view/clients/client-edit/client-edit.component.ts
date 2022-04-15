@@ -22,6 +22,7 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() client: any;
   @Output() updateSuccessEvent = new EventEmitter<string>();
 
+  formsModel: any;
   formSubmitAttempt: boolean = false;
   clientForm: FormGroup;
   errorMsg = '';
@@ -33,7 +34,7 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
   teamList: Team[];
-  constructor(private teamService: TeamService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  constructor(private teamService: TeamService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _clientService: ClientsService) {
     this.incomeType = null;
   }
@@ -49,17 +50,17 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       CompanyAdress: [''],
       Logo: [''],
       Website: [''],
-      TeamId : ['',Validators.compose([Validators.required])],
-      InviteOption:['',Validators.compose([Validators.required])]
+      TeamId: ['', Validators.compose([Validators.required])],
+      IsInvited: [false]
     });
     this.GetAllTeam();
   }
 
   GetAllTeam() {
     this.isLoading = true;
-    this.teamService.GetAllTeam(-1,-1,null,null).subscribe((data: any[]) => {
+    this.teamService.GetAllTeam(-1, -1, null, null).subscribe((data: any[]) => {
       this.isLoading = false;
-      this.teamList =  data;
+      this.teamList = data;
     }, (error) => {
       this.toastr.error(common_error_message);
       this.isLoading = false;
@@ -95,8 +96,12 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.client.website);
     (this.clientForm.controls.TeamId as FormControl)
       .setValue(this.client.teamId);
-      (this.clientForm.controls.InviteOption as FormControl)
-      .setValue(this.getInviteValue(this.client.inviteOption));
+    (this.clientForm.controls.IsInvited as FormControl)
+      .setValue(this.client.isInvited);
+    if (this.client.isInvited)
+      (this.clientForm.controls.IsInvited as FormControl).disable();
+      else
+      (this.clientForm.controls.IsInvited as FormControl).enable();
   }
 
   private loadScript(url) {
@@ -129,13 +134,42 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
+    model = this.clientForm.getRawValue();
+    this.formsModel = model;
     if (!isValid)
       return false;
+    if (model.IsInvited && !(this.clientForm.controls.IsInvited as FormControl).disabled) {
+      $('#edit-inviteClient').modal('show');
+      return false;
+    }
     this.isSaving = true;
     model.Logo = this.websiteLogoImage;
     this._clientService.UpdateClients(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;
+      this.clientForm.reset();
+      this.updateSuccessEvent.emit("value");
+      this.toastr.info(client_edit.edit_client_success);
+      this.close(null);
+    }, error => {
+      this.isSaving = false;
+      this.formSubmitAttempt = false;
+      this.toastr.info(client_edit.edit_client_error);
+    })
+  }
+
+  selectedOption(isSent) {
+    $('#edit-inviteClient').modal('hide');
+    if (!isSent) {
+
+      return false;
+    }
+    this.isSaving = true;
+    this.formsModel.Logo = this.websiteLogoImage;
+    this._clientService.UpdateClients(this.formsModel).subscribe(res => {
+      this.isSaving = false;
+      this.formSubmitAttempt = false;
+      this.clientForm.reset();
       this.updateSuccessEvent.emit("value");
       this.toastr.info(client_edit.edit_client_success);
       this.close(null);

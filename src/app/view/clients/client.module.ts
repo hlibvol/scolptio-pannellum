@@ -9,6 +9,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ClientDeleteComponent } from './client-delete/client-delete.component';
 import { TeamService } from '../team/team.service';
+import { ClientInviteComponent } from './client-invite/client-invite.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -19,7 +20,8 @@ const maskConfig: Partial<IConfig> = {
     ClientListComponent,
     ClientAddComponent,
     ClientEditComponent,
-    ClientDeleteComponent
+    ClientDeleteComponent,
+    ClientInviteComponent
   ],
   imports: [
     CommonModule,

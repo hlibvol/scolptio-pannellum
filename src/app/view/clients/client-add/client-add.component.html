@@ -36,14 +36,15 @@
                         <ng-container>Team is required</ng-container>
                     </div>
                 </div>
-                <div class="form-group col-12"><label for="">Invite Option</label>
-                    <select class="form-control" formControlName="InviteOption">
-                    <option value="">Select Invite</option>
-                      <option value="1">Invite</option>
-                      <option value="2">Registerd</option>
-                    </select>
-                    <div class="text-danger" *ngIf="HasValidationError('InviteOption','required')">
-                        <ng-container>Invite Option is required</ng-container>
+                <div class="form-group  col-12">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" class="form-control mr-2 " formControlName="IsInvited">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Sent Invite
+                        </label>
+                    </div>
+                    <div class="text-danger" *ngIf="HasValidationError('IsInvited','required')">
+                        <ng-container>Invite is required</ng-container>
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Email</label>
@@ -60,10 +61,12 @@
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Company Name</label>
-                    <input formControlName="CompanyName" class="form-control" placeholder="Enter company name" type="text">
+                    <input formControlName="CompanyName" class="form-control" placeholder="Enter company name"
+                        type="text">
                 </div>
                 <div class="form-group col-12"><label for="">Company address</label>
-                    <input id="txtSearchPlaces" formControlName="CompanyAdress" class="form-control" placeholder="Enter address" type="text">
+                    <input id="txtSearchPlaces" formControlName="CompanyAdress" class="form-control"
+                        placeholder="Enter address" type="text">
                 </div>
                 <div class="col-sm-12">
                     <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1"
@@ -105,4 +108,8 @@
             </button>
         </div>
     </form>
+</div>
+<div class="modal fade modal-right" id="inviteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <app-client-invite (inviteEvent)="selectedOption($event)"></app-client-invite>
 </div>
