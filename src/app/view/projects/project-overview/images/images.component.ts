@@ -3,7 +3,6 @@ import { NgOption } from '@ng-select/ng-select';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
@@ -40,7 +39,6 @@ export class ImagesComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     public gallery: Gallery,
     public lightbox: Lightbox,
-    private s3BucketService: S3BucketService,
     private appSessionStorageService: AppSessionStorageService,) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
@@ -57,7 +55,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.prepareImages(); // Non blocking call
   }
   ngOnChanges(changes: SimpleChanges): void {
-    debugger;
+    
     if (this.currentUser.Role == "Client" && (changes.documentType.currentValue == "PrerenderedPhotos" ||
       changes.documentType.currentValue == "RenderedPhotos" ||
       changes.documentType.currentValue == "VideosOrAnimations" ||
@@ -76,7 +74,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   async prepareSlideData() {
     const urls = [];
     for (let img of this.imageList) {
-      urls.push(await this.s3BucketService.GetUrl(img.s3FileName));
+      urls.push(await this.projectService.getS3ObjectUrl(img.s3FileName).toPromise());
     }
     this.items = urls.map(url => new ImageItem({ src: url, thumb: url }));
 
@@ -107,7 +105,7 @@ export class ImagesComponent implements OnInit, OnChanges {
       imageUpload.imageType = 0;
       this.imageList.push(imageUpload);
       await this.UpdateProjectResource();
-      const url = await this.s3BucketService.GetUrl(imageUpload.fileKey);
+      const url = await this.projectService.getS3ObjectUrl(imageUpload.fileKey).toPromise();
       this.items.push(new ImageItem({ src: url, thumb: url }))
     })
   }

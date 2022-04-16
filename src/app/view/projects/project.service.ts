@@ -100,4 +100,7 @@ export class ProjectService extends BaseService {
   public DeleteDocument = (fileId: string) => {
     return this.delete('Project/Document?s3FileName=' + fileId);
   }
+  public getS3ObjectUrl = (key: string): Observable<string> => {
+    return this.get('Project/GetS3ObjectUrl?key=' + key, {responseType: 'text'});
+  }
 }

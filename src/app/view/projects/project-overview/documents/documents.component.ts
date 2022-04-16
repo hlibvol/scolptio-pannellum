@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message, s3_document } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
-import { S3BucketService } from '../../../../shared/s3-bucket.service';
 import { PropertyFile } from '../../../../shared/shared.model';
 import { FileUpload } from '../../../properties/properties.model';
 import { ProjectService } from '../../project.service';
@@ -26,8 +25,7 @@ export class DocumentsComponent implements OnInit,OnChanges {
   isDeleteHide: boolean = true;
   isAddHide:boolean=true;
   currentUser:AppUser
-  constructor(private s3BucketService: S3BucketService,
-    private projectService: ProjectService,
+  constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     private appSessionStorageService: AppSessionStorageService) {
       if (this.appSessionStorageService.getCurrentUser() != null) {
@@ -122,7 +120,7 @@ export class DocumentsComponent implements OnInit,OnChanges {
 
   async DownloadFile(doc: PropertyFile) {
     this.toastr.info(s3_document.download_document_info);
-    const url = await this.s3BucketService.GetUrl(doc.fileKey);
+    const url = await this.projectService.getS3ObjectUrl(doc.fileKey).toPromise();
     if (url) {
       const a = document.createElement("a");
       a.href = url;
