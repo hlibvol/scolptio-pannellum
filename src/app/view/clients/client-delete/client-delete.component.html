@@ -13,7 +13,7 @@
                     <div class="ml-1 pl-1">Delete Client </div>
                 </div>
             </h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" (click)="closeModal()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -29,11 +29,10 @@
             <p class=" ml-4 text-danger"><strong>{{errorMsg}}</strong></p>
         </div>
         <div *ngIf="hasError">
-            <p class=" ml-4 text-danger"><strong>This Team is already used by one or more user/team. Please remove the
-                    role from that user or team before trying to delete a role.</strong></p>
+            <p class=" ml-4 text-danger"><strong>Client is assign to project already, in order to delete client first remove client from the project. </strong></p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary d-flex align-items-center px-3" data-dismiss="modal"
+            <button type="button" class="btn btn-primary d-flex align-items-center px-3" (click)="closeModal()" 
                 aria-label="Close">
                 <div class="pl-1">{{hasError ? 'Close' : 'Cancel'}}</div>
             </button>

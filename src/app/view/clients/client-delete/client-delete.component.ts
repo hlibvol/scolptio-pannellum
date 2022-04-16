@@ -11,14 +11,14 @@ declare var $: any;
 })
 export class ClientDeleteComponent implements OnInit {
 
-  @Input() client:any;
+  @Input() client: any;
 
   @Output() deleteSuccessEvent = new EventEmitter<string>();
 
   errorMsg: string;
   hasError = false;
 
-  constructor(private _clientService : ClientsService,
+  constructor(private _clientService: ClientsService,
     private toastr: ToastrService) {
 
   }
@@ -42,6 +42,11 @@ export class ClientDeleteComponent implements OnInit {
       this.toastr.error(client_delete.delete_client_error);
       this.hasError = false;
     })
+  }
+
+  closeModal() {
+    this.hasError = false;
+    $('#deleteClient').modal('hide');
   }
 
 }

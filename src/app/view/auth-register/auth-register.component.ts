@@ -44,9 +44,12 @@ export class AuthRegisterComponent implements OnInit {
       this.isSaving = true;
       this.appUser.profileImageUrl = 'url';
       this.appUser.userCreationDate = new Date().toISOString();
-      debugger;
-      this.authRegisterService.Register(this.appUser).subscribe((data: any[]) => {
+      this.authRegisterService.Register(this.appUser).subscribe((data:boolean) => {
         this.isSaving = false;
+        if(!data){
+          this.errorMsg = "This user not allowed";
+          return false;
+        }
         this.isRegistrationSuccess = true;
       }, (error) => {
         this.errorMsg = error;
