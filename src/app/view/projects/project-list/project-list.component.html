@@ -83,37 +83,32 @@
           </thead>
           <tbody>
             <tr *ngFor="let project of projectList; let i = index">
-              <td data-label="project Description">
+              <td data-label="project Name">
                 <div class="responsive-td">
                     <span class="pl-1">{{project.projectName}}</span>
                   </div>
               </td>
-              <td data-label="Income Type">
+              <td data-label="Client Name">
                 <div class="responsive-td">
                   <span class="pl-1">{{project.clientName}}</span>
                 </div>
               </td>
-              <!-- <td data-label="project Description">
-                <div class="responsive-td">
-                    <span class="pl-1">{{project.teamName}}</span>
-                  </div>
-              </td>-->
-              <td data-label="Income Amount"> 
+              <td data-label="Project Cost"> 
                 <div class="responsive-td">
                   <span class="pl-1">{{project.cost | currency }}</span>
                 </div>
               </td>
-              <td data-label="Income Amount">
+              <td data-label="Start date">
                 <div class="responsive-td">
                   <span class="pl-1">{{project.startDate | date : 'MM-dd-yyyy' }}</span>
                 </div>
               </td>
-              <td data-label="Income Amount">
+              <td data-label="Deadline">
                 <div class="responsive-td">
                   <span class="pl-1">{{project.deadline | date : 'MM-dd-yyyy'}}</span>
                 </div>
               </td>
-              <td data-label="Income Amount">
+              <td data-label="Status">
                 <div class="responsive-td">
                   <span class="pl-1">{{project.status}}</span>
                 </div>

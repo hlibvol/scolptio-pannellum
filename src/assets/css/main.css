@@ -31874,9 +31874,6 @@ Contents:
     border-radius: 0px !important;
   }
 
-  .menu-w {
-    display: none !important;
-  }
 }
 
 /* #9.  Tablets (768px - 1024px) */
@@ -32523,7 +32520,7 @@ Contents:
   }
 
   .top-bar .fancy-selector-w .fancy-selector-current .fs-selector-trigger {
-    margin-left: auto;
+    /* margin-left: auto; */
   }
 
   .top-bar>ul {
@@ -32832,6 +32829,11 @@ Contents:
 
   .breadcrumb {
     margin-bottom: 1rem;
+    margin-top: 53px;
+  }
+
+  app-breadcumb > ul{
+    padding-left: 0px;
   }
 }
 
