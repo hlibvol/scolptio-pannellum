@@ -16239,7 +16239,7 @@ body.menu-side-right .layout-w {
 .menu-w .side-menu-magic {
   background-image: linear-gradient(-154deg, #1643A3 8%, #2E1170 90%);
   border-radius: 6px;
-  padding: 40px;
+  height: 120px;
   text-align: center;
   margin: 20px;
 }
@@ -16282,7 +16282,7 @@ body.menu-side-right .layout-w {
 }
 
 .menu-w .logo-w img {
-  width: 40px;
+  width: 100%;
   height: auto;
   display: inline-block;
   vertical-align: middle;
