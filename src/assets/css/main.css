@@ -15968,7 +15968,7 @@ body.menu-side-right .layout-w {
   cursor: pointer;
 }
 
-.menu-w .logo-w .filters-toggler .os-icon,
+ .filters-toggler .os-icon,
 .top-bar .logo-w .filters-toggler .os-icon {
   display: inline-block;
   vertical-align: middle;
@@ -16270,7 +16270,7 @@ body.menu-side-right .layout-w {
 
 .menu-w .logo-w {
   text-align: center;
-  padding: 14px 1rem 14px 1.7rem;
+  padding: 14px 1rem 14px 3.9rem;
 }
 
 .menu-w .logo-w a {
