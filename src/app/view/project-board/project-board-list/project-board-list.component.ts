@@ -77,6 +77,28 @@ export class ProjectBoardListComponent implements OnInit {
         }
       })
 
+    dragulaService.cancel("PROJECT")
+      .subscribe(({ el }) => {
+        let status = el.parentElement.getAttribute("data-target");
+        switch (status) {
+          case "Planing":
+            this.planCount++;
+            break;
+          case "CAD Drawing":
+            this.cadCount++;
+            break;
+          case "3D Modeling":
+            this.modelCount++;
+            break;
+          case "Final Rendering":
+            this.renderCount++;
+            break;
+          case "Completed":
+            this.completeCount++;
+            break;
+        }
+      })
+
     dragulaService.drop("PROJECT")
       .subscribe(({ el }) => {
         let status = el.parentElement.getAttribute("data-target");
