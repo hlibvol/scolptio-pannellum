@@ -9,8 +9,8 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss','../../../../assets/css/app.css',
-  '../../../../assets/css/icons.css']
+  styleUrls: ['./project-list.component.scss', '../../../../assets/css/app.css',
+    '../../../../assets/css/icons.css']
 })
 
 export class ProjectListComponent implements OnInit {
@@ -33,15 +33,12 @@ export class ProjectListComponent implements OnInit {
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
     private router: Router) {
-      if (this.appSessionStorageService.getCurrentUser() != null) {
-        this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
-        if(this.currentUser.Role == "Client"){
-          this.isHide = false;
-        }
-        else if(this.currentUser.Role == "Designer"){
-          this.isHide = false;
-        }
+    if (this.appSessionStorageService.getCurrentUser() != null) {
+      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      if (this.currentUser.Role == "Designer") {
+        this.isHide = false;
       }
+    }
   }
 
   ngOnInit(): void {
@@ -50,7 +47,7 @@ export class ProjectListComponent implements OnInit {
 
   GetAllproject() {
     this.isLoading = true;
-    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj,this.currentUser.TeamId).subscribe((data: any[]) => {
+    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((data: any[]) => {
       this.isLoading = false;
       this.projectList = this.finalprojectList = data;
     }, (error) => {
@@ -86,7 +83,7 @@ export class ProjectListComponent implements OnInit {
   onSearchList(searchValue) {
     if (searchValue != '')
       this.projectList = this.finalprojectList.filter(x => x.projectName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-      x.clientName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
+        x.clientName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
     else
       this.projectList = this.finalprojectList;
   }
@@ -107,22 +104,22 @@ export class ProjectListComponent implements OnInit {
 
   actionFilter() {
     this.filterObj = [
-      this.searchStatus,  
+      this.searchStatus,
     ]
     this.GetAllproject();
   }
 
   search(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13) {
       this.GetAllproject();
     }
   }
 
-  getLogo(logo){
-    return logo + "?v="+ Math.random()
+  getLogo(logo) {
+    return logo + "?v=" + Math.random()
   }
 
-  openProject(project){
+  openProject(project) {
     this.router.navigate(['/projects/project-overview/' + project.id]);
   }
 }

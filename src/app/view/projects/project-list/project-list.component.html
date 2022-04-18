@@ -93,7 +93,7 @@
                   <span class="pl-1">{{project.clientName}}</span>
                 </div>
               </td>
-              <td data-label="Project Cost"> 
+              <td *ngIf="isHide" data-label="Project Cost"> 
                 <div class="responsive-td">
                   <span class="pl-1">{{project.cost | currency }}</span>
                 </div>
