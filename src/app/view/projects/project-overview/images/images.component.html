@@ -58,7 +58,7 @@
 								<ng-template [ngIf]="getFilter(i)">
 									<input type="checkbox" id="imageCheckbox_{{i}}" [hidden]="!isMultiSelect" />
 									<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect"></label>
-									<img [src]="item.data.src" height="220" width="220" style="cursor: pointer;" (click)="openImage(i)">
+									<img [src]="item.data.src" style="cursor: pointer; width: 280px; height: 200px; object-fit: cover;" (click)="openImage(i)">
 									<span class="text-muted">{{getLabel(i)}}</span>
 								</ng-template>
 							</div>

@@ -22,7 +22,8 @@ export class User {
         public userName?: string,
         public teamName?: string,
         public roleName?: string,
-        public status?: string
+        public status?: string,
+        public lastLoginUtc?: Date
     ) {
     }
 }

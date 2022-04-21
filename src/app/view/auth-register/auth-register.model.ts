@@ -37,7 +37,8 @@ export class AppUser {
         public profileImage?: string,
         public ClientId?: string,
         public TeamId?: string,
-        public Role?: string
+        public Role?: string,
+        public teamName?: string
     ) {
     }
 }

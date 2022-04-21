@@ -1,4 +1,4 @@
-<!-- users -->
+\<!-- users -->
 <div class="px-3 users">
   <div class="pt-3 px-3">
     <!-- ads -->
@@ -180,6 +180,7 @@
             <th width="300">Address</th>
             <th width="150">Role</th>
             <th width="100">Status</th>
+            <th width="100">Last Login</th>
             <th *ngIf="!currentUser?.TeamId"  class="text-right pr-3">Action</th>
           </tr>
         </thead>
@@ -222,6 +223,9 @@
               </span><span>{{user.status
                 != null ?
                 user.status : 'Inactive'}}</span>
+            </td>
+            <td>
+              {{user.lastLoginUtc | lastLogin}}
             </td>
             <td *ngIf="!currentUser?.TeamId"  data-label="Action">
               <div class="dropdown">

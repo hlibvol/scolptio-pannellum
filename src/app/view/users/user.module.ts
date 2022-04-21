@@ -1,7 +1,8 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LastLoginPipe } from 'src/app/shared/pipes/last-login.pipe';
 import { SharedModule } from '../../shared/shared.module';
 import { TeamService } from '../team/team.service';
 import { UserAddComponent } from './user-add/user-add.component';
@@ -15,7 +16,8 @@ import { UserService } from './user.service';
     UserListComponent,
     UserAddComponent,
     UserEditComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    LastLoginPipe
   ],
   imports: [
     SharedModule,
@@ -26,11 +28,13 @@ import { UserService } from './user.service';
           path:'',
           component : UserListComponent,
         },
-      ]),
+      ])
   ],
   providers: [
     UserService,
-    TeamService
+    TeamService,
+    LastLoginPipe,
+    DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
