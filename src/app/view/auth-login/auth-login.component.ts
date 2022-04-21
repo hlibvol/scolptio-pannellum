@@ -54,6 +54,7 @@ export class AuthLoginComponent implements OnInit {
         currentUser.DisplayName = data.firstName + ' ' + data.lastName;
         currentUser.occupation = data.occupation;
         currentUser.profileImage = data.profileImage;
+        currentUser.teamName = data.teamName;
         this.appSessionStorageService.storeCurrentUser(JSON.stringify(currentUser));
       }
       this.router.navigate(['/projects']);
