@@ -150,7 +150,7 @@
   </div>
 </div>
 
-<div class="modal fade modal-right" id="addclient" tabindex="-1" data-backdrop="static" role="dialog"
+<!-- <div class="modal fade modal-right" id="addclient" tabindex="-1" data-backdrop="static" role="dialog"
   aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <app-client-add (addSuccessEvent)="GetclientTotalCount()"></app-client-add>
@@ -162,13 +162,13 @@
   <div class="modal-dialog" role="document">
     <app-client-edit [client]="selectedclient" (updateSuccessEvent)="GetclientTotalCount()"></app-client-edit>
   </div>
-</div>
+</div> -->
 
 <div class="modal fade modal-right" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
   aria-hidden="true">
   <app-client-delete [client]="selectedclient" (deleteSuccessEvent)="GetclientTotalCount()"></app-client-delete>
 </div>
-<div class="modal fade modal-right" id="list-inviteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+<!-- <div class="modal fade modal-right" id="list-inviteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <app-client-invite (inviteEvent)="selectedOption($event)"></app-client-invite>
-</div>
+</div> -->

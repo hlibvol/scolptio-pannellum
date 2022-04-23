@@ -41,6 +41,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.clientForm = this._formbuilder.group({
+      UserSelect:['', Validators.compose([Validators.required])], 
       FirstName: ['', Validators.compose([Validators.required])],
       LastName: ['', Validators.compose([Validators.required])],
       Email: ['', Validators.compose([Validators.required])],
@@ -53,7 +54,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       IsInvited: [false]
     });
     this.GetAllTeam();
-    this.loadAutoComplete();
+    
   }
 
   GetAllTeam() {
@@ -232,5 +233,9 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   }
 
   onChangeData(val) {
+  }
+
+  HideOrShowFields(selection){
+    this.loadAutoComplete();
   }
 }

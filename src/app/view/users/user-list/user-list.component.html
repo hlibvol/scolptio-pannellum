@@ -33,8 +33,8 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h6 class="m-0">Users</h6>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
-            data-target="#inviteUser">
+          <button *ngIf="isAdmin" type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
+            data-target="#addclient">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="feather feather-user-plus">
@@ -43,8 +43,20 @@
               <line x1="20" y1="8" x2="20" y2="14"></line>
               <line x1="23" y1="11" x2="17" y2="11"></line>
             </svg>
-            <div class="pl-1">Invite User</div>
+            <div class="pl-1">Invite Client/Designer</div>
           </button>
+          <button *ngIf="!isAdmin" type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
+          data-target="#inviteUser">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-user-plus">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+          <div class="pl-1">Invite User</div>
+        </button>
         </div>
       </div>
       <!-- title -->
@@ -287,4 +299,26 @@
 <div class="modal fade modal-right" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
   aria-hidden="true">
   <app-user-delete [selectedUser]="selectedUser" (deleteSuccessEvent)="GetUserTotalCount()"></app-user-delete>
+</div>
+
+<!-- invite client/designer Modal -->
+<div class="modal fade modal-right" id="addclient" tabindex="-1" data-backdrop="static" role="dialog"
+  aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <app-client-add (addSuccessEvent)="GetUserTotalCount()"></app-client-add>
+  </div>
+</div>
+
+<!-- update client/designer Modal -->
+<div class="modal fade modal-right" id="editClient" tabindex="-1" data-backdrop="static" role="dialog"
+  aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <app-client-edit [client]="selectedUser" (updateSuccessEvent)="GetUserTotalCount()"></app-client-edit>
+  </div>
+</div>
+
+<!-- invite mail to client/designer Modal -->
+<div class="modal fade modal-right" id="list-inviteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <!-- <app-client-invite (inviteEvent)="selectedOption($event)"></app-client-invite> -->
 </div>

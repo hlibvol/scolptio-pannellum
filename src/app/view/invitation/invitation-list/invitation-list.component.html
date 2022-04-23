@@ -145,7 +145,7 @@
             <th width="200">Team</th>
             <th width="200">Email</th>
             <th width="200">Phone</th>
-            <th width="200">Status</th>
+            <th width="200">Invitation</th>
             <th></th>
           </tr>
         </thead>
@@ -171,7 +171,8 @@
                 <span class="text-dark">{{user.phone}}</span>
               </div>
             </td>
-            <td><a class="badge badge-danger">Pending Acceptance</a></td>
+            <td *ngIf="!user.isInvited"><a class="badge badge-danger">Not sent</a></td>
+            <td *ngIf="user.isInvited"><a class="badge badge-success">Sent</a></td>
 
             <td data-label="Action">
               <div class="dropdown">

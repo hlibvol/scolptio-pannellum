@@ -29,12 +29,16 @@ export class UserListComponent implements OnInit {
   searchPhone = '';
   visibleFilter = false;
   currentUser:AppUser;
+  isAdmin:boolean = false
   constructor(private userService: UserService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService) {
     this.selectedUser = new User();
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+      if (this.currentUser.Role == "Admin") {
+        this.isAdmin = true;
+      }
     }
   }
 
