@@ -16,7 +16,6 @@
           
             <div class="form-row col-12">
                 <div class="form-group col-12"><label for="">Invite</label>
-                    {{clientForm.get("UserSelect").value}}
                     <select class="form-control" formControlName="UserSelect" (change)="HideOrShowFields($event)">
                         <option value="">Select</option>
                         <option value="Client">Client</option>

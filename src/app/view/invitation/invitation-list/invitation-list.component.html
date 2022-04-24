@@ -187,6 +187,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteInvitation"
                     (click)="setSelectedUser(user)">Delete</a>
+                  <li *ngIf="!user.isInvited" class="dropdown-item" (click)="inviteClient(user.id)">Invite</li>
                 </div>
               </div>
             </td>
@@ -222,4 +223,10 @@
   aria-hidden="true">
   <app-invitation-delete [selectedInvitation]="selectedInvitation" (deleteSuccessEvent)="GetUserTotalCount()">
   </app-invitation-delete>
+</div>
+
+<!-- invite mail to client/designer Modal -->
+<div class="modal fade modal-right" id="list-inviteClient" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <app-client-invite (inviteEvent)="selectedOption($event)"></app-client-invite>
 </div>

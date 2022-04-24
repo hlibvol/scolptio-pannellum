@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { client_invite } from 'src/app/shared/toast-message-text';
 import { Invitation } from '../invitation.model';
 import { InvitationService } from '../invitation.service';
-
+declare var $: any;
 @Component({
   selector: 'app-invitation-list',
   templateUrl: './invitation-list.component.html',
@@ -25,6 +26,7 @@ export class InvitationListComponent implements OnInit {
   searchEmail = '';
   searchPhone = '';
   visibleFilter = false;
+  userId:any;
   constructor(private invitationService: InvitationService,
     private toastr: ToastrService) {
     this.selectedInvitation = new Invitation();
@@ -106,6 +108,24 @@ export class InvitationListComponent implements OnInit {
     if(event.keyCode == 13) {
       this.GetAll();
     }
+  }
+
+  inviteClient(id:any){
+    this.userId = id;
+    $('#list-inviteClient').modal('show');
+  }
+
+  selectedOption(isSent) {
+    $('#list-inviteClient').modal('hide');
+    if (!isSent) {
+      return false;
+    }
+    this.invitationService.SentInvite(this.userId).subscribe(res => {
+      this.toastr.info(client_invite.edit_client_success);
+      this.GetAll();
+    }, error => {
+      this.toastr.info(client_invite.edit_client_error);
+    })
   }
 
 }

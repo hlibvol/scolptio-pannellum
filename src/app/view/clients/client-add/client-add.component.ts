@@ -112,7 +112,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       this.isSaving = false;
       this.formSubmitAttempt = false;
       this.addSuccessEvent.emit("value");
-      this.toastr.info(clients_add.add_client_success);
+      this.toastr.info(clients_add.add_client);
       this.close(null);
     }, error => {
       this.isSaving = false;
@@ -134,7 +134,10 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       this.isSaving = false;
       this.formSubmitAttempt = false;
       this.addSuccessEvent.emit("value");
-      this.toastr.info(clients_add.add_client_success);
+      if(!isSent)
+      this.toastr.info(clients_add.add_client);
+      else
+      this.toastr.info(clients_add.add_client_success_invite);
       this.close(null);
     }, error => {
       this.isSaving = false;

@@ -22,7 +22,7 @@ import { UserService } from './user.service';
     UserDeleteComponent,
     ClientAddComponent,
     ClientEditComponent,
-    ClientInviteComponent,
+    
     LastLoginPipe
   ],
   imports: [
