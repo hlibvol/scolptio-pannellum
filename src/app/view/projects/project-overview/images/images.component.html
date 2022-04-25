@@ -38,29 +38,30 @@
 						</button>
 					</div>
 				</div>
-				<div class="property-section-body">
+				<div class="property-section-body" *ngIf="isLoading">
+					<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+				</div>
+				<div class="property-section-body" *ngIf="!isLoading">
 					<div class="property-details">
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label class="form-control-label">
-										Type
+										Filter by Tag
 									</label>
                     				<ng-select [multiple]="true"
-                    					[items]="typeOptions" 
-                      					[(ngModel)]="selectedTypes">
+                    					[items]="tagOptions" 
+                      					[(ngModel)]="selectedTags">
                     				</ng-select>
 								</div>
 							</div>
 						</div>
 						<div class="row mt-1">
-							<div class="col-sm-4 mb-4 d-flex flex-column" *ngFor="let item of items; let i = index">
-								<ng-template [ngIf]="getFilter(i)">
+							<div class="col-sm-4 mb-4 flex-column" *ngFor="let item of items; let i = index" [ngClass]="['image-grid-container', filtered(item) ? '' : 'hidden']">
 									<input type="checkbox" id="imageCheckbox_{{i}}" [hidden]="!isMultiSelect" />
 									<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect"></label>
 									<img [src]="item.data.src" style="cursor: pointer; width: 280px; height: 200px; object-fit: cover;" (click)="openImage(i)">
-									<span class="text-muted">{{getLabel(i)}}</span>
-								</ng-template>
+									<button class="btn btn-primary" style="width: 280px;" (click)="openEditTags(editTags, item)">Edit Tags</button>
 							</div>
 						  </div>
 					</div>
@@ -76,7 +77,7 @@
 		<div class="modal-content">
 			<div class="modal-header border-0">
 				<h5 class="modal-title">Upload Images</h5>
-				<button type="button" class="close" aria-label="Close" (click)="close()">
+				<button type="button" class="close" aria-label="Close" (click)="closeEditTags()">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -85,3 +86,42 @@
 		</div>
 	</div>
 </div>
+
+<ng-template #editTags>
+	<div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">
+                <div class="d-flex align-items-center">
+                    <div class="os-icon os-icon-tag"></div>
+                    <div class="ml-1 pl-1">Edit Tags</div>
+                </div>
+            </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeEditTags()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="property-section">
+
+                <div class="property-section-body" style="padding-top: 10px;">
+                    <ng-select [multiple]="true"
+                    	[items]="editTagsForm.tagOptions" 
+                      	[(ngModel)]="editTagsForm.tags">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- <p class=" ml-4 text-danger"><strong>{{errorMsg}}</strong></p> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary d-flex align-items-center px-3" data-dismiss="modal"
+                aria-label="Close" (click)="closeEditTags()">
+                <div class="pl-1">Cancel</div>
+            </button>
+            <button type="button" class="btn btn-primary d-flex align-items-center px-3" (click)="saveTags()">
+                <div class="pl-1">Save</div>
+            </button>
+        </div>
+	</div>
+</ng-template>
