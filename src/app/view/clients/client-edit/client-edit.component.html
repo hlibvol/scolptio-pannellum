@@ -3,7 +3,7 @@
         <h6 class="modal-title">
             <div class="d-flex align-items-center">
                 <div class="icon icon-control_point"></div>
-                <div class="pl-1">Edit client</div>
+                <div class="pl-1">Edit User</div>
             </div>
         </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(clientForm)">
@@ -28,23 +28,12 @@
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Team</label>
-                    <select class="form-control" formControlName="TeamId" *ngIf="teamList?.length>0">
+                    <select [attr.disabled]="true" class="form-control" formControlName="TeamId" *ngIf="teamList?.length>0">
                         <option value="">Select Team</option>
                         <option *ngFor="let t of teamList" [ngValue]="t.id">{{t.teamName}}</option>
                     </select>
                     <div class="text-danger" *ngIf="HasValidationError('TeamId','required')">
                         <ng-container>Team is required</ng-container>
-                    </div>
-                </div>
-                <div class="form-group  col-12">
-                    <div class="d-flex align-items-center">
-                        <input [readonly]="isReadOnly" type="checkbox" class="form-control mr-2 " formControlName="IsInvited">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Sent Invite
-                        </label>
-                    </div>
-                    <div class="text-danger" *ngIf="HasValidationError('IsInvited','required')">
-                        <ng-container>Invite is required</ng-container>
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Email</label>

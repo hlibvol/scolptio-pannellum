@@ -239,6 +239,6 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   }
 
   HideOrShowFields(selection){
-    this.loadAutoComplete();
+    //this.loadAutoComplete();
   }
 }

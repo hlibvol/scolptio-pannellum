@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
-
+declare const google;
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -19,9 +20,9 @@ export class UserListComponent implements OnInit {
   finaluserList: User[];
   errorMsg = '';
   pageNumber = 1;
-  pageSize = 15;
+  pageSize = 20;
   total = 0;
-  selectedUser: User;
+  selectedUser: any;
   searchKey: '';
   filterObj: any;
   searchName = '';
@@ -32,7 +33,8 @@ export class UserListComponent implements OnInit {
   isAdmin:boolean = false
   constructor(private userService: UserService,
     private appSessionStorageService: AppSessionStorageService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document) {
     this.selectedUser = new User();
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
@@ -44,6 +46,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetUserTotalCount();
+    this.loadAutoComplete();
   }
 
   GetUserTotalCount() {
@@ -76,7 +79,7 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  setSelectedUser(user: User) {
+  setSelectedUser(user: any) {
     this.selectedUser = user;
   }
 
@@ -117,6 +120,25 @@ export class UserListComponent implements OnInit {
     if(event.keyCode == 13) {
       this.GetAll();
     }
+  }
+
+  private loadScript(url) {
+    return new Promise((resolve, reject) => {
+      const script = this.renderer2.createElement('script');
+      script.type = 'text/javascript';
+      script.src = url;
+      script.text = ``;
+      script.async = true;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      this.renderer2.appendChild(this.document.head, script);
+    })
+  }
+
+  private loadAutoComplete() {
+    const url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAkgh7ckSQasqRYvX7BXOwEGEzunexf_EY&libraries=places&v=weekly';
+    this.loadScript(url);
   }
 
 }
