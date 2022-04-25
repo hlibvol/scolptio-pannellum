@@ -86,13 +86,31 @@
                 </a>
         
               </li>
-              <li appPermission2 module="Projects" action="view">
-                <a [routerLink]="['/projects']">
+              <li appPermission2 module="Projects" action="view" class=" has-sub-menu">
+                <a>
                   <div class="icon-w">
-                    <div class="os-icon os-icon-documents-11"></div>
+                    <div class="os-icon os-icon os-icon-documents-11"></div>
                   </div>
                   <span>Projects</span>
                 </a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+        
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-file-text"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a [routerLink]="['/projects/project-list']">Project List</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/projects/tags']">Tags</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
         
               </li>
               <li appPermission2 module="Project-Board" action="view">

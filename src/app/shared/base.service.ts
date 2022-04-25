@@ -26,10 +26,10 @@ export class BaseService {
   public get<T>(url: string, options?: Object | string): Observable<T> {
     return this.httpClient.get<T>(this.baseUrl+url, options ? options : {});
   }
-  public put<T>(url: string, data: Object | string): Observable<T> {
-    return this.httpClient.put<T>(this.baseUrl + url, data);
+  public put<T>(url: string, data: Object | string, options?: Object | string): Observable<T> {
+    return this.httpClient.put<T>(this.baseUrl + url, data, options ? options : {});
   }
-  public delete<T>(url: string): Observable<T> {
-    return this.httpClient.delete<T>(this.baseUrl+url);
+  public delete<T>(url: string, options?: Object | string): Observable<T> {
+    return this.httpClient.delete<T>(this.baseUrl+url, options ? options : {});
   }
 }
