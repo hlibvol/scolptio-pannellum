@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { ProjectService } from '../../project.service';
@@ -15,13 +15,13 @@ declare var $: any;
 })
 export class TagAddComponent {
   isSaving: boolean = false;
+  @Input()
   tag: Tag = new Tag();
   @Output()
   addSuccessEvent: EventEmitter<void> = new EventEmitter<void>();
   constructor(private projectService: ProjectService, private toastr: ToastrService) { }
 
   async addTagSubmit(): Promise<void> {
-    this.tag.id = ''; // Clear Id if previously added
     if(!this.tag.name){
       this.toastr.error('Please enter name');
       return;

@@ -51,7 +51,7 @@ export class TagListComponent implements OnInit {
     await this.GetAll();
   }
 
-  setSelectedTag(tag: Tag) {
+  setSelectedTag(tag: Tag = new Tag) {
     this.selectedTag = Object.assign({}, tag);
   }
 

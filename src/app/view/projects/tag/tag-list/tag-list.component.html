@@ -8,7 +8,7 @@
 				<h6 class="m-0">Tags</h6>
 				<div class="d-flex align-items-center">
 					<button type="button" class="btn btn-orange d-flex align-items-center py-3" data-toggle="modal"
-						data-target="#addTag">
+						data-target="#addTag" (click)="setSelectedTag()">
 						<div class="icon icon-control_point"></div>
 						<div class="pl-1">Add Tag</div>
 					</button>
@@ -105,7 +105,7 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <app-tag-add (addSuccessEvent)="refresh()"></app-tag-add>
+      <app-tag-add [tag]="selectedTag" (addSuccessEvent)="refresh()"></app-tag-add>
     </div>
   </div>
 </div>
