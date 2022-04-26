@@ -80,7 +80,8 @@ export const income_delete = {
 }
 
 export const clients_add = {
-    add_client_success: success_icon + 'Client added successfully.',
+    add_client_success_invite: success_icon + 'Invite has been sent successfully',
+    add_client: success_icon + 'User has been added in the invite list, go to invite module to sent invite',
     add_client_error: 'Something went wrong, could not add client.'
 }
 

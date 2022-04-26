@@ -18,10 +18,8 @@ const maskConfig: Partial<IConfig> = {
 @NgModule({
   declarations: [
     ClientListComponent,
-    ClientAddComponent,
-    ClientEditComponent,
     ClientDeleteComponent,
-    ClientInviteComponent
+    
   ],
   imports: [
     CommonModule,

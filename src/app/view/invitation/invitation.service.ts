@@ -77,6 +77,16 @@ export class InvitationService extends BaseService {
     );
   };
 
+  public SentInvite = (id: string): any => {
+    const requestURL = 'Invitation/Invite';
+    const requestBody = {
+      Id : id
+    };
+    return this.post(requestURL, requestBody).pipe(
+      catchError(this.handleError)
+    );
+  };
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

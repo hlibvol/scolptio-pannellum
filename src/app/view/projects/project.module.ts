@@ -20,6 +20,7 @@ import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
 import { TagDeleteComponent } from './tag/tag-delete/tag-delete.component';
 import { TagTypePipe } from 'src/app/shared/pipes/tag-type.pipe';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { UserService } from '../users/user.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
     ]),
     NgSelectModule
   ],
-  providers: [BsModalService]
+    providers: [BsModalService, UserService]
 })
 export class ProjectModule { }

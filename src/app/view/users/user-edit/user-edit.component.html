@@ -43,15 +43,9 @@
                 <input type="email" name="edit-user-email" readonly id="edit-user-email-edit" class="form-control"
                     placeholder="Email" [(ngModel)]="selectedUser.email">
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="">Team</label>
-                    <input type="text" name="team-name" id="tema-name-edit" readonly class="form-control" placeholder="Name"
-                        [(ngModel)]="selectedUser.teamName">
-                </div>
-            </div>
+            
             <div class="col-sm-6"></div>
-            <div class="col-sm-12">
+            <!-- <div class="col-sm-12">
                 <div class="form-group">
                     <label for=""> Role&nbsp;&nbsp;</label><select class="form-control select2" multiple="true"
                         name="edit-user-role" name="user-role-edit" id="user-role-edit">
@@ -60,7 +54,7 @@
                         </option>
                     </select>
                 </div>
-            </div>
+            </div> -->
             <div class="form-group col-md-12">
                 <label for="">Phone</label>
                 <input type="text" name="edit-user-phone" id="edit-user-phone" class="form-control" placeholder="Phone"
@@ -74,7 +68,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom"
+        <!-- <button type="submit" class="btn btn-orange d-flex align-items-center px-3 modal-footer-pull-bottom"
             [ngStyle]="{'cursor': isSaving || isLoading ? 'not-allowed' : 'pointer' }"
             [disabled]="isSaving || isLoading">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-save"
@@ -84,6 +78,6 @@
             </svg>
             <div class="pl-1">Submit&nbsp;&nbsp;<i *ngIf="isSaving" class="fa fa-spinner fa-spin"
                     style="font-size:18px"></i></div>
-        </button>
+        </button> -->
     </div>
 </form>

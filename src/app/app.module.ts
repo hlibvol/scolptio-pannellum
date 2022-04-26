@@ -47,7 +47,6 @@ import { CommonModule } from '@angular/common';
 import { ConfigsLoaderService } from './services/configs-loader.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import { ClientAddComponent } from './view/clients/client-add/client-add.component';
 import { ClientListComponent } from './view/clients/client-list/client-list.component';
 import { ClientEditComponent } from './view/clients/client-edit/client-edit.component';
 import { ProjectBoardListComponent } from './view/project-board/project-board-list/project-board-list.component';

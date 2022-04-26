@@ -7,7 +7,8 @@ export class Invitation {
         public invitedUserEmail?: string,
         public teamId?: any,
         public phone?: string,
-        public name?: string
+        public name?: string,
+        public isInvited?:boolean
     ) {
     }
 }

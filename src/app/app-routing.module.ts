@@ -98,7 +98,6 @@ const routes: Routes = [
         path: "invitation",
         loadChildren: () => import('./view/invitation/invitation.module').then(m => m.InvitationModule)
       },
-      { path: 'clients', loadChildren: () => import('./view/clients/client.module').then(m => m.ClientModule) },
       { path: 'projects', loadChildren: () => import('./view/projects/project.module').then(m => m.ProjectModule) },
       { path: 'projectboard', loadChildren: () => import('./view/project-board/project-board.module').then(m => m.ProjectBoardModule) }
 

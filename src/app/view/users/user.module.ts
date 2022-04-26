@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LastLoginPipe } from 'src/app/shared/pipes/last-login.pipe';
 import { SharedModule } from '../../shared/shared.module';
+import { ClientAddComponent } from '../clients/client-add/client-add.component';
+import { ClientEditComponent } from '../clients/client-edit/client-edit.component';
+import { ClientInviteComponent } from '../clients/client-invite/client-invite.component';
 import { TeamService } from '../team/team.service';
 import { UserAddComponent } from './user-add/user-add.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
@@ -17,6 +20,9 @@ import { UserService } from './user.service';
     UserAddComponent,
     UserEditComponent,
     UserDeleteComponent,
+    ClientAddComponent,
+    ClientEditComponent,
+    
     LastLoginPipe
   ],
   imports: [

@@ -51,7 +51,6 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       Logo: [''],
       Website: [''],
       TeamId: ['', Validators.compose([Validators.required])],
-      IsInvited: [false]
     });
     this.GetAllTeam();
   }
@@ -96,12 +95,6 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.client.website);
     (this.clientForm.controls.TeamId as FormControl)
       .setValue(this.client.teamId);
-    (this.clientForm.controls.IsInvited as FormControl)
-      .setValue(this.client.isInvited);
-    if (this.client.isInvited)
-      (this.clientForm.controls.IsInvited as FormControl).disable();
-      else
-      (this.clientForm.controls.IsInvited as FormControl).enable();
   }
 
   private loadScript(url) {
