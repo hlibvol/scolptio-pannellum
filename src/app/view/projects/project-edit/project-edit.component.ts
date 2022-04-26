@@ -6,13 +6,14 @@ import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
 import { project_edit } from 'src/app/shared/toast-message-text';
 import { ClientsService } from '../../clients/clients.service';
+import { UserService } from '../../users/user.service';
 import { ProjectService } from '../project.service';
 declare var $: any;
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
-  styleUrls: ['./project-edit.component.scss','../../../../assets/css/app.css',
-  '../../../../assets/css/icons.css']
+  styleUrls: ['./project-edit.component.scss', '../../../../assets/css/app.css',
+    '../../../../assets/css/icons.css']
 })
 
 export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
@@ -29,26 +30,38 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   incomeType: string;
   isSaving = false;
   imageProp: any;
-  clientList:any = [];
-  constructor(private _clientService:ClientsService ,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  clientList: any = [];
+  DesignerList: any = [];
+  constructor(private userService: UserService, private _clientService: ClientsService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private projectService: ProjectService) {
     this.incomeType = null;
   }
 
   ngOnInit(): void {
     this.getClients();
+    this.getDesigner();
   }
 
-  getClients(){
-    this._clientService.GetAllClients(-1,1,null,null,null).subscribe(res=>{
+  getClients() {
+    this.userService.GetUserByRole("Client").subscribe(res => {
       this.clientList = res;
+    })
+  }
+
+  getDesigner() {
+    this.userService.GetUserByRole("Designer").subscribe(res => {
+      this.DesignerList = res;
+
+      if ($('.select2').length) {
+        $('.select2').select2();
+      }
     })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.project) {
       this.projectForm = this._formbuilder.group({
-        Id:[''],
+        Id: [''],
         ProjectName: ['', Validators.compose([Validators.required])],
         clientId: ['', Validators.compose([Validators.required])],
         StartDate: [formatDate(this.project.startDate, 'yyyy-MM-dd', 'en'), [Validators.required]],
@@ -60,7 +73,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
   formData() {
-  if(!this.project) return;
+    if (!this.project) return;
     (this.projectForm.controls.Id as FormControl)
       .setValue(this.project.id);
     (this.projectForm.controls.ProjectName as FormControl)
@@ -71,6 +84,35 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.project.cost);
     (this.projectForm.controls.Status as FormControl)
       .setValue(this.project.status);
+    this.prepareMemberData();
+
+  }
+
+  prepareMemberData() {
+    setTimeout(() => {
+      debugger
+      if (this.project && this.project.designerIds != null && this.project.designerIds.length > 0) {
+        const role = document.getElementById('user-role-edit');
+        if (role) {
+          const options = role['options'];
+          if (options && options.length > 0) {
+            for (let i = 0; i < options.length; i++) {
+              const isExist = this.project.designerIds.find((x: any) => x === options[i].value);
+              if (isExist) {
+                $('#user-role-edit')[0]['options'][i].selected = true;
+              } else {
+                $('#user-role-edit')[0]['options'][i].selected = false;
+              }
+            }
+          }
+        }
+      }
+
+      if ($('.select2').length) {
+        $('.select2').select2();
+      }
+    }, 2000);
+
   }
 
   HasValidationError(key, keyError) {
@@ -86,7 +128,20 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
     this.formSubmitAttempt = true;
     if (!isValid)
       return false;
+    const DesignerIds = [];
+    const members = document.getElementById('user-role-edit');
+    if (members != null) {
+      const options = members['options'];
+      if (options && options.length > 0) {
+        for (const option of options) {
+          if (option.selected) {
+            DesignerIds.push(option.value);
+          }
+        }
+      }
+    }
     this.isSaving = true;
+    model.DesignerIds = DesignerIds;
     this.projectService.UpdateProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;

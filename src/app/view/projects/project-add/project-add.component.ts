@@ -8,6 +8,7 @@ import { AppSessionStorageService } from 'src/app/shared/session-storage.service
 import { project_add } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { ClientsService } from '../../clients/clients.service';
+import { UserService } from '../../users/user.service';
 import { ProjectService } from '../project.service';
 declare var $: any;
 declare const google;
@@ -33,10 +34,11 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
   clientList:any=[];
+  DesignerList:any=[];
   startDate:any;
   deadLine:any;
   currentUser:AppUser;
-  constructor( private appSessionStorageService: AppSessionStorageService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
+  constructor(private userService : UserService, private appSessionStorageService: AppSessionStorageService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _projectService: ProjectService,private _clientService : ClientsService) {
     this.incomeType = null;
     if (this.appSessionStorageService.getCurrentUser() != null) {
@@ -54,14 +56,23 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       Status: [''],
     });
     this.getClients();
+    this.getDesigner();
   }
 
   getClients(){
-    this._clientService.GetAllClients(-1,1,null,null,this.currentUser.ClientId).subscribe(res=>{
+    this.userService.GetUserByRole("Client").subscribe(res=>{
       this.clientList = res;
     })
   }
 
+  getDesigner(){
+    this.userService.GetUserByRole("Designer").subscribe(res=>{
+      this.DesignerList = res;
+      if ($('.select2').length) {
+        $('.select2').select2();
+      }
+    })
+  }
 
   HasValidationError(key, keyError) {
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
@@ -76,8 +87,21 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
     this.formSubmitAttempt = true;
     if (!isValid)
       return false;
+    const DesignerIds = [];
+    const members = document.getElementById('add-designer');
+    if (members != null) {
+      const options = members['options'];
+      if (options && options.length > 0) {
+        for (const option of options) {
+          if (option.selected) {
+            DesignerIds.push(option.value);
+          }
+        }
+      }
+    }
     this.isSaving = true;
     model.Logo = this.websiteLogoImage;
+    model.DesignerIds = DesignerIds;
     this._projectService.SaveProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;

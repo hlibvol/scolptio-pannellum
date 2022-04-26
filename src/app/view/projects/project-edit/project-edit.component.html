@@ -25,10 +25,20 @@
                 <div class="form-group col-12"><label for="">Client</label>
                     <select class="form-control" formControlName="clientId">
                         <option value="">Select Client</option>
-                        <option *ngFor="let c of clientList" [ngValue]="c.id">{{c.firstName + ' ' + c.lastName}}</option>
+                        <option *ngFor="let c of clientList" [ngValue]="c.id">{{c.name}}</option>
                     </select>
                     <div class="text-danger" *ngIf="HasValidationError('clientId','required')">
                         <ng-container>Client is required</ng-container>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Designer &nbsp;&nbsp;</label><select class="form-control select2" multiple="true"
+                            name="edit-user-role" name="user-role-edit" id="user-role-edit">
+                            <option *ngFor="let designer of DesignerList" [value]="designer.id">
+                                {{designer.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Start Date</label>

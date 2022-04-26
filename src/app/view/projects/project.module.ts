@@ -14,6 +14,7 @@ import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PermissionDirective } from 'src/app/shared/directives/permission.directive';
+import { UserService } from '../users/user.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PermissionDirective } from 'src/app/shared/directives/permission.direct
       { path: 'project-overview/:id', component: ProjectOverviewComponent }
     ]),
     NgSelectModule
-  ]
+  ],
+  providers:[UserService]
 })
 export class ProjectModule { }

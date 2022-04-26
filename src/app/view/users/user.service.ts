@@ -92,6 +92,15 @@ export class UserService extends BaseService {
     );
   };
 
+  public GetUserByRole = (role: string): any => {
+    const requestBody = {
+      role
+    };
+    return this.post('Account/GetUserByRole', requestBody).pipe(
+      catchError(this.handleError)
+    );
+  };
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
