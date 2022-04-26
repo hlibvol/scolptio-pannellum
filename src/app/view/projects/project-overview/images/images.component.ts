@@ -1,13 +1,16 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { NgOption } from '@ng-select/ng-select';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
 import {  ImageFileUpload } from '../../../properties/properties.model';
+import { EditTagsFormModel } from '../../edit-tags.form-model';
 import { ProjectService } from '../../project.service';
+import { Tag } from '../../tag/tag.model';
 
 declare var $: any;
 @Component({
@@ -29,17 +32,21 @@ export class ImagesComponent implements OnInit, OnChanges {
   isMultiSelect = false;
   currentUser: AppUser;
   isHide: boolean = true;
-  typeOptions: NgOption[] = [
-    { value: 0, label: 'Unmarked' },
-    { value: 1, label: 'Internal' },
-    { value: 2, label: 'External' }
-  ]
-  selectedTypes = this.typeOptions;
+  readonly untaggedValue: string = '~UNTAGGED~';
+  tagOptions: NgOption[] = [{
+    label: 'Untagged',
+    value: this.untaggedValue
+  }]
+  selectedTags = this.tagOptions;
+  editTagsForm: EditTagsFormModel = new EditTagsFormModel();
+  modalRef: BsModalRef = new BsModalRef();
+  isLoading: boolean = false;
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     public gallery: Gallery,
     public lightbox: Lightbox,
-    private appSessionStorageService: AppSessionStorageService,) {
+    private appSessionStorageService: AppSessionStorageService,
+    private modalService: BsModalService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
@@ -51,8 +58,44 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.prepareSlideData();
   }
 
-  ngOnInit(): void {
-    this.prepareImages(); // Non blocking call
+  async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    await Promise.all([
+      this.prepareImages(),
+      this.prepareTagOptions()
+    ])
+    this.isLoading = false;
+  }
+  async prepareTagOptions(): Promise<void> {
+    let tagOptions = await this.getAllTags(100);
+    this.tagOptions = this.tagOptions.concat(tagOptions);
+    this.selectedTags = Object.assign([], this.tagOptions);
+    this.editTagsForm.tagOptions = Object.assign([], tagOptions);
+  }
+  async getAllTags(batchSize: number): Promise<NgOption[]> {
+    let options = [];
+    let firstBatch = await this.projectService.getAllTags(1, batchSize, '').toPromise();
+    if(!firstBatch.tags.length)
+      return options;
+    else{
+      options = options.concat(firstBatch.tags.map((x) => {
+        return {
+          label: x.name,
+          value: x.id
+        }
+      }))
+      let batchCount: number = firstBatch.count / batchSize + 1;
+      for(var batchNumber = 2; batchNumber <= batchCount; batchNumber++){
+        let page = await this.projectService.getAllTags(batchNumber, batchSize, '').toPromise();
+        options = options.concat(page.tags.map((x) => {
+          return {
+            label: x.name,
+            value: x.id
+          }
+        }))
+      }
+      return options;
+    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -102,7 +145,7 @@ export class ImagesComponent implements OnInit, OnChanges {
 
   AddImageFile(imageUpload: ImageFileUpload) {
     this.projectService.AddFile(imageUpload).subscribe(async (data: any) => {
-      imageUpload.imageType = 0;
+      imageUpload.tags = [];
       this.imageList.push(imageUpload);
       await this.UpdateProjectResource();
       const url = await this.projectService.getS3ObjectUrl(imageUpload.fileKey).toPromise();
@@ -116,7 +159,7 @@ export class ImagesComponent implements OnInit, OnChanges {
         return {
           s3FileName: x.s3FileName,
           fileName: x.fileName,
-          imageType: x.imageType ? x.imageType : 0
+          tags: x.tags
         }
       })
       await this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).toPromise()
@@ -187,28 +230,42 @@ export class ImagesComponent implements OnInit, OnChanges {
   close() {
     $('#uploadMultiImage').modal('toggle');
   }
-  async setImageType(type: number):Promise<void>{
-    let itemsSelected: boolean = false;
-    for (let item of this.items) {
-      const i = this.items.indexOf(item);
-      if (i > -1) {
-        const galleryImage = document.getElementById('imageCheckbox_' + i) as HTMLInputElement;
-        if (galleryImage && galleryImage.checked) {
-          itemsSelected = true;
-          let imageListIndex: number = this.imageList.findIndex(x => item.data.src.includes(x.s3FileName));
-          this.imageList[imageListIndex].imageType = type;
-        }
+  openEditTags(template: TemplateRef<any>, item){
+    let imageListItem = this.imageList.find(x => x.s3FileName === item.data.src.split('.amazonaws.com/')[1].split('?')[0])
+    this.editTagsForm.documentId = imageListItem.id;
+    this.editTagsForm.tags = imageListItem.tags.map((x) => {
+      return {
+        label: x.name,
+        value: x.id
       }
+    });
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'})
+  }
+  closeEditTags(){
+    this.modalRef.hide();
+  }
+  async saveTags(): Promise<void> {
+    try{
+      var tagList: Tag[] = this.editTagsForm.tags.map(x => {
+        let tag:Tag = new Tag;
+        tag.id = x.value as string;
+        tag.name = x.label; // Probably not necessary
+        return tag;
+      });
+      await this.projectService.updateDocumentTags(this.editTagsForm.documentId, tagList).toPromise()
+      this.modalRef.hide();
+      this.toastr.success('Tags updated');
+      var index: number = this.imageList.findIndex(x => x.id = this.editTagsForm.documentId);
+      this.imageList[index].tags = tagList;
     }
-    if(!itemsSelected)
-      this.toastr.error(s3_image.image_select_count_error);
-    else
-      this.UpdateProjectResource();
+    catch{
+      this.toastr.error(common_error_message);
+    }
   }
-  getLabel(i: number):string{
-    return this.typeOptions.filter(x => x.value === this.imageList[i].imageType)[0]?.label
-  }
-  getFilter(i: number):boolean{
-    return this.selectedTypes.map(x => x.value).includes(this.imageList[i].imageType)
+  filtered(item): boolean{
+    let imageListItem = this.imageList.find(x => x.s3FileName === item.data.src.split('.amazonaws.com/')[1].split('?')[0])
+    if(!imageListItem.tags.length)
+      return this.selectedTags.some(x => x.value === this.untaggedValue);
+    return this.selectedTags.some(x => imageListItem.tags.map(y => y.id).includes(x.value));
   }
 }

@@ -14,6 +14,12 @@ import { PlayerComponent } from './project-overview/player/player.component';
 import { ModelsComponent } from './project-overview/models/models.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PermissionDirective } from 'src/app/shared/directives/permission.directive';
+import { TagListComponent } from './tag/tag-list/tag-list.component';
+import { TagAddComponent } from './tag/tag-add/tag-add.component';
+import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
+import { TagDeleteComponent } from './tag/tag-delete/tag-delete.component';
+import { TagTypePipe } from 'src/app/shared/pipes/tag-type.pipe';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { UserService } from '../users/user.service';
 
 @NgModule({
@@ -27,7 +33,12 @@ import { UserService } from '../users/user.service';
     DocumentsComponent,
     PlayerComponent,
     ModelsComponent,
-    PermissionDirective
+    PermissionDirective,
+    TagListComponent,
+    TagAddComponent,
+    TagEditComponent,
+    TagDeleteComponent,
+    TagTypePipe
   ],
   imports: [
     CommonModule,
@@ -35,11 +46,12 @@ import { UserService } from '../users/user.service';
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: ProjectListComponent },
-      { path: 'project-overview/:id', component: ProjectOverviewComponent }
+      { path: 'project-list', component: ProjectListComponent },
+      { path: 'project-overview/:id', component: ProjectOverviewComponent },
+      { path: 'tags', component: TagListComponent }
     ]),
     NgSelectModule
   ],
-  providers:[UserService]
+    providers: [BsModalService, UserService]
 })
 export class ProjectModule { }

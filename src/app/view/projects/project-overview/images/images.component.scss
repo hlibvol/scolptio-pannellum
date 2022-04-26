@@ -19,6 +19,14 @@
             }
         }
     }
+    .property-section-body{
+      .image-grid-container{
+        display: flex;
+        &.hidden{
+          display: none;
+        }
+      }
+    }
 }
 
 input[type=checkbox][id^=imageCheckbox] {

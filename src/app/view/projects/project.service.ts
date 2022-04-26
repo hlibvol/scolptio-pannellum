@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { FileUpload } from '../properties/properties.model';
+import { Tag } from './tag/tag.model';
 
 @Injectable({
   providedIn: 'root'
@@ -102,5 +103,20 @@ export class ProjectService extends BaseService {
   }
   public getS3ObjectUrl = (key: string): Observable<string> => {
     return this.get('Project/GetS3ObjectUrl?key=' + key, {responseType: 'text'});
+  }
+  public getAllTags = (pageNumber: number, pageSize: number, searchKey: string): Observable<any> => {
+    return this.get(`Project/GetTagsByPageNumber?pageNumber=${pageNumber}&pageSize=${pageSize}&searchKey=${searchKey}`);
+  }
+  public addTag = (tag: Tag): Observable<void> => {
+    return this.post('Project/Tag', tag, {responseType: 'text'});
+  }
+  public editTag = (tag: Tag): Observable<void> => {
+    return this.put('Project/Tag', tag, {responseType: 'text'});
+  }
+  public deleteTag = (id: string): Observable<void> => {
+    return this.delete('Project/Tag?id=' + id, {responseType: 'text'})
+  }
+  public updateDocumentTags = (id: string, tags: Tag[]): Observable<void> => {
+    return this.put('Project/UpdateDocumentTags', {id, tags},{responseType: 'text'})
   }
 }

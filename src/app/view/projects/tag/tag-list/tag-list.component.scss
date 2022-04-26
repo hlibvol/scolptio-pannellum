@@ -1,0 +1,9 @@
+.table{
+    &.tag-list-grid{
+        tbody{
+            td:first-child{
+                text-align: left;
+            }
+        }
+    }
+}

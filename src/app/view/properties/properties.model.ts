@@ -1,3 +1,5 @@
+import { Tag } from "../projects/tag/tag.model";
+
 export class Properties {
     constructor(
         public id?: string,
@@ -119,5 +121,5 @@ export class FileUpload {
 }
 
 export class ImageFileUpload extends FileUpload {
-    public imageType: number = 0;
+    public tags: Tag[] = [];
 }
