@@ -57,7 +57,7 @@ export class UserEditComponent implements OnInit, OnChanges {
   }
 
   prepareMemberData() {
-    if (this.selectedUser.roles != null && this.selectedUser.roles.length > 0) {
+    if (this.selectedUser && this.selectedUser.roles != null && this.selectedUser.roles.length > 0) {
       const role = document.getElementById('user-role-edit');
       if (role) {
         const options = role['options'];

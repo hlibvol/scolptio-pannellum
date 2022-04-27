@@ -35,7 +35,7 @@ export class UserListComponent implements OnInit {
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
     private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document) {
-    this.selectedUser = new User();
+    //this.selectedUser = new User();
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       if (this.currentUser.Role == "Admin") {

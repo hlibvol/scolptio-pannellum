@@ -12,11 +12,11 @@
             <div class="pl-1">Edit user</div>
         </div>
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(editUserForm)">
+    <button *ngIf="selectedUser" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(editUserForm)">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form id="editUser" role="form" (ngSubmit)="save(editUserForm)" novalidate #editUserForm="ngForm" autocomplete="off">
+<form id="editUser" *ngIf="selectedUser" role="form" (ngSubmit)="save(editUserForm)" novalidate #editUserForm="ngForm" autocomplete="off">
     <div class="modal-body">
         <!-- share link -->
         <div class="p-3 bg-light rounded-xl mb-3">
