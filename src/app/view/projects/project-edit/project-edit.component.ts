@@ -59,6 +59,9 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(this.projectForm){
+    this.projectForm.reset();
+    }
     if (this.project) {
       this.projectForm = this._formbuilder.group({
         Id: [''],
@@ -111,7 +114,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       if ($('.select2').length) {
         $('.select2').select2();
       }
-    }, 2000);
+    }, 1000);
 
   }
 

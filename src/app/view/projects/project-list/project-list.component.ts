@@ -69,7 +69,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   setSelectedproject(project: any) {
-    this.selectedproject = project;
+    this.selectedproject = {...project};
   }
 
   onPaginationChange(pageNumber: string) {
