@@ -41,7 +41,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.clientForm = this._formbuilder.group({
-      UserSelect:['', Validators.compose([Validators.required])], 
+      UserType:['', Validators.compose([Validators.required])], 
       FirstName: ['', Validators.compose([Validators.required])],
       LastName: ['', Validators.compose([Validators.required])],
       Email: ['', Validators.compose([Validators.required])],
@@ -51,7 +51,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
       Logo: [''],
       Website: [''],
       TeamId: ['', Validators.compose([Validators.required])],
-      IsInvited: [false]
+      IsInvited: [false],
     });
     this.GetAllTeam();
     
@@ -182,6 +182,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   initAutocomplete() {
 
     const input = document.getElementById("txtSearchPlaces") as HTMLInputElement;
+    if(!input)
+      return false;
     const autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.setFields([
       "address_components",
@@ -239,6 +241,9 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   }
 
   HideOrShowFields(selection){
-    //this.loadAutoComplete();
+    setTimeout(() => {
+      this.initAutocomplete();  
+    }, 1000);
+    
   }
 }

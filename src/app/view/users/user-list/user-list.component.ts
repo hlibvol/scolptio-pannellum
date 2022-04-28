@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
   finaluserList: User[];
   errorMsg = '';
   pageNumber = 1;
-  pageSize = 20;
+  pageSize = 10;
   total = 0;
   selectedUser: any;
   searchKey: '';
@@ -80,7 +80,7 @@ export class UserListComponent implements OnInit {
   }
 
   setSelectedUser(user: any) {
-    this.selectedUser = user;
+    this.selectedUser = {...user};
   }
 
   clearFilter() {

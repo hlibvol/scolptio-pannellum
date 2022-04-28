@@ -41,6 +41,7 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit(): void {
     this.clientForm = this._formbuilder.group({
+      UserType:[''], 
       Id: [''],
       FirstName: ['', Validators.compose([Validators.required])],
       LastName: ['', Validators.compose([Validators.required])],
@@ -69,7 +70,10 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.client) {
       this.formData();
-      this.initAutocomplete();
+      setTimeout(() => {
+        this.initAutocomplete();  
+      }, 1000);
+      
     }
   }
   formData() {
@@ -95,6 +99,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.client.website);
     (this.clientForm.controls.TeamId as FormControl)
       .setValue(this.client.teamId);
+      (this.clientForm.controls.UserType as FormControl)
+      .setValue(this.client.userType);      
   }
 
   private loadScript(url) {
@@ -208,6 +214,8 @@ export class ClientEditComponent implements OnInit, AfterViewInit, OnChanges {
   initAutocomplete() {
 
     const input = document.getElementById("txtEditSearchPlaces") as HTMLInputElement;
+    if(!input)
+    return false;
     const autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.setFields([
       "address_components",
