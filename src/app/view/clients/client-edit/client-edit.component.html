@@ -49,34 +49,36 @@
                         <ng-container>PhoneNumber is required</ng-container>
                     </div>
                 </div>
-                <div class="form-group col-12"><label for="">Company Name</label>
-                    <input formControlName="CompanyName" class="form-control" placeholder="Enter company name" type="text">
-                </div>
-                <div class="form-group col-12"><label for="">Company address</label>
-                    <input id="txtEditSearchPlaces" formControlName="CompanyAdress" class="form-control" placeholder="Enter address" type="text">
-                </div>
-                <div class="col-sm-12">
-                    <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1"
-                        [fileSize]="300000" #cropper></app-ngx-copper>
-                    <div class="form-group col-12"><label for="">Website Logo</label>
-                        <div class="d-flex align-items-center">
-                            <img [src]="websiteLogoImage" alt="avatar" class="shadow avatar"
-                                style="max-width: 75px; max-height: 72px;">
-                            <button *ngIf="!clientForm.get('Logo').value" type="button"
-                                class="form-control form-control-sm border-0 ml-3" id="my-file"
-                                (click)="cropper.inputImage.nativeElement.click()"
-                                style="width: auto; background-color: transparent;">Change</button>
-                            <button *ngIf="clientForm.get('Logo').value" (click)="removeWebsiteLogo()" type="button"
-                                class="form-control form-control-sm border-0 ml-3"
-                                style="width: auto; background-color: transparent;">Remove</button>
-                        </div>
-                        <input type="file" formControlName="Logo" id="userUpload" placeholder=""
-                            class="form-control d-none">
+                <ng-container *ngIf="clientForm.get('UserType').value=='Client'">
+                    <div class="form-group col-12"><label for="">Company Name</label>
+                        <input formControlName="CompanyName" class="form-control" placeholder="Enter company name" type="text">
                     </div>
-                </div>
-                <div class="form-group col-12"><label for="">Website</label>
-                    <input formControlName="Website" class="form-control" placeholder="Enter Website" type="text">
-                </div>
+                    <div class="form-group col-12"><label for="">Company address</label>
+                        <input id="txtEditSearchPlaces" formControlName="CompanyAdress" class="form-control" placeholder="Enter address" type="text">
+                    </div>
+                    <div class="col-sm-12">
+                        <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1"
+                            [fileSize]="300000" #cropper></app-ngx-copper>
+                        <div class="form-group col-12"><label for="">Website Logo</label>
+                            <div class="d-flex align-items-center">
+                                <img [src]="websiteLogoImage" alt="avatar" class="shadow avatar"
+                                    style="max-width: 75px; max-height: 72px;">
+                                <button *ngIf="!clientForm.get('Logo').value" type="button"
+                                    class="form-control form-control-sm border-0 ml-3" id="my-file"
+                                    (click)="cropper.inputImage.nativeElement.click()"
+                                    style="width: auto; background-color: transparent;">Change</button>
+                                <button *ngIf="clientForm.get('Logo').value" (click)="removeWebsiteLogo()" type="button"
+                                    class="form-control form-control-sm border-0 ml-3"
+                                    style="width: auto; background-color: transparent;">Remove</button>
+                            </div>
+                            <input type="file" formControlName="Logo" id="userUpload" placeholder=""
+                                class="form-control d-none">
+                        </div>
+                    </div>
+                    <div class="form-group col-12"><label for="">Website</label>
+                        <input formControlName="Website" class="form-control" placeholder="Enter Website" type="text">
+                    </div>
+                </ng-container>
 
             </div>
 

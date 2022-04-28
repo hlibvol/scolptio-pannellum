@@ -16,12 +16,12 @@
           
             <div class="form-row col-12">
                 <div class="form-group col-12"><label for="">Invite</label>
-                    <select class="form-control" formControlName="UserSelect" (change)="HideOrShowFields($event)">
+                    <select class="form-control" formControlName="UserType" (change)="HideOrShowFields($event)">
                         <option value="">Select</option>
                         <option value="Client">Client</option>
                         <option value="Designer">Designer</option>
                     </select>
-                    <div class="text-danger" *ngIf="HasValidationError('UserSelect','required')">
+                    <div class="text-danger" *ngIf="HasValidationError('UserType','required')">
                         <ng-container>User selection is required</ng-container>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         <ng-container>PhoneNumber is required</ng-container>
                     </div>
                 </div>
-                <ng-container *ngIf="clientForm.get('UserSelect').value=='Client'">
+                <ng-container *ngIf="clientForm.get('UserType').value=='Client'">
                     <div class="form-group col-12"><label for="">Company Name</label>
                         <input formControlName="CompanyName" class="form-control" placeholder="Enter company name"
                             type="text">
