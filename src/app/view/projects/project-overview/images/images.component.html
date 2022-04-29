@@ -19,8 +19,6 @@
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect(false)">{{isMultiSelect === false?'Select' : 'Cancel Select'}}</a>
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect(true)">Select All</a>
 								<a appPermission [module]="module" action="delete" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
-								<a *ngIf="isHide" class="dropdown-item" style="cursor: pointer;" (click)="setImageType(1)">Mark as internal</a>
-								<a *ngIf="isHide" class="dropdown-item" style="cursor: pointer;" (click)="setImageType(2)">Mark as external</a>
 							</div>
 						</div>
 					</div>

@@ -45,6 +45,7 @@
               <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model')">Videos/Animations</a></li>
               <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model')">3D Model Viewer</a></li>
               <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ARModelViewer' ? 'active' : ''}}" (click)="showSection('ARModelViewer','3D-Model')">AR Model Viewer</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model')">Source Files</a></li>
             </ul>
           </div>
         </div>
@@ -76,6 +77,7 @@
       header="3D Model Viewer"></app-models>
     <app-images [module]="module" [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'"
       header="AR Model Viewer"></app-images>
-  
+    <app-documents [projectId]="id" documentType="SourceFiles" *ngIf="activeSection==='SourceFiles'"
+      header="Source Files"></app-documents>
   </div>
 </div>
