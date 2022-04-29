@@ -50,85 +50,97 @@ export class ProjectBoardListComponent implements OnInit {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       if (this.currentUser.Role == "Client") {
         this.isHide = false;
+        dragulaService.createGroup('PROJECT', {
+          accepts: (el, target, source, sibling): boolean => {
+            return false;
+          }
+        });
       }
       else if (this.currentUser.Role == "Designer") {
         this.isHide = false;
+        dragulaService.createGroup('PROJECT', {
+          accepts: (el, target, source, sibling): boolean => {
+            return false;
+          }
+        });
+      } else if (this.currentUser.Role == "Admin") {
+        dragulaService.drag("PROJECT")
+          .subscribe(({ el }) => {
+            let status = el.parentElement.getAttribute("data-target");
+            switch (status) {
+              case "Planing":
+                this.planCount--;
+                break;
+              case "CAD Drawing":
+                this.cadCount--;
+                break;
+              case "3D Modeling":
+                this.modelCount--;
+                break;
+              case "Final Rendering":
+                this.renderCount--;
+                break;
+              case "Completed":
+                this.completeCount--;
+                break;
+            }
+          })
+
+        dragulaService.cancel("PROJECT")
+          .subscribe(({ el }) => {
+            let status = el.parentElement.getAttribute("data-target");
+            switch (status) {
+              case "Planing":
+                this.planCount++;
+                break;
+              case "CAD Drawing":
+                this.cadCount++;
+                break;
+              case "3D Modeling":
+                this.modelCount++;
+                break;
+              case "Final Rendering":
+                this.renderCount++;
+                break;
+              case "Completed":
+                this.completeCount++;
+                break;
+            }
+          })
+
+        dragulaService.drop("PROJECT")
+          .subscribe(({ el }) => {
+            let status = el.parentElement.getAttribute("data-target");
+
+            switch (status) {
+              case "Planing":
+                this.planCount++;
+                break;
+              case "CAD Drawing":
+                this.cadCount++;
+                break;
+              case "3D Modeling":
+                this.modelCount++;
+                break;
+              case "Final Rendering":
+                this.renderCount++;
+                break;
+              case "Completed":
+                this.completeCount++;
+                break;
+            }
+            let projectId = el.children[0].id;
+            let project = this.projectList.find(item => item.id == projectId);
+            project.status = status;
+            this.projectService.UpdateProject(project).subscribe(res => {
+              // this.toastr.info(project_edit.edit_project_success);
+            }, error => {
+              // this.toastr.info(project_edit.edit_project_error);
+            })
+          })
       }
     }
-    dragulaService.drag("PROJECT")
-      .subscribe(({ el }) => {
-        let status = el.parentElement.getAttribute("data-target");
-        switch (status) {
-          case "Planing":
-            this.planCount--;
-            break;
-          case "CAD Drawing":
-            this.cadCount--;
-            break;
-          case "3D Modeling":
-            this.modelCount--;
-            break;
-          case "Final Rendering":
-            this.renderCount--;
-            break;
-          case "Completed":
-            this.completeCount--;
-            break;
-        }
-      })
 
-    dragulaService.cancel("PROJECT")
-      .subscribe(({ el }) => {
-        let status = el.parentElement.getAttribute("data-target");
-        switch (status) {
-          case "Planing":
-            this.planCount++;
-            break;
-          case "CAD Drawing":
-            this.cadCount++;
-            break;
-          case "3D Modeling":
-            this.modelCount++;
-            break;
-          case "Final Rendering":
-            this.renderCount++;
-            break;
-          case "Completed":
-            this.completeCount++;
-            break;
-        }
-      })
-
-    dragulaService.drop("PROJECT")
-      .subscribe(({ el }) => {
-        let status = el.parentElement.getAttribute("data-target");
-
-        switch (status) {
-          case "Planing":
-            this.planCount++;
-            break;
-          case "CAD Drawing":
-            this.cadCount++;
-            break;
-          case "3D Modeling":
-            this.modelCount++;
-            break;
-          case "Final Rendering":
-            this.renderCount++;
-            break;
-          case "Completed":
-            this.completeCount++;
-            break;
-        }
-        let projectId = el.children[1].id;
-        let project = this.projectList.find(item => item.id == projectId);
-        project.status = status;
-        this.projectService.UpdateProject(project).subscribe(res => {
-          // this.toastr.info(project_edit.edit_project_success);
-        }, error => {
-          // this.toastr.info(project_edit.edit_project_error);
-        })
-      })
   }
 
   async ngOnInit() {
