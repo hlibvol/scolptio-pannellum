@@ -219,10 +219,10 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
   }
 
-  onMultiSelect() {
+  onMultiSelect(checkboxValue: boolean) {
     for (let i = 0; i < this.items.length; i++) {
       const galleryImage = document.getElementById('imageCheckbox_' + i) as HTMLInputElement;
-      galleryImage.checked = false;
+      galleryImage.checked = checkboxValue;
     }
     this.isMultiSelect = !this.isMultiSelect;
   }

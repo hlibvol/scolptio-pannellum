@@ -95,8 +95,8 @@ export class DocumentsComponent implements OnInit,OnChanges {
   UpdatePropertiesResource() {
     var payload = this.documents.map(x => {
       return {
-        key: x.fileKey,
-        value: x.name
+        s3FileName: x.fileKey,
+        fileName: x.name,
       }
     })
     this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).subscribe((data: any) => {
