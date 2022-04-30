@@ -40,21 +40,49 @@
 				<div class="property-section-body" *ngIf="isLoading">
 					<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
 				</div>
-				<div class="property-section-body" *ngIf="!isLoading">
-					<div class="property-details">
+				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" *ngIf="!isLoading">
+					<div class="property-details">	
 						<div class="row">
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label class="form-control-label">
-										Filter by Tag
-									</label>
-                    				<ng-select [multiple]="true"
-                    					[items]="tagOptions" 
-                      					[(ngModel)]="selectedTags">
-                    				</ng-select>
+						Tag Filters
+						</div>					
+						<div class="row">
+								<label>
+									<input 
+									  [value]="1" 
+									  [(ngModel)]="isVisible" 
+									  name="isVisible" 
+									  type="radio" 
+									  [checked]="isSelected"/> Show
+								  </label>
+							&nbsp;
+								<label>
+									<input 
+									  [value]="0" 
+									  [(ngModel)]="isVisible" 
+									  name="isVisible" 
+									  type="radio" 
+									  [checked]="!isSelected"/> Hide
+								  </label>
+						</div>				
+						
+						  <div class="showDiv" *ngIf="isVisible == 1">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="form-control-label">
+											Filter by Tag
+										</label>
+										<ng-select [multiple]="true"
+											[items]="tagOptions" 
+											  [(ngModel)]="selectedTags">
+										</ng-select>
+									</div>
 								</div>
 							</div>
-						</div>
+						  </div>
+						  <div class="hideDiv" *ngIf="isVisible == 0">							 
+						  </div>
+					
 						<div class="row mt-1">
 							<div class="col-sm-4 mb-4 flex-column" *ngFor="let item of items; let i = index" [ngClass]="['image-grid-container', filtered(item) ? '' : 'hidden']">
 									<input type="checkbox" id="imageCheckbox_{{i}}" [hidden]="!isMultiSelect" />
@@ -64,10 +92,15 @@
 							</div>
 						  </div>
 					</div>
+					<!-- no records -->
+					<div class="text-danger text-center small" *ngIf="!isLoading && items && items.length < 1">
+					  <strong>No records found</strong>
+					</div>
+					<!-- no records -->
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>		
 </div>
 <!-- Multi image upload Modal -->
 <div class="modal fade" id="uploadMultiImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

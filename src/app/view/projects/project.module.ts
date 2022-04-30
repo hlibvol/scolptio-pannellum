@@ -21,6 +21,7 @@ import { TagDeleteComponent } from './tag/tag-delete/tag-delete.component';
 import { TagTypePipe } from 'src/app/shared/pipes/tag-type.pipe';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UserService } from '../users/user.service';
+import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserService } from '../users/user.service';
     TagAddComponent,
     TagEditComponent,
     TagDeleteComponent,
-    TagTypePipe
+    TagTypePipe,
+    MobileAppBannerComponent
   ],
   imports: [
     CommonModule,

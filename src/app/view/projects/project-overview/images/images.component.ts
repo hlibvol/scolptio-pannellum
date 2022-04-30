@@ -41,6 +41,10 @@ export class ImagesComponent implements OnInit, OnChanges {
   editTagsForm: EditTagsFormModel = new EditTagsFormModel();
   modalRef: BsModalRef = new BsModalRef();
   isLoading: boolean = false;
+
+  isVisible: any; //show/hide filters
+  isSelected: boolean = true; //show/hide filters
+
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     public gallery: Gallery,
@@ -268,4 +272,7 @@ export class ImagesComponent implements OnInit, OnChanges {
       return this.selectedTags.some(x => x.value === this.untaggedValue);
     return this.selectedTags.some(x => imageListItem.tags.map(y => y.id).includes(x.value));
   }
+
+  //show/hide filters
+
 }

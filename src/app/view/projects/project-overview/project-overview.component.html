@@ -3,11 +3,10 @@
 
     <div class="todo-sidebar-section">
       <h4 class="todo-sidebar-section-header"><span>Project Details</span><i
-          class="os-icon os-icon-ui-02 starred"></i><a class="todo-sidebar-section-toggle" href="#"><i
-            class="os-icon os-icon-ui-23"></i></a></h4>
+          class="os-icon os-icon-ui-02 starred"></i><a class="todo-sidebar-section-toggle"></a></h4>
       <div class="todo-sidebar-section-contents">
         <div class="todo-sidebar-section-sub-section">
-          <div class="todo-sidebar-section-sub-section-toggler"><i class="os-icon os-icon-ui-23"></i></div>
+          <div class="todo-sidebar-section-sub-section-toggler"></div>
           <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-layers"></i>
             <h6>Floor Plans</h6>
           </div>
@@ -21,7 +20,7 @@
           </div>
         </div>
         <div class="todo-sidebar-section-sub-section">
-          <div class="todo-sidebar-section-sub-section-toggler"><i class="os-icon os-icon-ui-23"></i></div>
+          <div class="todo-sidebar-section-sub-section-toggler"></div>
           <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-image"></i>
             <h6>Photos</h6>
           </div>
@@ -34,7 +33,7 @@
           </div>
         </div>
         <div class="todo-sidebar-section-sub-section">
-          <div class="todo-sidebar-section-sub-section-toggler"><i class="os-icon os-icon-ui-23"></i></div>
+          <div class="todo-sidebar-section-sub-section-toggler"></div>
           <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-codepen"></i>
             <h6>3D Models</h6>
           </div>
@@ -43,9 +42,8 @@
               <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model')">Pre-Rendered Photos</a></li>
               <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model')">Rendered Photos</a></li>
               <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model')">Videos/Animations</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model')">3D Model Viewer</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ARModelViewer' ? 'active' : ''}}" (click)="showSection('ARModelViewer','3D-Model')">AR Model Viewer</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model')">Source Files</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model')">3D/AR Model Viewer <span class="badge badge-danger">New</span></a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model')">All Source Files</a></li>
             </ul>
           </div>
         </div>
@@ -74,10 +72,8 @@
     <app-images [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
       header="Videos / Animations"></app-images>
     <app-models [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"
-      header="3D Model Viewer"></app-models>
-    <app-images [module]="module" [projectId]="id" documentType="ARModelViewer" *ngIf="activeSection==='ARModelViewer'"
-      header="AR Model Viewer"></app-images>
+      header="3D Model Viewer"></app-models> 
     <app-documents [projectId]="id" documentType="SourceFiles" *ngIf="activeSection==='SourceFiles'"
-      header="Source Files"></app-documents>
+      header="All Source Files"></app-documents>
   </div>
 </div>

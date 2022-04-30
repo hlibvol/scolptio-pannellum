@@ -36,7 +36,7 @@
                                         <th>#</th>
                                         <th>Model</th>
                                         <th>Date Uploaded <i class="fa fa-fw fa-sort" (click)="sort($event)"></i></th>
-                                        <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,12 +63,18 @@
                                                 <div class="dropdown-menu dropdown-menu-left"
                                                     aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" style="cursor: pointer;"
-                                                        (click)="DownloadFile(model)">View</a>
+                                                        (click)="DownloadFile(model)">View 3D Model</a>
                                                     <a class="dropdown-item" style="cursor: pointer;"
                                                         (click)="UploadTextureFile(model)">Upload Texture Files</a>
                                                     <a class="dropdown-item" style="cursor: pointer;"
                                                         (click)="DeleteFile(model.id)">Delete</a>
                                                 </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div >  
+                                                <a class="os-icon os-icon-codepen" data-toggle="tooltip" data-toggle="modal"
+                                                data-target="#mobilebanner" title="Augmented Reality"></a>  
                                             </div>
                                         </td>
                                     </tr>
@@ -79,6 +85,8 @@
                                 <strong>No records found</strong>
                             </div>
                         </div>
+
+                     
                         <!-- doc -->
                         <!-- Upload New Doc Modal -->
                         <div class="modal fade" id="uploadTexture" tabindex="-1" role="dialog"
@@ -87,6 +95,16 @@
                                 <div class="modal-content">
                                     <app-s3-texture-upload (TextureUploadSuccessEvent)="TextureUploadSuccess($event)" [folderName]="folderName">
                                     </app-s3-texture-upload>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <!-- mobile banner -->                 
+                        <div aria-hidden="true" class="onboarding-modal modal fade animated" id="mobilebanner" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content text-center">
+                                    <app-mobile-app-banner></app-mobile-app-banner>
                                 </div>
                             </div>
                         </div>
