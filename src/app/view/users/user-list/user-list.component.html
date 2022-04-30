@@ -189,11 +189,9 @@
       <table class="table px-3">
         <thead class="thead bg-white">
           <tr>
-            <th width="280">Name</th>
-            <th width="200">Team</th>
-            <th width="200">Email</th>
-            <!-- <th width="200">Phone</th>
-            <th width="300">Address</th> -->
+            <th></th>
+            <th width="280">Name</th>           
+            <th width="200">Email</th>           
             <th width="150">Role</th>
             <th width="100">Status</th>
             <th width="150">Last Login</th>
@@ -201,33 +199,20 @@
           </tr>
         </thead>
         <tbody class="bg-white">
-          <tr *ngFor="let user of userList; let i = index">
+          <tr *ngFor="let user of userList; let i = index">    
+            <td data-label="#">{{i+1}}</td>        
             <td class="cell-with-media">
               <img *ngIf="!user.profileImage" alt="" src="../../../assets/img/dummy-user.png"
                 style="height: 25px;width: 25px;">
               <img *ngIf="user.profileImage" alt="" [src]="user.profileImage" style="height: 25px;width: 25px;">
               <span class="ml-1"> {{user.displayName}}</span>
-            </td>
-            <td data-label="datecreated">
-              <div class="d-flex flex-column">
-                <span class="text-dark">{{user.teamName}}</span>
-              </div>
-            </td>
+            </td>          
             <td data-label="datecreated">
               <div class="d-flex flex-column">
                 <span class="text-dark">{{user.email}}</span>
               </div>
             </td>
-            <!-- <td data-label="phoneNumber">
-              <div class="d-flex flex-column">
-                <span class="text-dark">{{user.phoneNumber}}</span>
-              </div>
-            </td>
-            <td data-label="webaddress">
-              <div class="d-flex flex-column">
-                <span class="text-dark">{{user.address}}</span>
-              </div>
-            </td> -->
+           
             <td class="roleName">
               <div class="d-flex flex-column">
                 <span class="text-dark">{{user.roleName}}<span class="text-primary"
