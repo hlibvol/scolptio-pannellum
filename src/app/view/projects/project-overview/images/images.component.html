@@ -68,10 +68,7 @@
 						  <div class="showDiv" *ngIf="isVisible == 1">
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="form-control-label">
-											Filter by Tag
-										</label>
+									<div class="form-group">									
 										<ng-select [multiple]="true"
 											[items]="tagOptions" 
 											  [(ngModel)]="selectedTags">
