@@ -21,6 +21,8 @@ import { TagDeleteComponent } from './tag/tag-delete/tag-delete.component';
 import { TagTypePipe } from 'src/app/shared/pipes/tag-type.pipe';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UserService } from '../users/user.service';
+import { PrepareQuestionnaireComponent } from './project-questionnaire/prepare-questionnaire/prepare-questionnaire.component';
+import { FillQuestionnaireComponent } from './project-questionnaire/fill-questionnaire/fill-questionnaire.component';
 import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
 
 @NgModule({
@@ -40,7 +42,9 @@ import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/m
     TagEditComponent,
     TagDeleteComponent,
     TagTypePipe,
-    MobileAppBannerComponent
+    MobileAppBannerComponent,
+    PrepareQuestionnaireComponent,
+    FillQuestionnaireComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,9 @@ import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/m
     RouterModule.forChild([
       { path: 'project-list', component: ProjectListComponent },
       { path: 'project-overview/:id', component: ProjectOverviewComponent },
-      { path: 'tags', component: TagListComponent }
+      { path: 'tags', component: TagListComponent },
+      { path: 'project-questionnaire/prepare/:id', component: PrepareQuestionnaireComponent },
+      { path: 'project-questionnaire/fill/:id', component: FillQuestionnaireComponent },
     ]),
     NgSelectModule
   ],

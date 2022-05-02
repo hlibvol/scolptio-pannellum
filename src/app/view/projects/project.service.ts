@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { FileUpload } from '../properties/properties.model';
+import { Room, S3File } from './project-questionnaire/prepare-questionnaire/room.model';
 import { Tag } from './tag/tag.model';
 
 @Injectable({
@@ -118,5 +119,17 @@ export class ProjectService extends BaseService {
   }
   public updateDocumentTags = (id: string, tags: Tag[]): Observable<void> => {
     return this.put('Project/UpdateDocumentTags', {id, tags},{responseType: 'text'})
+  }
+  public prepareQuestionnaire = (id: string): Observable<Room[]> => {
+    return this.get('Project/PrepareQuestionnaire?ProjectId=' + id)
+  }
+  public saveRoom = (projectId: string, roomForUi: Room): Observable<Room> => {
+    return this.post('Project/Room', {projectId, roomForUi})
+  }
+  public deleteRoomById = (roomId: string) => {
+    return this.delete('Project/Room?id=' + roomId, {responseType: 'text'})
+  }
+  public uploadToS3 = (newFile: FormData): Observable<S3File> => {
+    return this.post('Project/UploadToS3', newFile)
   }
 }

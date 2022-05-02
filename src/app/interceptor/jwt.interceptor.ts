@@ -19,13 +19,27 @@ export class JwtInterceptor implements HttpInterceptor {
     let token = sessionStorage.getItem('key_token');
 
     if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-      });
+      if(request.body instanceof FormData){
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+            'Access-Control-Allow-Origin': '*' 
+            /*
+             Content-Type is multipart/form-data in this case.
+             This header and the Boundary must be set by Angular during the call, not tampered with before
+            */
+          },
+        });
+      }
+      else{
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          },
+        });
+      }
     }
 
     if (request.url && request.url.search('Login') > -1) {

@@ -1,0 +1,414 @@
+.left-side{
+    width: 250px;
+    min-width: 250px;
+    border-right: 1px solid #E6E6E6;
+}
+
+.ls-header{
+	padding: 10px 20px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+/*Upload Image*/
+
+.upload-image{
+    padding: 10px 15px;;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.upload-image button{
+    width: 100%;
+    height: 150px;
+    border: 0;
+    padding: 0px;
+    background-color: transparent;
+    border-radius: 10px;
+    overflow:hidden;
+}
+
+.upload-image button > div{
+	width: 100%;
+	height: 100%;
+    background-color: #F5FEFF;
+    border: 1px dashed #32C7D5;
+    border-radius: 10px;
+}
+
+.upload-image div > *{
+    display: block;
+    color: #32C7D5;
+}
+
+.upload-image button span{
+    font-size: 50px;
+}
+
+.upload-image button{
+    overflow: hidden;
+}
+
+.upload-image button img{
+    height: 100%;
+}
+
+.upload-image button img[src=""]{
+    display: none;
+}
+
+.upload-image button img:not([src=""])+div{
+    display: none;
+}
+
+/*Add Room*/
+.add-room{
+    padding: 10px 15px;
+    align-items: flex-start;
+}
+
+/*Room List*/
+.room-list{
+    overflow-y: auto;
+}
+
+.rl-items{
+    padding: 10px 15px;
+    padding-top: 0px;
+}
+
+.list-item{
+    border-radius: 5px;
+    padding: 8px 10px;
+	cursor: pointer;
+}
+
+.list-item *{
+	cursor: pointer;
+}
+
+.list-item:hover, .list-item.active{
+    background-color: #F1F1F1;
+}
+
+.list-item span.delete{
+    font-size: 16px;
+    color: #ACACAC;
+    cursor: pointer;
+}
+
+.list-item span.delete:hover{
+    color: #C90000;
+}
+
+.ls-footer{
+    padding: 10px 20px;
+    border-top: 1px solid #E6E6E6;
+    button{
+        width: 100%;
+    }
+}
+
+/*Main Container*/
+.main-container{
+	overflow-x: auto;
+}
+
+/*Manage*/
+.manage{
+    padding: 10px 20px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.mn-list{
+	padding: 5px 0;
+}
+
+.mn-item{
+    margin: 8px;
+    text-align: center;
+}
+
+.mn-item .box-container{
+	position: relative;
+    background-color: #F3F3F3;
+    width: 200px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.mn-item.active .box-container{
+    border: 1px solid #C4C3C3;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.mn-item .box-container:hover{
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.mn-item .box-container img{
+    max-height: 100%;
+}
+
+.mn-item .box-container:hover img{
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+}
+
+.mn-item .box-container span{
+    font-size: 40px;
+    color: #BBBBBB;
+}
+
+.mn-item .box-container .close{
+    position: absolute;
+    display: block;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #FFFFFF;
+    color: #C90000;
+    border-radius: 10px;
+    font-size: 14px !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.add-mn-item .box-container{
+    border: 1px solid #17B2C1;
+    background-color: #F5FEFF;
+}
+
+.add-mn-item .box-container span{
+    color: #17B2C1;
+}
+
+.mn-list{
+    position: relative;
+    overflow-x: auto;
+    margin-left: -20px;
+    padding-left: 15px;
+}
+
+.mn-add{
+	padding: 5px 0;
+}
+
+/* Questions */
+.questions{
+    padding: 10px 20px;
+}
+
+.qs-list{
+    padding: 10px 0;
+}
+
+.qs-item{
+    margin: 15px 0;
+}
+
+.qs-item .num{
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-color: #F9F9F9;
+    border: 1px solid #CFCFCF;
+    border-radius: 20px;
+    line-height: 35px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.qs-item .qs-container{
+    border: 1px solid #CFCFCF;
+    border-radius: 15px;
+    min-height: 35px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    margin-left: 10px;
+    padding: 5px 0px;
+}
+
+.qs-item .qs-container label{
+    padding: 3px 10px;
+    font-size: 12px;
+}
+
+.badge-required{
+    background-color: #E3E3E3;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.qs-item span.delete {
+    font-size: 16px;
+    color: #ACACAC;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.qs-item span.delete:hover {
+    color: #C90000;
+}
+
+.add-question{
+    max-width: 500px;
+}
+
+.btn-save{
+    background-color: #414141;
+    padding: 8px 15px;
+    border: 0;
+    border-radius: 10px;
+    min-width: 80px;
+    color: #FFFFFF;
+    margin: 10px 0;
+    margin-top: 20px;
+}
+
+.mng-btn-container{
+    display: none;
+}
+
+.close-manage{
+    display: none;
+}
+
+/*Responsive Style*/
+@media screen and (max-width:768px){
+	body.show-manage section{
+        overflow: hidden;
+    }
+    
+    body.show-manage .manage{
+        display: block;
+        background-color: #FFFFFF;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        height: 100vh;
+        z-index: 2;
+    }
+
+    section{
+        display: block !important;
+        overflow: auto;
+        padding-bottom: 80px;
+    }
+
+    .left-side{
+        border-right: 0;
+        width: 100%;
+    }
+
+    .upload-image{
+        text-align: center;
+    }
+
+    .upload-image button{
+        max-width: 250px;
+        display: inline-block;
+    }
+
+    .room-list{
+        display: block;
+        overflow-x: auto;
+    }
+
+    .rl-items{
+        display: flex;
+        display: inline-flex;
+        display: -webkit-flex;
+    }
+
+    .rl-items:after{
+        content: "";
+        min-width: 5px;
+    }
+
+    .list-item{
+        background-color: #f3f2f2;
+        margin-right: 10px;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+    .list-item span.delete{
+        margin-left: 10px;
+    }
+
+    .ls-footer{
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        background-color: #FFFFFF;
+        z-index: 1;
+    }
+
+    .ls-footer{
+        text-align: center;
+    }
+    
+    .main-container .manage{
+        display: none;
+    }
+
+    .manage{
+        overflow-y: auto;
+        padding-bottom: 70px;
+    }
+    .close-manage{
+        display: block;
+        float: right;
+        padding: 5px;
+    }
+    .mn-wrapper{
+        flex-direction: column;
+    }
+    .mn-list{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .mn-add{
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+    }
+    .add-mn-item .box-container{
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+    }
+    .add-mn-item .box-container span{
+        font-size: 30px;
+    }
+    .mng-btn-container{
+        display: block;
+    }
+    
+    .mng-button{
+        background-color: #FFFFFF;
+        border: 1px solid #7F7F7F;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    
+    .mng-button span{
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    .questions{
+        border-top: 1px solid #E6E6E6;
+    }
+
+    .add-question{
+        max-width: unset;
+    }
+    
+}
