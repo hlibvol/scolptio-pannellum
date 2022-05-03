@@ -18,6 +18,7 @@ export class ModelsComponent implements OnInit {
   @Input() header: string = '';
 
   path: string = "";
+  type: string = "";
   models: PropertyFile[];
   modelList = [];
   isSaving = false;
@@ -102,6 +103,7 @@ export class ModelsComponent implements OnInit {
     this.toastr.info(s3_model.download_model_info);
     const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
     this.path = url;
+    this.type = doc.fileKey
     $("#playModel").modal("toggle");
   }
 

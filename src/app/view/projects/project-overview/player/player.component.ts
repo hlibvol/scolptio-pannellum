@@ -4,6 +4,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { ObjectLoader } from 'three';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 @Component({
   selector: 'app-player',
@@ -23,6 +27,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
   @Input() darkMode: boolean;
   @Input() path: string;
+  @Input() type: string;
 
   loaderType: string | undefined;
 
@@ -50,6 +55,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.path.firstChange) {
+      console.log(this.type);
 
       if (this.renderer) {
         this.renderer.dispose();
@@ -195,19 +201,50 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
     };
     // loader FBX
-    const loader = new FBXLoader(manager);
+    var loader;
+    let extension = this.type.split(".").pop().toLowerCase();
+    switch (extension) {
+      case "fbx":
+        loader = new FBXLoader(manager);
+
+        break;
+      case "glb":
+        loader = new GLTFLoader(manager);
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
+        loader.setDRACOLoader(dracoLoader);
+        break;
+      case "obj":
+        loader = new ObjectLoader(manager);
+        break;
+      default:
+        loader = new FBXLoader(manager);
+        break;
+    }
+
     loader.load(
       this.threeDPath,
       (objLoaded: any) => {
-        const box = new THREE.Box3().setFromObject(objLoaded);
+        switch (extension) {
+          case "fbx":
+            this.object3D = objLoaded;
+
+            break;
+          case "glb":
+            this.object3D = objLoaded.scene;
+            break;
+          default:
+            break;
+        }
+        const box = new THREE.Box3().setFromObject(this.object3D);
         const size = box.getSize(new THREE.Vector3()).length();
         const center = box.getCenter(new THREE.Vector3());
         this.controls.reset();
 
         // object position
-        objLoaded.position.x += objLoaded.position.x - center.x;
-        objLoaded.position.y += objLoaded.position.y;
-        objLoaded.position.z += objLoaded.position.z - center.z;
+        this.object3D.position.x += this.object3D.position.x - center.x;
+        this.object3D.position.y += this.object3D.position.y;
+        this.object3D.position.z += this.object3D.position.z - center.z;
         this.controls.maxDistance = size * 10;
 
         // camera position respect object
@@ -222,7 +259,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
         this.camera.lookAt(center);
 
-        objLoaded.traverse((object: { isMesh: any; castShadow: boolean }) => {
+        this.object3D.traverse((object: { isMesh: any; castShadow: boolean }) => {
           if (object.isMesh) {
             object.castShadow = true;
           }
@@ -231,10 +268,10 @@ export class PlayerComponent implements OnDestroy, OnChanges {
         // animation
         // Create an AnimationMixer, and get the list of AnimationClip instances
 
-        this.mixer = new THREE.AnimationMixer(objLoaded);
-        if (objLoaded.animations.length > 0) {
+        this.mixer = new THREE.AnimationMixer(this.object3D);
+        if (this.object3D.animations.length > 0) {
           this.select.style.display = "block";
-          this.animations = objLoaded.animations;
+          this.animations = this.object3D.animations;
           this.selectedAnimation = this.animations[0];
           this.action = this.mixer.clipAction(this.selectedAnimation);
 
@@ -242,14 +279,13 @@ export class PlayerComponent implements OnDestroy, OnChanges {
           this.action.play();
         }
 
-        objLoaded.traverse((child: any) => {
+        this.object3D.traverse((child: any) => {
           if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
           }
         });
 
-        this.object3D = objLoaded;
         this.scene.add(this.object3D);
 
         this.controls.update();
@@ -257,6 +293,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
       },
       this.onProgress,
     );
+
 
     window.addEventListener('resize', this.onWindowResize, false);
   }
