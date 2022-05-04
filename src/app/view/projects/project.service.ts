@@ -4,7 +4,9 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { FileUpload } from '../properties/properties.model';
-import { Room, S3File } from './project-questionnaire/prepare-questionnaire/room.model';
+import { BaseRoom } from './project-questionnaire/base-room.model';
+import { Question } from './project-questionnaire/question.model';
+import { Room, S3File } from './project-questionnaire/room.model';
 import { Tag } from './tag/tag.model';
 
 @Injectable({
@@ -131,5 +133,14 @@ export class ProjectService extends BaseService {
   }
   public uploadToS3 = (newFile: FormData): Observable<S3File> => {
     return this.post('Project/UploadToS3', newFile)
+  }
+  public roomList = (projectId: string): Observable<BaseRoom[]> => {
+    return this.get('Project/RoomList?ProjectId=' + projectId);
+  }
+  public roomDetailsById = (id: string): Observable<Room> => {
+    return this.get('Project/RoomDetailsById?id=' + id);
+  }
+  public saveQuestion = (question: Question): Observable<any> => {
+    return this.put('Project/SaveQuestion', {question: question}, {responseType: 'text'});
   }
 }

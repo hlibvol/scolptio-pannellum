@@ -45,6 +45,9 @@
     {
         background: #FFF;
         transition: all 0.5s ease-in-out;
+        i{
+            color: #414141;
+        }
     }
     
     .list-item:hover *
@@ -58,7 +61,7 @@
     
     
     .list-item:not(.done) i{
-        color: #414141;
+        visibility: hidden;
     }
     
     /*Main Container*/

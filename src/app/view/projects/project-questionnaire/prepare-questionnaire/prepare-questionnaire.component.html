@@ -57,7 +57,7 @@
                         <div class="mn-list d-flex">
                             <div class="mn-item" *ngFor="let image of prepareQuestionnaire.selectedRoom?.images; let i = index">
                                 <div class="box-container d-flex justify-content-center align-items-center">
-                                    <img [src]="image.safeUrl">
+                                    <img [src]="image.safeUrl" (click)="openImage(image.safeUrl)">
                                     <span class="close os-icon os-icon-close" (click)="deleteImageAtIndex(i)"></span>
                                 </div>
                                 <span>{{prepareQuestionnaire.selectedRoom.name}}</span>

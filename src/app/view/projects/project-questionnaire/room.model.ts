@@ -1,10 +1,8 @@
 import { SafeUrl } from "@angular/platform-browser";
+import { BaseRoom } from "./base-room.model";
 import { Question } from "./question.model";
 
-export class Room{
-    public id: string = '';
-    public name: string = '';
-    public isFloorPlan: boolean = false;
+export class Room extends BaseRoom{
     public images: S3File[] = [];
     public questions: Question[] = [];
 }

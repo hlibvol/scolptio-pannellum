@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { ProjectService } from '../../project.service';
 import { PrepareQuestionnaire } from './prepare-questionnaire.model';
-import { Room, S3File } from './room.model';
+import { Room } from '../room.model';
+import { SafeUrlService } from 'src/app/shared/safe-url.service';
 
 @Component({
   selector: 'app-prepare-questionnaire',
@@ -23,7 +24,8 @@ export class PrepareQuestionnaireComponent implements OnInit {
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer) { 
+    private sanitizer: DomSanitizer,
+    private safeUrlService: SafeUrlService) { 
 
     this.prepareQuestionnaire = new PrepareQuestionnaire(this.sanitizer);
     this.activatedRoute.params.subscribe(async (params) => {
@@ -129,5 +131,8 @@ export class PrepareQuestionnaireComponent implements OnInit {
   }
   deleteImageAtIndex(i: number): void {
     this.prepareQuestionnaire.deleteImageAtIndex(i);
+  }
+  openImage(url: SafeUrl) {
+    this.safeUrlService.open(url);
   }
 }

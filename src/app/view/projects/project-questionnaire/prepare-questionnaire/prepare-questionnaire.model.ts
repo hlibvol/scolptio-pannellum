@@ -1,6 +1,6 @@
-import { S3File, Room } from "./room.model";
-import { Question } from "./question.model";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { S3File, Room } from "../room.model";
+import { Question } from "../question.model";
+import { DomSanitizer } from "@angular/platform-browser";
 
 export class PrepareQuestionnaire {
     private _selectedRoomIndex: number = -1;

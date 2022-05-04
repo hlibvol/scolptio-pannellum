@@ -24,6 +24,7 @@ import { UserService } from '../users/user.service';
 import { PrepareQuestionnaireComponent } from './project-questionnaire/prepare-questionnaire/prepare-questionnaire.component';
 import { FillQuestionnaireComponent } from './project-questionnaire/fill-questionnaire/fill-questionnaire.component';
 import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
+import { QuestionnairesCompletedPipe } from './project-questionnaire/questionnaires-completed.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/m
     TagTypePipe,
     MobileAppBannerComponent,
     PrepareQuestionnaireComponent,
-    FillQuestionnaireComponent
+    FillQuestionnaireComponent,
+    QuestionnairesCompletedPipe
   ],
   imports: [
     CommonModule,
