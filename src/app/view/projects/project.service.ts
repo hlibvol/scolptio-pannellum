@@ -4,6 +4,9 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { FileUpload } from '../properties/properties.model';
+import { BaseRoom } from './project-questionnaire/base-room.model';
+import { Question } from './project-questionnaire/question.model';
+import { Room, S3File } from './project-questionnaire/room.model';
 import { Tag } from './tag/tag.model';
 
 @Injectable({
@@ -118,5 +121,26 @@ export class ProjectService extends BaseService {
   }
   public updateDocumentTags = (id: string, tags: Tag[]): Observable<void> => {
     return this.put('Project/UpdateDocumentTags', {id, tags},{responseType: 'text'})
+  }
+  public prepareQuestionnaire = (id: string): Observable<Room[]> => {
+    return this.get('Project/PrepareQuestionnaire?ProjectId=' + id)
+  }
+  public saveRoom = (projectId: string, roomForUi: Room): Observable<Room> => {
+    return this.post('Project/Room', {projectId, roomForUi})
+  }
+  public deleteRoomById = (roomId: string) => {
+    return this.delete('Project/Room?id=' + roomId, {responseType: 'text'})
+  }
+  public uploadToS3 = (newFile: FormData): Observable<S3File> => {
+    return this.post('Project/UploadToS3', newFile)
+  }
+  public roomList = (projectId: string): Observable<BaseRoom[]> => {
+    return this.get('Project/RoomList?ProjectId=' + projectId);
+  }
+  public roomDetailsById = (id: string): Observable<Room> => {
+    return this.get('Project/RoomDetailsById?id=' + id);
+  }
+  public saveQuestion = (question: Question): Observable<any> => {
+    return this.put('Project/SaveQuestion', {question: question}, {responseType: 'text'});
   }
 }

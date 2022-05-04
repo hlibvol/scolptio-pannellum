@@ -122,4 +122,8 @@ export class ProjectListComponent implements OnInit {
   openProject(project) {
     this.router.navigate(['/projects/project-overview/' + project.id]);
   }
+
+  openQuestionnaire(project, segment: string): void {
+    this.router.navigate([`/projects/project-questionnaire/${segment}/${project.id}`]);
+  }
 }

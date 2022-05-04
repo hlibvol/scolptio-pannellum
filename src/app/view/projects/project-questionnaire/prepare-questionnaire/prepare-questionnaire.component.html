@@ -1,0 +1,93 @@
+<div class="prepare-questionnaire p-3">
+    <section class="d-flex bg-white rounded-xl">
+        <div class="left-side d-flex flex-column">
+            <div class="ls-header  d-flex  align-items-center">
+                <div class="d-flex-grow">
+                    <font style="font-size: 16px;color: #7F7F7F">{{prepareQuestionnaire?.selectedRoom?.name ? prepareQuestionnaire?.selectedRoom?.name : 'No room selected'}}</font>
+                    <br/>
+                    <font style="font-size: 14px;color: #B5B5B5">{{prepareQuestionnaire?.roomCount}} Rooms</font>
+                </div>
+                <div class="mng-btn-container">
+                    <button class="mng-button  d-flex  justify-content-center align-items-center">
+                        <span class="material-icons"></span>
+                        <label>Manage</label>
+                    </button>
+                </div>
+            </div>
+            <div class="upload-image">
+                <button class="d-flex justify-content-center align-items-center" (click)="uploadClick()">
+                    <img src="">
+                    <div class="d-flex flex-column  justify-content-center align-items-center">
+                        <span class="os-icon os-icon-upload-cloud"></span>
+                        <label for="image-upload">Upload Image</label>
+                    </div>
+                </button>
+                <form #form>
+                    <input type="file" style="display: none;" #imageAdd (change)="onImageAdd()"/>
+                </form>
+                
+            </div>
+            <div class="add-room d-flex">
+                <div class="input-text flex-grow">
+                    <input type="text" name="room-name" placeholder="Room Name" class="form-control" [(ngModel)]="prepareQuestionnaire.roomName"/>
+                    </div>
+                <button class="btn btn-light" (click)="addRoom()">+</button>
+            </div>
+            <div class="room-list flex-grow d-flex flex-column" *ngFor="let room of prepareQuestionnaire.rooms; let i = index">
+                <div class="rl-items">
+                    <div class="list-item  d-flex  align-items-center justify-content-between {{i === prepareQuestionnaire.selectedRoomIndex ? 'active' : ''}}" (click)="selectRoomAtIndex(i)">
+                        <label class="d-flex-grow">{{room.name}}</label>
+                        <span class="delete os-icon os-icon-delete" (click)="deleteRoomAtIndex(i)"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ls-footer">
+				<button class="btn-primary full-width" (click)="addRoom(true)">Add Floor Plan</button>
+			</div>
+        </div>
+        <div class="main-container flex-grow" *ngIf="isLoading">
+            <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+        </div>
+        <div class="main-container flex-grow" *ngIf="!isLoading">
+            <div class="manage">
+                <font style="font-size: 20px;color: #7F7F7F">Manage</font>
+                <div style="clear: both;"></div>
+                <div>
+                    <div class="mn-wrapper d-flex">
+                        <div class="mn-list d-flex">
+                            <div class="mn-item" *ngFor="let image of prepareQuestionnaire.selectedRoom?.images; let i = index">
+                                <div class="box-container d-flex justify-content-center align-items-center">
+                                    <img [src]="image.safeUrl" (click)="openImage(image.safeUrl)">
+                                    <span class="close os-icon os-icon-close" (click)="deleteImageAtIndex(i)"></span>
+                                </div>
+                                <span>{{prepareQuestionnaire.selectedRoom.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="questions">
+                <font style="font-size: 20px;color: #7F7F7F">Questions</font>
+                <div class="qs-list">
+                    <div class="qs-item d-flex" *ngFor="let question of prepareQuestionnaire.selectedRoom?.questions; let i = index">
+                        <span class="num">{{i + 1}}</span>
+                        <div class="qs-container d-flex">
+                            <label>{{question.interrogative}}</label>
+                            <div class="d-flex  align-items-center">
+                                <span class="badge-required">required</span>
+                                <span class="delete os-icon os-icon-delete" (click)="deleteQuestionFromRoomAtIndex(i)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-question d-flex">
+                    <div class="input-text flex-grow">
+                        <input type="text" name="question" placeholder="Question" class="form-control" [(ngModel)]="prepareQuestionnaire.newQuestion"/>
+                    </div>
+                    <button class="btn btn-light" (click)="addQuestionToRoom()">+</button>
+                </div>
+                <button class="btn btn-save btn-orange" (click)="saveRoom()">SAVE ROOM</button>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,75 @@
+<div class="fill-questionnaire p-3">
+    <section class="d-flex bg-white rounded-xl">
+		<div class="left-side d-flex flex-column">
+			<div class="ls-header">
+				<font style="font-size: 16px;color: #FFFFFF">Room Questionnaire</font>
+				<br/>
+				<font style="font-size: 14px;color: #FFFFFF">{{fillQuestionnaire.rooms | questionnairesCompleted}}</font>
+			</div>
+			<div class="room-list flex-grow d-flex flex-column">
+				<div class="rl-items">
+					<div class="list-item d-flex align-items-center {{room.isCompleted ? 'done' : ''}} {{i === fillQuestionnaire?.selectedRoomIndex ? 'active' : ''}}" *ngFor="let room of fillQuestionnaire.rooms; let i = index;" (click)="selectRoomAtIndex(i)">
+						<i class="os-icon os-icon-checkmark"></i>
+						<label class="flex-grow">{{room.name}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main-container d-flex flex-grow justify-content-center align-items-center" *ngIf="isLoading">
+            <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+        </div>
+		<ng-template [ngIf]="!isLoading">
+			<div class="main-container" *ngIf="fillQuestionnaire.selectedRoom">
+				<font style="font-size: 16px;color: #858585">{{fillQuestionnaire.selectedRoom.name}} Room</font>
+				<br/>
+				<font style="font-size: 12px;color: #535353">{{fillQuestionnaire.selectedRoom.questions.length}} Questions</font>
+				<hr/>
+				<font style="font-size: 12px;color: #B5B5B5;font-style: italic;">Note: Questions marked with (<span class="label-required">*</span>) are required</font>
+				<div class="questions">
+					<ng-template ngFor let-question [ngForOf]="fillQuestionnaire.selectedRoom.questions" let-i="index">
+						<ng-template [ngIf]="i === fillQuestionnaire.selectedQuestionIndex">
+							<div class="qs-item active d-flex">
+								<span class="num">{{i + 1}}</span>
+								<div class="qs-container d-flex">
+									<label>{{question.interrogative}}<span class="label-required">*</span></label>
+								</div>
+							</div>
+							<div class="form-answer">
+								<div class="textarea flex-grow">
+									<textarea name="answer" placeholder="Type your answer" [(ngModel)]="question.answer" (keyup)="setIsDirty()"></textarea>
+								</div>
+								<button type="button" class="btn btn-link" *ngIf="question.attachments?.length" (click)="downloadAttachments()">{{question.attachments?.length}} Files Attached</button>
+								<input #uploadImage type="file" (change)="filesAdded()" multiple style="display: none;"/>
+								<div class="upload-image d-flex align-items-center">
+									<div class="flex-grow">
+										<font style="font-size: 12px;color: #828282">Upload Image (<i>JPG/JPEG/PNG/GIF</i>):</font>
+										<br/>
+										<font style="font-size: 10px;color: #A5A5A5">Max file size: <strong>1000kb</strong></font>
+									</div>
+									<button class="d-flex flex-center" (click)="uploadImageClick()">
+										<i class="os-icon os-icon-upload-cloud"></i>
+										<font style="font-size: 12px;">Upload Image</font>
+									</button>
+								</div>
+								<button class="btn btn-orange btn-next" (click)="saveQuestion()">SAVE</button>
+							</div>
+						</ng-template>
+						<ng-template [ngIf]="i !== fillQuestionnaire.selectedQuestionIndex">
+							<div class="qs-item d-flex" (click)="openQuestionAtIndex(i)">
+								<span class="num">{{i + 1}}</span>
+								<div class="qs-container d-flex">
+									<label>{{question.interrogative}}<span class="label-required">*</span></label>
+								</div>
+							</div>
+						</ng-template>
+					</ng-template>
+				</div>
+			</div>
+		</ng-template>
+        <div class="d-flex flex-row flex-wrap" style="width: 1024px;" *ngIf="!isLoading">
+            <div class="img-container p-3" *ngFor="let image of fillQuestionnaire?.selectedRoom?.images">
+                <img [src]="image.safeUrl">
+            </div>
+        </div>
+	</section>
+</div>
