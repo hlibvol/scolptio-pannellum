@@ -134,7 +134,7 @@ export class ProjectService extends BaseService {
   public uploadToS3 = (newFile: FormData): Observable<S3File> => {
     return this.post('Project/UploadToS3', newFile)
   }
-  public roomList = (projectId: string): Observable<BaseRoom[]> => {
+  public roomList = (projectId: string): Observable<Room[]> => {
     return this.get('Project/RoomList?ProjectId=' + projectId);
   }
   public roomDetailsById = (id: string): Observable<Room> => {

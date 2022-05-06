@@ -117,8 +117,10 @@ export class FillQuestionnaireComponent implements OnInit {
         this.toastrService.info('Questionnaire completed successfully')
     }
   }
-  async downloadAttachments(): Promise<void> {
-    for(var attachment of this.fillQuestionnaire.getActiveQuestion().attachments)
-      this.safeUrlService.open(attachment.safeUrl);
+  openAttachment(attachment: S3File): void {
+    this.safeUrlService.open(attachment.safeUrl);
+  }
+  removeAttachmentAtIndex(i: number): void {
+    this.fillQuestionnaire.removeActiveAttachmentAtIndex(i);
   }
 }
