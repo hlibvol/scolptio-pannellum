@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { BaseRoom } from './base-room.model';
+import { Room } from './room.model';
 
 @Pipe({
   name: 'questionnairesCompleted'
 })
 export class QuestionnairesCompletedPipe implements PipeTransform {
 
-  transform(value: BaseRoom[]): unknown {
+  transform(value: Room[]): unknown {
     if(!value || !value.length)
       return null;
     let total: number = value.length;

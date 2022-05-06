@@ -20,7 +20,7 @@
         </div>
 		<ng-template [ngIf]="!isLoading">
 			<div class="main-container" *ngIf="fillQuestionnaire.selectedRoom">
-				<font style="font-size: 16px;color: #858585">{{fillQuestionnaire.selectedRoom.name}} Room</font>
+				<font style="font-size: 16px;color: #858585">{{fillQuestionnaire.selectedRoom | selectedRoomHeader}}</font>
 				<br/>
 				<font style="font-size: 12px;color: #535353">{{fillQuestionnaire.selectedRoom.questions.length}} Questions</font>
 				<hr/>
@@ -38,7 +38,12 @@
 								<div class="textarea flex-grow">
 									<textarea name="answer" placeholder="Type your answer" [(ngModel)]="question.answer" (keyup)="setIsDirty()"></textarea>
 								</div>
-								<button type="button" class="btn btn-link" *ngIf="question.attachments?.length" (click)="downloadAttachments()">{{question.attachments?.length}} Files Attached</button>
+								<div class="d-flex flex-wrap attachments-container" *ngIf="question.attachments?.length">
+									<div class="attachment" *ngFor="let attachment of question.attachments; let j = index">
+										<img class="answer-attachment mx-2" [src]="attachment.safeUrl" (click)="openAttachment(attachment)">
+										<span class="close os-icon os-icon-close" (click)="removeAttachmentAtIndex(i, j)"></span>
+									</div>
+								</div>
 								<input #uploadImage type="file" (change)="filesAdded()" multiple style="display: none;"/>
 								<div class="upload-image d-flex align-items-center">
 									<div class="flex-grow">
@@ -51,7 +56,7 @@
 										<font style="font-size: 12px;">Upload Image</font>
 									</button>
 								</div>
-								<button class="btn btn-orange btn-next" (click)="saveQuestion()">SAVE</button>
+								<button class="btn btn-orange btn-next" (click)="saveQuestion()">SAVE AND NEXT</button>
 							</div>
 						</ng-template>
 						<ng-template [ngIf]="i !== fillQuestionnaire.selectedQuestionIndex">
@@ -66,7 +71,7 @@
 				</div>
 			</div>
 		</ng-template>
-        <div class="d-flex flex-row flex-wrap" style="width: 1024px;" *ngIf="!isLoading">
+        <div class="d-flex flex-row flex-wrap" style="max-width: 1024px;" *ngIf="!isLoading">
             <div class="img-container p-3" *ngFor="let image of fillQuestionnaire?.selectedRoom?.images">
                 <img [src]="image.safeUrl">
             </div>

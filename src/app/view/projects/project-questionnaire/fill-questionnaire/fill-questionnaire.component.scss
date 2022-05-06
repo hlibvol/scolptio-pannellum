@@ -156,6 +156,31 @@
     .form-answer{
         display: none;
         max-width: 650px;
+        .attachment{
+            position: relative;
+            .answer-attachment{
+                cursor: pointer;
+                width: 90px;
+                height: 60px;
+                object-fit: cover;
+            }
+            .close{
+                position: absolute;
+                top: 2px;
+                right: 9px;
+                font-size: small;
+                opacity: 0.5;
+                background: white;
+                border: 1px solid black;
+                border-radius: 50%;
+                cursor: pointer;
+                &:hover{
+                    color: red;
+                    border-color: red;
+                }
+            }
+        }
+        
     }
     
     .upload-image{

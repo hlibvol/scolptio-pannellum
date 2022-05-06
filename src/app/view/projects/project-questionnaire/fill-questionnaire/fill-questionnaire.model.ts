@@ -8,16 +8,13 @@ export class FillQuestionnaire{
     private _selectedQuestionIndex: number = -1;
     public projectId: string = '';
     public selectedRoom: Room = null;
-    public rooms: BaseRoom[] = [];
+    public rooms: Room[] = [];
     public isDirty: boolean = false;
     public get selectedRoomIndex(): number{
       return this._selectedRoomIndex;
     }
     public get selectedQuestionIndex(): number{
         return this._selectedQuestionIndex;
-      }
-    public get roomCount(): number{
-      return this.rooms?.filter(x => !x.isFloorPlan).length as number;
     }
     constructor(private sanitizer: DomSanitizer) { }
     selectRoomAtIndex(i: number, room: Room) {
@@ -52,5 +49,8 @@ export class FillQuestionnaire{
     }
     updateAttachmentAtIndex(i: number, attachment: S3File): void {
         this.selectedRoom.questions[this._selectedQuestionIndex].attachments[i] = attachment;
+    }
+    removeActiveAttachmentAtIndex(i: number) {
+        this.getActiveQuestion().attachments.splice(i, 1);
     }
 }

@@ -25,6 +25,7 @@ import { PrepareQuestionnaireComponent } from './project-questionnaire/prepare-q
 import { FillQuestionnaireComponent } from './project-questionnaire/fill-questionnaire/fill-questionnaire.component';
 import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
 import { QuestionnairesCompletedPipe } from './project-questionnaire/questionnaires-completed.pipe';
+import { SelectedRoomHeaderPipe } from './project-questionnaire/selected-room-header.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { QuestionnairesCompletedPipe } from './project-questionnaire/questionnai
     MobileAppBannerComponent,
     PrepareQuestionnaireComponent,
     FillQuestionnaireComponent,
-    QuestionnairesCompletedPipe
+    QuestionnairesCompletedPipe,
+    SelectedRoomHeaderPipe
   ],
   imports: [
     CommonModule,

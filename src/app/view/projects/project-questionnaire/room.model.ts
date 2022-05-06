@@ -5,6 +5,7 @@ import { Question } from "./question.model";
 export class Room extends BaseRoom{
     public images: S3File[] = [];
     public questions: Question[] = [];
+    public isCompleted: boolean;
 }
 
 export class S3File{
