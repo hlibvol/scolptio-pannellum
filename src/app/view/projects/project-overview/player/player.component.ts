@@ -8,6 +8,7 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ObjectLoader } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { RGBELoader }  from 'three/examples/jsm/loaders/RGBELoader.js';
 
 @Component({
   selector: 'app-player',
@@ -133,10 +134,10 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
     // create scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xeeeeee);
+    // this.scene.background = new THREE.Color(0xeeeeee);//!!
 
-    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-    this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+    var pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    // this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 1, 1,50).texture;//0.04
 
     // add camera
     this.camera = new THREE.PerspectiveCamera(45, domElement.clientWidth / domElement.clientHeight, 1, 2000);
@@ -144,17 +145,52 @@ export class PlayerComponent implements OnDestroy, OnChanges {
 
     this.scene.add(this.camera);
 
-    //this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444));
-    this.scene.add(new THREE.AmbientLight(0xa6a6a6, 3))
-    const dirLight1 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
-    dirLight1.position.set(100, 0, 100)
+    // this.pmremGenerator = new PMREMGenerator( this.renderer );
+    pmremGenerator.compileEquirectangularShader();
+    var rgbe_loader = new RGBELoader();
+    var that = this;
+    rgbe_loader.load("../../../../../assets/hdri/parched_canal_2k.hdr", function(texture) {
+
+        var envMap = pmremGenerator.fromEquirectangular(texture).texture;
+
+        that.scene.environment = envMap;
+        // that.scene.background = envMap;
+
+        texture.dispose();
+        pmremGenerator.dispose();
+
+    });    
+
+
+    // this.scene.add(new THREE.HemisphereLight( 0x0000ff, 0x00ff00, 0.6 ));
+    // this.scene.add(new THREE.HemisphereLight(0xffffff, 0x444444,1));
+    // this.scene.add(new THREE.AmbientLight(0xffffff, 1))
+    const fIntensity = 1;
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight1.position.set(1000, 0, 0)
     this.scene.add(dirLight1)
 
-    const dirLight2 = new THREE.DirectionalLight(0xa6a6a6, 0.8)
-    dirLight2.position.set(-100, 0, 100)
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight2.position.set(-1000, 0, 0)
     this.scene.add(dirLight2)
 
+    const dirLight3 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight3.position.set(0, 0, 1000)
+    this.scene.add(dirLight3)
 
+    const dirLight4 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight4.position.set(0, 0, -1000)
+    this.scene.add(dirLight4)
+
+    const dirLight5 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight5.position.set(0, 1000, 0)
+    this.scene.add(dirLight5)
+
+    const dirLight6 = new THREE.DirectionalLight(0xffffff, fIntensity)
+    dirLight6.position.set(0, -1000, 0)
+    this.scene.add(dirLight6)
+
+    this.scene.position.set(0, 0, 0);
 
     // axes
     // this.scene.add(new THREE.AxesHelper(20));
