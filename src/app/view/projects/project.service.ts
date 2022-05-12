@@ -3,10 +3,10 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
+import { S3File } from 'src/app/shared/models/s3-items-model';
 import { FileUpload } from '../properties/properties.model';
-import { BaseRoom } from './project-questionnaire/base-room.model';
 import { Question } from './project-questionnaire/question.model';
-import { Room, S3File } from './project-questionnaire/room.model';
+import { Room } from './project-questionnaire/room.model';
 import { Tag } from './tag/tag.model';
 
 @Injectable({
@@ -119,8 +119,8 @@ export class ProjectService extends BaseService {
   public deleteTag = (id: string): Observable<void> => {
     return this.delete('Project/Tag?id=' + id, {responseType: 'text'})
   }
-  public updateDocumentTags = (id: string, tags: Tag[]): Observable<void> => {
-    return this.put('Project/UpdateDocumentTags', {id, tags},{responseType: 'text'})
+  public updateDocumentTags = (s3Key: string, tags: Tag[]): Observable<void> => {
+    return this.put('Project/UpdateDocumentTags', {s3Key, tags},{responseType: 'text'})
   }
   public prepareQuestionnaire = (id: string): Observable<Room[]> => {
     return this.get('Project/PrepareQuestionnaire?ProjectId=' + id)

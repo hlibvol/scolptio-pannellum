@@ -1,11 +1,9 @@
-import { Component, ElementRef, EventEmitter, Injector, Input, OnInit, Output, ViewChild } from '@angular/core';
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ConfigsLoaderService } from '../../../services/configs-loader.service';
-import { ToastrService } from 'ngx-toastr';
-import { v4 as uuidv4 } from 'uuid';
-import { FileUpload } from '../../../view/properties/properties.model';
-import { S3File } from '../../shared.model';
-import { S3BucketService } from '../../s3-bucket.service';
+import { ProjectS3ImageItem } from '../../models/s3-items-model';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgOption } from '@ng-select/ng-select';
+import { ProjectService } from 'src/app/view/projects/project.service';
 
 declare var $: any;
 @Component({
@@ -15,19 +13,24 @@ declare var $: any;
 })
 export class MultiImageUploadComponent implements OnInit {
   @ViewChild('myS3MultiImageInput') myS3MultiImageInput: ElementRef;
+  @Input() untaggedValue: string = '';
+  @Input() tagOptions: NgOption[] = [{
+    label: 'Untagged',
+    value: this.untaggedValue
+  }]
 
-  @Output() ImageUploadSuccessEvent = new EventEmitter<FileUpload[]>();
+  @Output() ImageUploadSuccessEvent = new EventEmitter<ProjectS3ImageItem[]>();
 
-  imageFiles: S3File[];
+  imageFiles: ProjectS3ImageItem[];
   imageList: any;
   isSaving = 0;
-  fileUploads: FileUpload[];
+  fileUploads: ProjectS3ImageItem[];
   hasSucces = false;
+  
   protected _configLoaderService: ConfigsLoaderService;
 
-  constructor(private _injector: Injector,
-    private toastr: ToastrService, private s3BucketService: S3BucketService) {
-    this._configLoaderService = _injector.get(ConfigsLoaderService);
+  constructor(private projectService: ProjectService,
+    private sanitizer: DomSanitizer) {
     this.imageFiles = new Array();
     this.fileUploads = new Array();
   }
@@ -52,15 +55,13 @@ export class MultiImageUploadComponent implements OnInit {
   }
 
   prepareView() {
-    setTimeout(() => {
-      if (this.imageList != null && this.imageList.length > 0) {
-        for (let img of this.imageList) {
-          const imgFile = new S3File();
-          imgFile.file = img;
-          this.imageFiles.push(imgFile);
-        }
+    if (this.imageList != null && this.imageList.length > 0) {
+      for (let img of this.imageList) {
+        const imgFile = new ProjectS3ImageItem(this.sanitizer, '');
+        imgFile.file = img;
+        this.imageFiles.push(imgFile);
       }
-    }, 500);
+    }
   }
 
   onChangeImage($event: Event) {
@@ -71,59 +72,30 @@ export class MultiImageUploadComponent implements OnInit {
     }
   }
 
-  upload() {
-    for (let img of this.imageFiles) {
-      setTimeout(() => {
-        this.uploadImages(img);
-      }, 500);
-    }
+  async upload(): Promise<void> {
+    await Promise.all(this.imageFiles.map(x => this.uploadImages(x)))
   }
 
-  public uploadImages(imgFile: S3File) {
-
-    const extension = (/[.]/.exec(imgFile.file.name)) ? /[^.]+$/.exec(imgFile.file.name)[0] : undefined;
-    const uuid = uuidv4();
-    const imageFileName = uuid + '.' + extension;
-
-    const client = new S3Client({
-      credentials: {
-        accessKeyId: "AKIAYRELZPYTB44GTA42",
-        secretAccessKey: "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"
-      },
-      region: "us-east-2"
-    });
-
-    const params = {
-      Bucket: "scolptio-crm-bucket",
-      Key: imageFileName,
-      Body: imgFile.file
-    };
-
-    const command = new PutObjectCommand(params);
-    this.isSaving++;
-    imgFile.status = 'uploading';
-    client.send(command).then(
-      (data) => {
-        this.isSaving--;
-        imgFile.status = 'success';
-        const imageUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${imageFileName}`;
-
-        const imageUpload = new FileUpload();
-        imageUpload.fileName = imgFile.file.name;
-        imageUpload.fileKey = imageFileName;
-        imageUpload.extension = extension;
-        imageUpload.fileSize = imgFile.file.size.toString();
-        imageUpload.url = imageUrl;
-        
-        this.fileUploads.push(imageUpload);
-        this.hasSucces = true;
-      },
-      (error) => {
-        // error handling.
-        this.isSaving--;
-        imgFile.status = 'error';
-      }
-    );
+  public async uploadImages(imgFile: ProjectS3ImageItem) {
+    try{
+      this.isSaving++;
+      imgFile.status = 'uploading';
+      let formData = new FormData();
+      formData.append('fileData', imgFile.file);
+      let {s3Key, safeUrl} = await this.projectService.uploadToS3(formData).toPromise()
+      imgFile.data.src = imgFile.data.thumb = safeUrl as string;
+      imgFile.s3Key = s3Key;
+      this.fileUploads.push(imgFile)
+      imgFile.status = 'success';
+      this.hasSucces = true;
+      this.myS3MultiImageInput
+    }
+    catch{
+      imgFile.status = 'error';
+    }
+    finally{
+      this.isSaving--;
+    }
   }
 
 }

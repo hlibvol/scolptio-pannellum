@@ -1,7 +1,7 @@
 import { NgOption } from "@ng-select/ng-select";
 
 export class EditTagsFormModel{
-    documentId: string = '';
+    s3Key: string = '';
     tags: NgOption[] = [];
     tagOptions: NgOption[] = [];
 }

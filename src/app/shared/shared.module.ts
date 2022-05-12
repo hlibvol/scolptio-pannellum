@@ -19,6 +19,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { ModelUploadComponent } from './components/model-upload/model-upload.component';
 import { TextureUploadComponent } from './components/texture-upload/texture-upload.component';
 import { ClientInviteComponent } from '../view/clients/client-invite/client-invite.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -28,7 +29,8 @@ import { ClientInviteComponent } from '../view/clients/client-invite/client-invi
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        LeafletModule
+        LeafletModule,
+        NgSelectModule
     ],
     declarations: [
         PaginationComponent,

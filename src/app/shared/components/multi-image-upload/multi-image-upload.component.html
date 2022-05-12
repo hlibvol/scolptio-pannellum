@@ -1,7 +1,5 @@
 <div class="modal-body">
   <!-- upload -->
-  <form>
-    <!-- form row -->
     <div class="form-row">
       <div class="form-group col-md-12">
         <label class="w-100" for="upload-s3-multi-image">
@@ -29,8 +27,17 @@
           id="upload-s3-multi-image" placeholder="" required="" class="form-control d-none"
           (change)="onChangeImage($event)">
         <ol *ngIf="imageFiles">
-          <li *ngFor="let img of imageFiles; let i = index" class="p-1">
+          <li *ngFor="let img of imageFiles; let i = index" class="p-1 d-flex">
             <span>{{img.file.name}}</span>
+            <span class="ml-2">
+              <img [src]="img.safeUrl" class="thumbnail">
+            </span>
+            <span class="ml-2">
+              <ng-select [multiple]="true"
+								[items]="tagOptions" 
+								[(ngModel)]="img.tags">
+								</ng-select>
+            </span>
             <span class="ml-2 text-primary">
               <i
                 [ngClass]="{'fa':true, 'fa-spinner fa-spin': img.status === 'uploading', 'fa-check-circle text-success': img.status === 'success', 'fa-times-circle text-danger': img.status === 'error'}"></i>
@@ -42,8 +49,6 @@
         </ol>
       </div>
     </div>
-    <!-- form row -->
-  </form>
   <!-- upload -->
 </div>
 <div class="modal-footer border-0">
