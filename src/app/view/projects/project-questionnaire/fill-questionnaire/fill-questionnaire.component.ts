@@ -2,11 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { S3File } from 'src/app/shared/models/s3-items-model';
 import { SafeUrlService } from 'src/app/shared/safe-url.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { ProjectService } from '../../project.service';
 import { Question } from '../question.model';
-import { Room, S3File } from '../room.model';
+import { Room } from '../room.model';
 import { FillQuestionnaire } from './fill-questionnaire.model';
 
 @Component({

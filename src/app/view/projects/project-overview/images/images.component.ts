@@ -1,13 +1,14 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgOption } from '@ng-select/ng-select';
-import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { ProjectS3GalleryItem, ProjectS3ImageItem } from 'src/app/shared/models/s3-items-model';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
-import {  ImageFileUpload } from '../../../properties/properties.model';
 import { EditTagsFormModel } from '../../edit-tags.form-model';
 import { ProjectService } from '../../project.service';
 import { Tag } from '../../tag/tag.model';
@@ -27,8 +28,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   @Input()
   header: string = '';
   @Input() module:any;
-  imageList = [];
-  items: GalleryItem[];
+  items: ProjectS3GalleryItem[] = [];
   isMultiSelect = false;
   currentUser: AppUser;
   isHide: boolean = true;
@@ -42,24 +42,22 @@ export class ImagesComponent implements OnInit, OnChanges {
   modalRef: BsModalRef = new BsModalRef();
   isLoading: boolean = false;
 
-  isVisible: any; //show/hide filters
-  isSelected: boolean = true; //show/hide filters
+  isVisible: number = 0; //show/hide filters
 
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
     public gallery: Gallery,
     public lightbox: Lightbox,
     private appSessionStorageService: AppSessionStorageService,
-    private modalService: BsModalService) {
+    private modalService: BsModalService,
+    private sanitizer: DomSanitizer) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
   }
-  async prepareImages() {
-    var images = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
-    if (images && images.length)
-      this.imageList = images;
-    this.prepareSlideData();
+  async prepareImages(): Promise<void> {
+    var items = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
+    this.prepareSlideData(items);
   }
 
   async ngOnInit(): Promise<void> {
@@ -118,12 +116,17 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
   }
 
-  async prepareSlideData() {
-    const urls = [];
-    for (let img of this.imageList) {
-      urls.push(await this.projectService.getS3ObjectUrl(img.s3FileName).toPromise());
+  async prepareSlideData(items: any[]): Promise<void> {
+    if(!items?.length)
+      return;
+    for (let item of items) {
+      let url = await this.projectService.getS3ObjectUrl(item.s3Key).toPromise()
+      let imageItem: ProjectS3ImageItem = new ProjectS3ImageItem(this.sanitizer, url)
+      if(this.items)
+        this.items.push(Object.assign(imageItem, item))
+      else
+        this.items = [item];
     }
-    this.items = urls.map(url => new ImageItem({ src: url, thumb: url }));
 
     const lightboxRef = this.gallery.ref('lightbox');
 
@@ -137,107 +140,63 @@ export class ImagesComponent implements OnInit, OnChanges {
     lightboxRef.load(this.items);
   }
 
-  openImage(index: number) {
+  openImage(index: number): void {
     this.lightbox.open(index, 'lightbox', { panelClass: 'fullscreen' });
   }
 
-  ImageUploadSuccess(imageUploads: ImageFileUpload[]) {
-    for (let imageUpload of imageUploads) {
-      this.AddImageFile(imageUpload);
-    }
-  }
-
-  AddImageFile(imageUpload: ImageFileUpload) {
-    this.projectService.AddFile(imageUpload).subscribe(async (data: any) => {
-      imageUpload.tags = [];
-      this.imageList.push(imageUpload);
-      await this.UpdateProjectResource();
-      const url = await this.projectService.getS3ObjectUrl(imageUpload.fileKey).toPromise();
-      this.items.push(new ImageItem({ src: url, thumb: url }))
-    })
+  async ImageUploadSuccess(imageUploads: ProjectS3ImageItem[]): Promise<void> {
+    await this.prepareSlideData(imageUploads);
+    await this.UpdateProjectResource();
   }
 
   async UpdateProjectResource(): Promise<void> {
     try{
-      var payload = this.imageList.map(x => {
-        return {
-          s3FileName: x.s3FileName,
-          fileName: x.fileName,
-          tags: x.tags
-        }
+      this.isLoading = true;
+      var files: any[] = Object.assign([], this.items);
+      files.map(file => {
+        file.tags =  file.tags.map((tag: NgOption) => {
+          return {
+            id: tag.value,
+            name: tag.label
+          }
+        })
       })
-      await this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).toPromise()
+      await this.projectService.UpdateProjectResource(this.projectId, files, this.documentType).toPromise()
     }
     catch(err){
       this.toastr.error(common_error_message);
       throw err;// abort other operations
     }
-  }
-
-  DeleteFile(url: string) {
-    let fileId: string;
-    try {
-
-      fileId = url.split('.amazonaws.com/')[1].split('?')[0];
-
-      this.projectService.DeleteFile(fileId).subscribe((data: any) => {
-        this.toastr.info(s3_image.image_delete_success);
-        const index = this.imageList.findIndex(imgKey => imgKey === fileId);
-        if (index > -1) {
-          this.imageList.splice(index, 1);
-          setTimeout(() => {
-            this.UpdateProjectResource();
-          }, 1000);
-        }
-      }, (error) => {
-        this.toastr.error(s3_image.image_delete_error);
-      })
-    } catch {
-
+    finally{
+      this.isLoading = false
     }
   }
 
-  DeleteAll() {
-    let selectedImageSrcs = new Array();
-    for (let item of this.items) {
-      const i = this.items.indexOf(item);
-      if (i > -1) {
-        const galleryImage = document.getElementById('imageCheckbox_' + i) as HTMLInputElement;
-        if (galleryImage && galleryImage.checked) {
-          selectedImageSrcs.push(item.data.src);
-          this.DeleteFile(item.data.src);
-        }
-      }
-    }
-    if (selectedImageSrcs && selectedImageSrcs.length > 0) {
-      for (let itemSrc of selectedImageSrcs) {
-        const i = this.items.findIndex(item => item.data.src === itemSrc);
-        if (i > -1) {
-          this.items.splice(i, 1);
-        }
-      }
-      this.imageList = this.imageList.filter(x => !selectedImageSrcs.some(y => y.includes(x.s3FileName)))
-      this.UpdateProjectResource();
-    } else {
+  async DeleteAll(): Promise<void> {
+    if(!this.items.some(x => x.isChecked)){
       this.toastr.error(s3_image.image_select_count_error);
+      return;
     }
+    this.items = this.items.filter(x => !x.isChecked)
+    await this.UpdateProjectResource();
+    this.setAllSelected(false);
   }
 
-  onMultiSelect(checkboxValue: boolean) {
-    for (let i = 0; i < this.items.length; i++) {
-      const galleryImage = document.getElementById('imageCheckbox_' + i) as HTMLInputElement;
-      galleryImage.checked = checkboxValue;
-    }
+  onMultiSelect(): void {
+    this.setAllSelected(false);
     this.isMultiSelect = !this.isMultiSelect;
   }
 
-  close() {
+  setAllSelected(value: boolean): void {
+    this.items.map(x => x.isChecked = value);
+  }
+
+  close(): void {
     $('#uploadMultiImage').modal('toggle');
   }
-  openEditTags(template: TemplateRef<any>, item){
-    let imageListItem = this.imageList.find(x => x.s3FileName === item.data.src.split('.amazonaws.com/')[1].split('?')[0])
-    this.editTagsForm.documentId = imageListItem.id;
-    this.editTagsForm.tags = imageListItem.tags.map((x) => {
+  openEditTags(template: TemplateRef<any>, item: ProjectS3GalleryItem): void {
+    this.editTagsForm.s3Key = item.s3Key;
+    this.editTagsForm.tags = item.tags.map((x) => {
       return {
         label: x.name,
         value: x.id
@@ -245,7 +204,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     });
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'})
   }
-  closeEditTags(){
+  closeEditTags(): void {
     this.modalRef.hide();
   }
   async saveTags(): Promise<void> {
@@ -256,23 +215,19 @@ export class ImagesComponent implements OnInit, OnChanges {
         tag.name = x.label; // Probably not necessary
         return tag;
       });
-      await this.projectService.updateDocumentTags(this.editTagsForm.documentId, tagList).toPromise()
+      await this.projectService.updateDocumentTags(this.editTagsForm.s3Key, tagList).toPromise()
       this.modalRef.hide();
       this.toastr.success('Tags updated');
-      var index: number = this.imageList.findIndex(x => x.id = this.editTagsForm.documentId);
-      this.imageList[index].tags = tagList;
+      var index: number = this.items.findIndex(x => x.id = this.editTagsForm.s3Key);
+      this.items[index].tags = tagList;
     }
     catch{
       this.toastr.error(common_error_message);
     }
   }
-  filtered(item): boolean{
-    let imageListItem = this.imageList.find(x => x.s3FileName === item.data.src.split('.amazonaws.com/')[1].split('?')[0])
-    if(!imageListItem.tags.length)
-      return this.selectedTags.some(x => x.value === this.untaggedValue);
-    return this.selectedTags.some(x => imageListItem.tags.map(y => y.id).includes(x.value));
+  filterClass(item: ProjectS3GalleryItem): string{
+    if(!item.tags.length)
+      return this.selectedTags.some(x => x.value === this.untaggedValue) ? '' : 'hidden';
+    return this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string)) ? '' : 'hidden';
   }
-
-  //show/hide filters
-
 }

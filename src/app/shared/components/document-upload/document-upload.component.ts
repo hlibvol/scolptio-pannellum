@@ -1,10 +1,8 @@
-import { Component, ElementRef, EventEmitter, Injector, Input, OnInit, Output, ViewChild } from '@angular/core';
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-import { ConfigsLoaderService } from '../../../services/configs-loader.service';
-import { ToastrService } from 'ngx-toastr';
-import { v4 as uuidv4 } from 'uuid';
-import { FileUpload } from '../../../view/properties/properties.model';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { S3File } from '../../shared.model';
+import { ProjectS3DocumentItem } from '../../models/s3-items-model';
+import { ProjectService } from 'src/app/view/projects/project.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $: any;
 @Component({
@@ -15,23 +13,18 @@ declare var $: any;
 export class DocumentUploadComponent implements OnInit {
   @ViewChild('myS3DocumentInput') myS3DocumentInput: ElementRef;
 
-  @Output() DocumentUploadSuccessEvent = new EventEmitter<FileUpload[]>();
+  @Output() DocumentUploadSuccessEvent = new EventEmitter<ProjectS3DocumentItem[]>();
 
-  documentFiles: S3File[];
+  documentFiles: ProjectS3DocumentItem[];
   documentList: any;
   isSaving = 0;
-  docType = null;
-  docFiles: S3File[];
   hasSucces = false;
-  fileUploads: FileUpload[];
+  fileUploads: ProjectS3DocumentItem[];
 
-  protected _configLoaderService: ConfigsLoaderService;
-
-  constructor(private _injector: Injector,
-    private toastr: ToastrService) {
-    this._configLoaderService = _injector.get(ConfigsLoaderService);
-    this.documentFiles = new Array();
-    this.fileUploads = new Array();
+  constructor(private projectService: ProjectService,
+    private sanitizer: DomSanitizer) {
+    this.documentFiles = [];
+    this.fileUploads = [];
   }
 
   ngOnInit(): void { }
@@ -41,10 +34,8 @@ export class DocumentUploadComponent implements OnInit {
     if (this.fileUploads && this.fileUploads.length > 0) {
       this.DocumentUploadSuccessEvent.emit(this.fileUploads);
     }
-
-    this.docType = null;
-    this.documentFiles = new Array();
-    this.fileUploads = new Array();
+    this.documentFiles = [];
+    this.fileUploads = [];
     this.myS3DocumentInput.nativeElement.value = "";
     this.hasSucces = false;
     this.isSaving = 0;
@@ -53,15 +44,13 @@ export class DocumentUploadComponent implements OnInit {
   }
 
   prepareView() {
-    setTimeout(() => {
-      if (this.documentList != null && this.documentList.length > 0) {
-        for (let doc of this.documentList) {
-          const docFile = new S3File();
-          docFile.file = doc;
-          this.documentFiles.push(docFile);
-        }
+    if (this.documentList != null && this.documentList.length > 0) {
+      for (let doc of this.documentList) {
+        const docFile = new ProjectS3DocumentItem(this.sanitizer, '');
+        docFile.file = doc;
+        this.documentFiles.push(docFile);
       }
-    }, 500);
+    }
   }
 
   onChangeDocument($event: Event) {
@@ -72,61 +61,30 @@ export class DocumentUploadComponent implements OnInit {
     }
   }
 
-  upload() {
-    for (let img of this.documentFiles) {
-      setTimeout(() => {
-        this.uploadDocument(img);
-      }, 500);
+  async upload(): Promise<void> {
+    await Promise.all(this.documentFiles.map(x => this.uploadDocument(x)))
+  }
+
+  public async uploadDocument(documentFile: S3File) {
+    try{
+      this.isSaving++;
+      documentFile.status = 'uploading';
+      let formData = new FormData();
+      formData.append('fileData', documentFile.file);
+      let {s3Key, safeUrl} = await this.projectService.uploadToS3(formData).toPromise()
+      let file = new ProjectS3DocumentItem(this.sanitizer, safeUrl as string);
+      file.s3Key = s3Key;
+      file.file = documentFile.file;
+      file.fileName = documentFile.file.name;
+      documentFile.status = 'success'
+      this.fileUploads.push(file);
+      this.hasSucces = true;
+    }
+    catch{
+      documentFile.status = 'error'
+    }
+    finally{
+      this.isSaving--;
     }
   }
-
-  public uploadDocument(documentFile: S3File) {
-
-    const extension = (/[.]/.exec(documentFile.file.name)) ? /[^.]+$/.exec(documentFile.file.name)[0] : undefined;
-    const uuid = uuidv4();
-    const documentFileName = uuid + '.' + extension;
-
-    const client = new S3Client({
-      credentials: {
-        accessKeyId: "AKIAYRELZPYTB44GTA42",
-        secretAccessKey: "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"
-      },
-      region: "us-east-2"
-    });
-
-    const params = {
-      Bucket: "scolptio-crm-bucket",
-      Key: documentFileName,
-      Body: documentFile.file
-    };
-
-    const command = new PutObjectCommand(params);
-    this.isSaving++;
-    documentFile.status = 'uploading';
-    client.send(command).then(
-      (data) => {
-        this.isSaving--;
-        documentFile.status = 'success';
-        const documentUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${documentFileName}`;
-
-        const documentUpload = new FileUpload();
-        documentUpload.fileName = documentFile.file.name;
-        documentUpload.fileKey = documentFileName;
-        documentUpload.extension = extension;
-        documentUpload.fileSize = documentFile.file.size.toString();
-        documentUpload.url = documentUrl;
-        documentUpload.type = this.docType;
-
-        this.fileUploads.push(documentUpload);
-        this.hasSucces = true;
-      },
-      (error) => {
-        // error handling.
-        this.isSaving--;
-        documentFile.status = 'error';
-
-      }
-    );
-  }
-
 }

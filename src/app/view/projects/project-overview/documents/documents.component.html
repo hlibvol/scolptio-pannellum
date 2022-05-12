@@ -43,10 +43,10 @@
 								<tr *ngFor="let doc of documents; let i = index">
 									<td>{{i+1}}</td>
 									<td>
-										{{doc.name}}
+										{{doc.fileName}}
 									</td>
 									<td>
-										{{doc.uploadDate | date: 'MM/dd/yyyy HH:mm:ss'}}
+										{{doc.uploadDateTimeUtc | date: 'MM/dd/yyyy HH:mm:ss'}}
 									</td>
 									<td data-label="Action">
 										<div class="dropdown">
@@ -60,7 +60,7 @@
 											</button>
 											<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 												<a class="dropdown-item" style="cursor: pointer;" (click)="DownloadFile(doc)">Download</a>
-												<a *ngIf="isDeleteHide" class="dropdown-item" style="cursor: pointer;" (click)="DeleteFile(doc.fileKey)">Delete</a>
+												<a *ngIf="isDeleteHide" class="dropdown-item" style="cursor: pointer;" (click)="DeleteFile(doc)">Delete</a>
 											</div>
 										</div>
 									</td>

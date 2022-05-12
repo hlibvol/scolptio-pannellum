@@ -1,7 +1,7 @@
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { BaseRoom } from "../base-room.model";
+import { S3File } from "src/app/shared/models/s3-items-model";
 import { Question } from "../question.model";
-import { Room, S3File } from "../room.model";
+import { Room } from "../room.model";
 
 export class FillQuestionnaire{
     private _selectedRoomIndex: number = -1;

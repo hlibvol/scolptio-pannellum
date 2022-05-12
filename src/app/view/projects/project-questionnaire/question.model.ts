@@ -1,4 +1,4 @@
-import { S3File } from "./room.model";
+import { S3File } from "src/app/shared/models/s3-items-model";
 
 export class Question{
     public id: string = '';

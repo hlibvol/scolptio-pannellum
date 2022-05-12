@@ -1,10 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ProjectS3DocumentItem } from 'src/app/shared/models/s3-items-model';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message, s3_document } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
-import { PropertyFile } from '../../../../shared/shared.model';
-import { FileUpload } from '../../../properties/properties.model';
 import { ProjectService } from '../../project.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class DocumentsComponent implements OnInit,OnChanges {
   documentType: string = '';
   @Input()
   header: string = '';
-  documents: PropertyFile[];
+  documents: ProjectS3DocumentItem[];
   isSaving = false;
   isDeleteHide: boolean = true;
   isAddHide:boolean=true;
@@ -52,79 +51,63 @@ export class DocumentsComponent implements OnInit,OnChanges {
       this.isDeleteHide = false;
     }
   }
-  GetFiles() {
+  async GetFiles(): Promise<void> {
     this.isSaving = true;
-    this.projectService.GetDocuments(this.projectId, this.documentType).subscribe((data: any) => {
-      this.documents = data.map(x => {
-        return {
-          name: x.fileName,
-          uploadDate: x.uploadDateTime,
-          fileKey: x.s3FileName
-        }
-      });
-      this.isSaving = false;
-    }, (error) => {
-      this.isSaving = false;
+    try{
+      this.documents = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise();
+    }
+    catch{
       this.toastr.error(common_error_message);
-    })
-  }
-
-  DocumentUploadSuccessEvent(documentUploads: FileUpload[]) {
-    for (let documentUpload of documentUploads) {
-      this.AddDocumentFile(documentUpload);
+    }
+    finally{
+      this.isSaving = false;
     }
   }
 
-  AddDocumentFile(documentUpload: FileUpload) {
-    this.projectService.AddFile(documentUpload).subscribe((data: any) => {
+  async DocumentUploadSuccessEvent(documentUpload: ProjectS3DocumentItem[]): Promise<void> {
       if (!this.documents?.length)
-        this.documents = [];
-      this.documents.push({
-        extension: documentUpload.extension,
-        fileKey: documentUpload.fileKey,
-        url: documentUpload.url,
-        name: documentUpload.fileName,
-        uploadDate: new Date().toString()
-      })
-      this.UpdatePropertiesResource();
-    }, (error) => {
-
-    })
+        this.documents = []
+      this.documents = this.documents.concat(documentUpload);
+      await this.UpdatePropertiesResource();
+      await this.GetFiles(); // Refresh from server. Maybe refresh on client instead for performance?
   }
 
-  UpdatePropertiesResource() {
-    var payload = this.documents.map(x => {
-      return {
-        s3FileName: x.fileKey,
-        fileName: x.name,
-      }
-    })
-    this.projectService.UpdateProjectResource(this.projectId, payload, this.documentType).subscribe((data: any) => {
-    }, (error) => {
+  async UpdatePropertiesResource(): Promise<void> {
+    try{
+      this.isSaving = true;
+      await this.projectService.UpdateProjectResource(this.projectId, this.documents, this.documentType).toPromise()
+    }
+    catch{
       this.toastr.error(common_error_message);
-    })
+    }
+    finally{
+      this.isSaving = false;
+    }
   }
 
-  DeleteFile(fileId: string) {
-    this.projectService.DeleteDocument(fileId).subscribe((data: any) => {
+  async DeleteFile(item: ProjectS3DocumentItem): Promise<void> {
+    try{
+      this.isSaving = true;
+      const index = this.documents.findIndex(x => x.s3Key === item.s3Key);
+      this.documents.splice(index, 1);
+      await this.UpdatePropertiesResource();
       this.toastr.info(s3_document.document_delete_success);
-      const index = this.documents.findIndex(x => x.fileKey === fileId);
-      if (index > -1) {
-        this.documents.splice(index, 1);
-        this.UpdatePropertiesResource();
-      }
-    }, (error) => {
+    }
+    catch{
       this.toastr.error(s3_document.document_delete_error);
-    })
+    }
+    finally{
+      this.isSaving = false;
+    }
   }
 
-  async DownloadFile(doc: PropertyFile) {
+  async DownloadFile(doc: ProjectS3DocumentItem) {
     this.toastr.info(s3_document.download_document_info);
-    const url = await this.projectService.getS3ObjectUrl(doc.fileKey).toPromise();
+    const url = await this.projectService.getS3ObjectUrl(doc.s3Key).toPromise();
     if (url) {
       const a = document.createElement("a");
       a.href = url;
-      a.download = doc.name;
+      a.download = doc.fileName;
       a.click();
     }
   }
@@ -135,12 +118,12 @@ export class DocumentsComponent implements OnInit,OnChanges {
     switch (target.className) {
       case "fa fa-fw fa-sort":
       case "fa fa-fw fa-sort-asc":
-        this.documents.sort((a, b) => (b.uploadDate >= a.uploadDate) ? 1 : -1);
+        this.documents.sort((a, b) => (b.uploadDateTimeUtc >= a.uploadDateTimeUtc) ? 1 : -1);
         target.className = "fa fa-fw fa-sort-desc";
         break;
       case "fa fa-fw fa-sort-desc":
       default:
-        this.documents.sort((a, b) => (a.uploadDate >= b.uploadDate) ? 1 : -1);
+        this.documents.sort((a, b) => (a.uploadDateTimeUtc >= b.uploadDateTimeUtc) ? 1 : -1);
         target.className = "fa fa-fw fa-sort-asc";
         break;
     }

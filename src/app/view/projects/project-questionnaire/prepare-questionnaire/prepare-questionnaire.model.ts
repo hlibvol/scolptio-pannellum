@@ -1,6 +1,7 @@
-import { S3File, Room } from "../room.model";
+import { Room } from "../room.model";
 import { Question } from "../question.model";
 import { DomSanitizer } from "@angular/platform-browser";
+import { S3File, S3FileImpl } from "src/app/shared/models/s3-items-model";
 
 export class PrepareQuestionnaire {
     private _selectedRoomIndex: number = -1;
@@ -79,7 +80,7 @@ export class PrepareQuestionnaire {
     addImageToSelectedRoom(file: File): void {
       if(!this.selectedRoom)
         return;
-      var s3File = new S3File('', this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)), file)
+      var s3File = new S3FileImpl('', this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)), file)
       this.newFileUploaded(s3File)
       this.isDirty = true;
     }

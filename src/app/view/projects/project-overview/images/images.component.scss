@@ -17,6 +17,7 @@
             button {
                 padding: 0;
             }
+            z-index: auto;
         }
     }
     .property-section-body{
@@ -25,11 +26,31 @@
         &.hidden{
           display: none;
         }
+        position: relative;
+        .image-actions-container{
+          position: absolute;
+          top: 0px;
+          left: 10px;
+          width: 280px;
+          height: 200px;
+          opacity: 0;
+          &:hover{
+            opacity: 0.5;
+            background: white;
+          }
+          button{
+            width: 50%;
+            &:hover{
+              background-color: #047bf8;
+              color: white
+            }
+          }
+        }
       }
     }
 }
 
-input[type=checkbox][id^=imageCheckbox] {
+input[type=checkbox] {
   display: none;
 }
 
@@ -62,13 +83,13 @@ label img {
   transform-origin: 50% 50%;
 }
 
-:checked + label:before {
+input[type=checkbox]:checked + label:before {
   content: "✓";
   background-color: #047bf8;
   transform: scale(1);
 }
 
-input[type=checkbox][id^=imageCheckbox]:not(:checked) + label:before {
+input[type=checkbox]:not(:checked) + label:before {
   content: "✓";
   color: white;
   border-color: gray;
