@@ -27,6 +27,8 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
   modelFiles: S3File[];
   modelList: any;
   isSaving = 0;
+  isSave2Echo3D = 0;
+  isSave2S3 = 0;
   fileUploads: FileUpload[];
   hasSucces = false;
   folderName = uuidv4();
@@ -61,6 +63,8 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     this.fileUploads = new Array();
     this.hasSucces = false;
     this.isSaving = 0;
+    this.isSave2Echo3D = 0;
+    this.isSave2S3 = 0;
     this.folderName = uuidv4();
   }
 
@@ -166,6 +170,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
       "Url": tmppath,
     });
     this.isSaving++;
+    this.isSave2Echo3D++;
     modelFile.status = 'uploading';    
 
 
@@ -176,6 +181,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
       console.log("xxx_api return",res);
       let retid = res["id"];
       this.isSaving--;
+      this.isSave2Echo3D--;
       modelFile.status = 'success';
       const modelUrl = "https://api.echo3D.co/webar?key=sparkling-frog-6857&entry="+retid;//`https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${this.folderName}/${modelFileName}`;
 
@@ -194,6 +200,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     (error) => {
       // error handling.
       this.isSaving--;
+      this.isSave2Echo3D--;
       modelFile.status = 'error';
     }      
     );
@@ -268,10 +275,12 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
 
     const command = new PutObjectCommand(params);
     this.isSaving++;
+    this.isSave2S3++;
     modelFile.status = 'uploading';
     client.send(command).then(
       (data) => {
         this.isSaving--;
+        this.isSave2S3--;
         modelFile.status = 'success';
         const modelUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${this.folderName}/${modelFileName}`;
 
@@ -290,6 +299,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
       (error) => {
         // error handling.
         this.isSaving--;
+        this.isSave2S3--;
         modelFile.status = 'error';
       }
     );
