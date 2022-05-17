@@ -3,6 +3,7 @@
 
  // Environment variables
  window["env"]["apiUrl"] = "${API_URL}";
+ window["env"]["echo3dUrl"] = "${ECHO3D_URL}";
  window["env"]["debug"] = "${DEBUG}";
  window["env"]["bucket"] = "${bucket}";
  window["env"]["region"] = "${region}";

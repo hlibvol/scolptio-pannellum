@@ -27,7 +27,7 @@
           </label>
           <input type="file" #myS3ModelInput [multiple]="true" name="upload-s3-model" accept=".fbx"
             id="upload-s3-model" placeholder="" required="" class="form-control d-none"
-            (change)="onChangeModel($event)">
+            (change)="onChangeModel($event)" >
           <ol *ngIf="modelFiles">
             <li *ngFor="let model of modelFiles; let i = index" class="p-1">
               <span>{{model.file.name}}</span>
@@ -50,7 +50,12 @@
     <button type="button" class="btn btn-primary" *ngIf="!hasSucces"
       [ngStyle]="{'cursor': isSaving > 0 || modelFiles.length < 1? 'not-allowed' : 'pointer' }"
       [disabled]="isSaving> 0 || modelFiles.length < 1" (click)="upload()">
-      <span>Upload&nbsp;&nbsp;<i *ngIf="isSaving > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
+      <span>Upload to S3&nbsp;&nbsp;<i *ngIf="isSave2S3 > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
+    </button>
+    <button type="button" class="btn btn-primary" *ngIf="!hasSucces"
+      [ngStyle]="{'cursor': isSaving > 0 || modelFiles.length < 1? 'not-allowed' : 'pointer' }"
+      [disabled]="isSaving> 0 || modelFiles.length < 1" (click)="upload2echo3d()">
+      <span>Upload to Echo3D&nbsp;&nbsp;<i *ngIf="isSave2Echo3D > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
     </button>
     <button type="button" class="btn btn-primary" [ngStyle]="{'cursor': isSaving > 0? 'not-allowed' : 'pointer' }"
       [disabled]="isSaving> 0" (click)="close()">

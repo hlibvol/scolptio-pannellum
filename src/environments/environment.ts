@@ -9,6 +9,7 @@
 export const environment = {
   production: false,
   baseUrl: window["env"]["apiUrl"] || "",
+  echo3dUrl: window["env"]["echo3dUrl"] || "",
   debug: window["env"]["debug"] || false,
   bucket : window["env"]["bucket"] || "",
   region : window["env"]["region"] || "",
