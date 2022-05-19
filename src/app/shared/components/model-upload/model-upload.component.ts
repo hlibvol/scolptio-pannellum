@@ -258,7 +258,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     const extension = (/[.]/.exec(modelFile.file.name)) ? /[^.]+$/.exec(modelFile.file.name)[0] : undefined;
     const uuid = uuidv4();
     const modelFileName = uuid + '.' + extension;
-
+    
     const client = new S3Client({
       credentials: {
         accessKeyId: "AKIAYRELZPYTB44GTA42",
@@ -267,12 +267,19 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
       region: "us-east-2"
     });
 
+    // const params: PutObjectRequest = {
+    //   Bucket: "scolptio-crm-bucket",
+    //   Key: `${this.folderName}/${modelFileName}`,
+    //   Body: modelFile.file,
+    // };
+
+
     const params: PutObjectRequest = {
-      Bucket: "scolptio-crm-bucket",
-      Key: `${this.folderName}/${modelFileName}`,
+      Bucket: "scolptiocrmincoming1",
+      Key: `model/uncompressed/${modelFile.file.name}`,
       Body: modelFile.file,
     };
-
+    
     const command = new PutObjectCommand(params);
     this.isSaving++;
     this.isSave2S3++;
@@ -283,6 +290,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
         this.isSave2S3--;
         modelFile.status = 'success';
         const modelUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${this.folderName}/${modelFileName}`;
+        // const modelUrl = `https://d2pz0mg31mouq1.cloudfront.net/model/${modelFileName}`;
 
         const modelUpload = new FileUpload();
         modelUpload.fileName = modelFile.file.name;

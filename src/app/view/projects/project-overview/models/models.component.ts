@@ -107,7 +107,8 @@ export class ModelsComponent implements OnInit {
   async DownloadFile(doc: PropertyFile) {
     this.toastr.info(s3_model.download_model_info);
     const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
-    this.path = url;
+    console.log(doc.name);
+    this.path = "https://d2pz0mg31mouq1.cloudfront.net/?modelPath=" + doc.name
     this.type = doc.fileKey
     $("#playModel").modal("toggle");
   }

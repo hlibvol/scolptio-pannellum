@@ -9,6 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ObjectLoader } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { RGBELoader }  from 'three/examples/jsm/loaders/RGBELoader.js';
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player',
@@ -16,6 +17,9 @@ import { RGBELoader }  from 'three/examples/jsm/loaders/RGBELoader.js';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnDestroy, OnChanges {
+
+  @ViewChild('iframe')
+  private iFrameRef: ElementRef;
 
   @ViewChild('canvas')
   private canvasRef: ElementRef;
@@ -25,6 +29,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   private selectRef: ElementRef;
   @ViewChild('progress')
   private progressRef: ElementRef;
+
 
   @Input() darkMode: boolean;
   @Input() path: string;
@@ -50,12 +55,18 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   selectedAnimation: any;
   //
   threeDPath: string;
+  modelUrl: SafeResourceUrl;
   requestId;
+  sanitizer;
   //
-  constructor(el: ElementRef, s3BucketService: S3BucketService) {
+  constructor(el: ElementRef, s3BucketService: S3BucketService, sanitizer: DomSanitizer) {
+      this.sanitizer = sanitizer;
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.path.firstChange) {
+      const iFrameElement = this.iframe;
+      console.log('iframe', iFrameElement);
+      iFrameElement.src = this.path;
       console.log(this.type);
 
       if (this.renderer) {
@@ -69,6 +80,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
       this.progress.style.display = "block";
 
       this.threeDPath = changes.path.currentValue;
+      console.log('this is loading test', this.threeDPath);
       setTimeout(() => {
         this.loaderType = this.threeDPath.substr(this.threeDPath.lastIndexOf('.') + 1);
         this.play3D();
@@ -80,6 +92,10 @@ export class PlayerComponent implements OnDestroy, OnChanges {
       this.onProgress = this.onProgress.bind(this);
       this.animate = this.animate.bind(this);
     }
+  }
+
+  private get iframe(): HTMLIFrameElement {
+    return this.iFrameRef.nativeElement;
   }
 
   private get canvas(): HTMLCanvasElement {
@@ -99,6 +115,8 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    const iFrameElement = this.iframe;
+    iFrameElement.src = "";
     this.renderer.dispose();
     cancelAnimationFrame(this.requestId);
     this.select.style.display = "none";
