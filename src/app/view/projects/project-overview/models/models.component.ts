@@ -5,6 +5,7 @@ import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import { PropertyFile } from 'src/app/shared/shared.model';
 import { common_error_message, s3_model } from 'src/app/shared/toast-message-text';
 import { FileUpload } from 'src/app/view/properties/properties.model';
+import { environment } from 'src/environments/environment';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 declare var $: any;
@@ -108,7 +109,7 @@ export class ModelsComponent implements OnInit {
     this.toastr.info(s3_model.download_model_info);
     const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
     console.log(doc.name);
-    this.path = "https://d2pz0mg31mouq1.cloudfront.net/?modelPath=" + doc.name
+    this.path = `${environment.s3ModelUrl}?modelPath=${doc.name}`
     this.type = doc.fileKey
     $("#playModel").modal("toggle");
   }

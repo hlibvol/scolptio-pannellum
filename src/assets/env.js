@@ -3,6 +3,7 @@
    
     // Environment variables
     window["env"]["apiUrl"] = "https://localhost:5001/api/";
+    window["env"]["s3ModelUrl"] = "https://d2pz0mg31mouq1.cloudfront.net/";
     window["env"]["echo3dUrl"] = "https://api.echo3D.co/";
     window["env"]["debug"] = true;
     window["env"]["bucket"] = "scolptio-crm-bucket";

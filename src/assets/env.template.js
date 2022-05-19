@@ -4,6 +4,7 @@
  // Environment variables
  window["env"]["apiUrl"] = "${API_URL}";
  window["env"]["echo3dUrl"] = "${ECHO3D_URL}";
+ window["env"]["s3ModelUrl"] = "https://d2pz0mg31mouq1.cloudfront.net/";
  window["env"]["debug"] = "${DEBUG}";
  window["env"]["bucket"] = "${bucket}";
  window["env"]["region"] = "${region}";
