@@ -9,6 +9,7 @@
 export const environment = {
   production: false,
   baseUrl: window["env"]["apiUrl"] || "",
+  s3ModelUrl: window["env"]["s3ModelUrl"] || "https://d2pz0mg31mouq1.cloudfront.net/",
   echo3dUrl: window["env"]["echo3dUrl"] || "",
   debug: window["env"]["debug"] || false,
   bucket : window["env"]["bucket"] || "",

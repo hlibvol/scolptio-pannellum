@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: window["env"]["apiUrl"] || "",
+  s3ModelUrl: window["env"]["s3ModelUrl"] || "",
   debug: window["env"]["debug"] || false,
   bucket : window["env"]["bucket"] || "",
   region : window["env"]["region"] || "",
