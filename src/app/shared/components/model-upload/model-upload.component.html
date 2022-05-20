@@ -52,7 +52,7 @@
       [disabled]="isSaving> 0 || modelFiles.length < 1" (click)="upload()">
       <span>Upload to S3&nbsp;&nbsp;<i *ngIf="isSave2S3 > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
     </button>
-    <button type="button" class="btn btn-primary" *ngIf="!hasSucces"
+    <button type="button" class="btn btn-primary" *ngIf="!hasSucces" style="display: none;"
       [ngStyle]="{'cursor': isSaving > 0 || modelFiles.length < 1? 'not-allowed' : 'pointer' }"
       [disabled]="isSaving> 0 || modelFiles.length < 1" (click)="upload2echo3d()">
       <span>Upload to Echo3D&nbsp;&nbsp;<i *ngIf="isSave2Echo3D > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
