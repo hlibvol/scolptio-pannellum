@@ -40,7 +40,7 @@
                   <!-- search -->
                   <div class="mx-3 w-100">
                     <div class="input-group border rounded-xl">
-                      <div class="input-group-prepend">
+                      <div class="input-group-prepend" (click)="GetAllproject()">
                         <span class="input-group-text btn-auto border-0">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -51,7 +51,7 @@
                         </span>
                       </div>
                       <input type="search" id="filter-search" class="form-control border-0"
-                      placeholder="Search via project name and client name" (input)="onSearchList($event.target.value)" [(ngModel)]="searchKey">
+                      placeholder="Search via project name and client name" (keyup)="onSearchList($event)" [(ngModel)]="searchKey">
                     </div>
                   </div>
                   <!-- search -->
@@ -155,18 +155,18 @@
   <div class="modal fade modal-right" id="addproject" tabindex="-1" data-backdrop="static" role="dialog"
     aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-project-add (addSuccessEvent)="GetprojectTotalCount()"></app-project-add>
+        <app-project-add (addSuccessEvent)="GetAllproject()"></app-project-add>
     </div>
   </div>
   
   <div class="modal fade modal-right" id="editproject" tabindex="-1" data-backdrop="static" role="dialog"
     aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-project-edit [project]="selectedproject" (updateSuccessEvent)="GetprojectTotalCount()"></app-project-edit>
+        <app-project-edit [project]="selectedproject" (updateSuccessEvent)="GetAllproject()"></app-project-edit>
     </div>
   </div>
   
   <div class="modal fade modal-right" id="deleteproject" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
-    <app-project-delete [project]="selectedproject" (deleteSuccessEvent)="GetprojectTotalCount()"></app-project-delete>
+    <app-project-delete [project]="selectedproject" (deleteSuccessEvent)="GetAllproject()"></app-project-delete>
   </div>

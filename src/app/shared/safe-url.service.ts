@@ -7,10 +7,14 @@ import { SafeUrl } from '@angular/platform-browser';
 export class SafeUrlService {
 
   constructor() { }
-  open(url: SafeUrl){
+  open(url: SafeUrl): Window {
+    let urlStr:string = this.getAsString(url);
+    return window.open(urlStr, '_blank');
+  }
+  getAsString(url: SafeUrl): string {
     if(typeof(url) === 'string')
-      window.open(url, '_blank');
+      return url;
     else
-      window.open(url['changingThisBreaksApplicationSecurity'], '_blank') // TO-DO: Find a better way
+      return url['changingThisBreaksApplicationSecurity'] as string; // TO-DO: Find a better way
   }
 }

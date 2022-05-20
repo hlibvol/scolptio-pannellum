@@ -19,6 +19,7 @@
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect()">{{isMultiSelect === false?'Select' : 'Cancel Select'}}</a>
 								<a class="dropdown-item" style="cursor: pointer;" (click)="setAllSelected(true)">Select All</a>
 								<a appPermission [module]="module" action="delete" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
+								<a class="dropdown-item" style="cursor: pointer;" (click)="downloadAll()">Download</a>
 							</div>
 						</div>
 					</div>

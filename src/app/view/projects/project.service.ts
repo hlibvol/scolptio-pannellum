@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -142,5 +142,8 @@ export class ProjectService extends BaseService {
   }
   public saveQuestion = (question: Question): Observable<any> => {
     return this.put('Project/SaveQuestion', {question: question}, {responseType: 'text'});
+  }
+  public getAsBlobExternal = (url: string): Observable<Blob> => {
+    return this.get(url, {responseType: 'blob'}, true)
   }
 }

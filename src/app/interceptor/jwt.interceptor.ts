@@ -6,10 +6,11 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConfigsLoaderService } from '../services/configs-loader.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private configLoaderService: ConfigsLoaderService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -18,15 +19,15 @@ export class JwtInterceptor implements HttpInterceptor {
     // add authorization header with jwt token if available
     let token = sessionStorage.getItem('key_token');
 
-    if (token) {
+    if (token && request.url.includes(this.configLoaderService.ApiUrl)) { // Call is authenticated and internal
       if(request.body instanceof FormData){
         request = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,
             'Access-Control-Allow-Origin': '*' 
             /*
-             Content-Type is multipart/form-data in this case.
-             This header and the Boundary must be set by Angular during the call, not tampered with before
+             Required Content-Type is multipart/form-data in this case.
+             But this header, and the Boundary, must be set by Angular during the call, not tampered with before
             */
           },
         });

@@ -32,17 +32,26 @@ export class BaseService {
   public post<T>(
     url: string,
     data: Object | string,
-    responseType?: Object | string
+    responseType?: Object | string,
+    isExternal?: boolean
   ): Observable<T> {
-    return this.httpClient.post<T>(this.baseUrl + url, data, responseType ? responseType : {});
+    if(!isExternal)
+      url = this.baseUrl + url;
+    return this.httpClient.post<T>(url, data, responseType ? responseType : {});
   }
-  public get<T>(url: string, options?: Object | string): Observable<T> {
-    return this.httpClient.get<T>(this.baseUrl+url, options ? options : {});
+  public get<T>(url: string, options?: Object | string, isExternal?: boolean): Observable<T> {
+    if(!isExternal)
+      url = this.baseUrl + url;
+    return this.httpClient.get<T>(url, options ? options : {});
   }
-  public put<T>(url: string, data: Object | string, options?: Object | string): Observable<T> {
-    return this.httpClient.put<T>(this.baseUrl + url, data, options ? options : {});
+  public put<T>(url: string, data: Object | string, options?: Object | string, isExternal?: boolean): Observable<T> {
+    if(!isExternal)
+      url = this.baseUrl + url;
+    return this.httpClient.put<T>(url, data, options ? options : {});
   }
-  public delete<T>(url: string, options?: Object | string): Observable<T> {
-    return this.httpClient.delete<T>(this.baseUrl+url, options ? options : {});
+  public delete<T>(url: string, options?: Object | string, isExternal?: boolean): Observable<T> {
+    if(!isExternal)
+      url = this.baseUrl + url;
+    return this.httpClient.delete<T>(url, options ? options : {});
   }
 }
