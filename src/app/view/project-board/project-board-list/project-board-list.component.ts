@@ -145,9 +145,9 @@ export class ProjectBoardListComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((data: any[]) => {
+    await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((response: any) => {
       this.isLoading = false;
-      this.projectList = data;
+      this.projectList = response.data;
       this.projectList.map(project => {
         switch (project.status) {
           case "Planing":

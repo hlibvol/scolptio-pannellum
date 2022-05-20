@@ -7,12 +7,16 @@ export interface S3File {
     s3Key: string;
     safeUrl: SafeUrl;
     file: File;
+    fileName: string;
 }
 
-export class S3FileImpl{
+export class S3FileImpl implements S3File{
     public s3Key: string;
     public safeUrl: SafeUrl;
     public file: File;
+    public get fileName(): string {
+        return this.file?.name;
+    }
     constructor(s3Key: string, safeUrl: SafeUrl, file: File){
         this.s3Key = s3Key;
         this.safeUrl = safeUrl;
@@ -34,6 +38,7 @@ export class ProjectS3ImageItem extends ImageItem implements ProjectS3GalleryIte
     public tags?: Tag[] = [];
     public status: Status = 'added';
     isChecked: boolean = false;
+    public fileName: string = '';
     constructor(private sanitizer: DomSanitizer, url: string) {
         super({ src: url,thumb: url })
         this.sanitizer = sanitizer;

@@ -6,6 +6,7 @@ import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectS3GalleryItem, ProjectS3ImageItem } from 'src/app/shared/models/s3-items-model';
+import { SafeUrlService } from 'src/app/shared/safe-url.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
@@ -50,7 +51,8 @@ export class ImagesComponent implements OnInit, OnChanges {
     public lightbox: Lightbox,
     private appSessionStorageService: AppSessionStorageService,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private safeUrlService: SafeUrlService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
@@ -229,5 +231,23 @@ export class ImagesComponent implements OnInit, OnChanges {
     if(!item.tags.length)
       return this.selectedTags.some(x => x.value === this.untaggedValue) ? '' : 'hidden';
     return this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string)) ? '' : 'hidden';
+  }
+  async downloadAll(): Promise<void>{
+    let checkedItems = this.items.filter(x => x.isChecked)
+    if(!checkedItems.length)
+      this.toastr.error('Please select one or more images');
+    await Promise.all(checkedItems.map(x =>  this.download(x)));
+  }
+  async download(item: ProjectS3GalleryItem){
+    let url: string = this.safeUrlService.getAsString(item.safeUrl);
+    let buffer:Blob = await this.projectService.getAsBlobExternal(url).toPromise();
+    url = window.URL.createObjectURL(buffer);
+    const a: HTMLAnchorElement = document.createElement("a");
+    document.body.appendChild(a);
+    a.setAttribute('style', 'display:none')
+    a.href = url;
+    a.download = item.fileName ? item.fileName : item.s3Key;
+    a.click();
+    a.remove();
   }
 }

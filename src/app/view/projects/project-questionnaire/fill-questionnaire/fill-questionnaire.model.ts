@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { S3File } from "src/app/shared/models/s3-items-model";
+import { S3File, S3FileImpl } from "src/app/shared/models/s3-items-model";
 import { Question } from "../question.model";
 import { Room } from "../room.model";
 
@@ -29,11 +29,7 @@ export class FillQuestionnaire{
         for(let file of files)
         {
             let url: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
-            s3Files.push({
-                s3Key : '',
-                safeUrl : url,
-                file: file 
-            });
+            s3Files.push(new S3FileImpl('', url, file));
         }
         this.selectedRoom.questions[this._selectedQuestionIndex].attachments = s3Files;
         this.isDirty = true;

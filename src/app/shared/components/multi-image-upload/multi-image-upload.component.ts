@@ -85,6 +85,7 @@ export class MultiImageUploadComponent implements OnInit {
       let {s3Key, safeUrl} = await this.projectService.uploadToS3(formData).toPromise()
       imgFile.data.src = imgFile.data.thumb = safeUrl as string;
       imgFile.s3Key = s3Key;
+      imgFile.fileName = imgFile.file.name;
       this.fileUploads.push(imgFile)
       imgFile.status = 'success';
       this.hasSucces = true;

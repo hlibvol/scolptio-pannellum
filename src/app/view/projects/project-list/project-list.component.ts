@@ -21,7 +21,6 @@ export class ProjectListComponent implements OnInit {
   pageSize = 10;
   total = 0;
   projectList: any[];
-  finalprojectList: any = [];
   selectedproject: any;
   searchKey: '';
   searchStatus = '';
@@ -42,26 +41,15 @@ export class ProjectListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetprojectTotalCount();
+    this.GetAllproject();
   }
 
   GetAllproject() {
     this.isLoading = true;
-    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((data: any[]) => {
+    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((response: any) => {
       this.isLoading = false;
-      this.projectList = this.finalprojectList = data;
-    }, (error) => {
-      this.toastr.error(common_error_message);
-      this.isLoading = false;
-    })
-  }
-
-  GetprojectTotalCount() {
-    this.isLoading = true;
-    this._projectService.GetTotalCount().subscribe((data: any) => {
-      this.isLoading = false;
-      this.total = data;
-      this.GetAllproject();
+      this.projectList = response.data;
+      this.total = response.total;
     }, (error) => {
       this.toastr.error(common_error_message);
       this.isLoading = false;
@@ -80,12 +68,9 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  onSearchList(searchValue) {
-    if (searchValue != '')
-      this.projectList = this.finalprojectList.filter(x => x.projectName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-        x.clientName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
-    else
-      this.projectList = this.finalprojectList;
+  onSearchList(event: KeyboardEvent): void {
+    if(event.keyCode === 13)
+      this.GetAllproject();
   }
 
   onChange(val) {
