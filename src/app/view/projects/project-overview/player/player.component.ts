@@ -15,6 +15,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   @Input() darkMode: boolean;
   @Input() path: string;
   @Input() type: string;
+  @Input() opened: boolean;
 
   sanitizer;
   //
@@ -22,12 +23,14 @@ export class PlayerComponent implements OnDestroy, OnChanges {
       this.sanitizer = sanitizer;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.path.firstChange) {
-      const iFrameElement = this.iframe;
-      console.log('iframe', iFrameElement);
-      iFrameElement.src = this.path;
-      console.log(this.type);
+    if(this.opened){
+      if (!changes.path.firstChange) {
+        this.iframe.src = this.path;
+      }
+    }else{
+      this.iframe.src = "";
     }
+    
   }
 
   private get iframe(): HTMLIFrameElement {
@@ -35,6 +38,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    
     const iFrameElement = this.iframe;
     iFrameElement.src = "";
   }
