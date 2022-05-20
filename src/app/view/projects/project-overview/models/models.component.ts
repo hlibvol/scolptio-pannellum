@@ -34,6 +34,7 @@ export class ModelsComponent implements OnInit {
     private toastr: ToastrService,
     private sanitizer: DomSanitizer) {
       this.sanitizer = sanitizer;  
+      this.entryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.entryid);
   }
 
   ngOnInit(): void {

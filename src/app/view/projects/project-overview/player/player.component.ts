@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { S3BucketService } from 'src/app/shared/s3-bucket.service';
-import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player',
@@ -20,17 +20,21 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   sanitizer;
   //
   constructor(el: ElementRef, s3BucketService: S3BucketService, sanitizer: DomSanitizer) {
-      this.sanitizer = sanitizer;
+    this.sanitizer = sanitizer;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.opened){
-      if (!changes.path.firstChange) {
-        this.iframe.src = this.path;
+    if (changes.path.currentValue) {
+      if (this.opened) {
+        if (!changes.path.firstChange) {
+          const iframeEle = this.iframe;
+          iframeEle.src = this.path;
+        }
+      } else {
+        const iframeEle = this.iframe;
+        iframeEle.src = "";
       }
-    }else{
-      this.iframe.src = "";
     }
-    
+
   }
 
   private get iframe(): HTMLIFrameElement {
@@ -38,7 +42,7 @@ export class PlayerComponent implements OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    
+
     const iFrameElement = this.iframe;
     iFrameElement.src = "";
   }
