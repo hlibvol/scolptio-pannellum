@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
@@ -23,11 +24,37 @@ export class ProjectListComponent implements OnInit {
   projectList: any[];
   selectedproject: any;
   searchKey: '';
-  searchStatus = '';
   visibleFilter = false;
-  filterObj: any;
   currentUser: AppUser;
   isHide: boolean = true;
+  searchStatuses: NgOption[] = [];
+  readonly statusList: NgOption[] = [
+    {
+      label: 'Planning',
+      value: "Planning"
+    },
+    {
+      label: 'CAD Drawing',
+      value: "CAD Drawing"
+    },
+    {
+      label: '3D Modeling',
+      value: "3D Modeling"
+    },
+    {
+      label: 'Final Rendering',
+      value: "Final Rendering"
+    },
+    {
+      label: 'Completed',
+      value: "Completed"
+    },
+    {
+      label: 'Construction Plans',
+      value: 'Construction Plans'
+    }
+  ]
+    
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -40,64 +67,51 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.GetAllproject();
+  async ngOnInit(): Promise<void> {
+    await this.GetAllproject();
   }
 
-  GetAllproject() {
+  async GetAllproject(): Promise<void> {
     this.isLoading = true;
-    this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.filterObj, this.currentUser.TeamId).subscribe((response: any) => {
-      this.isLoading = false;
+    try{
+      var statuses = this.searchStatuses.map(x => x.value as string);
+      if(statuses.length)
+        this.visibleFilter = true;
+      else
+        this.visibleFilter = false;
+      let response: any = await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.searchStatuses.map(x => x.value as string), this.currentUser.TeamId).toPromise();
       this.projectList = response.data;
       this.total = response.total;
-    }, (error) => {
+    }
+    catch{
       this.toastr.error(common_error_message);
+    }
+    finally{
       this.isLoading = false;
-    })
+    }
   }
 
   setSelectedproject(project: any) {
     this.selectedproject = {...project};
   }
 
-  onPaginationChange(pageNumber: string) {
+  async onPaginationChange(pageNumber: string): Promise<void> {
     const selectedPage = Number(pageNumber);
-    if (selectedPage != NaN) {
+    if (!isNaN(selectedPage)) {
       this.pageNumber = selectedPage;
-      this.GetAllproject();
+      await this.GetAllproject();
     }
   }
 
-  onSearchList(event: KeyboardEvent): void {
+  async onSearchList(event: KeyboardEvent): Promise<void> {
     if(event.keyCode === 13)
-      this.GetAllproject();
+      await this.GetAllproject();
   }
 
-  onChange(val) {
-    if (this.searchStatus == '')
-      this.visibleFilter = false;
-    else
-      this.visibleFilter = true;
-  }
-
-  clearFilter() {
-    this.searchStatus = '';
-    this.filterObj = [''];
+  async clearFilter(): Promise<void> {
+    this.searchStatuses = [];
     this.visibleFilter = false;
-    this.GetAllproject();
-  }
-
-  actionFilter() {
-    this.filterObj = [
-      this.searchStatus,
-    ]
-    this.GetAllproject();
-  }
-
-  search(event) {
-    if (event.keyCode == 13) {
-      this.GetAllproject();
-    }
+    await this.GetAllproject();
   }
 
   getLogo(logo) {
@@ -108,7 +122,7 @@ export class ProjectListComponent implements OnInit {
     this.router.navigate(['/projects/project-overview/' + project.id]);
   }
 
-  openQuestionnaire(project, segment: string): void {
+  openQuestionnaire(project: any, segment: string): void {
     this.router.navigate([`/projects/project-questionnaire/${segment}/${project.id}`]);
   }
 }
