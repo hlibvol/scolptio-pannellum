@@ -22,6 +22,7 @@ export class ModelsComponent implements OnInit {
   entryid: string = "";
   entryUrl: SafeUrl;
   path: string = "";
+  openPlay = false; 
   type: string = "";
   models: PropertyFile[];
   modelList = [];
@@ -33,6 +34,7 @@ export class ModelsComponent implements OnInit {
     private toastr: ToastrService,
     private sanitizer: DomSanitizer) {
       this.sanitizer = sanitizer;  
+      this.entryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.entryid);
   }
 
   ngOnInit(): void {
@@ -108,10 +110,14 @@ export class ModelsComponent implements OnInit {
   async DownloadFile(doc: PropertyFile) {
     this.toastr.info(s3_model.download_model_info);
     const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
-    console.log(doc.name);
     this.path = `${environment.s3ModelUrl}?modelPath=${doc.name}`
     this.type = doc.fileKey
+    this.openPlay = true;
     $("#playModel").modal("toggle");
+  }
+
+  closePlaymodel() {
+    this.openPlay = false;
   }
 
   photoURL() {
