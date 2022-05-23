@@ -56,7 +56,57 @@
                   </div>
                   <!-- search -->
                 </div>
-               
+                <div class="col-md-12 col-lg-5 col-xl-6 d-flex mb-1">
+                  <!-- advance filter -->
+                  <div class="dropdown ml-3 border rounded-xl">
+                    <button type="button" class="btn btn-light btn-auto d-flex justify-content-center"
+                      data-toggle="dropdown">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-funnel" viewBox="0 0 16 16">
+                        <path
+                          d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu" style="min-width: 14rem;">
+                      <!-- card -->
+                      <div>
+                        <div class="px-3 py-2">
+                          Filter Property
+                          <!-- Toggle Button -->
+                          <a class="close" href="#" data-toggle="dropdown">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                              class="bi bi-x" viewBox="0 0 16 16">
+                              <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                          </a>
+                          <!-- End Toggle Button -->
+                        </div>
+    
+                        <div class="p-3">
+                          <!-- Row -->
+                          <div class="d-flex flex-column">
+                            <div>
+                              <div class="small mb-1">Status</div>
+                              <!-- search -->
+                              <ng-select [(ngModel)]="searchStatuses" [items]="statusList" [multiple]="true" [closeOnSelect]="false">
+
+                              </ng-select>
+                              <!-- End search -->
+                            </div>
+                          </div>
+                          <!-- End Row -->
+                          <a class="btn btn-block btn-primary mt-4" (click)="GetAllproject()" data-toggle="dropdown">Apply</a>
+                        </div>
+                      </div>
+                      <!-- card -->
+                    </div>
+                  </div>
+                  <div *ngIf="visibleFilter">
+                    <a class="btn" (click)="clearFilter()">Clear Filter</a>
+                  </div>
+                  <!-- advance filter -->
+                </div>
               </div>
               <!-- flex -->
             </div>
@@ -155,14 +205,14 @@
   <div class="modal fade modal-right" id="addproject" tabindex="-1" data-backdrop="static" role="dialog"
     aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-project-add (addSuccessEvent)="GetAllproject()"></app-project-add>
+        <app-project-add (addSuccessEvent)="GetAllproject()" [statusList]="statusList"></app-project-add>
     </div>
   </div>
   
   <div class="modal fade modal-right" id="editproject" tabindex="-1" data-backdrop="static" role="dialog"
     aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-project-edit [project]="selectedproject" (updateSuccessEvent)="GetAllproject()"></app-project-edit>
+        <app-project-edit [project]="selectedproject" (updateSuccessEvent)="GetAllproject()" [statusList]="statusList"></app-project-edit>
     </div>
   </div>
   

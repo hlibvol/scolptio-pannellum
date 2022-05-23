@@ -1,6 +1,7 @@
 import { DOCUMENT, formatDate } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
@@ -32,12 +33,18 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   imageProp: any;
   clientList: any = [];
   DesignerList: any = [];
+  @Input()
+  statusList: NgOption[] = [];
   constructor(private userService: UserService, private _clientService: ClientsService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private projectService: ProjectService) {
     this.incomeType = null;
   }
 
   ngOnInit(): void {
+    this.statusList.unshift({
+      value: '',
+      label: 'Select Status'
+    })
     this.getClients();
     this.getDesigner();
   }
