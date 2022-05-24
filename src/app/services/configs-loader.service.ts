@@ -49,7 +49,7 @@ export class ConfigsLoaderService {
         this.configs = settings as Configs; 
         //environment.baseUrl = this.configs.baseUrl;
         this.configs.baseUrl = environment.baseUrl;
-        this.configs.echo3dUrl = environment.echo3dUrl;
+        //this.configs.echo3dUrl = environment.echo3dUrl;
         this.configs.bucket = environment.bucket;
         this.configs.production = environment.production;
         this.configs.region = environment.region;
