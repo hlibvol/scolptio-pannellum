@@ -3,13 +3,16 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
+import { ProjectService } from '../view/projects/project.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModelFileService extends BaseService {
+  projectService: ProjectService;
   constructor(_injector: Injector) {
     super(_injector);
+    this.projectService = _injector.get(ProjectService)
   }
 
   public GetAllModelFiles = (model: any): any => {
@@ -52,5 +55,10 @@ export class ModelFileService extends BaseService {
     }
     //  
     return throwError(errorMessage);
+  }
+
+  public uploadToS3(formData: FormData){
+    formData.append('IsModel', 'true');
+    return this.projectService.uploadToS3(formData);
   }
 }

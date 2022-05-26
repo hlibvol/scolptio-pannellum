@@ -25,7 +25,7 @@
               </div>
             </div>
           </label>
-          <input type="file" #myS3ModelInput [multiple]="true" name="upload-s3-model" accept=".fbx"
+          <input type="file" #myS3ModelInput [multiple]="true" name="upload-s3-model"
             id="upload-s3-model" placeholder="" required="" class="form-control d-none"
             (change)="onChangeModel($event)" >
           <ol *ngIf="modelFiles">
@@ -36,7 +36,7 @@
                   [ngClass]="{'fa':true, 'fa-spinner fa-spin': model.status === 'uploading', 'fa-check-circle text-success': model.status === 'success', 'fa-times-circle text-danger': model.status === 'error'}"></i>
               </span>
               <span class="ml-2 text-primary" *ngIf="model.status === 'error'">
-                <a style="cursor: pointer;text-decoration: underline;" (click)="uploadModels(model)">Try Again</a>
+                <a style="cursor: pointer;text-decoration: underline;" (click)="uploadModel(model)">Try Again</a>
               </span>
             </li>
           </ol>
