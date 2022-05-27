@@ -10,6 +10,7 @@ import { PutObjectCommand, PutObjectRequest, S3Client } from '@aws-sdk/client-s3
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { BaseService } from 'src/app/shared/base.service';
+import { ModelFileService } from '../../model-file.service';
 
 declare var $: any;
 @Component({
@@ -31,14 +32,15 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
   isSave2S3 = 0;
   fileUploads: FileUpload[];
   hasSucces = false;
-  folderName = uuidv4();
   protected _configLoaderService: ConfigsLoaderService;
+  protected _modelFileService: ModelFileService;
   // httpClient:HttpClient;
 
   constructor( _injector: Injector,
     private toastr: ToastrService, private s3BucketService: S3BucketService/*, private http: HttpClient*/) {
     super(_injector);
     this._configLoaderService = _injector.get(ConfigsLoaderService);
+    this._modelFileService = _injector.get(ModelFileService);
     this.modelFiles = new Array();
     this.fileUploads = new Array();
     // this.httpClient = http;
@@ -48,7 +50,6 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
   }
 
   close() {
-    console.log(this.folderName);
     if (this.fileUploads && this.fileUploads.length > 0) {
       this.ModelUploadSuccessEvent.emit(this.fileUploads);
     }
@@ -65,7 +66,6 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     this.isSaving = 0;
     this.isSave2Echo3D = 0;
     this.isSave2S3 = 0;
-    this.folderName = uuidv4();
   }
 
   prepareView() {
@@ -88,12 +88,8 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     }
   }
 
-  upload() {
-    for (let model of this.modelFiles) {
-      setTimeout(() => {
-        this.uploadModels(model);
-      }, 500);
-    }
+  async upload(): Promise<void> {
+    await Promise.all(this.modelFiles.map(x => this.uploadModel(x)))
   }
 
   upload2echo3d() {
@@ -144,7 +140,6 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
     };
 
     let formdata = new FormData();
-    console.log("xxx_uploadModelsEcho3D:",modelFile.file.toString(), /*modelFile.file.webkitRelativePath, */modelFile.file.name, this.folderName);
     formdata.append("file_model","E://f_2022.5.4_scolptio//_design_obj//Cabinet with TAP and Basin.glb"/*modelFile.file.name*/);
     formdata.append("email","contact@scolptio.com");
     formdata.append("target_type","2");
@@ -187,7 +182,6 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
 
       const modelUpload = new FileUpload();
       modelUpload.fileName = modelFile.file.name;
-      modelUpload.folderName = this.folderName;
       modelUpload.fileKey = retid;
       modelUpload.extension = extension;
       modelUpload.fileSize = modelFile.file.size.toString();
@@ -253,63 +247,29 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
   }
 
 
-  public uploadModels(modelFile: S3File) {
-
-    const extension = (/[.]/.exec(modelFile.file.name)) ? /[^.]+$/.exec(modelFile.file.name)[0] : undefined;
-    const uuid = uuidv4();
-    const modelFileName = uuid + '.' + extension;
-    
-    const client = new S3Client({
-      credentials: {
-        accessKeyId: "AKIAYRELZPYTB44GTA42",
-        secretAccessKey: "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"
-      },
-      region: "us-east-2"
-    });
-
-    // const params: PutObjectRequest = {
-    //   Bucket: "scolptio-crm-bucket",
-    //   Key: `${this.folderName}/${modelFileName}`,
-    //   Body: modelFile.file,
-    // };
-
-
-    const params: PutObjectRequest = {
-      Bucket: "scolptiocrmincoming1",
-      Key: `model/uncompressed/${modelFile.file.name}`,
-      Body: modelFile.file,
-    };
-    
-    const command = new PutObjectCommand(params);
-    this.isSaving++;
-    this.isSave2S3++;
-    modelFile.status = 'uploading';
-    client.send(command).then(
-      (data) => {
-        this.isSaving--;
-        this.isSave2S3--;
-        modelFile.status = 'success';
-        const modelUrl = `https://${this._configLoaderService.bucket}.s3.${this._configLoaderService.region}.amazonaws.com/${this.folderName}/${modelFileName}`;
-        // const modelUrl = `https://d2pz0mg31mouq1.cloudfront.net/model/${modelFileName}`;
-
-        const modelUpload = new FileUpload();
-        modelUpload.fileName = modelFile.file.name;
-        modelUpload.folderName = this.folderName;
-        modelUpload.fileKey = modelFileName;
-        modelUpload.extension = extension;
-        modelUpload.fileSize = modelFile.file.size.toString();
-        modelUpload.url = modelUrl;
-
-        
-        this.fileUploads.push(modelUpload);
-        this.hasSucces = true;
-      },
-      (error) => {
-        // error handling.
-        this.isSaving--;
-        this.isSave2S3--;
-        modelFile.status = 'error';
-      }
-    );
+  public async uploadModel(modelFile: S3File) {
+    try{
+      this.isSaving++;
+      this.isSave2S3++;
+      modelFile.status = 'uploading';
+      let formData = new FormData();
+      formData.append('fileData', modelFile.file);
+      let {s3Key, safeUrl} = await this._modelFileService.uploadToS3(formData).toPromise()
+      const modelUpload = new FileUpload();
+      modelUpload.fileName = modelFile.file.name;
+      modelUpload.fileKey = s3Key;
+      modelUpload.extension = s3Key.split('.')[1];
+      modelUpload.fileSize = modelFile.file.size.toString();
+      modelUpload.url = safeUrl as string;
+      this.fileUploads.push(modelUpload);
+      this.hasSucces = true;
+    }
+    catch{
+      modelFile.status = 'error';
+    }
+    finally{
+      this.isSaving--;
+      this.isSave2S3--;
+    }
   }
 }

@@ -110,7 +110,7 @@ export class ModelsComponent implements OnInit {
   async DownloadFile(doc: PropertyFile) {
     this.toastr.info(s3_model.download_model_info);
     const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
-    this.path = `${environment.s3ModelUrl}?modelPath=${doc.name}`
+    this.path = `${environment.s3ModelUrl}?modelPath=${doc.fileKey}`
     this.type = doc.fileKey
     this.openPlay = true;
     $("#playModel").modal("toggle");
