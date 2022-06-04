@@ -263,6 +263,7 @@ export class ModelUploadComponent  extends BaseService implements OnInit {
       modelUpload.url = safeUrl as string;
       this.fileUploads.push(modelUpload);
       this.hasSucces = true;
+      modelFile.status = 'success';
     }
     catch{
       modelFile.status = 'error';
