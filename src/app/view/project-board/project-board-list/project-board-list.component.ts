@@ -16,8 +16,8 @@ export class ProjectBoardListComponent implements OnInit {
 
   isLoading = false;
   errorMsg = '';
-  pageNumber = 1;
-  pageSize = 10;
+  pageNumber = -1;
+  pageSize = -1;
   total = 0;
   projectList: any[];
   finalprojectList: any = [];
@@ -68,7 +68,7 @@ export class ProjectBoardListComponent implements OnInit {
           .subscribe(({ el }) => {
             let status = el.parentElement.getAttribute("data-target");
             switch (status) {
-              case "Planing":
+              case "Planning":
                 this.planCount--;
                 break;
               case "CAD Drawing":
@@ -90,7 +90,7 @@ export class ProjectBoardListComponent implements OnInit {
           .subscribe(({ el }) => {
             let status = el.parentElement.getAttribute("data-target");
             switch (status) {
-              case "Planing":
+              case "Planning":
                 this.planCount++;
                 break;
               case "CAD Drawing":
@@ -113,7 +113,7 @@ export class ProjectBoardListComponent implements OnInit {
             let status = el.parentElement.getAttribute("data-target");
 
             switch (status) {
-              case "Planing":
+              case "Planning":
                 this.planCount++;
                 break;
               case "CAD Drawing":
@@ -150,7 +150,7 @@ export class ProjectBoardListComponent implements OnInit {
       this.projectList = response.data;
       this.projectList.map(project => {
         switch (project.status) {
-          case "Planing":
+          case "Planning":
             this.planingProjectList.push(project);
             this.planCount++;
             break;
@@ -171,6 +171,8 @@ export class ProjectBoardListComponent implements OnInit {
             this.completeCount++;
             break;
         }
+        if(!project.clientLogo)
+          project.clientLogo = '../../../assets/img/dummy-user.png'
       })
     }, (error) => {
       this.toastr.error(common_error_message);
