@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSessionStorageService } from '../../shared/session-storage.service';
 
@@ -9,6 +9,7 @@ import { AppSessionStorageService } from '../../shared/session-storage.service';
 })
 export class AdminLayoutComponent implements OnInit {
 
+  sidebarOpen: boolean = true;
   constructor(private appSessionStorageService: AppSessionStorageService,
     private router: Router) { }
 
@@ -22,6 +23,19 @@ export class AdminLayoutComponent implements OnInit {
         mainLayout.removeAttribute('hidden');
       }
     }
+    this.setSidebarState();
   }
+  @HostListener('window:resize')
+  setSidebarState(): void {
+    if(window.innerWidth < 1280)
+      this.sidebarOpen = false;
+    else
+      this.sidebarOpen = true;
+  }
+
+  sidebarToggle(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
 
 }

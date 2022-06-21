@@ -360,6 +360,11 @@
   // progress
 .todo-app-w{
   .todo-sidebar{
+    .todo-sidebar-section-sub-header {
+      .accordion-chevron {
+        display: none;
+      }
+    }
     .section-link{
       &.active{
         color: #047bf8;
@@ -381,4 +386,17 @@
   border-radius: 4px;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (max-width: 767px){
+  .todo-app-w{
+    .todo-sidebar{
+      .todo-sidebar-section-sub-header {
+        .accordion-chevron {
+          display: block;
+        }
+        cursor: pointer;
+      }
+    }
+  }
 }

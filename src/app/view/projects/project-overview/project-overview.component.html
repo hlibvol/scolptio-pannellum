@@ -7,43 +7,49 @@
       <div class="todo-sidebar-section-contents">
         <div class="todo-sidebar-section-sub-section">
           <div class="todo-sidebar-section-sub-section-toggler"></div>
-          <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-layers"></i>
+          <div class="todo-sidebar-section-sub-header d-flex justify-content-between" (click)="expandAccordion(0)"><i class="os-icon os-icon-layers"></i>
             <h6>Floor Plans</h6>
+            <div class="os-icon os-icon-chevron-down accordion-chevron" *ngIf="!accordionExpandedInfo[0]"></div>
+            <div class="os-icon os-icon-chevron-up accordion-chevron" *ngIf="accordionExpandedInfo[0]"></div>
           </div>
-          <div class="todo-sidebar-section-sub-section-content">
+          <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[0]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings','Floor-Plans')">Hand
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings','Floor-Plans', 0)">Hand
                   Sketches/drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings','Floor-Plans')">CAD Drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences','Floor-Plans')">Other References</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings','Floor-Plans', 0)">CAD Drawings</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences','Floor-Plans', 0)">Other References</a></li>
             </ul>
           </div>
         </div>
         <div class="todo-sidebar-section-sub-section">
           <div class="todo-sidebar-section-sub-section-toggler"></div>
-          <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-image"></i>
+          <div class="todo-sidebar-section-sub-header d-flex justify-content-between" (click)="expandAccordion(1)"><i class="os-icon os-icon-image"></i>
             <h6>Photos</h6>
+            <div class="os-icon os-icon-chevron-down accordion-chevron" *ngIf="!accordionExpandedInfo[1]"></div>
+            <div class="os-icon os-icon-chevron-up accordion-chevron" *ngIf="accordionExpandedInfo[1]"></div>
           </div>
-          <div class="todo-sidebar-section-sub-section-content">
+          <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[1]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos','Photos')">Current Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos','Photos')">Reference Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos','Photos')">Reference Videos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos','Photos', 1)">Current Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos','Photos', 1)">Reference Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos','Photos', 1)">Reference Videos</a></li>
             </ul>
           </div>
         </div>
         <div class="todo-sidebar-section-sub-section">
           <div class="todo-sidebar-section-sub-section-toggler"></div>
-          <div class="todo-sidebar-section-sub-header"><i class="os-icon os-icon-codepen"></i>
+          <div class="todo-sidebar-section-sub-header d-flex justify-content-between" (click)="expandAccordion(2)"><i class="os-icon os-icon-codepen"></i>
             <h6>3D Models</h6>
+            <div class="os-icon os-icon-chevron-down accordion-chevron" *ngIf="!accordionExpandedInfo[2]"></div>
+            <div class="os-icon os-icon-chevron-up accordion-chevron" *ngIf="accordionExpandedInfo[2]"></div>
           </div>
-          <div class="todo-sidebar-section-sub-section-content">
+          <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[2]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model')">Pre-Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model')">Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model')">Videos/Animations</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model')">3D/AR Model Viewer <span class="badge badge-danger">New</span></a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model')">All Source Files</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model', 2)">Pre-Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model', 2)">Rendered Photos</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model', 2)">Videos/Animations</a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model', 2)">3D/AR Model Viewer <span class="badge badge-danger">New</span></a></li>
+              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model', 2)">All Source Files</a></li>
             </ul>
           </div>
         </div>

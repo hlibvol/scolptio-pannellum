@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  HostListener,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
@@ -16,6 +16,7 @@ export class ProjectOverviewComponent implements OnInit {
   module:string = "Floor-Plans"
   isHide: boolean = true;
   currentUser:AppUser;
+  accordionExpandedInfo: boolean[] = [];
   constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService,private appSessionStorageService: AppSessionStorageService,) { 
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
@@ -35,9 +36,20 @@ export class ProjectOverviewComponent implements OnInit {
        else
         this.toastr.error('Something went wrong. Please try again later.');
     });
+    this.expandAccordion(0);
   }
-  showSection(section: string,module:any){
+  @HostListener('window:resize')
+  refreshAccordion(): void {
+    var accordionMode:boolean = window.innerWidth < 768;
+    this.accordionExpandedInfo =  [!accordionMode, !accordionMode, !accordionMode];
+  }
+  showSection(section: string,module:any, expandIndex: number){
     this.activeSection = section;
     this.module = module;
+    this.expandAccordion(expandIndex);
+  }
+  expandAccordion(expandIndex: number): void {
+    this.refreshAccordion();
+    this.accordionExpandedInfo[expandIndex] = true;
   }
 }

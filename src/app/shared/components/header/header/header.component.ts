@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppUser } from '../../../../view/auth-register/auth-register.model';
 import { LayoutService } from '../../../layout.service';
 import { AppSessionStorageService } from '../../../session-storage.service';
@@ -19,6 +19,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   currentUser: AppUser;
   curentUserOrg: Organization;
   orgCount: number;
+  @Input()
+  sidebarOpen: boolean = false;
+  @Output()
+  sidebarToggle: EventEmitter<void> = new EventEmitter<void>()
   constructor(private layoutService: LayoutService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -88,11 +92,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     $('#openCompanyInfo').on('click', function () {
       $(this).closest('.fancy-selector-w').toggleClass('opened');
     });
-
-    $('#sliderOpen').on('click', function () {
-      $("#Main").toggleClass('closeSlider');
-      $(this).closest('.fancy-selector-w').toggleClass('opened1');
-    });
     
+  }
+  sliderClicked(): void {
+    this.sidebarToggle.emit();
   }
 }
