@@ -4,3 +4,8 @@
 .all-wrapper{
     overflow: auto;
 }
+.row{
+    .main-container{
+        flex-wrap: nowrap;
+    }
+}

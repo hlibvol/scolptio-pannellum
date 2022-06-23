@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 import { AppSessionStorageService } from '../../shared/session-storage.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class AdminLayoutComponent implements OnInit {
 
   sidebarOpen: boolean = true;
   constructor(private appSessionStorageService: AppSessionStorageService,
-    private router: Router) { }
+    private router: Router, private sharedService: SharedService) { 
+      this.sharedService.scrollAdminLayout$().subscribe(this.scrollBy)
+    }
 
   ngOnInit(): void {
     /* will be removed later*/
@@ -37,5 +40,9 @@ export class AdminLayoutComponent implements OnInit {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-
+  scrollBy(coordinates: {x: number, y: number}): void {
+    // @ViewChild is not working for some reason in this component 
+    // TO-DO: Troubleshoot or find a way to eliminate document.getElementById
+    document.getElementById('main-layout').scrollBy(coordinates.x, coordinates.y); 
+  }
 }

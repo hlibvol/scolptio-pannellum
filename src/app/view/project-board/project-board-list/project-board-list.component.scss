@@ -1,8 +1,3 @@
-.column {
-    width: 300px !important;
-    margin: 10px;
-}
-
 :host {
     flex-grow: 1;
 }
@@ -18,24 +13,70 @@
             height: 100%;
             position: relative;
 
-            .record {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                top: 0;
-                margin-bottom: 8px;
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                .column {
-                    box-sizing: border-box;
-                    display: inline-block;
-                    height: 100%;
-                    margin: 0 10px;
-                    vertical-align: top;
+            .record { 
+                &.columns-container{
+                    margin-bottom: 8px;
+                    overflow-x: auto;
+                    overflow-y: hidden;
                     white-space: nowrap;
-                    width: 300px;
+                    display: flex;
+                    gap: 20px;
+                    .column {
+                        box-sizing: border-box;
+                        display: inline-block;
+                        height: 100%;
+                        vertical-align: top;
+                        white-space: nowrap;
+                        min-width: calc((100vw - 100px - 260px - 5rem) / 5);
+                        flex-grow: 1;
+                        .pipeline-body{
+                            min-height: 100px;
+                            .pi-info{
+                                overflow: hidden;
+                                .pi-name, .pi-sub{
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                            }
+                        }
+                    }
+                    .scroll-area{
+                        display: none;
+                        width: 100vw;
+                        height: 10vh;
+                        opacity: 0;
+                        position: fixed;
+                        z-index: 10;
+                        &.scroll-up{
+                            top: 0px;
+                        }
+                        &.scroll-down{
+                            bottom: 0px;
+                            &:hover{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            @media(max-width: 1023px){  
+                .record { 
+                    &.columns-container{
+                        flex-direction: column;
+                        .column{
+                            .pipeline-item{
+                                z-index: 20;
+                                .pipeline-body{
+                                    min-height: 50px;
+                                }
+                            }
+                        }
+                        .scroll-area{
+                            display: block;
+                        }
+                    }
+                    margin-bottom: 10vh;
                 }
             }
         }

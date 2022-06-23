@@ -4,7 +4,9 @@
       <div class="text-primary text-center mt-4 bg-white h-100 p-4 d-flex justify-content-center align-items-center" *ngIf="isLoading">
         <i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
       </div>
-      <div class="record" *ngIf="!isLoading">
+      <div class="record columns-container" *ngIf="!isLoading">
+        <div class="scroll-area scroll-up" dragula="PROJECT" data-target="scroll-up"></div>
+        <div class="scroll-area scroll-down" dragula="PROJECT" data-target="scroll-down"></div>
         <div class="column">
           <div class="pipeline white lined-warning">
             <div class="pipeline-header">
@@ -15,11 +17,11 @@
               </div>
              
             </div>
-            <div class="pipeline-body" dragula="PROJECT" data-target="Planing">
+            <div class="pipeline-body" dragula="PROJECT" data-target="Planning">
               <div class="pipeline-item" *ngFor="let project of planingProjectList; let i = index">              
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
-                  <div class="pi-info">
+                  <div class="pi-info" title="{{project.projectName}} - {{project.clientName}}">
                     <div class="h6 pi-name">{{project.projectName}}</div>
                     <div class="pi-sub">{{project.clientName}}</div>
                   </div>
@@ -40,7 +42,7 @@
               <div class="pipeline-item" *ngFor="let project of cadProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
-                  <div class="pi-info">
+                  <div class="pi-info" title="{{project.projectName}} - {{project.clientName}}">
                     <div class="h6 pi-name">{{project.projectName}}</div>
                     <div class="pi-sub">{{project.clientName}}</div>
                   </div>
@@ -62,7 +64,7 @@
               <div class="pipeline-item" *ngFor="let project of modelProjectList; let i = index">              
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
-                  <div class="pi-info">
+                  <div class="pi-info" title="{{project.projectName}} - {{project.clientName}}">
                     <div class="h6 pi-name">{{project.projectName}}</div>
                     <div class="pi-sub">{{project.clientName}}</div>
                   </div>
@@ -84,7 +86,7 @@
               <div class="pipeline-item" *ngFor="let project of renderProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
-                  <div class="pi-info">
+                  <div class="pi-info" title="{{project.projectName}} - {{project.clientName}}">
                     <div class="h6 pi-name">{{project.projectName}}</div>
                     <div class="pi-sub">{{project.clientName}}</div>
                   </div>
@@ -106,7 +108,7 @@
               <div class="pipeline-item" *ngFor="let project of completeProjectList; let i = index">               
                 <div class="pi-body" [id]="project.id">
                   <div class="avatar"><img alt="" [src]="project.clientLogo"></div>
-                  <div class="pi-info">
+                  <div class="pi-info" title="{{project.projectName}} - {{project.clientName}}">
                     <div class="h6 pi-name">{{project.projectName}}</div>
                     <div class="pi-sub">{{project.clientName}}</div>
                   </div>
