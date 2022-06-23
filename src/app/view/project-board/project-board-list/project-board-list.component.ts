@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message, project_edit } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
@@ -43,14 +43,14 @@ export class ProjectBoardListComponent implements OnInit {
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
-    private router: Router,
+    private sharedService: SharedService,
     private dragulaService: DragulaService,
     private projectService: ProjectService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       if (this.currentUser.Role == "Client") {
         this.isHide = false;
-        dragulaService.createGroup('PROJECT', {
+        this.dragulaService.createGroup('PROJECT', {
           accepts: (el, target, source, sibling): boolean => {
             return false;
           }
@@ -58,13 +58,13 @@ export class ProjectBoardListComponent implements OnInit {
       }
       else if (this.currentUser.Role == "Designer") {
         this.isHide = false;
-        dragulaService.createGroup('PROJECT', {
+        this.dragulaService.createGroup('PROJECT', {
           accepts: (el, target, source, sibling): boolean => {
             return false;
           }
         });
       } else if (this.currentUser.Role == "Admin") {
-        dragulaService.drag("PROJECT")
+        this.dragulaService.drag("PROJECT")
           .subscribe(({ el }) => {
             let status = el.parentElement.getAttribute("data-target");
             switch (status) {
@@ -86,7 +86,7 @@ export class ProjectBoardListComponent implements OnInit {
             }
           })
 
-        dragulaService.cancel("PROJECT")
+        this.dragulaService.cancel("PROJECT")
           .subscribe(({ el }) => {
             let status = el.parentElement.getAttribute("data-target");
             switch (status) {
@@ -108,10 +108,9 @@ export class ProjectBoardListComponent implements OnInit {
             }
           })
 
-        dragulaService.drop("PROJECT")
+        this.dragulaService.drop("PROJECT")
           .subscribe(({ el }) => {
             let status = el.parentElement.getAttribute("data-target");
-
             switch (status) {
               case "Planning":
                 this.planCount++;
@@ -128,6 +127,10 @@ export class ProjectBoardListComponent implements OnInit {
               case "Completed":
                 this.completeCount++;
                 break;
+              case "scroll-up":
+              case "scroll-down":
+                this.dragulaService.find('PROJECT').drake.cancel(true);
+                return;
             }
             let projectId = el.children[0].id;
             let project = this.projectList.find(item => item.id == projectId);
@@ -138,7 +141,20 @@ export class ProjectBoardListComponent implements OnInit {
               // this.toastr.info(project_edit.edit_project_error);
             })
           })
+          this.dragulaService.over().subscribe((el) => {
+            let targetData = el.container.getAttribute("data-target");
+            console.log(targetData)
+            switch(targetData){
+              case 'scroll-up':
+                this.sharedService.scrollAdminLayoutBy(0, -200)
+                break;
+              case 'scroll-down':
+                this.sharedService.scrollAdminLayoutBy(0, 200)
+                break;
+            }
+          })
       }
+      
     }
 
   }
@@ -180,5 +196,7 @@ export class ProjectBoardListComponent implements OnInit {
     })
 
   }
-
+  hide(e){
+    console.log(e)
+  }
 }
