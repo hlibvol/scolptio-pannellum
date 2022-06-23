@@ -4,7 +4,7 @@
 			<!--Start documents-->
 			<div class="property-section">
 				<div class="property-section-header d-flex justify-content-between">
-					{{header}}
+					<div>{{header}}</div>
 					<div *ngIf="isAddHide" class="filter-toggle">
 						<div class="document-button-container">
 							<button type="button" class="btn btn-primary d-flex align-items-center" data-toggle="modal"
@@ -41,11 +41,11 @@
 							</thead>
 							<tbody>
 								<tr *ngFor="let doc of documents; let i = index">
-									<td>{{i+1}}</td>
-									<td>
+									<td data-label="#">{{i+1}}</td>
+									<td data-label="Document">
 										{{doc.fileName}}
 									</td>
-									<td>
+									<td data-label="Date Uploaded">
 										{{doc.uploadDateTimeUtc | date: 'MM/dd/yyyy HH:mm:ss'}}
 									</td>
 									<td data-label="Action">

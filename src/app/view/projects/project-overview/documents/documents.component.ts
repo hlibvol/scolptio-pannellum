@@ -9,7 +9,7 @@ import { ProjectService } from '../../project.service';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.scss']
+  styleUrls: ['./documents.component.scss', '../../../../../assets/css/app.css']
 })
 export class DocumentsComponent implements OnInit,OnChanges {
 

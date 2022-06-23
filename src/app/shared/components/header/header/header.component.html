@@ -1,7 +1,7 @@
 <div class="top-bar color-scheme-dark" style="padding-right: 0px;">
-  <div class="fancy-selector-w">
+  <div class="fancy-selector-w {{sidebarOpen ? '' : 'opened1'}}">
     <div class="fancy-selector-current">
-      <div id="sliderOpen" class="fs-selector-trigger">
+      <div id="sliderOpen" class="fs-selector-trigger" (click)="sliderClicked()">
         <i class="os-icon os-icon-arrow-left4"></i>
       </div>   
     </div>
@@ -22,6 +22,11 @@
       </div>
 
     </div>
+  </div>
+  <div class="logo-w" *ngIf="!sidebarOpen">
+    <a class="logo" style="width:120px; height:25px;">
+      <img src="../../../assets/img/Scolptio Designs dark.png"/>
+    </a>
   </div>
   <!--------------------
     START - Top Menu Controls

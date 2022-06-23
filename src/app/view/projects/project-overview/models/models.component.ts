@@ -12,7 +12,7 @@ declare var $: any;
 @Component({
   selector: 'app-models',
   templateUrl: './models.component.html',
-  styleUrls: ['./models.component.scss']
+  styleUrls: ['./models.component.scss', '../../../../../assets/css/app.css']
 })
 export class ModelsComponent implements OnInit {
 

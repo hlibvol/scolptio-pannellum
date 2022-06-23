@@ -99,6 +99,13 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-size: 16px; /* default on most browsers anyway */
+}
+
+@media(max-width: 820px) {
+    html{
+      font-size: 14px;
+    }
 }
 
 article,
@@ -26251,9 +26258,6 @@ TODO Application
 }
 
 .rentals-list-w .filter-side .filter-w .filter-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: inline-block;
   padding: 4px 5px;
   border-radius: 4px;
@@ -26703,7 +26707,6 @@ TODO Application
 .property-single .property-info-w {
   max-width: 1200px;
   margin: 0px auto;
-  padding: 0px 40px;
   display: -webkit-box;
   display: flex;
 }
@@ -27065,9 +27068,6 @@ TODO Application
 }
 
 .property-single .property-info-w .property-section .property-section-header .filter-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: inline-block;
   padding: 4px 5px;
   border-radius: 4px;
@@ -31878,9 +31878,6 @@ Contents:
 
 /* #9.  Tablets (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
-  .top-bar .logo-w {
-    display: none;
-  }
 
   .top-bar .fs-extra-info {
     display: none;
@@ -32369,23 +32366,6 @@ Contents:
     margin-top: 15px;
   }
 
-  .top-bar .logo-w {
-    display: none;
-  }
-
-  .top-bar.with-overflow {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-    flex-direction: column-reverse;
-  }
-
-  .top-bar.with-overflow .top-menu-controls {
-    display: none;
-  }
-
-  .top-bar .fs-extra-info {
-    display: none;
-  }
 
   .element-balances {
     flex-wrap: wrap;
@@ -32423,7 +32403,7 @@ Contents:
   }
 
   .todo-app-w {
-    display: block;
+    flex-direction: column;
   }
 
   .todo-app-w .todo-sidebar {
@@ -32501,39 +32481,6 @@ Contents:
 
   .ae-content-w {
     display: none;
-  }
-
-  .top-bar {
-    padding: 0px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-  }
-
-  .top-bar .fancy-selector-w {
-    width: 100%;
-  }
-
-  .top-bar .fancy-selector-w .fancy-selector-current {
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-  }
-
-  .top-bar .fancy-selector-w .fancy-selector-current .fs-selector-trigger {
-    /* margin-left: auto; */
-  }
-
-  .top-bar>ul {
-    white-space: nowrap;
-  }
-
-  .top-bar>ul li a {
-    padding: 15px 10px;
-    margin: 0px 10px;
-  }
-
-  .top-bar.with-overflow {
-    overflow: visible;
   }
 
   .nav.upper.nav-tabs .nav-link {
@@ -32829,7 +32776,6 @@ Contents:
 
   .breadcrumb {
     margin-bottom: 1rem;
-    margin-top: 53px;
   }
 
   app-breadcumb > ul{
@@ -32901,9 +32847,6 @@ Contents:
     padding-left: 34px !important;
   }
 
-  .property-single .property-info-w {
-    padding-left: 18px;
-  }
 
   .property-single .property-info-w .property-section .property-section-header:before {
     left: -25px;

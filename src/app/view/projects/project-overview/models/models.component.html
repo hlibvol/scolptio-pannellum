@@ -41,43 +41,39 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let model of models; let i = index">
-                                        <td>{{i+1}}</td>
-                                        <td>
+                                        <td data-label="#">{{i+1}}</td>
+                                        <td data-label="Model">
                                             {{model.name}}
                                         </td>
-                                        <td>
+                                        <td data-label="Date Uploaded">
                                             {{model.uploadDate | date: 'MM/dd/yyyy HH:mm:ss'}}
                                         </td>
-                                        <td data-label="Action">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-light btn-auto"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-three-dots-vertical"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                                                    </svg>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-left"
-                                                    aria-labelledby="dropdownMenuButton">
+                                        <td>
+                                            <a type="button" class="btn btn-light"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-three-dots-vertical"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                                </svg>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-left"
+                                                aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    (click)="DownloadFile(model)">View 3D Model</a>
                                                     <a class="dropdown-item" style="cursor: pointer;"
-                                                        (click)="DownloadFile(model)">View 3D Model</a>
-                                                        <a class="dropdown-item" style="cursor: pointer;"
-                                                        (click)="DownloadFileFromEcho3D(model)">View 3D Model by Echo3D</a>
-                                                    <a class="dropdown-item" style="cursor: pointer;"
-                                                        (click)="UploadTextureFile(model)">Upload Texture Files</a>
-                                                    <a class="dropdown-item" style="cursor: pointer;"
-                                                        (click)="DeleteFile(model.id)">Delete</a>
-                                                </div>
+                                                    (click)="DownloadFileFromEcho3D(model)">View 3D Model by Echo3D</a>
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    (click)="UploadTextureFile(model)">Upload Texture Files</a>
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    (click)="DeleteFile(model.id)">Delete</a>
                                             </div>
                                         </td>
                                         <td>
-                                            <div >  
-                                                <a class="os-icon os-icon-codepen" data-toggle="tooltip" data-toggle="modal"
-                                                data-target="#mobilebanner" title="Augmented Reality"></a>  
-                                            </div>
+                                            <a class="os-icon os-icon-codepen btn btn-light" data-toggle="tooltip" data-toggle="modal"
+                                            data-target="#mobilebanner" title="Augmented Reality"></a>  
                                         </td>
                                     </tr>
                                 </tbody>
