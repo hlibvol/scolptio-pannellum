@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ModelFileService } from 'src/app/shared/model-file.service';
-import { S3BucketService } from 'src/app/shared/s3-bucket.service';
 import { PropertyFile } from 'src/app/shared/shared.model';
 import { common_error_message, s3_model } from 'src/app/shared/toast-message-text';
 import { FileUpload } from 'src/app/view/properties/properties.model';
 import { environment } from 'src/environments/environment';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import { ProjectService } from '../../project.service';
 
 declare var $: any;
 @Component({
@@ -29,7 +29,7 @@ export class ModelsComponent implements OnInit {
   isSaving = false;
   folderName: string;
 
-  constructor(private s3BucketService: S3BucketService,
+  constructor(private projectService: ProjectService,
     private modelFileService: ModelFileService,
     private toastr: ToastrService,
     private sanitizer: DomSanitizer) {
@@ -107,9 +107,8 @@ export class ModelsComponent implements OnInit {
     })
   }
 
-  async DownloadFile(doc: PropertyFile) {
+  async ViewFile(doc: PropertyFile) {
     this.toastr.info(s3_model.download_model_info);
-    const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
     this.path = `${environment.s3ModelUrl}?modelPath=${doc.fileKey}`
     this.type = doc.fileKey
     this.openPlay = true;
@@ -125,7 +124,7 @@ export class ModelsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.entryid);
   }
 
-  async DownloadFileFromEcho3D(doc: PropertyFile) {
+  async ViewFileFromEcho3D(doc: PropertyFile) {
     // this.toastr.info(s3_model.download_model_info);
     // const url = await this.s3BucketService.GetUrl(`${doc.folderName}/${doc.fileKey}`);
     // this.path = url;
@@ -157,6 +156,16 @@ export class ModelsComponent implements OnInit {
         this.models.sort((a, b) => (a.uploadDate >= b.uploadDate) ? 1 : -1);
         target.className = "fa fa-fw fa-sort-asc";
         break;
+    }
+  }
+
+  async DownloadFile(doc: PropertyFile) {
+    const url = await this.projectService.getS3ObjectUrl(doc.fileKey, true).toPromise();
+    if (url) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = doc.name;
+      a.click();
     }
   }
 }
