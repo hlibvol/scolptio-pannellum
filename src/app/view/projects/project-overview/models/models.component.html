@@ -62,9 +62,11 @@
                                             <div class="dropdown-menu dropdown-menu-left"
                                                 aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" style="cursor: pointer;"
-                                                    (click)="DownloadFile(model)">View 3D Model</a>
-                                                    <a class="dropdown-item" style="cursor: pointer;"
-                                                    (click)="DownloadFileFromEcho3D(model)">View 3D Model by Echo3D</a>
+                                                    (click)="DownloadFile(model)">Download</a>
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    (click)="ViewFile(model)">View 3D Model</a>
+                                                <a class="dropdown-item" style="cursor: pointer;"
+                                                    (click)="ViewFileFromEcho3D(model)">View 3D Model by Echo3D</a>
                                                 <a class="dropdown-item" style="cursor: pointer;"
                                                     (click)="UploadTextureFile(model)">Upload Texture Files</a>
                                                 <a class="dropdown-item" style="cursor: pointer;"
