@@ -201,31 +201,31 @@
         <tbody class="bg-white">
           <tr *ngFor="let user of userList; let i = index">    
             <td data-label="#">{{i+1}}</td>        
-            <td class="cell-with-media">
+            <td data-label="Name" class="cell-with-media">
               <img *ngIf="!user.profileImage" alt="" src="../../../assets/img/dummy-user.png"
                 style="height: 25px;width: 25px;">
               <img *ngIf="user.profileImage" alt="" [src]="user.profileImage" style="height: 25px;width: 25px;">
               <span class="ml-1"> {{user.displayName}}</span>
             </td>          
-            <td data-label="datecreated">
+            <td data-label="Email">
               <div class="d-flex flex-column">
                 <span class="text-dark">{{user.email}}</span>
               </div>
             </td>
            
-            <td class="roleName">
+            <td data-label="Role" class="roleName">
               <div class="d-flex flex-column">
                 <span class="text-dark">{{user.roleName}}<span class="text-primary"
                     *ngIf="user.roles && user.roles.length > 1">,&nbsp;+{{user.roles.length-1}} more</span></span>
               </div>
             </td>
-            <td [ngClass]="{'text-left':currentUser?.TeamId}" class="nowrap"><span class="status-pill smaller "
+            <td data-label="Status" [ngClass]="{'text-left':currentUser?.TeamId}" class="nowrap"><span class="status-pill smaller "
                 [ngClass]="{'green': user.status === 'Active', 'red': user.status !== 'Active'}">
               </span><span>{{user.status
                 != null ?
                 user.status : 'Inactive'}}</span>
             </td>
-            <td>
+            <td data-label="Last Login">
               {{user.lastLoginUtc | lastLogin}}
             </td>
             <td data-label="Action">
