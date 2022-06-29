@@ -44,6 +44,7 @@
     "leaflet-draw": "^1.0.4",
     "leaflet-geosearch": "^3.6.0",
     "leaflet-illustrate": "0.0.3",
+    "ng-broadcaster": "^0.0.9",
     "ng-chartjs": "^0.1.1",
     "ng-gallery": "^5.0.0",
     "ng2-dragula": "^2.1.1",

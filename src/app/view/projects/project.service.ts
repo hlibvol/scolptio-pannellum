@@ -30,6 +30,12 @@ export class ProjectService extends BaseService {
     );
   };
 
+  public GetById = (id): any => {
+    return this.get('Project/GetById?projectId='+id).pipe(
+      catchError(this.handleError)
+    );
+  };
+
   public SaveProject = (model: any): any => {
     return this.post('Project/Add', model).pipe(
       catchError(this.handleError)

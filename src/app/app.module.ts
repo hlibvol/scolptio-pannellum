@@ -60,6 +60,7 @@ import { InvoiceAddComponent } from './view/invoices/invoice-add/invoice-add.com
 import { PermissionDirective } from './shared/directives/permission.directive';
 import { PermissionDirective2 } from './shared/directives/permission.directive2';
 import { ProjectModule } from './view/projects/project.module';
+import { BroadcasterService } from 'ng-broadcaster';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { ProjectModule } from './view/projects/project.module';
     NgSelectModule
   ],
   providers: [
+    BroadcasterService,
     {
       provide: APP_INITIALIZER, 
       useFactory: appInitializerFactory, 
