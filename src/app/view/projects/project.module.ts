@@ -26,6 +26,7 @@ import { FillQuestionnaireComponent } from './project-questionnaire/fill-questio
 import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
 import { QuestionnairesCompletedPipe } from './project-questionnaire/questionnaires-completed.pipe';
 import { SelectedRoomHeaderPipe } from './project-questionnaire/selected-room-header.pipe';
+import { BroadcasterService } from 'ng-broadcaster';
 
 @NgModule({
   declarations: [

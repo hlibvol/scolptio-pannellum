@@ -1,20 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart, NavigationCancel } from '@angular/router';
+import { BroadcasterService } from 'ng-broadcaster';
 
 @Component({
   selector: 'app-breadcumb',
   templateUrl: './breadcumb.component.html',
   styleUrls: ['./breadcumb.component.scss']
 })
-export class BreadcumbComponent implements OnInit {
+export class BreadcumbComponent implements OnInit,AfterContentInit {
 
   breadcumbs: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) { 
+  constructor(private route: ActivatedRoute, private router: Router,private broadcaster: BroadcasterService) { 
+    this.broadcaster.on<any>('onLogin').subscribe(
+      path => { this.breadcumbs = path; }
+    );
+    
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Show progress spinner or progress bar
-        this.getCurrentLocation(event.url);
+        this.getCurrentLocation(event.url,0);
       }
     })
   }
@@ -22,15 +27,20 @@ export class BreadcumbComponent implements OnInit {
   ngOnInit(): void {
     this.breadcumbs = [];
   }
+  
+  ngAfterContentInit(): void {
+    this.getCurrentLocation(window.location.href,3);
+  }
 
-  getCurrentLocation(url) {
+  getCurrentLocation(url,indexStart) {
+    debugger;
     this.breadcumbs = [];
     if (url == "/") {
       this.breadcumbs.push({"pathname": "Dashboard", "url": window.location.origin + '/'});
     } else {
       let location = url;
       let locations = location.split("/");
-      for (let i = 0; i < locations.length; i ++) {
+      for (let i = indexStart; i < locations.length; i ++) {
         if (i == 0) {
           let data = {
             "pathname": "Dashboard",
