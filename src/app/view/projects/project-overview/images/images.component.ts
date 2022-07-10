@@ -5,6 +5,7 @@ import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { BaseService } from 'src/app/shared/base.service';
 import { ProjectS3GalleryItem, ProjectS3ImageItem } from 'src/app/shared/models/s3-items-model';
 import { SafeUrlService } from 'src/app/shared/safe-url.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
@@ -52,7 +53,8 @@ export class ImagesComponent implements OnInit, OnChanges {
     private appSessionStorageService: AppSessionStorageService,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer,
-    private safeUrlService: SafeUrlService) {
+    private safeUrlService: SafeUrlService,
+    private baseService: BaseService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
@@ -239,9 +241,8 @@ export class ImagesComponent implements OnInit, OnChanges {
     await Promise.all(checkedItems.map(x =>  this.download(x)));
   }
   async download(item: ProjectS3GalleryItem){
-    let url: string = this.safeUrlService.getAsString(item.safeUrl);
-    let buffer:Blob = await this.projectService.getAsBlobExternal(url).toPromise();
-    url = window.URL.createObjectURL(buffer);
+    let buffer = await this.projectService.getS3ObjectBlob(item.s3Key).toPromise();
+    let url = window.URL.createObjectURL(buffer);
     const a: HTMLAnchorElement = document.createElement("a");
     document.body.appendChild(a);
     a.setAttribute('style', 'display:none')

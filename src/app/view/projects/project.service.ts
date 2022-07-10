@@ -149,4 +149,7 @@ export class ProjectService extends BaseService {
   public getAsBlobExternal = (url: string): Observable<Blob> => {
     return this.get(url, {responseType: 'blob'}, true)
   }
+  public getS3ObjectBlob = (s3Key: string): Observable<Blob> => {
+    return this.get('Project/GetS3ObjectBlob?s3Key=' + s3Key, {responseType: 'blob'});
+  }
 }
