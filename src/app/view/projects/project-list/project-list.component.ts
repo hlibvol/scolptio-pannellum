@@ -81,7 +81,7 @@ export class ProjectListComponent implements OnInit {
         this.visibleFilter = false;
       let response: any = await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.searchStatuses.map(x => x.value as string), this.currentUser.TeamId).toPromise();
       this.projectList = response.data;
-      this.total = response.total;
+      this.total = response.count;
     }
     catch{
       this.toastr.error(common_error_message);
