@@ -7,12 +7,6 @@
                     <br/>
                     <font style="font-size: 14px;color: #B5B5B5">{{prepareQuestionnaire?.roomCount}} Rooms</font>
                 </div>
-                <div class="mng-btn-container">
-                    <button class="mng-button  d-flex  justify-content-center align-items-center">
-                        <span class="material-icons"></span>
-                        <label>Manage</label>
-                    </button>
-                </div>
             </div>
             <div class="upload-image">
                 <button class="d-flex justify-content-center align-items-center" (click)="uploadClick()">
@@ -70,7 +64,7 @@
                 <div class="qs-list">
                     <div class="qs-item d-flex" *ngFor="let question of prepareQuestionnaire.selectedRoom?.questions; let i = index">
                         <span class="num">{{i + 1}}</span>
-                        <div class="qs-container d-flex">
+                        <div class="qs-container d-flex justify-content-between">
                             <label>{{question.interrogative}}</label>
                             <div class="d-flex  align-items-center">
                                 <span class="badge-required">required</span>

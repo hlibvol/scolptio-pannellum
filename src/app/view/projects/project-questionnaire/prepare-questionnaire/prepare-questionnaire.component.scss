@@ -310,7 +310,6 @@
     }
 
     .upload-image button{
-        max-width: 250px;
         display: inline-block;
     }
 
@@ -331,35 +330,16 @@
     }
 
     .list-item{
-        background-color: #f3f2f2;
-        margin-right: 10px;
-        padding: 5px 10px;
-        white-space: nowrap;
+        width: 100%;
     }
 
     .list-item span.delete{
         margin-left: 10px;
     }
 
-    .ls-footer{
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
-        background-color: #FFFFFF;
-        z-index: 1;
-    }
-
-    .ls-footer{
-        text-align: center;
-    }
-    
-    .main-container .manage{
-        display: none;
-    }
-
     .manage{
         overflow-y: auto;
-        padding-bottom: 70px;
+        padding-bottom: 30px;
     }
     .close-manage{
         display: block;
@@ -368,10 +348,6 @@
     }
     .mn-wrapper{
         flex-direction: column;
-    }
-    .mn-list{
-        flex-wrap: wrap;
-        justify-content: center;
     }
     .mn-add{
         position: fixed;
@@ -405,10 +381,19 @@
 
     .questions{
         border-top: 1px solid #E6E6E6;
+        .btn-save{
+            width: 100%;
+        }
     }
 
-    .add-question{
+    .add-question, .add-room{
         max-width: unset;
+        .input-text{
+            width: 100%; // BS form-control  will take care of child <input>
+        }
     }
     
+    .qs-item .qs-container{
+        width: 100%
+    }
 }
