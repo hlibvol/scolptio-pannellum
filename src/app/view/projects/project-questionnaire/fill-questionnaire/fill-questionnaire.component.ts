@@ -37,14 +37,16 @@ export class FillQuestionnaireComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
     await this.loadRooms();
-    if(this.fillQuestionnaire.rooms)
+    if(this.fillQuestionnaire?.rooms?.length)
       await this.selectRoomAtIndex(0);
+    else
+      this.toastrService.error("No questionnaire available for this project");
     this.isLoading = false;
   }
   async selectRoomAtIndex(i: number): Promise<void> {
     try{
       this.isLoading = true;
-      var room: Room = await this.projectService.roomDetailsById(this.fillQuestionnaire.rooms[i].id).toPromise();
+      var room: Room<Question> = await this.projectService.roomDetailsById(this.fillQuestionnaire.rooms[i].id).toPromise();
       this.fillQuestionnaire.selectRoomAtIndex(i, room);
     }
     catch{

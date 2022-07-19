@@ -1,5 +1,5 @@
 import { Room } from "../room.model";
-import { Question } from "../question.model";
+import { PrepareQuestion } from "../question.model";
 import { DomSanitizer } from "@angular/platform-browser";
 import { S3File, S3FileImpl } from "src/app/shared/models/s3-items-model";
 
@@ -7,8 +7,8 @@ export class PrepareQuestionnaire {
     private _selectedRoomIndex: number = -1;
     public projectId: string = '';
     public roomName: string = '';
-    public selectedRoom: Room = null;
-    public rooms: Room[] = [];
+    public selectedRoom: Room<PrepareQuestion> = null;
+    public rooms: Room<PrepareQuestion>[] = [];
     public newQuestion: string = '';
     public isDirty: boolean = false;
     public get selectedRoomIndex(): number{
@@ -26,7 +26,7 @@ export class PrepareQuestionnaire {
         return;
       else
         roomName = this.roomName;
-      var room:Room = new Room;
+      var room:Room<PrepareQuestion> = new Room<PrepareQuestion>();
       room.name = roomName;
       room.isFloorPlan = isFloorPlan;
       if(this.rooms?.length)
@@ -42,12 +42,12 @@ export class PrepareQuestionnaire {
       if(!this.selectedRoom.questions?.length){
         this.selectedRoom.questions = [{
           interrogative: this.newQuestion
-        } as Question]
+        } as PrepareQuestion]
       }
       else
         this.selectedRoom.questions.push({
           interrogative: this.newQuestion
-        } as Question)
+        } as PrepareQuestion)
       this.newQuestion = '';
       this.isDirty = true;
     }
@@ -95,5 +95,19 @@ export class PrepareQuestionnaire {
     }
     deleteImageAtIndex(i: number): void {
       this.selectedRoom.images.splice(i, 1);
+    }
+    beginQuestionEdit(i: number): void {
+      let question: PrepareQuestion = this.selectedRoom.questions[i];
+      question.isEditMode = true;
+      question.editInterrogative = question.interrogative
+    }
+    saveQuestionEdit(i: number): void {
+        let question: PrepareQuestion = this.selectedRoom.questions[i];
+        question.isEditMode = false;
+        question.interrogative = question.editInterrogative;
+    }
+    cancelQuestionEdit(i: number): void {
+      let question: PrepareQuestion = this.selectedRoom.questions[i];
+      question.isEditMode = false;
     }
 }

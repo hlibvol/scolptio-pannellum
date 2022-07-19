@@ -7,8 +7,8 @@ export class FillQuestionnaire{
     private _selectedRoomIndex: number = -1;
     private _selectedQuestionIndex: number = -1;
     public projectId: string = '';
-    public selectedRoom: Room = null;
-    public rooms: Room[] = [];
+    public selectedRoom: Room<Question> = null;
+    public rooms: Room<Question>[] = [];
     public isDirty: boolean = false;
     public get selectedRoomIndex(): number{
       return this._selectedRoomIndex;
@@ -17,7 +17,7 @@ export class FillQuestionnaire{
         return this._selectedQuestionIndex;
     }
     constructor(private sanitizer: DomSanitizer) { }
-    selectRoomAtIndex(i: number, room: Room) {
+    selectRoomAtIndex(i: number, room: Room<Question>) {
         this.selectedRoom = Object.assign({}, room);
         this._selectedRoomIndex = i;
         this._selectedQuestionIndex = 0;

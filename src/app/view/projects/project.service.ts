@@ -131,10 +131,10 @@ export class ProjectService extends BaseService {
   public updateDocumentTags = (s3Key: string, tags: Tag[]): Observable<void> => {
     return this.put('Project/UpdateDocumentTags', {s3Key, tags},{responseType: 'text'})
   }
-  public prepareQuestionnaire = (id: string): Observable<Room[]> => {
+  public prepareQuestionnaire = (id: string): Observable<Room<Question>[]> => {
     return this.get('Project/PrepareQuestionnaire?ProjectId=' + id)
   }
-  public saveRoom = (projectId: string, roomForUi: Room): Observable<Room> => {
+  public saveRoom = (projectId: string, roomForUi: Room<Question>): Observable<Room<Question>> => {
     return this.post('Project/Room', {projectId, roomForUi})
   }
   public deleteRoomById = (roomId: string) => {
@@ -143,10 +143,10 @@ export class ProjectService extends BaseService {
   public uploadToS3 = (newFile: FormData): Observable<S3File> => {
     return this.post('Project/UploadToS3', newFile)
   }
-  public roomList = (projectId: string): Observable<Room[]> => {
+  public roomList = (projectId: string): Observable<Room<Question>[]> => {
     return this.get('Project/RoomList?ProjectId=' + projectId);
   }
-  public roomDetailsById = (id: string): Observable<Room> => {
+  public roomDetailsById = (id: string): Observable<Room<Question>> => {
     return this.get('Project/RoomDetailsById?id=' + id);
   }
   public saveQuestion = (question: Question): Observable<any> => {
