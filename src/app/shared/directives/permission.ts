@@ -1445,7 +1445,6 @@ export const permission : PermissionObj = {
             "show": true,
             "role": "designer"
         },
-        ,
         {
             "module": "Questionnaire",
             "action": "fill",
