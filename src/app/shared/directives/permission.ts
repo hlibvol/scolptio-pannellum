@@ -1426,6 +1426,42 @@ export const permission : PermissionObj = {
             "action": "delete",
             "show": false,
             "role": "designer"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "prepare",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "prepare",
+            "show": false,
+            "role": "client"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "prepare",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "fill",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "fill",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Questionnaire",
+            "action": "fill",
+            "show": true,
+            "role": "designer"
         }
     ]
 }
