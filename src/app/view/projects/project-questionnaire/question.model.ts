@@ -6,3 +6,8 @@ export class Question{
     public answer: string = '';
     public attachments: S3File[] = [];
 }
+
+export class PrepareQuestion extends Question{
+    public isEditMode: boolean = false;
+    public editInterrogative: string = '';
+}

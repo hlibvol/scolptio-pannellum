@@ -65,11 +65,27 @@
                     <div class="qs-item d-flex" *ngFor="let question of prepareQuestionnaire.selectedRoom?.questions; let i = index">
                         <span class="num">{{i + 1}}</span>
                         <div class="qs-container d-flex justify-content-between">
-                            <label>{{question.interrogative}}</label>
-                            <div class="d-flex  align-items-center">
-                                <span class="badge-required">required</span>
-                                <span class="delete os-icon os-icon-delete" (click)="deleteQuestionFromRoomAtIndex(i)"></span>
-                            </div>
+                            <ng-template [ngIf]="!question.isEditMode">
+                                <label>{{question.interrogative}}</label>
+                                <div class="d-flex  align-items-center">
+                                    <span class="badge-required">required</span>
+                                    <span class="delete os-icon os-icon-edit" (click)="beginQuestionEdit(i)"></span>
+                                    <span class="delete os-icon os-icon-delete" (click)="deleteQuestionFromRoomAtIndex(i)"></span>
+                                </div>
+                            </ng-template>
+                            <ng-template [ngIf]="question.isEditMode">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Question Text" [(ngModel)]="question.editInterrogative">
+                                    <div class="input-group-append" id="editQuestion_{{i + 1}}">
+                                      <button class="btn btn-outline-secondary" type="button" (click)="saveQuestionEdit(i)">
+                                        <span class="os-icon os-icon-check"></span>
+                                    </button>
+                                      <button class="btn btn-outline-secondary" type="button" (click)="cancelQuestionEdit(i)">
+                                        <span class="os-icon os-icon-close"></span>
+                                      </button>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>

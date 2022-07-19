@@ -7,6 +7,7 @@ import { ProjectService } from '../../project.service';
 import { PrepareQuestionnaire } from './prepare-questionnaire.model';
 import { Room } from '../room.model';
 import { SafeUrlService } from 'src/app/shared/safe-url.service';
+import { PrepareQuestion } from '../question.model';
 
 @Component({
   selector: 'app-prepare-questionnaire',
@@ -40,7 +41,7 @@ export class PrepareQuestionnaireComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try{
       this.isLoading = true;
-      this.prepareQuestionnaire.rooms = await this.projectService.prepareQuestionnaire(this.prepareQuestionnaire.projectId).toPromise();
+      this.prepareQuestionnaire.rooms = (await this.projectService.prepareQuestionnaire(this.prepareQuestionnaire.projectId).toPromise()) as Room<PrepareQuestion>[];
       if(this.prepareQuestionnaire.rooms?.length)
         this.selectRoomAtIndex(0);
     }
@@ -91,7 +92,7 @@ export class PrepareQuestionnaireComponent implements OnInit {
         this.prepareQuestionnaire.selectedRoom.images[i] = await this.projectService.uploadToS3(formData).toPromise();
       }
       this.prepareQuestionnaire.selectedRoom.images = this.prepareQuestionnaire.selectedRoom.images.filter(x => x.s3Key)
-      var updatedRoom: Room = await this.projectService.saveRoom(this.prepareQuestionnaire.projectId, this.prepareQuestionnaire.selectedRoom).toPromise();
+      var updatedRoom: Room<PrepareQuestion> = (await this.projectService.saveRoom(this.prepareQuestionnaire.projectId, this.prepareQuestionnaire.selectedRoom).toPromise()) as Room<PrepareQuestion>;
       this.prepareQuestionnaire.saveRoom(updatedRoom);
       await this.loadImages();
       this.toastr.success('Room saved');
@@ -132,7 +133,16 @@ export class PrepareQuestionnaireComponent implements OnInit {
   deleteImageAtIndex(i: number): void {
     this.prepareQuestionnaire.deleteImageAtIndex(i);
   }
-  openImage(url: SafeUrl) {
+  openImage(url: SafeUrl): void {
     this.safeUrlService.open(url);
+  }
+  beginQuestionEdit(i: number): void {
+    this.prepareQuestionnaire.beginQuestionEdit(i);
+  }
+  saveQuestionEdit(i: number){
+    this.prepareQuestionnaire.saveQuestionEdit(i);
+  }
+  cancelQuestionEdit(i: number){
+    this.prepareQuestionnaire.cancelQuestionEdit(i);
   }
 }
