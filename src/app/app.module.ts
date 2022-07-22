@@ -59,6 +59,7 @@ import { InvoiceListComponent } from './view/invoices/invoice-list/invoice-list.
 import { InvoiceAddComponent } from './view/invoices/invoice-add/invoice-add.component'
 import { PermissionDirective } from './shared/directives/permission.directive';
 import { PermissionDirective2 } from './shared/directives/permission.directive2';
+import { NotesComponent } from './view/projects/project-overview/notes/notes.component';
 import { ProjectModule } from './view/projects/project.module';
 import { BroadcasterService } from 'ng-broadcaster';
 

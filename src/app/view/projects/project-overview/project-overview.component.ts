@@ -14,8 +14,8 @@ import { ProjectService } from '../project.service';
 export class ProjectOverviewComponent implements OnInit {
 
   id: string = ''
-  activeSection: string = "HandSketchesAndDrawings";
-  module: string = "Floor-Plans"
+  activeSection:string="ProjectDescription";
+  module:string = "Floor-Plans"
   isHide: boolean = true;
   currentUser:AppUser;
   accordionExpandedInfo: boolean[] = [];

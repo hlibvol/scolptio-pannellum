@@ -1,0 +1,77 @@
+<div class="property-single" style="margin-top: 10px; margin-left: 5px; height: 99%;">
+	<div class="property-info-w" style="height: 100%;">
+		<div class="property-info-main" style="padding-top: 10px; padding-right: 0px;">
+			<!--Start Images-->
+			<div class="property-section">
+				<div class="property-section-header d-flex justify-content-between align-items-center" style="height: 72px">
+					<div>{{header}}</div>
+                    <div action="create" class="button-container">
+						<button type="button" class="btn btn-primary d-flex align-items-center" data-toggle="modal"
+							data-target="#uploadNotes">
+							<span class="pl-2">Add Notes</span>
+						</button>
+					</div>
+				</div>
+				<div class="property-section-body" *ngIf="isLoading">
+					<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+				</div>
+				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" *ngIf="!isLoading">
+					<div class="property-details">
+						<div class="row card-container" *ngFor="let notes of notesList">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-header d-flex">
+										<h6>
+											{{notes.addedByNameOfUser}}
+										</h6>
+									</div>
+									<div class="card-body">
+									  	<div [innerHtml]="notes.markupContent" class="card-text">
+											<!-- Angular renders content here. It is sanitized against XSS automatically -->
+										</div>
+										<a href="javascript:void(0);" class="card-link" (click)="beginEdit(notes)">
+											<span class="os-icon os-icon-edit" ></span>
+										</a>
+                                    	<a href="javascript:void(0);" class="card-link" (click)="delete(notes.id)">
+											<span class="os-icon os-icon-delete"></span>
+										</a> 
+									</div>
+									<div class="card-footer text-muted">
+									  {{notes.uploadDateTimeUtc | date:'short'}}
+									  <span class="badge badge-secondary" *ngIf="notes.isEdited">Edited</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="uploadNotes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="images">
+		<div class="modal-content">
+			<div class="modal-header border-0">
+				<h5 class="modal-title">Add Notes</h5>
+				<button type="button" class="close" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="notesForm" *ngIf="notesForm">
+					<input type="hidden" formControlName="id" />
+					<div class="form-group">
+						<quill-editor formControlName="markupContent" (onEditorCreated)="editorCreated($event)"></quill-editor>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" (click)="onSubmit()">Save changes</button>
+			  </div>
+		</div>
+	</div>
+</div>

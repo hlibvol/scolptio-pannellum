@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { S3File } from 'src/app/shared/models/s3-items-model';
 import { FileUpload } from '../properties/properties.model';
+import { Notes } from './project-overview/notes/notes.model';
 import { Question } from './project-questionnaire/question.model';
 import { Room } from './project-questionnaire/room.model';
 import { Tag } from './tag/tag.model';
@@ -157,5 +158,18 @@ export class ProjectService extends BaseService {
   }
   public getS3ObjectBlob = (s3Key: string): Observable<Blob> => {
     return this.get('Project/GetS3ObjectBlob?s3Key=' + s3Key, {responseType: 'blob'});
+  }
+  public createNotes = (markupContent: string, projectId: string, documentType: string): Observable<Notes> => {
+    return this.post('Project/Notes', {
+      projectId,
+      documentType,
+      markupContent
+    })
+  }
+  public updateNotes = (form: any): Observable<Notes> => {
+    return this.put('Project/Notes', form)
+  }
+  public deleteNotes = (id: string): Observable<boolean> => {
+    return this.delete('Project/Notes?id=' + id)
   }
 }
