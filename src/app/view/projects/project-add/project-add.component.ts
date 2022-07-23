@@ -57,6 +57,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       Deadline: [''],
       Cost: [''],
       Status: [''],
+      IsSendMail:[false]
     });
     
     this.getClients();

@@ -78,6 +78,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         Deadline: [formatDate(this.project.deadline, 'yyyy-MM-dd', 'en')],
         Cost: [''],
         Status: [''],
+        IsSendMail:[false]
       });
       this.formData();
     }
