@@ -1462,6 +1462,222 @@ export const permission : PermissionObj = {
             "action": "fill",
             "show": true,
             "role": "designer"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "ProjectDescription",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "ProjectDescription",
+            "show": false,
+            "role": "client"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "ProjectDescription",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "HandSketchesAndDrawings",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "HandSketchesAndDrawings",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "HandSketchesAndDrawings",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "CADDrawings",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "CADDrawings",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "CADDrawings",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "OtherReferences",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "OtherReferences",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Floor-Plans",
+            "action": "OtherReferences",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Photos",
+            "action": "CurrentPhotos",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Photos",
+            "action": "CurrentPhotos",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Photos",
+            "action": "CurrentPhotos",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferencePhotos",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferencePhotos",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferencePhotos",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferenceVideos",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferenceVideos",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Photos",
+            "action": "ReferenceVideos",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "3D-Model",
+            "action": "PrerenderedPhotos",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "3D-Model",
+            "action": "PrerenderedPhotos",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "3D-Model",
+            "action": "PrerenderedPhotos",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "3D-Model",
+            "action": "RenderedPhotos",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "3D-Model",
+            "action": "RenderedPhotos",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "3D-Model",
+            "action": "RenderedPhotos",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "3D-Model",
+            "action": "VideosOrAnimations",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "3D-Model",
+            "action": "VideosOrAnimations",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "3D-Model",
+            "action": "VideosOrAnimations",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "3D-Model",
+            "action": "3DModelViewer",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "3D-Model",
+            "action": "3DModelViewer",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "3D-Model",
+            "action": "3DModelViewer",
+            "show": true,
+            "role": "designer"
+        },
+        {
+            "module": "3D-Model",
+            "action": "SourceFiles",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "3D-Model",
+            "action": "SourceFiles",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "3D-Model",
+            "action": "SourceFiles",
+            "show": true,
+            "role": "designer"
         }
     ]
 }
