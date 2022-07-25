@@ -57,7 +57,8 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       Deadline: [''],
       Cost: [''],
       Status: [''],
-      IsSendMail:[false]
+      IsSendMail:[false],
+      ProjectTypeIds : ['']
     });
     
     this.getClients();
@@ -104,9 +105,24 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
         }
       }
     }
+
+    const projectTypeIds = [];
+    const projectTypeMember = document.getElementById('ProjectType');
+    if (projectTypeMember != null) {
+      const options = projectTypeMember['options'];
+      if (options && options.length > 0) {
+        for (const option of options) {
+          if (option.selected) {
+            projectTypeIds.push(option.value);
+          }
+        }
+      }
+    }
+
     this.isSaving = true;
     model.Logo = this.websiteLogoImage;
     model.DesignerIds = DesignerIds;
+    model.ProjectTypeIds = projectTypeIds;
     this._projectService.SaveProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;

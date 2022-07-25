@@ -33,7 +33,8 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label for=""> Designer &nbsp;&nbsp;</label><select class="form-control select2" multiple="true"
+                        <label for=""> Designer &nbsp;&nbsp;</label>
+                        <select class="form-control select2" multiple="true"
                             name="add-designer" name="add-designer" id="add-designer">
                             <option *ngFor="let designer of DesignerList" [value]="designer.id">
                                 {{designer.name}}
@@ -69,6 +70,17 @@
                         <label class="form-check-label" for="flexCheckDefault">
                             Send Status Change Mail
                         </label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Project Type &nbsp;&nbsp;</label>
+                        <select class="form-control select2" multiple="true"
+                            name="ProjectType" name="ProjectType" id="ProjectType">
+                            <option [value]="0">Architectural Drawings</option>
+                            <option [value]="1">Interior 3D Design</option>
+                            <option [value]="2">Exterior 3D Design</option>
+                        </select>
                     </div>
                 </div>
             </div>
