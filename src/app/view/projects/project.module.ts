@@ -26,7 +26,9 @@ import { FillQuestionnaireComponent } from './project-questionnaire/fill-questio
 import { MobileAppBannerComponent } from './project-overview/mobile-app-banner/mobile-app-banner.component';
 import { QuestionnairesCompletedPipe } from './project-questionnaire/questionnaires-completed.pipe';
 import { SelectedRoomHeaderPipe } from './project-questionnaire/selected-room-header.pipe';
+import { NotesComponent } from 'src/app/view/projects/project-overview/notes/notes.component';
 import { BroadcasterService } from 'ng-broadcaster';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { BroadcasterService } from 'ng-broadcaster';
     PrepareQuestionnaireComponent,
     FillQuestionnaireComponent,
     QuestionnairesCompletedPipe,
-    SelectedRoomHeaderPipe
+    SelectedRoomHeaderPipe,
+    NotesComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +66,8 @@ import { BroadcasterService } from 'ng-broadcaster';
       { path: 'project-questionnaire/prepare/:id', component: PrepareQuestionnaireComponent },
       { path: 'project-questionnaire/fill/:id', component: FillQuestionnaireComponent },
     ]),
-    NgSelectModule
+    NgSelectModule,
+    QuillModule.forRoot()
   ],
     providers: [BsModalService, UserService]
 })

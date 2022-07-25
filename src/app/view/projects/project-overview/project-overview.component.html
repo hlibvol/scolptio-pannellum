@@ -14,10 +14,11 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[0]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings','Floor-Plans', 0)">Hand
+              <li appPermission module="Floor-Plans" action="ProjectDescription"><a href="javascript:void(0)" class="section-link {{activeSection === 'ProjectDescription' ? 'active' : ''}}" (click)="showSection('ProjectDescription','Floor-Plans', 0)">Project Description</a></li>
+              <li appPermission module="Floor-Plans" action="HandSketchesAndDrawings"><a href="javascript:void(0)" class="section-link {{activeSection === 'HandSketchesAndDrawings' ? 'active' : ''}}" (click)="showSection('HandSketchesAndDrawings','Floor-Plans', 0)">Hand
                   Sketches/drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings','Floor-Plans', 0)">CAD Drawings</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences','Floor-Plans', 0)">Other References</a></li>
+              <li appPermission module="Floor-Plans" action="CADDrawings"><a href="javascript:void(0)" class="section-link {{activeSection === 'CADDrawings' ? 'active' : ''}}" (click)="showSection('CADDrawings','Floor-Plans', 0)">CAD Drawings</a></li>
+              <li appPermission module="Floor-Plans" action="OtherReferences"><a href="javascript:void(0)" class="section-link {{activeSection === 'OtherReferences' ? 'active' : ''}}" (click)="showSection('OtherReferences','Floor-Plans', 0)">Other References</a></li>
             </ul>
           </div>
         </div>
@@ -30,9 +31,9 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[1]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos','Photos', 1)">Current Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos','Photos', 1)">Reference Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos','Photos', 1)">Reference Videos</a></li>
+              <li appPermission module="Photos" action="CurrentPhotos"><a href="javascript:void(0)" class="section-link {{activeSection === 'CurrentPhotos' ? 'active' : ''}}" (click)="showSection('CurrentPhotos','Photos', 1)">Current Photos</a></li>
+              <li appPermission module="Photos" action="ReferencePhotos"><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferencePhotos' ? 'active' : ''}}" (click)="showSection('ReferencePhotos','Photos', 1)">Reference Photos</a></li>
+              <li appPermission module="Photos" action="ReferenceVideos"><a href="javascript:void(0)" class="section-link {{activeSection === 'ReferenceVideos' ? 'active' : ''}}" (click)="showSection('ReferenceVideos','Photos', 1)">Reference Videos</a></li>
             </ul>
           </div>
         </div>
@@ -45,11 +46,11 @@
           </div>
           <div class="todo-sidebar-section-sub-section-content" *ngIf="accordionExpandedInfo[2]">
             <ul class="items-list">
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model', 2)">Pre-Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model', 2)">Rendered Photos</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model', 2)">Videos/Animations</a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model', 2)">3D/AR Model Viewer <span class="badge badge-danger">New</span></a></li>
-              <li><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model', 2)">All Source Files</a></li>
+              <li appPermission module="3D-Model" action="PrerenderedPhotos"><a href="javascript:void(0)" class="section-link {{activeSection === 'PrerenderedPhotos' ? 'active' : ''}}" (click)="showSection('PrerenderedPhotos','3D-Model', 2)">Pre-Rendered Photos</a></li>
+              <li appPermission module="3D-Model" action="RenderedPhotos"><a href="javascript:void(0)" class="section-link {{activeSection === 'RenderedPhotos' ? 'active' : ''}}" (click)="showSection('RenderedPhotos','3D-Model', 2)">Rendered Photos</a></li>
+              <li appPermission module="3D-Model" action="VideosOrAnimations"><a href="javascript:void(0)" class="section-link {{activeSection === 'VideosOrAnimations' ? 'active' : ''}}" (click)="showSection('VideosOrAnimations','3D-Model', 2)">Videos/Animations</a></li>
+              <li appPermission module="3D-Model" action="3DModelViewer"><a href="javascript:void(0)" class="section-link {{activeSection === '3DModelViewer' ? 'active' : ''}}" (click)="showSection('3DModelViewer','3D-Model', 2)">3D/AR Model Viewer <span class="badge badge-danger">New</span></a></li>
+              <li appPermission module="3D-Model" action="Source Files"><a href="javascript:void(0)" class="section-link {{activeSection === 'Source Files' ? 'active' : ''}}" (click)="showSection('SourceFiles','3D-Model', 2)">All Source Files</a></li>
             </ul>
           </div>
         </div>
@@ -59,6 +60,8 @@
   </div>
   <div class="todo-content">
     <!-- TO:DO: Consider router for this -->
+    <app-notes [module]="module" [projectId]="id" documentType="ProjectDescription"
+      *ngIf="activeSection==='ProjectDescription'" header="Project Description"></app-notes>
     <app-images [module]="module" [projectId]="id" documentType="HandSketchesAndDrawings"
       *ngIf="activeSection==='HandSketchesAndDrawings'" header="Hand Sketches and Drawings"></app-images>
     <app-documents [projectId]="id" documentType="CADDrawings" *ngIf="activeSection==='CADDrawings'"

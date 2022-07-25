@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { ProjectService } from '../project.service';
+import { permission } from 'src/app/shared/directives/permission';
 
 @Component({
   selector: 'app-project-overview',
@@ -14,20 +15,30 @@ import { ProjectService } from '../project.service';
 export class ProjectOverviewComponent implements OnInit {
 
   id: string = ''
-  activeSection: string = "HandSketchesAndDrawings";
-  module: string = "Floor-Plans"
-  isHide: boolean = true;
+  activeSection:string="ProjectDescription";
+  module:string = "Floor-Plans"
   currentUser:AppUser;
   accordionExpandedInfo: boolean[] = [];
+  readonly moduleList: string[] = ['Floor-Plans', 'Photos', '3D-Model'];
+  readonly sectionList: string[] = [
+    "ProjectDescription",
+    "HandSketchesAndDrawings",
+    "CADDrawings",
+    "OtherReferences",
+    "CurrentPhotos",
+    "ReferencePhotos",
+    "ReferenceVideos",
+    "PrerenderedPhotos",
+    "RenderedPhotos",
+    "VideosOrAnimations",
+    "3DModelViewer",
+    "Source Files"
+  ]
   constructor(private projectService: ProjectService, private broadcaster: BroadcasterService,private activatedRoute: ActivatedRoute, private toastr: ToastrService,private appSessionStorageService: AppSessionStorageService,) { 
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
-      if (this.currentUser.Role == "Client") {
-        this.isHide = false;
-      }
-      else if (this.currentUser.Role == "Designer") {
-        this.isHide = false;
-      }
+      let item = permission.permission.find(x => x.show && x.role === this.currentUser.Role.toLocaleLowerCase() && this.moduleList.includes(x.module) && this.sectionList.includes(x.action))
+      this.showSection(item.action, item.module, 0)
     }
   }
 
