@@ -32,7 +32,7 @@
 										<a href="javascript:void(0);" class="card-link" (click)="beginEdit(notes)">
 											<span class="os-icon os-icon-edit" ></span>
 										</a>
-                                    	<a href="javascript:void(0);" class="card-link" (click)="delete(notes.id)">
+                                    	<a href="javascript:void(0);" class="card-link" (click)="openDeleteConfirmation(deleteConfirmation, notes.id)">
 											<span class="os-icon os-icon-trash-2"></span>
 										</a> 
 									</div>
@@ -75,3 +75,36 @@
 		</div>
 	</div>
 </div>
+
+<ng-template #deleteConfirmation>
+	<div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">
+                <div class="d-flex align-items-center">
+                    <div class="os-icon os-icon-trash-2"></div>
+                    <div class="ml-1 pl-1">Delete Confirmation</div>
+                </div>
+            </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearAndCloseDeleteConfirmation()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="property-section">
+				Are you sure you want to delete this item?
+            </div>
+        </div>
+        <div>
+            <!-- <p class=" ml-4 text-danger"><strong>{{errorMsg}}</strong></p> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary d-flex align-items-center px-3" data-dismiss="modal"
+                aria-label="Close" (click)="clearAndCloseDeleteConfirmation()">
+                <div class="pl-1">Cancel</div>
+            </button>
+            <button type="button" class="btn btn-danger d-flex align-items-center px-3" (click)="delete()">
+                <div class="pl-1">Delete</div>
+            </button>
+        </div>
+	</div>
+</ng-template>

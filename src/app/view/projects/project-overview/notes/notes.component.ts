@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { ProjectService } from '../../project.service';
 import { Notes } from './notes.model';
@@ -29,7 +29,8 @@ export class NotesComponent implements OnInit {
   quill: any;
   notesList: Notes[] = [];
   currentUser: AppUser;
-  constructor(private projectService: ProjectService,private appSessionStorageService: AppSessionStorageService, private toastr: ToastrService) { }
+  modalRef: BsModalRef = new BsModalRef();
+  constructor(private projectService: ProjectService,private modalService: BsModalService, private toastr: ToastrService) { }
 
   async ngOnInit(): Promise<void> {
     try{
@@ -67,10 +68,7 @@ export class NotesComponent implements OnInit {
     }
     finally{
       this.isLoading = false;
-      this.notesForm.setValue({
-        id: '',
-        markupContent: ''
-      })
+      this.clearForm();
     }
   }
   beginEdit(notes: Notes): void {
@@ -80,8 +78,9 @@ export class NotesComponent implements OnInit {
     })
     $('#uploadNotes').modal('toggle')
   }
-  async delete(id: string): Promise<void> {
+  async delete(): Promise<void> {
     try{
+      let id: string = this.notesForm.get('id').value;
       this.isLoading = true;
       await this.projectService.deleteNotes(id).toPromise();
       this.notesList = this.notesList.filter(x => x.id !== id);
@@ -91,6 +90,24 @@ export class NotesComponent implements OnInit {
     }
     finally{
       this.isLoading = false;
+      this.clearAndCloseDeleteConfirmation();
     }
+  }
+  openDeleteConfirmation(template: TemplateRef<any>, id: string): void {
+    this.notesForm.setValue({
+      id,
+      markupContent: ''
+    })
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'})
+  }
+  clearAndCloseDeleteConfirmation(): void {
+    this.clearForm();
+    this.modalRef.hide();
+  }
+  clearForm(): void {
+    this.notesForm.setValue({
+      id: '',
+      markupContent: ''
+    })
   }
 }
