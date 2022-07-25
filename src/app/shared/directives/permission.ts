@@ -1678,6 +1678,24 @@ export const permission : PermissionObj = {
             "action": "SourceFiles",
             "show": true,
             "role": "designer"
+        },
+        {
+            "module": "Projects.Tags",
+            "action": "view",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Projects.Tags",
+            "action": "view",
+            "show": false,
+            "role": "client"
+        },
+        {
+            "module": "Projects.Tags",
+            "action": "view",
+            "show": true,
+            "role": "designer"
         }
     ]
 }
