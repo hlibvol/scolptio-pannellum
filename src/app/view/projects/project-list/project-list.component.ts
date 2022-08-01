@@ -54,7 +54,7 @@ export class ProjectListComponent implements OnInit {
       value: 'Construction Plans'
     }
   ]
-    
+
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -73,9 +73,9 @@ export class ProjectListComponent implements OnInit {
 
   async GetAllproject(): Promise<void> {
     this.isLoading = true;
-    try{
+    try {
       var statuses = this.searchStatuses.map(x => x.value as string);
-      if(statuses.length)
+      if (statuses.length)
         this.visibleFilter = true;
       else
         this.visibleFilter = false;
@@ -83,16 +83,16 @@ export class ProjectListComponent implements OnInit {
       this.projectList = response.data;
       this.total = response.count;
     }
-    catch{
+    catch {
       this.toastr.error(common_error_message);
     }
-    finally{
+    finally {
       this.isLoading = false;
     }
   }
 
   setSelectedproject(project: any) {
-    this.selectedproject = {...project};
+    this.selectedproject = { ...project };
   }
 
   async onPaginationChange(pageNumber: string): Promise<void> {
@@ -104,7 +104,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   async onSearchList(event: KeyboardEvent): Promise<void> {
-    if(event.keyCode === 13)
+    if (event.keyCode === 13)
       await this.GetAllproject();
   }
 
@@ -124,5 +124,19 @@ export class ProjectListComponent implements OnInit {
 
   openQuestionnaire(project: any, segment: string): void {
     this.router.navigate([`/projects/project-questionnaire/${segment}/${project.id}`]);
+  }
+
+  getProjectType(type: any) {
+    switch (type) {
+      case "0":
+        return "Architectural Drawings"
+        break;
+      case "1":
+        return "Interior 3D Design";
+        break;
+      case "2":
+        return "Exterior 3D Design";
+        break;
+    }
   }
 }

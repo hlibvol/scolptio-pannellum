@@ -119,6 +119,23 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         }
       }
 
+      if (this.project && this.project.projectTypeIds != null && this.project.projectTypeIds.length > 0) {
+        const role = document.getElementById('ProjectType-edit');
+        if (role) {
+          const options = role['options'];
+          if (options && options.length > 0) {
+            for (let i = 0; i < options.length; i++) {
+              const isExist = this.project.projectTypeIds.find((x: any) => x === options[i].value);
+              if (isExist) {
+                $('#ProjectType-edit')[0]['options'][i].selected = true;
+              } else {
+                $('#ProjectType-edit')[0]['options'][i].selected = false;
+              }
+            }
+          }
+        }
+      }
+
       if ($('.select2').length) {
         $('.select2').select2();
       }
@@ -151,8 +168,23 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         }
       }
     }
+
+    const projectTypeIds = [];
+    const projectTypeMember = document.getElementById('ProjectType-edit');
+    if (projectTypeMember != null) {
+      const options = projectTypeMember['options'];
+      if (options && options.length > 0) {
+        for (const option of options) {
+          if (option.selected) {
+            projectTypeIds.push(option.value);
+          }
+        }
+      }
+    }
+
     this.isSaving = true;
     model.DesignerIds = DesignerIds;
+    model.ProjectTypeIds = projectTypeIds;
     this.projectService.UpdateProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;
