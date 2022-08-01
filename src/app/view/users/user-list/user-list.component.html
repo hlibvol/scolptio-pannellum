@@ -34,7 +34,7 @@
         <h6 class="m-0">Users</h6>
         <div class="d-flex align-items-center">
           <button *ngIf="isAdmin" type="button" class="btn btn-orange d-flex align-items-center py-3"
-            data-toggle="modal" data-target="#addclient">
+            data-toggle="modal" data-target="#addclient" (click)="onInviteModalOpen()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="feather feather-user-plus">
@@ -270,7 +270,7 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <app-user-add (addSuccessEvent)="GetUserTotalCount()"></app-user-add>
+      <app-user-add  (addSuccessEvent)="GetUserTotalCount()"></app-user-add>
     </div>
   </div>
 </div>
@@ -296,7 +296,7 @@
 <div class="modal fade modal-right" id="addclient" tabindex="-1" data-backdrop="static" role="dialog"
   aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <app-client-add (addSuccessEvent)="GetUserTotalCount()"></app-client-add>
+    <app-client-add [addUserType]="addUserType" (addSuccessEvent)="GetUserTotalCount()"></app-client-add>
   </div>
 </div>
 

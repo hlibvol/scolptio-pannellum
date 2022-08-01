@@ -1,12 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AddNewClient } from 'src/app/shared/router-interaction-constants';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
-declare const google;
+declare var $: any;
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -31,6 +32,7 @@ export class UserListComponent implements OnInit {
   visibleFilter = false;
   currentUser:AppUser;
   isAdmin:boolean = false
+  addUserType = '';
   constructor(private userService: UserService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -47,10 +49,18 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.GetUserTotalCount();
     this.loadAutoComplete();
+    this.checkState();
+  }
+  checkState(): void {
+    if(history?.state?.data !== AddNewClient)
+      return;
+    this.addUserType = 'Client';
+    $('#addclient').modal('toggle');
   }
 
   GetUserTotalCount() {
     this.isLoading = true;
+    this.selectedUser = new User();
     this.userService.GetUserTotalCount().subscribe((data: any) => {
       this.isLoading = false;
       this.total = data;
@@ -141,4 +151,7 @@ export class UserListComponent implements OnInit {
     this.loadScript(url);
   }
 
+  onInviteModalOpen(): void {
+    this.addUserType = ''; // Modal is not being opened programmatically, so clear it
+  }
 }

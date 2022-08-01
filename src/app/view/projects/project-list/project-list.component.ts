@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
+import { AddNewProject } from '../../../shared/router-interaction-constants';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
 import { ProjectService } from '../project.service';
 
+declare var $: any;
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -59,15 +61,17 @@ export class ProjectListComponent implements OnInit {
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
     private router: Router) {
-    if (this.appSessionStorageService.getCurrentUser() != null) {
-      this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
-      if (this.currentUser.Role == "Designer") {
-        this.isHide = false;
+      if (this.appSessionStorageService.getCurrentUser() != null) {
+        this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
+        if (this.currentUser.Role == "Designer") {
+          this.isHide = false;
+        }
       }
     }
-  }
 
   async ngOnInit(): Promise<void> {
+    if(history?.state?.data === AddNewProject)
+      $('#addproject').modal('toggle')
     await this.GetAllproject();
   }
 

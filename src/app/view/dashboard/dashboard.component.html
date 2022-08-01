@@ -1,76 +1,85 @@
 <div class="content-w">
-  <div class="content-i">
-    <div class="content-box">
-      <div class="element-wrapper compact pt-4">
-        <div class="element-actions"><a class="btn btn-primary btn-sm" href="#"><i
-              class="os-icon os-icon-ui-22"></i><span>Add Project</span></a><a class="btn btn-success btn-sm"
-            href="#"><i class="os-icon os-icon-grid-10"></i><span>Add Client</span></a></div>
-        <h6 class="element-header">Project Overview</h6>
-        <div class="element-box-tp">
-          <div class="row">
-            <div class="col-lg-7 col-xxl-6">
-              <div class="element-content">
-                <div class="row">
-                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
-                      <div class="label">Total Projects</div>
-                      <div class="value">57</div>
-                      <div class="trending trending-up-basic"><span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-                      </div>
-                    </a></div>
-                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
-                      <div class="label">In Progress</div>
-                      <div class="value">7</div>
-                      <div class="trending trending-down-basic"><span>12%</span><i
-                          class="os-icon os-icon-arrow-down"></i></div>
-                    </a></div>
-                  <div class="col-sm-4 col-xxxl-3"><a class="element-box el-tablo" href="#">
-                      <div class="label">Completed</div>
-                      <div class="value">15</div>
-                      <div class="trending trending-down-basic"><span>9%</span><i
-                          class="os-icon os-icon-arrow-down"></i></div>
-                    </a></div>              
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5 col-xxl-6">
-              <div class="alert alert-warning borderless">               
-                <p>Earn discounts for completing multiple projects with us.</p>
-                <div class="alert-btn"><a class="btn btn-white-gold" href="mailto:contact@scolptio.com"><i
-                      class="os-icon os-icon-ui-92"></i><span>Find Out How</span></a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-      <div class="element-wrapper">
-        <h6 class="element-header">Recent Project Status</h6>
-        <div class="element-box-tp">
-          <div class="table-responsive">
-            <table class="table table-padded">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Deadline</th>
-                  <th>Project</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-right">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="nowrap"><span>04/02/2022</span></td>
-                  <td><span>Today</span><span class="smaller lighter">1:52am</span></td>
-                  <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span>901 Lakeshore</span></td>
-                  <td class="text-center"><a class="badge badge-success" href="">3D Modeling</a></td>
-                  <td class="text-right bolder nowrap"><span class="text-success">1,250 USD</span></td>
-                </tr>
-             
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="content-i">
+		<div class="content-box">
+			<div class="element-wrapper compact pt-4">
+				<div class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
+					routerLinkActiveOptions="{exact:true}"><i
+						class="os-icon os-icon-ui-22"></i><span>Add Project</span></a>
+					<a class="btn btn-success btn-sm"
+					href="#" [routerLink]="['/users']" [state]="{data: actions.AddNewClient}" routerLinkActive="router-link-active"
+					routerLinkActiveOptions="{exact:true}"
+					><i class="os-icon os-icon-grid-10"></i><span>Add Client</span></a>
+				</div>
+				<h6 class="element-header">Project Overview</h6>
+				<div class="element-box-tp">
+					<div class="row">
+						<div class="col-lg-7 col-xxl-6">
+							<div class="element-content">
+								<div class="row">
+									<div class="col-sm-4 col-xxxl-3">
+										<a class="element-box el-tablo" href="#">
+											<div class="label">Total Projects</div>
+											<div class="value">{{dashboard?.totalProjectCount}}</div>
+											<div class="trending trending-up-basic"><span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
+											</div>
+										</a>
+									</div>
+									<div class="col-sm-4 col-xxxl-3">
+										<a class="element-box el-tablo" href="#">
+											<div class="label">In Progress</div>
+											<div class="value">{{dashboard?.inProgressProjectCount}}</div>
+											<div class="trending trending-down-basic"><span>12%</span><i
+												class="os-icon os-icon-arrow-down"></i></div>
+										</a>
+									</div>
+									<div class="col-sm-4 col-xxxl-3">
+										<a class="element-box el-tablo" href="#">
+											<div class="label">Completed</div>
+											<div class="value">{{dashboard?.completedProjectCount}}</div>
+											<div class="trending trending-down-basic"><span>9%</span><i
+												class="os-icon os-icon-arrow-down"></i></div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5 col-xxl-6">
+							<div class="alert alert-warning borderless">
+								<p>Earn discounts for completing multiple projects with us.</p>
+								<div class="alert-btn"><a class="btn btn-white-gold" href="mailto:contact@scolptio.com"><i
+									class="os-icon os-icon-ui-92"></i><span>Find Out How</span></a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="element-wrapper">
+				<h6 class="element-header">Recent Project Status</h6>
+				<div class="element-box-tp">
+					<div class="table-responsive">
+						<table class="table table-padded">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Deadline</th>
+									<th>Project</th>
+									<th class="text-center">Status</th>
+									<th class="text-right">Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let project of dashboard?.recentProjects">
+									<td class="nowrap"><span> {{project.startDate | date:'short'}} </span></td>
+									<td><span>{{project.deadline | date:'short'}}</span></td>
+									<td class="cell-with-media"><span>{{project.projectName}}</span></td>
+									<td class="text-center"><a class="badge badge-success" href=""> {{project.status}} </a></td>
+									<td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

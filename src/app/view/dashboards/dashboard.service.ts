@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
+import { Dashboard } from '../dashboard/dashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,9 @@ export class DashboardService extends BaseService {
     return throwError(errorMessage);
   }
 
-  public GetTotalCountbyDate = (props: any): any => {
-    const requestURL = 'Dashboard/GetTotalCount';
-    return this.post(requestURL,props).pipe(catchError(this.handleError));
+  public GetDashboardDetails = (): Observable<Dashboard> => {
+    const requestURL = 'Dashboard/GetDashboardDetails';
+    return this.get<Dashboard>(requestURL).pipe(catchError(this.handleError));
   }
 
-  public getAllOrders = (props: any): any => {
-    const requestURL = 'Dashboard/GetAllOrders';
-    return this.post(requestURL,props).pipe(catchError(this.handleError));
-  }
 }
