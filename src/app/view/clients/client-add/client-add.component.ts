@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, OnInit, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AwsService } from 'src/app/services/aws.service';
@@ -34,6 +34,8 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
   imageProp: any;
   teamList: Team[];
   formModel: any;
+  @Input()
+  addUserType = '';
   constructor(private teamService: TeamService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _clientService: ClientsService) {
     this.incomeType = null;
@@ -41,7 +43,7 @@ export class ClientAddComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.clientForm = this._formbuilder.group({
-      UserType:['', Validators.compose([Validators.required])], 
+      UserType:[this.addUserType, Validators.compose([Validators.required])], 
       FirstName: ['', Validators.compose([Validators.required])],
       LastName: ['', Validators.compose([Validators.required])],
       Email: ['', Validators.compose([Validators.required])],
