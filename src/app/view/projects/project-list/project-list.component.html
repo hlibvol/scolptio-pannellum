@@ -143,7 +143,7 @@
                 <span class="pl-1">{{project.projectName}}</span>
               </div>
             </td>
-            <td>
+            <td data-label="project Type">
               <div class="project-type-container" *ngIf="project?.projectTypeIds?.length">
                 <span *ngFor="let item of project?.projectTypeIds" class="badge badge-success project-type-item">{{getProjectType(item)}}</span><br>
               </div>
