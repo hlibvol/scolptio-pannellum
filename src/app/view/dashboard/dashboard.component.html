@@ -20,24 +20,18 @@
 										<a class="element-box el-tablo" href="#">
 											<div class="label">Total Projects</div>
 											<div class="value">{{dashboard?.totalProjectCount}}</div>
-											<div class="trending trending-up-basic"><span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-											</div>
 										</a>
 									</div>
 									<div class="col-sm-4 col-xxxl-3">
 										<a class="element-box el-tablo" href="#">
 											<div class="label">In Progress</div>
 											<div class="value">{{dashboard?.inProgressProjectCount}}</div>
-											<div class="trending trending-down-basic"><span>12%</span><i
-												class="os-icon os-icon-arrow-down"></i></div>
 										</a>
 									</div>
 									<div class="col-sm-4 col-xxxl-3">
 										<a class="element-box el-tablo" href="#">
 											<div class="label">Completed</div>
 											<div class="value">{{dashboard?.completedProjectCount}}</div>
-											<div class="trending trending-down-basic"><span>9%</span><i
-												class="os-icon os-icon-arrow-down"></i></div>
 										</a>
 									</div>
 								</div>
@@ -71,7 +65,7 @@
 								<tr *ngFor="let project of dashboard?.recentProjects">
 									<td class="nowrap"><span> {{project.startDate | date:'short'}} </span></td>
 									<td><span>{{project.deadline | date:'short'}}</span></td>
-									<td class="cell-with-media"><span>{{project.projectName}}</span></td>
+									<td class="cell-with-media"><a [routerLink]="['/projects/project-overview', project.id]">{{project.projectName}}</a></td>
 									<td class="text-center"><a class="badge badge-success" href=""> {{project.status}} </a></td>
 									<td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td>
 								</tr>
