@@ -61,7 +61,7 @@
 									<th class="text-right">Amount</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody *ngIf="dashboard?.recentProjects?.length">
 								<tr *ngFor="let project of dashboard?.recentProjects">
 									<td class="nowrap"><span> {{project.startDate | date:'short'}} </span></td>
 									<td><span>{{project.deadline | date:'short'}}</span></td>
@@ -69,6 +69,11 @@
 									<td class="text-center"><a class="badge badge-success" href=""> {{project.status}} </a></td>
 									<td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td>
 								</tr>
+							</tbody>
+							<tbody *ngIf="!dashboard?.recentProjects?.length">
+								<td colspan="5" class="text-center">
+									No data
+								</td>
 							</tbody>
 						</table>
 					</div>
