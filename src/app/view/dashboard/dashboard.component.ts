@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AddNewClient, AddNewProject } from '../../shared/router-interaction-constants';
 import { DashboardService } from '../dashboards/dashboard.service';
 import { Dashboard } from './dashboard.model';
@@ -10,7 +11,6 @@ import { Dashboard } from './dashboard.model';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   dashboard: Dashboard;
   public readonly actions = {
     AddNewProject,
@@ -22,7 +22,12 @@ export class DashboardComponent implements OnInit {
     this.GetDashboardDetails();
   }
   async GetDashboardDetails(): Promise<void> {
-    this.dashboard = await this.dashboardService.GetDashboardDetails().toPromise();
+    try{
+      this.dashboard = await this.dashboardService.GetDashboardDetails().toPromise();
+    }
+    catch{
+      this.toastr.error(common_error_message)
+    }
   }
 
 }
