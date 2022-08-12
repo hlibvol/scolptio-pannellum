@@ -144,8 +144,8 @@
               </div>
             </td>
             <td data-label="project Type">
-              <div class="project-type-container" *ngIf="project?.projectTypeIds?.length">
-                <span *ngFor="let item of project?.projectTypeIds" class="badge badge-success project-type-item">{{getProjectType(item)}}</span><br>
+              <div class="project-type-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.projectTypeIds?.length">
+                <span *ngFor="let item of project?.projectTypeIds" class="badge badge-success project-type-item">{{getProjectType(item)}}</span>
               </div>
             </td>
             <td data-label="Client Name">

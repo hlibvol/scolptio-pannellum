@@ -1,13 +1,3 @@
 .project-type-container {
-    display: grid;
     gap: 4px;
-    width: fit-content;
-    grid-template-columns: 1fr;
-    @media (max-width:768px) {
-        margin-left: auto;
-    }
-}
-.project-type-item{
-    width: fit-content;
-    
 }
