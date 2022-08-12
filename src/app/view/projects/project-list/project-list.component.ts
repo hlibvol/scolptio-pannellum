@@ -134,13 +134,16 @@ export class ProjectListComponent implements OnInit {
     switch (type) {
       case "0":
         return "Architectural Drawings"
-        break;
       case "1":
         return "Interior 3D Design";
-        break;
       case "2":
         return "Exterior 3D Design";
-        break;
+      case "3":
+        return "Pool - 2D layout";
+      case "4":
+        return "Pool - 3D rendering";
+      case "5":
+        return "Pool - Architectural Drawings";
     }
   }
 }
