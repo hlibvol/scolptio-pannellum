@@ -2,7 +2,7 @@
 	<div class="content-i">
 		<div class="content-box">
 			<div class="element-wrapper compact pt-4">
-				<div class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
+				<div *ngIf="!isHide" class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
 					routerLinkActiveOptions="{exact:true}"><i
 						class="os-icon os-icon-ui-22"></i><span>Add Project</span></a>
 					<a class="btn btn-success btn-sm"
