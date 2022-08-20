@@ -1,0 +1,57 @@
+<div class="modal-body">
+    <!-- upload -->
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label class="w-100" for="upload-s3-multi-image">
+            <div class="upload">
+              <div class="upload__body d-flex flex-column align-items-center justify-content-center">
+                <div class="mt-4">
+                  <i class="os-icon os-icon-video video-icon"></i>
+                </div>
+                <button class="btn btn-lg text-uppercase btn-upload d-flex align-items-center mb-2">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24">
+                    <path
+                      d="M14.0036 1.99646L17.0036 4.99646L16.999 4.99946L17 5.00001V13H16V5.99946L13 6.00001V2.99946H4V17.9995L12.0275 18.0003C12.0093 17.8361 12 17.6691 12 17.5C12 15.0147 14.0147 13 16.5 13C18.9853 13 21 15.0147 21 17.5C21 19.9853 18.9853 22 16.5 22C14.5409 22 12.8742 20.7481 12.2563 19.0007L3 19V2.00001H14L14.0036 1.99646ZM16.5 14C14.567 14 13 15.567 13 17.5C13 19.433 14.567 21 16.5 21C18.433 21 20 19.433 20 17.5C20 15.567 18.433 14 16.5 14ZM17 15V16.9995L19 17V18L17 17.9995V20H16V17.9995L14 18V17L16 16.9995V15H17ZM11 14V15H6V14H11ZM14 11V12H6V11H14ZM14 8.00001V9.00001H6V8.00001H14ZM14 3.40746V4.99946H15.592L14 3.40746Z">
+                    </path>
+                  </svg>
+                  <span class="pl-2 btn__text">Choose Videos</span>
+                </button>
+              </div>
+            </div>
+          </label>
+          <input type="file" #myS3MultiVideoInput [multiple]="true" name="upload-s3-multi-image" accept="video/*"
+            id="upload-s3-multi-image" placeholder="" required="" class="form-control d-none"
+            (change)="onChangeFile($event)">
+          <ol *ngIf="videoFiles">
+            <li *ngFor="let file of videoFiles; let i = index" class="p-1 d-flex">
+              <span>{{file.file.name}}</span>
+              <span class="ml-2">
+                <ng-select [multiple]="true"
+                                  [items]="tagOptions" 
+                                  [(ngModel)]="file.tags">
+                                  </ng-select>
+              </span>
+              <span class="ml-2 text-primary">
+                <i
+                  [ngClass]="{'fa':true, 'fa-spinner fa-spin': file.status === 'uploading', 'fa-check-circle text-success': file.status === 'success', 'fa-times-circle text-danger': file.status === 'error'}"></i>
+              </span>
+              <span class="ml-2 text-primary" *ngIf="file.status === 'error'">
+                <a style="cursor: pointer;text-decoration: underline;" (click)="uploadImages(file)">Try Again</a>
+              </span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    <!-- upload -->
+  </div>
+  <div class="modal-footer border-0">
+    <button type="button" class="btn btn-primary" *ngIf="!hasSuccess"
+      [ngStyle]="{'cursor': isSaving > 0 || videoFiles.length < 1? 'not-allowed' : 'pointer' }"
+      [disabled]="isSaving> 0 || videoFiles.length < 1" (click)="upload()">
+      <span>Upload&nbsp;&nbsp;<i *ngIf="isSaving > 0" class="fa fa-spinner fa-spin" style="font-size:18px"></i></span>
+    </button>
+    <button type="button" class="btn btn-primary" [ngStyle]="{'cursor': isSaving > 0? 'not-allowed' : 'pointer' }"
+      [disabled]="isSaving> 0" (click)="close()">
+      <span>{{hasSuccess && isSaving < 1? 'Done' :'Close'}}</span>
+    </button>
+  </div>

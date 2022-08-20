@@ -172,4 +172,11 @@ export class ProjectService extends BaseService {
   public deleteNotes = (id: string): Observable<boolean> => {
     return this.delete('Project/Notes?id=' + id)
   }
+  public createDocuments = (projectId: string, files: any[], resourceType): Observable<boolean> => {
+    return this.post('Project/CreateDocuments', {
+      projectId,
+      resourceType,
+      files
+    })
+  }
 }

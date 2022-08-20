@@ -58,8 +58,8 @@ export class ProjectS3DocumentItem implements S3File {
     file: File;
     uploadDateTimeUtc: Date;
     fileName: string;
-    private _url = '';
-    constructor(private sanitizer: DomSanitizer, url: string) {
+    protected _url = '';
+    constructor(protected sanitizer: DomSanitizer, url: string) {
         this.sanitizer = sanitizer;
         this._url = url;
     }
@@ -70,5 +70,13 @@ export class ProjectS3DocumentItem implements S3File {
             return this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(this.file));
         else
             return '';
+    }
+}
+
+export class ProjectS3VideoItem extends ProjectS3DocumentItem {
+    public tags?: Tag[] = [];
+    public status: Status = 'added';
+    public set safeUrl(url: string | SafeUrl) {
+        this._url = this.sanitizer.bypassSecurityTrustUrl(url as string) as string;
     }
 }

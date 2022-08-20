@@ -1,0 +1,12 @@
+.video-container{
+    .divider{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .video-player-container{
+        width: 100%;
+        overflow: hidden;
+        .video-player{
+            width: 100%;
+        }
+    }
+}

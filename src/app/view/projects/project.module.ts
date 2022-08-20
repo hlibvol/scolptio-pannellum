@@ -29,6 +29,8 @@ import { SelectedRoomHeaderPipe } from './project-questionnaire/selected-room-he
 import { NotesComponent } from 'src/app/view/projects/project-overview/notes/notes.component';
 import { BroadcasterService } from 'ng-broadcaster';
 import { QuillModule } from 'ngx-quill';
+import { VideosComponent } from './project-overview/videos/videos.component';
+import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-video-upload/s3-multi-video-upload.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { QuillModule } from 'ngx-quill';
     FillQuestionnaireComponent,
     QuestionnairesCompletedPipe,
     SelectedRoomHeaderPipe,
-    NotesComponent
+    NotesComponent,
+    VideosComponent,
+    S3MultiVideoUploadComponent
   ],
   imports: [
     CommonModule,
