@@ -5,9 +5,8 @@ import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { BaseService } from 'src/app/shared/base.service';
 import { ProjectS3GalleryItem, ProjectS3ImageItem } from 'src/app/shared/models/s3-items-model';
-import { SafeUrlService } from 'src/app/shared/safe-url.service';
+import { TagMultiSelectHelperService } from 'src/app/shared/tag-multi-select-helper.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../../../../shared/session-storage.service';
@@ -53,8 +52,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     private appSessionStorageService: AppSessionStorageService,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer,
-    private safeUrlService: SafeUrlService,
-    private baseService: BaseService) {
+    private _tagHelperService: TagMultiSelectHelperService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
@@ -73,35 +71,10 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.isLoading = false;
   }
   async prepareTagOptions(): Promise<void> {
-    let tagOptions = await this.getAllTags(100);
+    let tagOptions = await this._tagHelperService.getAllTagOptions();
     this.tagOptions = this.tagOptions.concat(tagOptions);
     this.selectedTags = Object.assign([], this.tagOptions);
     this.editTagsForm.tagOptions = Object.assign([], tagOptions);
-  }
-  async getAllTags(batchSize: number): Promise<NgOption[]> {
-    let options = [];
-    let firstBatch = await this.projectService.getAllTags(1, batchSize, '').toPromise();
-    if(!firstBatch.tags.length)
-      return options;
-    else{
-      options = options.concat(firstBatch.tags.map((x) => {
-        return {
-          label: x.name,
-          value: x.id
-        }
-      }))
-      let batchCount: number = firstBatch.count / batchSize + 1;
-      for(var batchNumber = 2; batchNumber <= batchCount; batchNumber++){
-        let page = await this.projectService.getAllTags(batchNumber, batchSize, '').toPromise();
-        options = options.concat(page.tags.map((x) => {
-          return {
-            label: x.name,
-            value: x.id
-          }
-        }))
-      }
-      return options;
-    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -158,12 +131,7 @@ export class ImagesComponent implements OnInit, OnChanges {
       this.isLoading = true;
       var files: any[] = Object.assign([], this.items);
       files.map(file => {
-        file.tags =  file.tags.map((tag: NgOption) => {
-          return {
-            id: tag.value,
-            name: tag.label
-          }
-        })
+        file.tags = this._tagHelperService.ngOptionsToTagModels(file.tags)
       })
       await this.projectService.UpdateProjectResource(this.projectId, files, this.documentType).toPromise()
     }
@@ -200,12 +168,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
   openEditTags(template: TemplateRef<any>, item: ProjectS3GalleryItem): void {
     this.editTagsForm.s3Key = item.s3Key;
-    this.editTagsForm.tags = item.tags.map((x) => {
-      return {
-        label: x.name,
-        value: x.id
-      }
-    });
+    this.editTagsForm.tags = this._tagHelperService.tagModelsToNgOptions(item.tags);
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'})
   }
   closeEditTags(): void {
@@ -213,12 +176,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
   async saveTags(): Promise<void> {
     try{
-      var tagList: Tag[] = this.editTagsForm.tags.map(x => {
-        let tag:Tag = new Tag;
-        tag.id = x.value as string;
-        tag.name = x.label; // Probably not necessary
-        return tag;
-      });
+      var tagList: Tag[] = this._tagHelperService.ngOptionsToTagModels(this.editTagsForm.tags);
       await this.projectService.updateDocumentTags(this.editTagsForm.s3Key, tagList).toPromise()
       this.modalRef.hide();
       this.toastr.success('Tags updated');

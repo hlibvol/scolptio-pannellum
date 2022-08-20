@@ -72,14 +72,14 @@
       header="Current Photos"></app-images>
     <app-images [module]="module" [projectId]="id" documentType="ReferencePhotos" *ngIf="activeSection==='ReferencePhotos'"
       header="Reference Photos"></app-images>
-    <app-images [module]="module" [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
-      header="Reference Videos"></app-images>
+    <app-videos [module]="module" [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
+      header="Reference Videos"></app-videos>
     <app-images [module]="module" [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
       header="Pre-rendered Photos"></app-images>
     <app-images [module]="module" [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"
       header="Rendered Photos"></app-images>
-    <app-images [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
-      header="Videos / Animations"></app-images>
+    <app-videos [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
+      header="Videos / Animations"></app-videos>
     <app-models [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"
       header="3D Model Viewer"></app-models> 
     <app-documents [projectId]="id" documentType="SourceFiles" *ngIf="activeSection==='SourceFiles'"
