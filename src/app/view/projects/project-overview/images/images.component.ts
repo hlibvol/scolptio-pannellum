@@ -189,7 +189,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
   filterClass(item: ProjectS3GalleryItem): string{
     if(!item.tags.length)
-      return this.selectedTags.some(x => x.value === this.untaggedValue) ? '' : 'hidden';
+      return (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue)) ? '' : 'hidden';
     return this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string)) ? '' : 'hidden';
   }
   async downloadAll(): Promise<void>{
