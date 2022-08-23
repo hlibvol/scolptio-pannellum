@@ -92,6 +92,11 @@ export class VideosComponent implements OnInit {
   }
   
   showItem(tags: Tag[]): boolean {
+    if(!tags?.length) {
+      if(this.selectedTags.some(x => x.value === this.untaggedValue) || !this.selectedTags?.length)
+        return true;
+      return false;
+    }
     return this.selectedTags?.some(x => tags.some(y => y.id === x.value));
   }
   openEditTags(item: ProjectS3VideoItem, modal: TemplateRef<any>): void {
