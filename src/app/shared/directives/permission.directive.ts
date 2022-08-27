@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Configs, PermissionObj } from 'src/app/services/configs-loader.service';
+import { PermissionObj } from 'src/app/services/configs-loader.service';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { AppSessionStorageService } from '../session-storage.service';
 import { permission } from './permission';
@@ -13,9 +12,10 @@ export class PermissionDirective implements OnInit, OnChanges {
   @Input("module") module: any;
   @Input("action") action: any;
   @Input() role: any;
+  @Input() defaultDisplayStyle: string = 'block';
   data: PermissionObj;
   currentUser: AppUser;
-  constructor(private appSessionStorageService: AppSessionStorageService, private elementRef: ElementRef, private httpClient: HttpClient) {
+  constructor(private appSessionStorageService: AppSessionStorageService, private elementRef: ElementRef) {
     this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     if (!this.currentUser) return;
     if (this.currentUser.Role == "Client") {
@@ -43,7 +43,7 @@ export class PermissionDirective implements OnInit, OnChanges {
     this.data = permission as PermissionObj;
     let isPermission = this.data.permission.find(m => m.module == this.module && m.action == this.action && m.role == this.role);
     if (isPermission && isPermission.show) {
-      this.elementRef.nativeElement.style.display = "block";
+      this.elementRef.nativeElement.style.display = this.defaultDisplayStyle;
     }
   }
 

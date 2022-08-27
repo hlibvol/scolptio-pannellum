@@ -1696,6 +1696,42 @@ export const permission : PermissionObj = {
             "action": "view",
             "show": true,
             "role": "designer"
+        },
+        {
+            "module": "Projects.Designers",
+            "action": "view",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Projects.Designers",
+            "action": "view",
+            "show": false,
+            "role": "client"
+        },
+        {
+            "module": "Projects.Designers",
+            "action": "view",
+            "show": false,
+            "role": "designer"
+        },
+        {
+            "module": "Projects.Cost",
+            "action": "view",
+            "show": true,
+            "role": "admin"
+        },
+        {
+            "module": "Projects.Cost",
+            "action": "view",
+            "show": true,
+            "role": "client"
+        },
+        {
+            "module": "Projects.Cost",
+            "action": "view",
+            "show": false,
+            "role": "designer"
         }
     ]
 }
