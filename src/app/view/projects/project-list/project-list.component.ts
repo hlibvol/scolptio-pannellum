@@ -28,7 +28,6 @@ export class ProjectListComponent implements OnInit {
   searchKey: '';
   visibleFilter = false;
   currentUser: AppUser;
-  isHide: boolean = true;
   searchStatuses: NgOption[] = [];
   readonly statusList: NgOption[] = [
     {
@@ -60,12 +59,9 @@ export class ProjectListComponent implements OnInit {
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
-    private router: Router) {
+    private router: Router) { 
       if (this.appSessionStorageService.getCurrentUser() != null) {
         this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
-        if (this.currentUser.Role == "Designer") {
-          this.isHide = false;
-        }
       }
     }
 

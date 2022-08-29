@@ -127,9 +127,9 @@
           <tr>
             <th>Project Name</th>
             <th>Project Type</th>
-            <th>Client Name</th>
+            <th appPermission module="Projects.Designers" action="view" defaultDisplayStyle="table-cell">Designer</th>
             <!-- <th>Team Name</th> -->
-            <th *ngIf="isHide">Cost</th>
+            <th appPermission module="Projects.Cost" action="view" defaultDisplayStyle="table-cell">Cost</th>
             <th>Start Date</th>
             <th>Dead Line</th>
             <th>Status</th>
@@ -139,21 +139,22 @@
         <tbody>
           <tr *ngFor="let project of projectList; let i = index">
             <td data-label="project Name">
-              <div class="responsive-td">
+              <div class="responsive-td d-flex flex-md-column align-items-start">
                 <span class="pl-1">{{project.projectName}}</span>
+                <span class="pl-1 text-muted" style="font-size:small"><i class="os-icon os-icon-ui-90"></i> {{project.clientName}}</span>
               </div>
             </td>
             <td data-label="project Type">
-              <div class="project-type-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.projectTypeIds?.length">
+              <div class="multi-item-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.projectTypeIds?.length">
                 <span *ngFor="let item of project?.projectTypeIds" class="badge badge-success project-type-item">{{getProjectType(item)}}</span>
               </div>
             </td>
-            <td data-label="Client Name">
-              <div class="responsive-td">
-                <span class="pl-1">{{project.clientName}}</span>
+            <td appPermission data-label="Designers" module="Projects.Designers" action="view" defaultDisplayStyle="table-cell">
+              <div class="multi-item-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.designers?.length">
+                <span *ngFor="let designer of project?.designers" class="badge badge-warning project-type-item">{{designer?.name}}</span>
               </div>
             </td>
-            <td *ngIf="isHide" data-label="Project Cost">
+            <td appPermission data-label="Project Cost" module="Projects.Cost" action="view" defaultDisplayStyle="table-cell">
               <div class="responsive-td">
                 <span class="pl-1">{{project.cost | currency }}</span>
               </div>
@@ -193,9 +194,9 @@
                   <div class="dropdown-submenu">
                     <h6 class="dropdown-header text-muted text-center">Questionnaire</h6>
                     <a appPermission module="Questionnaire" action="prepare" class="dropdown-item"
-                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'prepare')">Prepare</a>
+                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'prepare')">----- Prepare</a>
                     <a appPermission module="Questionnaire" action="fill" class="dropdown-item"
-                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'fill')">Fill</a>
+                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'fill')">----- Fill</a>
                   </div>
                 </div>
               </div>
