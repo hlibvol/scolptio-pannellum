@@ -29,6 +29,7 @@ export class ProjectListComponent implements OnInit {
   visibleFilter = false;
   currentUser: AppUser;
   searchStatuses: NgOption[] = [];
+  defaultDisplayStyle: string = 'table-cell'
   readonly statusList: NgOption[] = [
     {
       label: 'Planning',
