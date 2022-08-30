@@ -127,9 +127,9 @@
           <tr>
             <th>Project Name</th>
             <th>Project Type</th>
-            <th appPermission module="Projects.Designers" action="view" defaultDisplayStyle="table-cell">Designers</th>
+            <th appPermission module="Projects.Designers" action="view" default-display-style-xs="block" default-display-style="table-cell">Designers</th>
             <!-- <th>Team Name</th> -->
-            <th appPermission module="Projects.Cost" action="view" defaultDisplayStyle="table-cell">Cost</th>
+            <th appPermission module="Projects.Cost" action="view" default-display-style-xs="block" default-display-style="table-cell">Cost</th>
             <th>Start Date</th>
             <th>Dead Line</th>
             <th>Status</th>
@@ -149,12 +149,12 @@
                 <span *ngFor="let item of project?.projectTypeIds" class="badge badge-success project-type-item">{{getProjectType(item)}}</span>
               </div>
             </td>
-            <td appPermission data-label="Designers" module="Projects.Designers" action="view" defaultDisplayStyle="table-cell">
+            <td appPermission data-label="Designers" module="Projects.Designers" action="view" default-display-style-xs="block" default-display-style="table-cell">
               <div class="multi-item-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.designers?.length">
                 <span *ngFor="let designer of project?.designers" class="badge badge-success project-type-item">{{designer?.name}}</span>
               </div>
             </td>
-            <td appPermission data-label="Project Cost" module="Projects.Cost" action="view" defaultDisplayStyle="table-cell">
+            <td appPermission data-label="Project Cost" module="Projects.Cost" action="view" default-display-style-xs="block" default-display-style="table-cell">
               <div class="responsive-td">
                 <span class="pl-1">{{project.cost | currency }}</span>
               </div>
