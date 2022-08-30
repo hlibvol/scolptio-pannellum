@@ -141,7 +141,7 @@
             <td data-label="project Name">
               <div class="responsive-td d-flex flex-md-column align-items-start">
                 <span class="pl-1">{{project.projectName}}</span>
-                <span class="pl-1 text-muted">Client Name: {{project.clientName}}</span>
+                <span class="pl-1 text-muted" style="font-size:small"><i class="os-icon os-icon-ui-90"></i> {{project.clientName}}</span>
               </div>
             </td>
             <td data-label="project Type">
@@ -151,7 +151,7 @@
             </td>
             <td appPermission data-label="Designers" module="Projects.Designers" action="view" default-display-style-xs="block" default-display-style="table-cell">
               <div class="multi-item-container d-flex flex-column justify-content-center align-items-end align-items-md-start" *ngIf="project?.designers?.length">
-                <span *ngFor="let designer of project?.designers" class="badge badge-success project-type-item">{{designer?.name}}</span>
+                <span *ngFor="let designer of project?.designers" class="badge badge-warning project-type-item">{{designer?.name}}</span>
               </div>
             </td>
             <td appPermission data-label="Project Cost" module="Projects.Cost" action="view" default-display-style-xs="block" default-display-style="table-cell">
@@ -194,9 +194,9 @@
                   <div class="dropdown-submenu">
                     <h6 class="dropdown-header text-muted text-center">Questionnaire</h6>
                     <a appPermission module="Questionnaire" action="prepare" class="dropdown-item"
-                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'prepare')">Prepare</a>
+                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'prepare')">----- Prepare</a>
                     <a appPermission module="Questionnaire" action="fill" class="dropdown-item"
-                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'fill')">Fill</a>
+                      href="javascript:void(0);" (click)="openQuestionnaire(project, 'fill')">----- Fill</a>
                   </div>
                 </div>
               </div>
