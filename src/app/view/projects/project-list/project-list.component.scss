@@ -1,3 +1,10 @@
 .multi-item-container {
     gap: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    @media(min-width: 768px){
+        align-items: start;
+    }
 }
