@@ -37,8 +37,6 @@ export class PermissionDirective implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    if(this.module === 'Projects.Cost')
-      debugger;
     if(this.defaultDisplayStyleGlobal)
       this.defaultDisplayStyle = this.defaultDisplayStyleGlobal;
     this.defaultDisplayStyleXs = this.defaultDisplayStyleXs ? this.defaultDisplayStyleXs : this.defaultDisplayStyle;
