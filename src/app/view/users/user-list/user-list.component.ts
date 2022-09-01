@@ -29,6 +29,7 @@ export class UserListComponent implements OnInit {
   searchName = '';
   searchEmail = '';
   searchPhone = '';
+  searchUserType='';
   visibleFilter = false;
   currentUser:AppUser;
   isAdmin:boolean = false
@@ -103,7 +104,7 @@ export class UserListComponent implements OnInit {
   }
 
   onChange(val) {
-    if (this.searchName == '' && this.searchEmail == '' && this.searchPhone == '')
+    if (this.searchName == '' && this.searchEmail == '' && this.searchPhone == '' && this.searchUserType=='')
       this.visibleFilter = false;
     else
       this.visibleFilter = true;
@@ -114,6 +115,7 @@ export class UserListComponent implements OnInit {
       this.searchName,  
       this.searchEmail,
       this.searchPhone,
+      this.searchUserType
     ]
     this.GetAll();
   }
