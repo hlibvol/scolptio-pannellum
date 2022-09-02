@@ -59,6 +59,7 @@
 												</svg>
 											</button>
 											<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" style="cursor: pointer;" (click)="ViewFile(doc)">View</a>
 												<a class="dropdown-item" style="cursor: pointer;" (click)="DownloadFile(doc)">Download</a>
 												<a *ngIf="isDeleteHide" class="dropdown-item" style="cursor: pointer;" (click)="DeleteFile(doc)">Delete</a>
 											</div>
