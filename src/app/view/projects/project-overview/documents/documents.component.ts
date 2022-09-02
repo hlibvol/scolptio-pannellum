@@ -108,7 +108,8 @@ export class DocumentsComponent implements OnInit,OnChanges {
   async DownloadFile(doc: ProjectS3DocumentItem) {
     this.toastr.info(s3_document.download_document_info);
     const blob: Blob = await this.projectService.getS3ObjectBlob(doc.s3Key).toPromise();
-    const url: string = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)) as string;
+    const safeUrl: SafeUrl = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)); // TO-DO: Check if not sanitizing here is less secure because the <a></a> is removed anyway
+    const url: string = this.safeUrlService.getAsString(safeUrl);
     if (url) {
       const a = document.createElement("a");
       document.body.appendChild(a);
@@ -116,6 +117,7 @@ export class DocumentsComponent implements OnInit,OnChanges {
       a.href = url;
       a.download = doc.fileName;
       a.click();
+      a.remove();
     }
   }
 
