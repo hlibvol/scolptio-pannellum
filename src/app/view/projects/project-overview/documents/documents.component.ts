@@ -5,6 +5,8 @@ import { AppSessionStorageService } from 'src/app/shared/session-storage.service
 import { common_error_message, s3_document } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { ProjectService } from '../../project.service';
+import { SafeUrlService } from '../../../../shared/safe-url.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-documents',
@@ -26,7 +28,9 @@ export class DocumentsComponent implements OnInit,OnChanges {
   currentUser:AppUser
   constructor(private projectService: ProjectService,
     private toastr: ToastrService,
-    private appSessionStorageService: AppSessionStorageService) {
+    private appSessionStorageService: AppSessionStorageService,
+    private domSanitizer: DomSanitizer,
+    private safeUrlService: SafeUrlService) {
       if (this.appSessionStorageService.getCurrentUser() != null) {
         this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       }
@@ -103,13 +107,21 @@ export class DocumentsComponent implements OnInit,OnChanges {
 
   async DownloadFile(doc: ProjectS3DocumentItem) {
     this.toastr.info(s3_document.download_document_info);
-    const url = await this.projectService.getS3ObjectUrl(doc.s3Key).toPromise();
+    const blob: Blob = await this.projectService.getS3ObjectBlob(doc.s3Key).toPromise();
+    const url: string = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)) as string;
     if (url) {
       const a = document.createElement("a");
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
       a.href = url;
       a.download = doc.fileName;
       a.click();
     }
+  }
+
+  async ViewFile(doc: ProjectS3DocumentItem) {
+    const url: SafeUrl = await this.projectService.getS3ObjectUrl(doc.s3Key).toPromise();
+    this.safeUrlService.open(url);
   }
 
   sort(event: PointerEvent) {
