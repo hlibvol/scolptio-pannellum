@@ -78,7 +78,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         Deadline: [formatDate(this.project.deadline, 'yyyy-MM-dd', 'en')],
         Cost: [''],
         Status: [''],
-        IsSendMail:[false]
+        IsSendMail:[false],
+        SquareFootage : ['']
       });
       this.formData();
     }
@@ -95,6 +96,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.project.cost);
     (this.projectForm.controls.Status as FormControl)
       .setValue(this.project.status);
+      (this.projectForm.controls.SquareFootage as FormControl)
+      .setValue(this.project.squareFootage);
     this.prepareMemberData();
 
   }
