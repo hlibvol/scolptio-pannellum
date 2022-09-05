@@ -34,16 +34,20 @@
 								<a class="dropdown-item" style="cursor: pointer;" (click)="setAllSelected(true)">Select All</a>
 								<a appPermission [module]="module" action="delete" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
 								<a class="dropdown-item" style="cursor: pointer;" (click)="downloadAll()">Download</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" style="cursor: pointer;" (click)="downloadAll()">Move To Version</a>
+								<a class="dropdown-item" style="cursor: pointer;" (click)="downloadAll()">Copy To Version</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="property-section-body" *ngIf="isLoading">
+				<div class="property-section-body" *ngIf="activeCallsCount">
 					<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
 				</div>
-				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" *ngIf="!isLoading">
-					<div class="property-details">			
-						<div class="row">
+				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" *ngIf="!activeCallsCount">
+					<div class="property-details">	
+						<app-version [projectId]="projectId" [documentType]="documentType"></app-version>		
+						<div class="row mt-2">
 							<div class="col-sm-12 d-flex">
 								<span class="mr-4">Tag Filters</span>
 								<div class="form-check mr-2">
@@ -71,7 +75,7 @@
 								</div>
 							</div>
 						</div>				
-						<div class="row" *ngIf="isVisible === 1">
+						<div class="row mt-2" *ngIf="isVisible === 1">
 							<div class="col-sm-12">
 								<div class="form-group">									
 									<ng-select [multiple]="true"
@@ -81,7 +85,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mt-1">
+						<div class="row mt-2">
 							<div class="col-lg-4 mb-4 flex-column" *ngFor="let item of items; let i = index" class="{{'image-grid-container ' + filterClass(item) }}">
 								<input type="checkbox" [(ngModel)]="item.isChecked" [hidden]="!isMultiSelect" />
 								<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect" (click)="item.isChecked = !item.isChecked"></label>
@@ -120,7 +124,7 @@
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<app-s3-multi-image-upload [untaggedValue]="untaggedValue" [tagOptions]="tagOptions" (ImageUploadSuccessEvent)="ImageUploadSuccess($event)">
+			<app-s3-multi-image-upload [untaggedValue]="untaggedValue" [tagOptions]="tagOptions" (ImageUploadSuccessEvent)="ImageUploadSuccess($event)" [selectedVersion]="selectedVersion">
 			</app-s3-multi-image-upload>
 		</div>
 	</div>

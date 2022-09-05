@@ -4,6 +4,7 @@ import { ProjectS3ImageItem } from '../../models/s3-items-model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgOption } from '@ng-select/ng-select';
 import { ProjectService } from 'src/app/view/projects/project.service';
+import { Version } from 'src/app/view/projects/version/version.model';
 
 declare var $: any;
 @Component({
@@ -18,7 +19,8 @@ export class MultiImageUploadComponent implements OnInit {
     label: 'Untagged',
     value: this.untaggedValue
   }]
-
+  @Input()
+  selectedVersion!: Version;
   @Output() ImageUploadSuccessEvent = new EventEmitter<ProjectS3ImageItem[]>();
 
   imageFiles: ProjectS3ImageItem[];
@@ -86,6 +88,7 @@ export class MultiImageUploadComponent implements OnInit {
       imgFile.data.src = imgFile.data.thumb = safeUrl as string;
       imgFile.s3Key = s3Key;
       imgFile.fileName = imgFile.file.name;
+      imgFile.versions = this.selectedVersion ? [this.selectedVersion] : [];
       this.fileUploads.push(imgFile)
       imgFile.status = 'success';
       this.hasSucces = true;

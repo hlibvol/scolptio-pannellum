@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgOption } from '@ng-select/ng-select';
 import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
@@ -13,6 +13,7 @@ import { AppSessionStorageService } from '../../../../shared/session-storage.ser
 import { EditTagsFormModel } from '../../edit-tags.form-model';
 import { ProjectService } from '../../project.service';
 import { Tag } from '../../tag/tag.model';
+import { VersionComponent } from '../../version/version.component';
 
 declare var $: any;
 @Component({
@@ -29,7 +30,9 @@ export class ImagesComponent implements OnInit, OnChanges {
   @Input()
   header: string = '';
   @Input() module:any;
-  items: ProjectS3GalleryItem[] = [];
+  items: ProjectS3ImageItem[] = [];
+  @ViewChild(VersionComponent)
+  private versionComponent!: VersionComponent;
   isMultiSelect = false;
   currentUser: AppUser;
   isHide: boolean = true;
@@ -41,7 +44,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   selectedTags = this.tagOptions;
   editTagsForm: EditTagsFormModel = new EditTagsFormModel();
   modalRef: BsModalRef = new BsModalRef();
-  isLoading: boolean = false;
+  activeCallsCount: number = 0;
 
   isVisible: number = 0; //show/hide filters
 
@@ -63,12 +66,12 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit(): Promise<void> {
-    this.isLoading = true;
+    this.activeCallsCount++;
     await Promise.all([
       this.prepareImages(),
       this.prepareTagOptions()
     ])
-    this.isLoading = false;
+    this.activeCallsCount--;
   }
   async prepareTagOptions(): Promise<void> {
     let tagOptions = await this._tagHelperService.getAllTagOptions();
@@ -128,7 +131,7 @@ export class ImagesComponent implements OnInit, OnChanges {
 
   async UpdateProjectResource(): Promise<void> {
     try{
-      this.isLoading = true;
+      this.activeCallsCount++;
       var files: any[] = Object.assign([], this.items);
       files.map(file => {
         file.tags = this._tagHelperService.ngOptionsToTagModels(file.tags)
@@ -140,7 +143,7 @@ export class ImagesComponent implements OnInit, OnChanges {
       throw err;// abort other operations
     }
     finally{
-      this.isLoading = false
+      this.activeCallsCount--;
     }
   }
 
@@ -149,7 +152,18 @@ export class ImagesComponent implements OnInit, OnChanges {
       this.toastr.error(s3_image.image_select_count_error);
       return;
     }
-    this.items = this.items.filter(x => !x.isChecked)
+    let copy: ProjectS3ImageItem[] = [];
+    for(let item of this.items){
+      if(!item.isChecked)
+        copy.push(item)
+      else if(!this.versionComponent.selectedVersion?.id || item.versions.length === 1) 
+        continue;
+      else {
+        item.versions = item.versions.filter(x => x.id !== this.versionComponent.selectedVersion.id)
+        copy.push(item)
+      }
+    }
+    this.items = copy;
     await this.UpdateProjectResource();
     this.setAllSelected(false);
   }
@@ -188,9 +202,17 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
   }
   filterClass(item: ProjectS3GalleryItem): string{
+    let tagFilter = false;
     if(!item.tags.length)
-      return (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue)) ? '' : 'hidden';
-    return this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string)) ? '' : 'hidden';
+      tagFilter = (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue));
+    else
+      tagFilter = this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string));
+    let versionFilter = false;
+    if(!item.versions?.length)
+      versionFilter = !this.versionComponent?.selectedVersion?.id
+    else
+      versionFilter = item.versions.some(x => x.id === this.versionComponent?.selectedVersion.id)
+    return (tagFilter && versionFilter) ? '' : 'hidden'
   }
   async downloadAll(): Promise<void>{
     let checkedItems = this.items.filter(x => x.isChecked)
@@ -208,5 +230,8 @@ export class ImagesComponent implements OnInit, OnChanges {
     a.download = item.fileName ? item.fileName : item.s3Key;
     a.click();
     a.remove();
+  }
+  public get selectedVersion() { // to abstract access to view child
+    return this.versionComponent?.selectedVersion;
   }
 }

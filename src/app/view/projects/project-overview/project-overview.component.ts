@@ -38,7 +38,7 @@ export class ProjectOverviewComponent implements OnInit {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       let item = permission.permission.find(x => x.show && x.role === this.currentUser.Role.toLocaleLowerCase() && this.moduleList.includes(x.module) && this.sectionList.includes(x.action))
-      this.showSection(item.action, item.module, 0)
+      this.showSection("HandSketchesAndDrawings", item.module, 0)
     }
   }
 

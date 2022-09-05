@@ -20,7 +20,8 @@
             <div class="property-section">
 
                 <div class="property-section-body" style="padding-top: 10px;">
-                    <p>{{text}}</p>
+                    <p *ngIf="text?.length">{{text}}</p>
+                    <ng-content></ng-content>
                 </div>
             </div>
         </div>
