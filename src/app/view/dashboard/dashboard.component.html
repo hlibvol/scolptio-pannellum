@@ -64,7 +64,7 @@
 									<th>Deadline</th>
 									<th>Project</th>
 									<th class="text-center">Status</th>
-									<th class="text-right">Amount</th>
+									<!-- <th class="text-right">Amount</th> -->
 								</tr>
 							</thead>
 							<tbody *ngIf="dashboard?.recentProjects?.length">
@@ -73,7 +73,7 @@
 									<td><span>{{project.deadline | date:'short'}}</span></td>
 									<td class="cell-with-media"><a [routerLink]="['/projects/project-overview', project.id]">{{project.projectName}}</a></td>
 									<td class="text-center"><a class="badge badge-success" href=""> {{project.status}} </a></td>
-									<td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td>
+									<!-- <td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td> -->
 								</tr>
 							</tbody>
 							<tbody *ngIf="!dashboard?.recentProjects?.length">
