@@ -1,4 +1,16 @@
-button{
-    border-color: #dde2ec;
-    border-width: 1px;
+.input-group{
+    &.version-input-group{
+        .input-group-append{
+            button{
+                border-color: #dde2ec;
+                border-width: 1px;
+                z-index: auto;
+            }
+        }
+    }
+}
+@media(max-width: 576px){
+    .btn-new-version{
+        width: 100%;
+    }
 }

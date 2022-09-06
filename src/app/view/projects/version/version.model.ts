@@ -8,3 +8,11 @@ export class Version{
 export class VersionForm extends Version{
     header: string = '';
 }
+
+export class VersionUpdateForm{
+    action: VersionUpdateAction = 'move';
+    targetVersionId: string = '';
+    errorMsg: string = '';
+}
+
+export type VersionUpdateAction = "move" | "copy";

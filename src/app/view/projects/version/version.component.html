@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col">
-        <div class="input-group">
+    <div class="col-sm-8 col-lg-10">
+        <div class="input-group version-input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Version</span>
             </div>
@@ -21,8 +21,8 @@
               </div>
         </div>
     </div>
-    <div class="col-sm-1">
-        <input type="button" class="btn-sm btn-primary" value="New Version" (click)="showModal(versionModal)"/>
+    <div class="col-sm-4 col-lg-2 d-flex flex-row-reverse">
+        <input type="button" class="btn btn-orange btn-new-version" value="New Version" (click)="showModal(versionModal)"/>
     </div>
 </div>
 <ng-template #versionModal>
@@ -40,9 +40,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 d-flex flex-row-reverse">
-                <input type="button" class="btn btn-orange text-right" value="Submit" (click)="versionModalSubmit()" />
+    </div>
+    <div class="modal-footer">
+        <div class="row  d-flex flex-row-reverse">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary text-right" value="Submit" (click)="versionModalSubmit()" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-secondary text-right" value="Cancel" (click)="modalRef.hide()" />
             </div>
         </div>
     </div>
@@ -55,6 +60,6 @@
 		header="Delete confirmation"
 		text="Are you sure you want to delete this version?"
 		(id)="delete()">
-        <strong class="text-danger"> All files in this version will be deleted permanently </strong>
+        <strong class="text-danger"> All files in this version will be deleted permanently. This action is <u>NOT</u> reversible. </strong>
     </app-delete>
 </ng-template>

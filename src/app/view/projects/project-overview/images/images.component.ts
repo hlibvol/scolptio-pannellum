@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgOption } from '@ng-select/ng-select';
-import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+import { Gallery, ImageSize, ThumbnailsMode, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { EditTagsFormModel } from '../../edit-tags.form-model';
 import { ProjectService } from '../../project.service';
 import { Tag } from '../../tag/tag.model';
 import { VersionComponent } from '../../version/version.component';
+import { VersionUpdateForm } from '../../version/version.model';
 
 declare var $: any;
 @Component({
@@ -45,7 +46,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   editTagsForm: EditTagsFormModel = new EditTagsFormModel();
   modalRef: BsModalRef = new BsModalRef();
   activeCallsCount: number = 0;
-
+  versionUpdateForm: VersionUpdateForm = new VersionUpdateForm();
   isVisible: number = 0; //show/hide filters
 
   constructor(private projectService: ProjectService,
@@ -174,6 +175,8 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
 
   setAllSelected(value: boolean): void {
+    if(value)
+      this.isMultiSelect = true;
     this.items.map(x => x.isChecked = value);
   }
 
@@ -185,11 +188,12 @@ export class ImagesComponent implements OnInit, OnChanges {
     this.editTagsForm.tags = this._tagHelperService.tagModelsToNgOptions(item.tags);
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'})
   }
-  closeEditTags(): void {
+  hideModal(): void {
     this.modalRef.hide();
   }
   async saveTags(): Promise<void> {
     try{
+      this.activeCallsCount++
       var tagList: Tag[] = this._tagHelperService.ngOptionsToTagModels(this.editTagsForm.tags);
       await this.projectService.updateDocumentTags(this.editTagsForm.s3Key, tagList).toPromise()
       this.modalRef.hide();
@@ -200,13 +204,24 @@ export class ImagesComponent implements OnInit, OnChanges {
     catch{
       this.toastr.error(common_error_message);
     }
+    finally{
+      this.activeCallsCount--
+    }
   }
   filterClass(item: ProjectS3GalleryItem): string{
     let tagFilter = false;
-    if(!item.tags.length)
+    if(!item.tags.length){
       tagFilter = (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue));
-    else
+    }
+      
+    else{
+      console.group('tags')
+      console.log('item', item.tags)
+      console.log('selected', this.selectedTags)
+      console.groupEnd()
       tagFilter = this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string));
+    }
+      
     let versionFilter = false;
     if(!item.versions?.length)
       versionFilter = !this.versionComponent?.selectedVersion?.id
@@ -233,5 +248,51 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
   public get selectedVersion() { // to abstract access to view child
     return this.versionComponent?.selectedVersion;
+  }
+  public get otherVersions() {
+    return this.versionComponent?.versions.filter(x => x.id !== this.selectedVersion?.id)
+  }
+  openVersionModal(template: TemplateRef<any>){
+    if(!this.items.some(x => x.isChecked)){
+      this.toastr.error(s3_image.image_select_count_error);
+      return;
+    }
+    this.versionUpdateForm = new VersionUpdateForm();
+    this.modalRef = this.modalService.show(template);
+  }
+  async updateVersionSubmit(): Promise<void> {
+    if(!this.versionUpdateForm.targetVersionId) {
+      if(this.versionUpdateForm.action === 'move' && this.items.some(x => x.isChecked && x.versions && x.versions.length > 1)) {
+        this.versionUpdateForm.errorMsg = 'One or more items have more than one version. Only items with one version can be moved to unversioned';
+        return;
+      }
+      else if(this.versionUpdateForm.action === 'copy') {
+        this.versionUpdateForm.errorMsg = 'Cannot copy to unversioned';
+        return;
+      }
+    }
+    for(let item of this.items){
+      if(!item.isChecked)
+        continue;
+      let targetVersion = Object.assign({}, this.versionComponent.versions.find(x => x.id === this.versionUpdateForm.targetVersionId));
+      switch(this.versionUpdateForm.action){
+        case 'move':
+          if(!item.versions?.length)
+            item.versions = []
+          else 
+            item.versions = item.versions.filter(x => x.id !== this.versionComponent.selectedVersion.id)
+          // intentional fall through
+        case 'copy':
+          if(!item.versions.some(x => x.id === targetVersion.id))
+            item.versions.push(targetVersion)
+          break;
+        default: this.toastr.error(common_error_message)
+          return;
+      }
+    }
+    this.modalRef.hide();
+    await this.UpdateProjectResource();
+    this.setAllSelected(false);
+    this.isMultiSelect = false;
   }
 }

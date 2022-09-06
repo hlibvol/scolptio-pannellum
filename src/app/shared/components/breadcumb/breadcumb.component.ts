@@ -33,7 +33,6 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
   }
 
   getCurrentLocation(url,indexStart) {
-    debugger;
     this.breadcumbs = [];
     if (url == "/") {
       this.breadcumbs.push({"pathname": "Dashboard", "url": window.location.origin + '/'});
