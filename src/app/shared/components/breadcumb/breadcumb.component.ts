@@ -38,25 +38,30 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
       this.breadcumbs.push({"pathname": "Dashboard", "url": window.location.origin + '/'});
     } else {
       let location = url;
-      let locations = location.split("/");
+      let locations : string[] = location.split("/");
+      let data = {
+        "pathname": "Dashboard",
+        "url": '/dashboard'
+      }  
+      this.breadcumbs.push(data);
       for (let i = indexStart; i < locations.length; i ++) {
-        if (i == 0) {
-          let data = {
-            "pathname": "Dashboard",
-            "url": '/'
-          }  
-          this.breadcumbs.push(data);
-        } else if (i == locations.length - 1) {
+        if(locations[i]=="")
+        {
+          continue;
+        }
+        else if (i == locations.length - 1) {
           let data = {
             "pathname": locations[i],
             "url": '/' + locations[i]
           }
+          if(this.breadcumbs.findIndex(x=>x.pathname.toLocaleLowerCase() == locations[i].toLocaleLowerCase())==-1)
           this.breadcumbs.push(data);
         } else {
           let data = {
             "pathname": locations[i],
             "url": "javascript:void(0)"
           }
+          if(this.breadcumbs.findIndex(x=>x.pathname.toLocaleLowerCase() == locations[i].toLocaleLowerCase())==-1)
           this.breadcumbs.push(data);
         } 
       }  

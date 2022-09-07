@@ -56,8 +56,15 @@ export class AuthLoginComponent implements OnInit {
         currentUser.profileImage = data.profileImage;
         currentUser.teamName = data.teamName;
         this.appSessionStorageService.storeCurrentUser(JSON.stringify(currentUser));
+        if(currentUser.Role && currentUser.Role.toLowerCase() == "designer"){
+          this.router.navigate(['/projects/project-list']);
+        }
+        else{
+          this.router.navigate(['/dashboard']);
+        }
       }
-      this.router.navigate(['/projects/project-list']);
+      
+      
     }, (error) => {
       this.errorMsg = 'Username or password incorrect.';
       this.isSaving = false;

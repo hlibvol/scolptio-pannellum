@@ -3,6 +3,7 @@ export class Dashboard{
     public inProgressProjectCount: number;
     public completedProjectCount: number;
     public recentProjects: ProjectForDasboard[];
+    public totalDesigner:number;
 }
 
 export class ProjectForDasboard{

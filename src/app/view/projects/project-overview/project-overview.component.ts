@@ -49,7 +49,7 @@ export class ProjectOverviewComponent implements OnInit {
         this.projectService.GetById(this.id).subscribe(res => {
            var breadcumb = [
               {"pathname": "Dashboard",
-              "url": '/'},
+              "url": '/dashboard'},
               {"pathname": "Projects",
               "url": "/projects/project-list"
               },

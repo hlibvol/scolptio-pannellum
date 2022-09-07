@@ -161,6 +161,16 @@
                             [(ngModel)]="searchPhone" (input)="onChange($event.target.value)">
                           <!-- End search -->
                         </div>
+                        <div>
+                          <div class="small mb-1">User Type</div>
+                          <!-- search -->
+                            <select class="form-control" [(ngModel)]="searchUserType" (change)="onChange($event.target.value)">
+                              <option value="">All</option>
+                              <option value="Client">Client</option>
+                              <option value="Designer">Designer</option>
+                            </select>
+                          <!-- End search -->
+                        </div>
                       </div>
                       <!-- End Row -->
                       <a class="btn btn-block btn-primary mt-4" (click)="actionFilter()">Apply</a>
