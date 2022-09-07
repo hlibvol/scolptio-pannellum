@@ -31,6 +31,7 @@ import { BroadcasterService } from 'ng-broadcaster';
 import { QuillModule } from 'ngx-quill';
 import { VideosComponent } from './project-overview/videos/videos.component';
 import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-video-upload/s3-multi-video-upload.component';
+import { VersionComponent } from './version/version.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-
     SelectedRoomHeaderPipe,
     NotesComponent,
     VideosComponent,
-    S3MultiVideoUploadComponent
+    S3MultiVideoUploadComponent,
+    VersionComponent
   ],
   imports: [
     CommonModule,

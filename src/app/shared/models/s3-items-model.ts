@@ -1,6 +1,7 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 import { Tag } from 'src/app/view/projects/tag/tag.model';
+import { Version } from 'src/app/view/projects/version/version.model';
 import { Status } from '../shared.model';
 
 export interface S3File {
@@ -29,6 +30,7 @@ export interface ProjectS3GalleryItem extends GalleryItem, S3File{
     tags?: Tag[];
     status: Status;
     isChecked: boolean;
+    versions: Version[];
 }
 
 export class ProjectS3ImageItem extends ImageItem implements ProjectS3GalleryItem {
@@ -39,9 +41,11 @@ export class ProjectS3ImageItem extends ImageItem implements ProjectS3GalleryIte
     public status: Status = 'added';
     isChecked: boolean = false;
     public fileName: string = '';
-    constructor(private sanitizer: DomSanitizer, url: string) {
+    public versions: Version[] = [];
+    constructor(private sanitizer: DomSanitizer, url: string, versions: Version[] = []) {
         super({ src: url,thumb: url })
         this.sanitizer = sanitizer;
+        this.versions = versions;
     }
     public get safeUrl(): SafeUrl {
         if(this.data.src)

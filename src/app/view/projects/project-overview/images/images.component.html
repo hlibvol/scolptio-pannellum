@@ -32,18 +32,21 @@
 							<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" style="cursor: pointer;" (click)="onMultiSelect()">{{isMultiSelect === false?'Select' : 'Cancel Select'}}</a>
 								<a class="dropdown-item" style="cursor: pointer;" (click)="setAllSelected(true)">Select All</a>
+								<div class="dropdown-divider"></div>
 								<a appPermission [module]="module" action="delete" class="dropdown-item" style="cursor: pointer;" (click)="DeleteAll()">Delete</a>
 								<a class="dropdown-item" style="cursor: pointer;" (click)="downloadAll()">Download</a>
+								<a class="dropdown-item" style="cursor: pointer;" (click)="openVersionModal(updateVersion)">Update Version</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="property-section-body" *ngIf="isLoading">
+				<div class="property-section-body" [hidden]="!activeCallsCount">
 					<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
 				</div>
-				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" *ngIf="!isLoading">
-					<div class="property-details">			
-						<div class="row">
+				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" [hidden]="activeCallsCount">
+					<div class="property-details">	
+						<app-version [projectId]="projectId" [documentType]="documentType"></app-version>		
+						<div class="row mt-2">
 							<div class="col-sm-12 d-flex">
 								<span class="mr-4">Tag Filters</span>
 								<div class="form-check mr-2">
@@ -71,7 +74,7 @@
 								</div>
 							</div>
 						</div>				
-						<div class="row" *ngIf="isVisible === 1">
+						<div class="row mt-2" *ngIf="isVisible === 1">
 							<div class="col-sm-12">
 								<div class="form-group">									
 									<ng-select [multiple]="true"
@@ -81,7 +84,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mt-1">
+						<div class="row mt-2">
 							<div class="col-lg-4 mb-4 flex-column" *ngFor="let item of items; let i = index" class="{{'image-grid-container ' + filterClass(item) }}">
 								<input type="checkbox" [(ngModel)]="item.isChecked" [hidden]="!isMultiSelect" />
 								<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect" (click)="item.isChecked = !item.isChecked"></label>
@@ -100,7 +103,7 @@
 						  </div>
 					</div>
 					<!-- no records -->
-					<div class="text-danger text-center small" *ngIf="!isLoading && items && items.length < 1">
+					<div class="text-danger text-center small" *ngIf="!activeCallsCount && items && items.length < 1">
 					  <strong>No records found</strong>
 					</div>
 					<!-- no records -->
@@ -116,11 +119,11 @@
 		<div class="modal-content">
 			<div class="modal-header border-0">
 				<h5 class="modal-title">Upload Images</h5>
-				<button type="button" class="close" aria-label="Close" (click)="closeEditTags()">
+				<button type="button" class="close" aria-label="Close" (click)="hideModal()">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<app-s3-multi-image-upload [untaggedValue]="untaggedValue" [tagOptions]="tagOptions" (ImageUploadSuccessEvent)="ImageUploadSuccess($event)">
+			<app-s3-multi-image-upload [untaggedValue]="untaggedValue" [tagOptions]="tagOptions" (ImageUploadSuccessEvent)="ImageUploadSuccess($event)" [selectedVersion]="selectedVersion">
 			</app-s3-multi-image-upload>
 		</div>
 	</div>
@@ -135,7 +138,7 @@
                     <div class="ml-1 pl-1">Edit Tags</div>
                 </div>
             </h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeEditTags()">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideModal()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -159,6 +162,60 @@
                 <div class="pl-1">Cancel</div>
             </button>
             <button type="button" class="btn btn-primary d-flex align-items-center px-3" (click)="saveTags()">
+                <div class="pl-1">Save</div>
+            </button>
+        </div>
+	</div>
+</ng-template>
+
+<ng-template #updateVersion>
+	<div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">
+                <div class="d-flex align-items-center">
+                    <div class="os-icon os-icon-tag"></div>
+                    <div class="ml-1 pl-1">Update Version</div>
+                </div>
+            </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+			<div class="alert alert-danger" role="alert" *ngIf="versionUpdateForm.errorMsg">
+				{{versionUpdateForm.errorMsg}}
+			</div>
+            <div class="form-row">
+				<div class="form-group col-sm-12">
+					<label class="form-control-label">
+						Action
+					</label>
+					<select class="form-control" [(ngModel)]="versionUpdateForm.action">
+						<option value="move">Move To</option>
+						<option value="copy" *ngIf="versionComponent.selectedVersion?.id">Copy To</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<label class="form-control-label">
+						Version
+					</label>
+					<select class="form-control" [(ngModel)]="versionUpdateForm.targetVersionId">
+						<option value="" selected>Unversioned</option>
+						<option *ngFor="let otherVersion of otherVersions" [value]="otherVersion.id">
+							{{otherVersion.versionName}}
+						</option>
+					</select>
+				</div>
+			</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary d-flex align-items-center px-3" data-dismiss="modal"
+                aria-label="Close" (click)="hideModal()">
+                <div class="pl-1">Cancel</div>
+            </button>
+            <button type="button" class="btn btn-primary d-flex align-items-center px-3" (click)="updateVersionSubmit()">
                 <div class="pl-1">Save</div>
             </button>
         </div>
