@@ -79,7 +79,12 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         Cost: [''],
         Status: [''],
         IsSendMail:[false],
-        SquareFootage : ['']
+        SquareFootage : [''],
+        Beds : [''],
+        Baths : [''],
+        Garage : [''],
+        GarageType : ['']
+
       });
       this.formData();
     }
@@ -96,8 +101,17 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.project.cost);
     (this.projectForm.controls.Status as FormControl)
       .setValue(this.project.status);
-      (this.projectForm.controls.SquareFootage as FormControl)
+    (this.projectForm.controls.SquareFootage as FormControl)
       .setValue(this.project.squareFootage);
+      debugger;
+    (this.projectForm.controls.Beds as FormControl)
+      .setValue(this.project.beds==null ? "" : this.project.beds);
+      (this.projectForm.controls.Baths as FormControl)
+      .setValue(this.project.baths==null? "" : this.project.baths);
+      (this.projectForm.controls.Garage as FormControl)
+      .setValue(this.project.garage == null ? "" : this.project.garage);
+      (this.projectForm.controls.GarageType as FormControl)
+      .setValue(this.project.garageType==null? "" : this.project.garageType);
     this.prepareMemberData();
 
   }

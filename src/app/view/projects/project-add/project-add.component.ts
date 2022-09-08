@@ -59,7 +59,12 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       Status: [''],
       IsSendMail:[false],
       ProjectTypeIds : [''],
-      SquareFootage : ['']
+      SquareFootage : [''],
+      Beds : [''],
+      Baths : [''],
+      Garage : [''],
+      GarageType : ['']
+
     });
     
     this.getClients();
