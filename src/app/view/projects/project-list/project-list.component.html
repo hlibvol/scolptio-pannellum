@@ -135,8 +135,7 @@
             <th appPermission module="Projects.Designers" action="view" default-display-style-xs="block" default-display-style="table-cell">Designers</th>
             <!-- <th>Team Name</th> -->
             <th appPermission module="Projects.Cost" action="view" default-display-style-xs="block" default-display-style="table-cell">Cost</th>
-            <th>Start Date</th>
-            <th>Dead Line</th>
+            <th>Due In</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -164,14 +163,9 @@
                 <span class="pl-1">{{project.cost | currency }}</span>
               </div>
             </td>
-            <td data-label="Start date">
+            <td data-label="Due In">
               <div class="responsive-td">
-                <span class="pl-1">{{project.startDate | date : 'MM-dd-yyyy' }}</span>
-              </div>
-            </td>
-            <td data-label="Deadline">
-              <div class="responsive-td">
-                <span class="pl-1">{{project.deadline | date : 'MM-dd-yyyy'}}</span>
+                <span class="pl-1">{{project | dueIn}}</span>
               </div>
             </td>
             <td data-label="Status">

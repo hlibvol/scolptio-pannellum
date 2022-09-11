@@ -32,6 +32,7 @@ import { QuillModule } from 'ngx-quill';
 import { VideosComponent } from './project-overview/videos/videos.component';
 import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-video-upload/s3-multi-video-upload.component';
 import { VersionComponent } from './version/version.component';
+import { DueInPipe } from 'src/app/shared/pipes/due-in.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { VersionComponent } from './version/version.component';
     NotesComponent,
     VideosComponent,
     S3MultiVideoUploadComponent,
-    VersionComponent
+    VersionComponent,
+    DueInPipe
   ],
   imports: [
     CommonModule,
@@ -75,6 +77,6 @@ import { VersionComponent } from './version/version.component';
     NgSelectModule,
     QuillModule.forRoot()
   ],
-    providers: [BsModalService, UserService]
+    providers: [BsModalService, UserService, DueInPipe]
 })
 export class ProjectModule { }
