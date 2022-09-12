@@ -29,6 +29,7 @@ export class ProjectListComponent implements OnInit {
   visibleFilter = false;
   currentUser: AppUser;
   searchStatuses: NgOption[] = [];
+  searchTypes: NgOption[] = []
   defaultDisplayStyle: string = 'table-cell'
   readonly statusList: NgOption[] = [
     {
@@ -56,7 +57,32 @@ export class ProjectListComponent implements OnInit {
       value: 'Construction Plans'
     }
   ]
-
+  readonly typeList: NgOption[] = [ // TO-DO: Refactor - create a single type for this
+    { 
+      value: '0',
+      label: 'Architectural Drawings'
+    },
+    { 
+      value: '1',
+      label: 'Interior 3D Design'
+    },
+    { 
+      value: '2',
+      label: 'Exterior 3D Design'
+    },
+    { 
+      value: '3',
+      label: 'Pool - 2D layout'
+    },
+    { 
+      value: '4',
+      label: 'Pool - 3D rendering'
+    },
+    { 
+      value: '5',
+      label: 'Pool - Architectural Drawings'
+    }
+  ] 
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -80,7 +106,9 @@ export class ProjectListComponent implements OnInit {
         this.visibleFilter = true;
       else
         this.visibleFilter = false;
-      let response: any = await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, this.searchStatuses.map(x => x.value as string), this.currentUser.TeamId).toPromise();
+      const searchStatuses = this.searchStatuses.map(x => x.value as string);
+      const searchTypes = this.searchTypes.map(x => x.value as string);
+      let response: any = await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, searchStatuses, this.currentUser.TeamId, searchTypes).toPromise();
       this.projectList = response.data;
       this.total = response.count;
     }

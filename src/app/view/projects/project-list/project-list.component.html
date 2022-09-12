@@ -93,8 +93,13 @@
                           <!-- search -->
                           <ng-select [(ngModel)]="searchStatuses" [items]="statusList" [multiple]="true"
                             [closeOnSelect]="false">
+                          <div class="small mb-1">Project Types</div>
+                          </ng-select>
+                          <ng-select [(ngModel)]="searchTypes" [items]="typeList" [multiple]="true"
+                            [closeOnSelect]="false">
 
                           </ng-select>
+                          
                           <!-- End search -->
                         </div>
                       </div>
