@@ -287,4 +287,13 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   removeImage() {
     this.imageData = null;
   }
+  public onReturnData(data: any) {
+    const croppedImage = JSON.parse(data);
+    this.imageProp = {
+      image: croppedImage.image,
+      imageName: croppedImage.filename
+    };
+    this.imageData = croppedImage.image;
+  }
+
 }

@@ -33,7 +33,6 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   incomeAmount: string;
   incomeType: string;
   isSaving = false;
-  websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
   clientList:any=[];
   DesignerList:any=[];
@@ -68,8 +67,8 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       GarageType : [''],
       Floors : [''],
       HeatedSquareFootage : [''],
-      FrontPatio : [''],
-      Deck : ['']
+      FrontPatio : ['false'],
+      Deck : ['false']
     });
     
     this.getClients();
@@ -131,7 +130,6 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
     }
 
     this.isSaving = true;
-    model.Logo = this.websiteLogoImage;
     model.DesignerIds = DesignerIds;
     model.ProjectTypeIds = projectTypeIds;
     model.FeaturedImage = this.imageData;
@@ -173,11 +171,11 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       image: croppedImage.image,
       imageName: croppedImage.filename
     };
-    this.websiteLogoImage = croppedImage.image;
+    this.imageData = croppedImage.image;
   }
 
   removeWebsiteLogo() {
-    this.websiteLogoImage = "../../../assets/img/weblogo.png"
+    this.imageData = null;
   }
 
   initAutocomplete() {
@@ -284,5 +282,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   removeImage() {
     this.imageData = null;
   }
+
+  
 
 }
