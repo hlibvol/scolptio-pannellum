@@ -45,7 +45,13 @@
 				</div>
 				<div class="property-section-body" style="padding-top: 10px;padding-bottom: 20px;" [hidden]="activeCallsCount">
 					<div class="property-details">	
-						<app-version [projectId]="projectId" [documentType]="documentType"></app-version>		
+						<app-version 
+							[projectId]="projectId"
+							[documentType]="documentType"
+							(error)="versionError($event)"
+							(versionDeleted)="versionDeleted($event)"
+							(loadStateChange)="loadStateChange($event)"
+						></app-version>		
 						<div class="row mt-2">
 							<div class="col-sm-12 d-flex">
 								<span class="mr-4">Tag Filters</span>
@@ -115,7 +121,7 @@
 <!-- Multi image upload Modal -->
 <div class="modal fade" id="uploadMultiImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
 	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="images">
+	<div class="modal-dialog modal-lg" role="images">
 		<div class="modal-content">
 			<div class="modal-header border-0">
 				<h5 class="modal-title">Upload Images</h5>
@@ -202,7 +208,6 @@
 						Version
 					</label>
 					<select class="form-control" [(ngModel)]="versionUpdateForm.targetVersionId">
-						<option value="" selected>Unversioned</option>
 						<option *ngFor="let otherVersion of otherVersions" [value]="otherVersion.id">
 							{{otherVersion.versionName}}
 						</option>

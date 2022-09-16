@@ -10,7 +10,10 @@ declare var $: any;
 @Component({
   selector: 'app-s3-multi-image-upload',
   templateUrl: './multi-image-upload.component.html',
-  styleUrls: ['./multi-image-upload.component.scss']
+  styleUrls: [
+    './multi-image-upload.component.scss',
+    '../../../../assets/css/app.css'
+  ]
 })
 export class MultiImageUploadComponent implements OnInit {
   @ViewChild('myS3MultiImageInput') myS3MultiImageInput: ElementRef;
@@ -101,5 +104,7 @@ export class MultiImageUploadComponent implements OnInit {
       this.isSaving--;
     }
   }
-
+  replicateTags(img: ProjectS3ImageItem){
+    this.imageFiles.map(x => x.tags = img.tags);
+  }
 }

@@ -17,11 +17,11 @@ export class VersionComponent implements OnInit {
   @Input()
   documentType: string = '';
   @Output()
-  versionsUpdated: EventEmitter<void> = new EventEmitter();
+  versionDeleted: EventEmitter<string> = new EventEmitter();
   @Output()
   loadStateChange: EventEmitter<boolean> = new EventEmitter();
   @Output()
-  error: EventEmitter<Error> = new EventEmitter()
+  error: EventEmitter<Error | string> = new EventEmitter()
   versions: Version[] = [];
   selectedVersion: Version = new Version;
   versionForm: VersionForm = new VersionForm;
@@ -37,8 +37,12 @@ export class VersionComponent implements OnInit {
     this.loadStateChange.emit(true)
     try{
       this.versions = await this.versionService.getVersions(this.projectId, this.documentType).toPromise();
-      this.versionsUpdated.emit();
-      this.selectedVersion = Object.assign({}, this.versions[2]);
+      this.versions.push({
+        id: '',
+        versionName: 'Unversioned'
+      } as Version);
+      if(this.versions?.length)
+        this.selectedVersion = Object.assign({}, this.versions[0]);
     }
     catch(err){
       this.error.emit(err);
@@ -63,15 +67,15 @@ export class VersionComponent implements OnInit {
     this.loadStateChange.emit(true)
     try{
       if(!this.versionForm.id){
-        this.selectedVersion = await this.versionService.create(this.projectId, this.documentType, this.versionForm.versionName).toPromise();
-        this.versions.push(this.selectedVersion)
+        const newVersion = await this.versionService.create(this.projectId, this.documentType, this.versionForm.versionName).toPromise();
+        this.selectedVersion = Object.assign({}, newVersion)
+        this.versions.unshift(newVersion)
       }
       else{
         await this.versionService.update(this.versionForm).toPromise();
         this.versions.find(v => v.id === this.versionForm.id).versionName = this.versionForm.versionName
         this.selectedVersion.versionName = this.versionForm.versionName;
       }
-      this.versionsUpdated.emit();
       this.modalRef.hide();
     }
     catch(err){
@@ -84,9 +88,15 @@ export class VersionComponent implements OnInit {
   async delete(){
     this.loadStateChange.emit(true)
     try{
-      await this.versionService.delete(this.versionForm.id).toPromise();
-      this.versions = this.versions.filter(x => x.id !== this.versionForm.id);
-      this.versionsUpdated.emit();
+      if(!this.selectedVersion.id){
+        this.error.emit('Unable to delete this version');
+        return;
+      }
+      await this.versionService.delete(this.selectedVersion.id).toPromise();
+      this.versions = this.versions.filter(x => x.id !== this.selectedVersion.id);
+      this.versionDeleted.emit(this.selectedVersion.id);
+      this.selectedVersion = Object.assign({}, this.versions[0]);
+      this.modalRef.hide()
     }
     catch(err){
       this.error.emit(err);

@@ -5,7 +5,6 @@
                 <span class="input-group-text">Version</span>
             </div>
             <select class="form-control" [(ngModel)]="selectedVersion.id">
-                <option value="">Unversioned</option>
                 <option *ngFor="let version of versions" [value]="version.id">
                     {{version.versionName}}
                 </option>

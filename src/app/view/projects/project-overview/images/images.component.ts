@@ -33,7 +33,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   @Input() module:any;
   items: ProjectS3ImageItem[] = [];
   @ViewChild(VersionComponent)
-  private versionComponent!: VersionComponent;
+  versionComponent!: VersionComponent;
   isMultiSelect = false;
   currentUser: AppUser;
   isHide: boolean = true;
@@ -210,18 +210,10 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
   filterClass(item: ProjectS3GalleryItem): string{
     let tagFilter = false;
-    if(!item.tags.length){
+    if(!item.tags.length)
       tagFilter = (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue));
-    }
-      
-    else{
-      console.group('tags')
-      console.log('item', item.tags)
-      console.log('selected', this.selectedTags)
-      console.groupEnd()
+    else
       tagFilter = this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string));
-    }
-      
     let versionFilter = false;
     if(!item.versions?.length)
       versionFilter = !this.versionComponent?.selectedVersion?.id
@@ -294,5 +286,32 @@ export class ImagesComponent implements OnInit, OnChanges {
     await this.UpdateProjectResource();
     this.setAllSelected(false);
     this.isMultiSelect = false;
+  }
+  versionError(ev: Error | string){
+    if(typeof ev === 'string')
+      this.toastr.error(ev)
+    else
+      this.toastr.error(common_error_message)
+  }
+  async versionDeleted(id: string): Promise<void> {
+    let copy: ProjectS3ImageItem[] = [];
+    for(let item of this.items){
+      if(!item.versions?.length)
+        copy.push(item)
+      else if(item.versions.length === 1 && item.versions[0].id === id) 
+        continue;
+      else {
+        item.versions = item.versions.filter(x => x.id !== id)
+        copy.push(item)
+      }
+    }
+    this.items = copy;
+    await this.UpdateProjectResource();
+  }
+  loadStateChange(isLoading: boolean): void {
+    if(isLoading)
+      this.activeCallsCount++;
+    else
+      this.activeCallsCount--;
   }
 }
