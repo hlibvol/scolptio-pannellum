@@ -15,16 +15,15 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
     this.broadcaster.on<any>('onLogin').subscribe(
       
       path => { 
-        console.log('[Breadcrumb] Received breadcrumb: ', path); 
         this.breadcumbs = path;
         this._overwrite = false;
       }
-    );
-    console.log('[Breadcrumb] listening')
+    )
     
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Show progress spinner or progress bar
+        this._overwrite = true;
         this.getCurrentLocation(event.url,0);
       }
     })
@@ -46,7 +45,6 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
     if(!this._overwrite && this.breadcumbs) {
       return;
     }
-    console.log('[Breadcrumb] Generating breadcrumb')
     this.breadcumbs = [];
     if (url == "/") {
       this.breadcumbs.push({"pathname": "Dashboard", "url": window.location.origin + '/'});

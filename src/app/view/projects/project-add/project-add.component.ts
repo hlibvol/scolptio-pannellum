@@ -53,7 +53,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
   ngOnChanges(): void {
-    if(!this.projectForm.controls)
+    if(!this.projectForm?.controls)
       return;
     (this.projectForm.controls.hasInventory as FormControl)
       .setValue(this.projectsViewMode === 'inventory-mode');
