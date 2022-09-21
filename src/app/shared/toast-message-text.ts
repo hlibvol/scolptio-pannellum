@@ -116,6 +116,11 @@ export const project_delete = {
     delete_project_error: 'Something went wrong, could not delete project.'
 }
 
+export const inventory_delete = {
+    delete_success: success_icon + 'Deleted from inventory',
+    delete_error: 'Something went wrong, could not from inventory.'
+}
+
 export const expenditure_add = {
     add_expenditure_success: success_icon + 'Expenditure added successfully.',
     add_expenditure_error: 'Something went wrong, could not add expenditure.'

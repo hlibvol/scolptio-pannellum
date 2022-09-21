@@ -10,11 +10,17 @@ import { BroadcasterService } from 'ng-broadcaster';
 export class BreadcumbComponent implements OnInit,AfterContentInit {
 
   breadcumbs: any;
-
+  private _overwrite: boolean = true;
   constructor(private route: ActivatedRoute, private router: Router,private broadcaster: BroadcasterService) { 
     this.broadcaster.on<any>('onLogin').subscribe(
-      path => { this.breadcumbs = path; }
+      
+      path => { 
+        console.log('[Breadcrumb] Received breadcrumb: ', path); 
+        this.breadcumbs = path;
+        this._overwrite = false;
+      }
     );
+    console.log('[Breadcrumb] listening')
     
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -25,6 +31,9 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
   }
 
   ngOnInit(): void {
+    if(!this._overwrite && this.breadcumbs) {
+      return;
+    }
     this.breadcumbs = [];
   }
   
@@ -33,6 +42,11 @@ export class BreadcumbComponent implements OnInit,AfterContentInit {
   }
 
   getCurrentLocation(url,indexStart) {
+    
+    if(!this._overwrite && this.breadcumbs) {
+      return;
+    }
+    console.log('[Breadcrumb] Generating breadcrumb')
     this.breadcumbs = [];
     if (url == "/") {
       this.breadcumbs.push({"pathname": "Dashboard", "url": window.location.origin + '/'});

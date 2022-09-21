@@ -1,0 +1,52 @@
+<div class="p-3">
+	<div class="p-3 bg-white border-primary-light rounded-xl-top">
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h5 class="m-0">Inventory</h5>
+			<div appPermission module="Projects" action="create" class="d-flex align-items-center">
+				<button type="button" class="btn-orange d-flex align-items-center py-3" data-toggle="modal"
+					data-target="#addproject">
+					<div class="icon icon-control_point"></div>
+					<div class="pl-1">Add Item</div>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-12 text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+			<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+		</div>
+		<div *ngIf="!isLoading">
+			<div class="col-sm-12 inventory-items-container">
+				<div class="card-deck">
+					<div class="card inventory-item mb-3" *ngFor="let item of inventoryItems">
+						<img src="{{item.featuredImage || '../../../assets/img/no-property.jpg'}}" class="card-img-top" alt="Image unavailable">
+						<div class="card-body">
+							<h6 class="card-title">{{item.projectName}}</h6>
+							<div class="d-flex justify-content-between">
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Beds</div>
+									<div class="card-text text-muted">{{item.beds}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Baths</div>
+									<div class="card-text text-muted">{{item.baths}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Floors</div>
+									<div class="card-text text-muted">{{item.floors}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Sq.Ft.</div>
+									<div class="card-text text-muted">{{item.squareFootage}}</div>
+								</div>
+							</div>
+              				<a href="javascript:void(0);" class="card-link" (click)="detailsClicked(item)">Details</a>
+							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
+								data-target="#editproject">Edit</a>
+							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
+								data-target="#deleteproject">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

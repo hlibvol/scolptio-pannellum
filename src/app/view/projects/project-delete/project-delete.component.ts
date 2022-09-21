@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { project_delete } from 'src/app/shared/toast-message-text';
+import { ProjectsViewMode } from 'src/app/shared/router-interaction-types';
+import { project_delete, inventory_delete } from 'src/app/shared/toast-message-text';
 import { ProjectService } from '../project.service';
 declare var $: any;
 @Component({
@@ -8,10 +9,10 @@ declare var $: any;
   templateUrl: './project-delete.component.html',
   styleUrls: ['./project-delete.component.scss']
 })
-export class ProjectDeleteComponent implements OnInit {
+export class ProjectDeleteComponent {
 
   @Input() project:any;
-
+  @Input() projectsViewMode:ProjectsViewMode = 'project-mode';
   @Output() deleteSuccessEvent = new EventEmitter<string>();
 
   errorMsg: string;
@@ -22,23 +23,20 @@ export class ProjectDeleteComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
-
   delete() {
     this.hasError = false;
-    this._projectService.DeleteProject(this.project.id).subscribe((data: any) => {
+    this._projectService.DeleteProject(this.project.id, this.projectsViewMode === 'inventory-mode').subscribe((data: any) => {
       if (data === false) {
         this.hasError = true;
       } else {
         this.hasError = false;
         this.deleteSuccessEvent.emit("value");
-        this.toastr.info(project_delete.delete_project_success);
+        this.toastr.info(this.projectsViewMode === 'inventory-mode' ? inventory_delete.delete_success : project_delete.delete_project_success);
         $('#deleteproject').modal('toggle');
       }
     }, (error) => {
       this.errorMsg = error;
-      this.toastr.error(project_delete.delete_project_error);
+      this.toastr.error(this.projectsViewMode === 'inventory-mode' ? inventory_delete.delete_error : project_delete.delete_project_error);
       this.hasError = false;
     })
   }

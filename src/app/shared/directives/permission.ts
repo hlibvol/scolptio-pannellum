@@ -1732,6 +1732,24 @@ export const permission : PermissionObj = {
             "action": "view",
             "show": false,
             "role": "designer"
+        },
+        {
+            "module": "Projects.Inventory",
+            "action": "view",
+            "show": false,
+            "role": "designer"
+        },
+        {
+            "module": "Projects.Inventory",
+            "action": "view",
+            "show": false,
+            "role": "client"
+        },
+        {
+            "module": "Projects.Inventory",
+            "action": "view",
+            "show": true,
+            "role": "admin"
         }
     ]
 }
