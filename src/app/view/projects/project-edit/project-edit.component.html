@@ -59,6 +59,9 @@
                 <div class="form-group col-12"><label for="">Square Footage</label>
                     <input formControlName="SquareFootage" class="form-control" placeholder="Enter Square Footage" type="text">
                 </div>
+                <div class="form-group col-12"><label for="">Heated Square Footage</label>
+                    <input formControlName="HeatedSquareFootage" class="form-control" placeholder="Enter Heated Square Footage" type="text">
+                </div>
                 <div class="form-group col-12"><label for="">Status</label>
                     <select class="form-control" formControlName="Status">
                         <option *ngFor="let status of statusList" [value]="status.value">
@@ -88,6 +91,125 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Beds &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Beds" name="Beds" id="Beds">
+                            <option value="">Select Beds</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+                            <option [value]="6">6</option>
+                            <option [value]="7">7</option>
+                            <option [value]="8">8</option>
+                            <option [value]="9">9</option>
+                            <option [value]="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Baths &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Baths" name="Baths" id="Baths">
+                            <option value="">Select Baths</option>
+                            <option [value]="1">1</option>
+                            <option [value]="1.5">1.5</option>
+                            <option [value]="2">2</option>
+                            <option [value]="2.5">2.5</option>
+                            <option [value]="3">3</option>
+                            <option [value]="3.5">3.5</option>
+                            <option [value]="4">4</option>
+                            <option [value]="4.5">4.5</option>
+                            <option [value]="5">5</option>
+                            <option [value]="5.5">5.5</option>
+                            <option [value]="6">6</option>
+                            <option [value]="6.5">6.5</option>
+                            <option [value]="7">7</option>
+                            <option [value]="7.5">7.5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Floor &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Floors" name="Floors" id="Floors">
+                            <option value="">Select Floor</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Garage &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Garage" name="Garage" id="Garage">
+                            <option value="">Select Garage</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+                            <option [value]="6">6</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Garage Type &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="GarageType" name="GarageType" id="GarageType">
+                            <option value="">Select Garage Type</option>
+                            <option [value]="1">Attached</option>
+                            <option [value]="2">Detached</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for=""> Front Patio &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="FrontPatio" name="FrontPatio" id="FrontPatio">
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">Deck &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Deck" name="Deck" id="Deck">
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1" [fileSize]="300000"
+                    #editcropper></app-ngx-copper>
+                    <label for="">Featured Image</label>
+                    <div class="d-flex align-items-center">
+                      <img *ngIf="!imageData" class="img-fluid" height="100" width="100" src="../../../assets/img/no-property.jpg" alt="avatar"
+                        class="shadow avatar">
+                      <img *ngIf="imageData && imageData.length > 10" height="100" width="100" [src]="imageData" alt="avatar"
+                        class="shadow avatar">
+                        <button type="button"
+                        class="form-control form-control-sm border-0 ml-3" id="my-file"
+                        (click)="editcropper.inputImage.nativeElement.click()"
+                        style="width: auto; background-color: transparent;">Change</button>
+                      <button type="button" class="form-control form-control-sm border-0 ml-3"
+                        style="width: auto; background-color: transparent;" (click)="removeImage()">Remove</button>
+                    </div>
+                    
+                  </div>
             </div>
         </div>
         <div class="modal-footer">

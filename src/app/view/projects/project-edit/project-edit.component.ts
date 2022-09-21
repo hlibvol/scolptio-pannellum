@@ -3,6 +3,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Inpu
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subscriber } from 'rxjs';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
 import { project_edit } from 'src/app/shared/toast-message-text';
@@ -35,6 +36,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   DesignerList: any = [];
   @Input()
   statusList: NgOption[] = [];
+  imageData:any;
   constructor(private userService: UserService, private _clientService: ClientsService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private projectService: ProjectService) {
     this.incomeType = null;
@@ -66,8 +68,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.projectForm){
-    this.projectForm.reset();
+    if (this.projectForm) {
+      this.projectForm.reset();
     }
     if (this.project) {
       this.projectForm = this._formbuilder.group({
@@ -78,8 +80,17 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         Deadline: [formatDate(this.project.deadline, 'yyyy-MM-dd', 'en')],
         Cost: [''],
         Status: [''],
-        IsSendMail:[false],
-        SquareFootage : ['']
+        IsSendMail: [false],
+        SquareFootage: [''],
+        Beds: [''],
+        Baths: [''],
+        Garage: [''],
+        GarageType: [''],
+        Floors: [''],
+        HeatedSquareFootage: [''],
+        FrontPatio: [''],
+        Deck: ['']
+
       });
       this.formData();
     }
@@ -96,8 +107,26 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.project.cost);
     (this.projectForm.controls.Status as FormControl)
       .setValue(this.project.status);
-      (this.projectForm.controls.SquareFootage as FormControl)
+    (this.projectForm.controls.SquareFootage as FormControl)
       .setValue(this.project.squareFootage);
+      (this.projectForm.controls.HeatedSquareFootage as FormControl)
+      .setValue(this.project.heatedSquareFootage);
+    debugger;
+    (this.projectForm.controls.Beds as FormControl)
+      .setValue(this.project.beds == null ? "" : this.project.beds);
+    (this.projectForm.controls.Baths as FormControl)
+      .setValue(this.project.baths == null ? "" : this.project.baths);
+    (this.projectForm.controls.Garage as FormControl)
+      .setValue(this.project.garage == null ? "" : this.project.garage);
+    (this.projectForm.controls.GarageType as FormControl)
+      .setValue(this.project.garageType == null ? "" : this.project.garageType);
+    (this.projectForm.controls.Floors as FormControl)
+      .setValue(this.project.floors == null ? "" : this.project.floors);
+      (this.projectForm.controls.FrontPatio as FormControl)
+      .setValue(this.project.frontPatio);
+      (this.projectForm.controls.Deck as FormControl)
+      .setValue(this.project.deck);
+      this.imageData = this.project.featuredImage;
     this.prepareMemberData();
 
   }
@@ -188,6 +217,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
     this.isSaving = true;
     model.DesignerIds = DesignerIds;
     model.ProjectTypeIds = projectTypeIds;
+    model.FeaturedImage = this.imageData;
     this.projectService.UpdateProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;
@@ -222,4 +252,48 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
 
   onChangeData(val) {
   }
+
+  onChangeImg($event: Event) {
+    this.isSaving = true;
+    const file = ($event.target as HTMLInputElement).files[0];
+    this.convertToBase64(file);
+  }
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    observable.subscribe((data) => {
+      this.imageData = data;
+      this.isSaving = false;
+    });
+  }
+
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      subscriber.next(fileReader.result);
+      subscriber.complete();
+    }
+
+    fileReader.onerror = (error) => {
+      subscriber.error(error);
+      subscriber.complete();
+    }
+    
+  }
+  removeImage() {
+    this.imageData = null;
+  }
+  public onReturnData(data: any) {
+    const croppedImage = JSON.parse(data);
+    this.imageProp = {
+      image: croppedImage.image,
+      imageName: croppedImage.filename
+    };
+    this.imageData = croppedImage.image;
+  }
+
 }
