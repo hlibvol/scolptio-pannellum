@@ -3,7 +3,7 @@
         <h6 class="modal-title">
             <div class="d-flex align-items-center">
                 <div class="icon icon-control_point"></div>
-                <div class="pl-1">Add new project</div>
+                <div class="pl-1">{{labels.header}}</div>
             </div>
         </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(projectForm)">
@@ -15,11 +15,11 @@
         <div class="modal-body">
 
             <div class="form-row col-12">
-                <div class="form-group col-12"><label for="">Project Name</label>
-                    <input formControlName="ProjectName" class="form-control" placeholder="Enter project name"
+                <div class="form-group col-12"><label for="">{{labels.name}}</label>
+                    <input formControlName="ProjectName" class="form-control" placeholder="Enter {{labels.name}}"
                         type="text">
                     <div class="text-danger" *ngIf="HasValidationError('ProjectName','required')">
-                        <ng-container>Project Name is required</ng-container>
+                        <ng-container>{{labels.name}} is required</ng-container>
                     </div>
                 </div>
                 <div class="form-group col-12"><label for="">Client</label>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label for=""> Project Type &nbsp;&nbsp;</label>
+                        <label for=""> {{labels.type}} &nbsp;&nbsp;</label>
                         <select class="form-control select2" multiple="true"
                             name="ProjectType" name="ProjectType" id="ProjectType">
                             <option [value]="0">Architectural Drawings</option>
@@ -211,10 +211,20 @@
                     </div>
                     <!-- <input type="file" name="user-image-upload" accept="image/*" (change)="onChangeImg($event)"
                       id="userUpload" class="form-control d-none" placeholder="" required> -->
-                  </div>
-
+                </div>
+                <label for="">Inventory</label>
+                <div class="col-sm-12">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hasInventory">
+                        <label class="form-check-label">
+                            {{labels.hasInventory}}
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" formControlName="isInventory"/>
             </div>
         </div>
+        
         <div class="modal-footer">
             <button type="submit" class="btn btn-orange d-flex align-items-center px-3"
                 [ngStyle]="{'cursor': ( isSaving) ? 'not-allowed' : 'pointer' }" [disabled]="isSaving">

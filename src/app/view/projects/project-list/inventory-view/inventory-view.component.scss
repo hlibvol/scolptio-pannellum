@@ -1,0 +1,10 @@
+.inventory-items-container{
+    .card{
+        @media(min-width: 768px){
+            &.inventory-item{
+                min-width: 320px;
+                max-width: 480px;
+            }
+        }
+    }
+}

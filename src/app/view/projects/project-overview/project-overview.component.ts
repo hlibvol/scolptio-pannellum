@@ -1,4 +1,4 @@
-import { Component,  HostListener,  OnInit } from '@angular/core';
+import { Component,  HostListener,  Input,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BroadcasterService } from 'ng-broadcaster';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { AppSessionStorageService } from 'src/app/shared/session-storage.service
 import { AppUser } from '../../auth-register/auth-register.model';
 import { ProjectService } from '../project.service';
 import { permission } from 'src/app/shared/directives/permission';
+import { allViewModes, ProjectsViewMode } from 'src/app/shared/router-interaction-types';
 
 @Component({
   selector: 'app-project-overview',
@@ -34,12 +35,16 @@ export class ProjectOverviewComponent implements OnInit {
     "3DModelViewer",
     "Source Files"
   ]
+  projectsViewMode:ProjectsViewMode = allViewModes[0];
   constructor(private projectService: ProjectService, private broadcaster: BroadcasterService,private activatedRoute: ActivatedRoute, private toastr: ToastrService,private appSessionStorageService: AppSessionStorageService,) { 
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       let item = permission.permission.find(x => x.show && x.role === this.currentUser.Role.toLocaleLowerCase() && this.moduleList.includes(x.module) && this.sectionList.includes(x.action))
       this.showSection(item.action, item.module, 0)
     }
+    this.activatedRoute.params.subscribe((param) => {
+      this.projectsViewMode = param['projectsViewMode'] || this.projectsViewMode;
+    })
   }
 
   ngOnInit(): void {

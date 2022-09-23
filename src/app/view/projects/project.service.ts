@@ -18,14 +18,15 @@ export class ProjectService extends BaseService {
     super(_injector);
   }
 
-  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, searchStatuses: string[],teamId:any, searchTypes: string[] = []): any => {
+  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, searchStatuses: string[],teamId:any, searchTypes: string[] = [], isInventoryMode:boolean = false): any => {
     const requestBody = {
       searchKey,
       pageNumber,
       pageSize,
       searchStatuses,
       teamId,
-      searchTypes
+      searchTypes,
+      isInventoryMode
     };
     return this.post('Project/GetAll', requestBody).pipe(
       catchError(this.handleError)
@@ -52,9 +53,10 @@ export class ProjectService extends BaseService {
     );
   };
 
-  public DeleteProject = (id: any): any => {
+  public DeleteProject = (id: string, inventoryMode: boolean = false): any => {
     const requestBody = {
       Id: id,
+      inventoryMode
     };
     return this.post('Project/Delete', requestBody).pipe(
       catchError(this.handleError)

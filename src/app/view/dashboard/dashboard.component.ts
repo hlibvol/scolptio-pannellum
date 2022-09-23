@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
-import { AddNewClient, AddNewProject } from '../../shared/router-interaction-constants';
+import { RouterAction } from '../../shared/router-interaction-types';
 import { AppUser } from '../auth-register/auth-register.model';
 import { DashboardService } from '../dashboards/dashboard.service';
 import { Dashboard } from './dashboard.model';
@@ -14,9 +14,12 @@ import { Dashboard } from './dashboard.model';
 })
 export class DashboardComponent implements OnInit {
   dashboard: Dashboard;
-  public readonly actions = {
-    AddNewProject,
-    AddNewClient
+  public readonly actions: {
+    AddNewProject: RouterAction,
+    AddNewClient: RouterAction
+  } = {
+    AddNewProject: 'add-new-project',
+    AddNewClient: 'add-new-client'
   }
   currentUser: AppUser;
   isHide: boolean = false;

@@ -32,6 +32,8 @@ import { QuillModule } from 'ngx-quill';
 import { VideosComponent } from './project-overview/videos/videos.component';
 import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-video-upload/s3-multi-video-upload.component';
 import { VersionComponent } from './version/version.component';
+import { ProjectsViewComponent } from './project-list/projects-view/projects-view.component';
+import { InventoryViewComponent } from './project-list/inventory-view/inventory-view.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { VersionComponent } from './version/version.component';
     NotesComponent,
     VideosComponent,
     S3MultiVideoUploadComponent,
-    VersionComponent
+    VersionComponent,
+    ProjectsViewComponent,
+    InventoryViewComponent
   ],
   imports: [
     CommonModule,
@@ -66,8 +70,21 @@ import { VersionComponent } from './version/version.component';
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'project-list', component: ProjectListComponent },
-      { path: 'project-overview/:id', component: ProjectOverviewComponent },
+      { 
+        path: 'project-list',
+        component: ProjectListComponent,
+        children: [
+          {
+            path: 'project-mode',
+            component: ProjectsViewComponent
+          },
+          {
+            path: 'inventory-mode',
+            component: InventoryViewComponent
+          }
+        ]
+      },
+      { path: 'project-overview/:id/:projectsViewMode', component: ProjectOverviewComponent },
       { path: 'tags', component: TagListComponent },
       { path: 'project-questionnaire/prepare/:id', component: PrepareQuestionnaireComponent },
       { path: 'project-questionnaire/fill/:id', component: FillQuestionnaireComponent },

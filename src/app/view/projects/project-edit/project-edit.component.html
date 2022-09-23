@@ -209,7 +209,17 @@
                         style="width: auto; background-color: transparent;" (click)="removeImage()">Remove</button>
                     </div>
                     
-                  </div>
+                </div>
+                <label for="" class="form-control-label inventory-control-{{project.hasInventory}}">Inventory</label>
+                <div class="col-sm-12 inventory-control-{{project.hasInventory}}">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hasInventory">
+                        <label class="form-check-label">
+                            {{labels.hasInventory}}
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" formControlName="isInventory"/>
             </div>
         </div>
         <div class="modal-footer">

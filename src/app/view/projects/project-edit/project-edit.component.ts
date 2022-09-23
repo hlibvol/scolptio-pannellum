@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscriber } from 'rxjs';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
+import { statusList } from 'src/app/shared/project-status.list';
+import { ProjectsViewMode } from 'src/app/shared/router-interaction-types';
 import { project_edit } from 'src/app/shared/toast-message-text';
 import { ClientsService } from '../../clients/clients.service';
 import { UserService } from '../../users/user.service';
@@ -34,9 +36,10 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   imageProp: any;
   clientList: any = [];
   DesignerList: any = [];
-  @Input()
-  statusList: NgOption[] = [];
+  readonly statusList: NgOption[] = statusList;
   imageData:any;
+  @Input()
+  projectsViewMode:ProjectsViewMode = 'project-mode';
   constructor(private userService: UserService, private _clientService: ClientsService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private projectService: ProjectService) {
     this.incomeType = null;
@@ -89,8 +92,9 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         Floors: [''],
         HeatedSquareFootage: [''],
         FrontPatio: [''],
-        Deck: ['']
-
+        Deck: [''],
+        hasInventory: [this.projectsViewMode === 'inventory-mode'],
+        isInventory: [this.projectsViewMode === 'inventory-mode']
       });
       this.formData();
     }
@@ -127,6 +131,10 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       (this.projectForm.controls.Deck as FormControl)
       .setValue(this.project.deck);
       this.imageData = this.project.featuredImage;
+    (this.projectForm.controls.hasInventory as FormControl)
+      .setValue(this.project.hasInventory);
+    (this.projectForm.controls.isInventory as FormControl)
+      .setValue(this.project.isInventory);
     this.prepareMemberData();
 
   }
@@ -218,6 +226,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
     model.DesignerIds = DesignerIds;
     model.ProjectTypeIds = projectTypeIds;
     model.FeaturedImage = this.imageData;
+    if(model.hasInventory)
+      model.isInventory = true;
     this.projectService.UpdateProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;
@@ -296,4 +306,18 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
     this.imageData = croppedImage.image;
   }
 
+  public get labels() {
+    if(this.projectsViewMode === 'project-mode') return {
+      header: 'Edit Project',
+      name: 'Project Name',
+      type: 'Project Type',
+      hasInventory: 'Added to Inventory'
+    }
+    else return {
+      header: 'Edit Inventory Item',
+      name: 'Name',
+      type: 'Type',
+      hasInventory: 'Added to Projects'
+    }
+  }
 }
