@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
@@ -20,6 +21,17 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
   inventoryItems: any[] = [];
   currentUser: AppUser;
   listUpdatedSubscription: Subscription;
+  showFilters: boolean = true
+  yesNo: NgOption[] = [
+    {
+      label: 'Yes',
+      value: "Yes"
+    },
+    {
+      label: 'No',
+      value: "No"
+    },
+]
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,

@@ -1,10 +1,37 @@
-.inventory-items-container{
-    .card{
-        @media(min-width: 768px){
+.row{
+    &.filter-row{
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+}
+@media(min-width: 768px){
+    .row{
+        &.filter-row{
+            display: none;
+        }
+    }
+    .inventory-items-container{
+        .card{
             &.inventory-item{
                 min-width: 320px;
                 max-width: 480px;
             }
         }
     }
+    .filter-form{
+        .form-control-label{
+            font-size: 1rem;
+            &.numeric-filter-label{
+                margin-bottom: 0.7rem;
+            }
+            &.multiselect-filter-label{
+                margin-bottom: 0rem;
+            }
+        }
+        .search-submit{
+            width: auto;
+        }
+    }
 }
+
+
