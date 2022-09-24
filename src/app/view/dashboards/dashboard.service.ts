@@ -26,9 +26,9 @@ export class DashboardService extends BaseService {
     return throwError(errorMessage);
   }
 
-  public GetDashboardDetails = (): Observable<Dashboard> => {
+  public GetDashboardDetails = (model:any): Observable<Dashboard> => {
     const requestURL = 'Dashboard/GetDashboardDetails';
-    return this.get<Dashboard>(requestURL).pipe(catchError(this.handleError));
+    return this.post<Dashboard>(requestURL,model).pipe(catchError(this.handleError));
   }
 
 }

@@ -13,3 +13,14 @@
  animation-name: none;
  animation-duration: 0ms;
 }
+.element-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.datepicker-control{
+    margin-left: auto;
+    width: 250px;
+    margin-right: 10px;
+}
