@@ -5,7 +5,7 @@
 				
 				<div class="element-container">
 					<div class="element-header">Project Overview</div>
-					<input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+					<input *ngIf="!isHide" type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
 					[alwaysShowCalendars]="true"
 					[ranges]="ranges"
 					[linkedCalendars]="true"
