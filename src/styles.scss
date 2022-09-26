@@ -45,3 +45,32 @@
     overflow-y: scroll;
   }
 }
+ngx-daterangepicker-material{
+  .md-drppicker td.active, .md-drppicker td.active:hover{
+      background-color: #046fdf;
+      color: #fff;
+      border-color: #fff;
+  }
+  .md-drppicker .ranges ul li button.active{
+    background-color: #046fdf;
+    color: #fff;
+  }
+  .md-drppicker td.available:hover, .md-drppicker th.available:hover{
+    background-color: #1a88fb;
+    color: #fff;
+  }
+  .md-drppicker th.month{
+    color: #047bf8;
+  }
+  .md-drppicker .clear{
+    background-color: #046fdf !important;
+    color: #fff !important;
+  }
+  .md-drppicker .btn, .md-drppicker .btn:focus, .md-drppicker .btn:hover{
+    background-color: #046fdf;
+  }
+  .md-drppicker .clear svg{
+    padding-bottom: 10px;
+  }
+}
+
