@@ -105,6 +105,8 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   HasValidationError(key, keyError) {
+    if(this.projectsViewMode === 'inventory-mode')
+      return false;
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
   }
 
@@ -115,7 +117,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
-    if (!isValid)
+    if (!isValid && this.projectsViewMode === 'project-mode')
       return false;
     const DesignerIds = [];
     const members = document.getElementById('add-designer');

@@ -117,15 +117,15 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
       .setValue(this.project.heatedSquareFootage);
     debugger;
     (this.projectForm.controls.Beds as FormControl)
-      .setValue(this.project.beds == null ? "" : this.project.beds);
+      .setValue(this.project.beds);
     (this.projectForm.controls.Baths as FormControl)
-      .setValue(this.project.baths == null ? "" : this.project.baths);
+      .setValue(this.project.baths);
     (this.projectForm.controls.Garage as FormControl)
-      .setValue(this.project.garage == null ? "" : this.project.garage);
+      .setValue(this.project.garage);
     (this.projectForm.controls.GarageType as FormControl)
-      .setValue(this.project.garageType == null ? "" : this.project.garageType);
+      .setValue(this.project.garageType);
     (this.projectForm.controls.Floors as FormControl)
-      .setValue(this.project.floors == null ? "" : this.project.floors);
+      .setValue(this.project.floors);
       (this.projectForm.controls.FrontPatio as FormControl)
       .setValue(this.project.frontPatio);
       (this.projectForm.controls.Deck as FormControl)
@@ -184,6 +184,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   HasValidationError(key, keyError) {
+    if(this.projectsViewMode === 'inventory-mode')
+      return false;
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
   }
 
@@ -194,7 +196,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
-    if (!isValid)
+    if (!isValid && this.projectsViewMode === 'project-mode')
       return false;
     const DesignerIds = [];
     const members = document.getElementById('user-role-edit');

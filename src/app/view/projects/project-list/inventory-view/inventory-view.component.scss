@@ -1,9 +1,9 @@
 .row{
     &.filter-row{
-        font-size: 1.2rem;
         cursor: pointer;
     }
 }
+
 @media(min-width: 768px){
     .row{
         &.filter-row{
@@ -13,14 +13,14 @@
     .inventory-items-container{
         .card{
             &.inventory-item{
-                min-width: 320px;
-                max-width: 480px;
+                /*min-width: 160px;*/
+                max-width: 240px;
             }
         }
     }
     .filter-form{
         .form-control-label{
-            font-size: 1rem;
+            font-size: 0.8rem;
             &.numeric-filter-label{
                 margin-bottom: 0.7rem;
             }
@@ -33,5 +33,11 @@
         }
     }
 }
-
+@media(min-width: 1200px) {
+    .filter-form{
+        .form-control-label{
+            font-size: 0.9rem;
+        }
+    }
+}
 

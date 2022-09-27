@@ -65,3 +65,12 @@ export class ProjectListComponent implements OnDestroy {
     this._projectListInteractionService.broadcastListUpdated();
   }
 }
+/**
+ * - Search feature
+   - Update breadcrumb (hide url segment)
+   - Retest breadcrumb
+   - Resize card
+   - Remove add/edit inventory fields
+   - Details section image/thumbnail
+   - Documentation
+ */

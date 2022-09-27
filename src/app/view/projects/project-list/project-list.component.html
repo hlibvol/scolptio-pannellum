@@ -4,14 +4,14 @@
 
 <div class="modal fade modal-right" id="addproject" tabindex="-1" data-backdrop="static" role="dialog"
   aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog project-form-modal-dialog" role="document">
     <app-project-add (addSuccessEvent)="onListUpdate()" [projectsViewMode]="projectsViewMode"></app-project-add>
   </div>
 </div>
 
 <div class="modal fade modal-right" id="editproject" tabindex="-1" data-backdrop="static" role="dialog"
   aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog project-form-modal-dialog" role="document">
     <app-project-edit [project]="selectedproject" (updateSuccessEvent)="onListUpdate()" [projectsViewMode]="projectsViewMode">
     </app-project-edit>
   </div>

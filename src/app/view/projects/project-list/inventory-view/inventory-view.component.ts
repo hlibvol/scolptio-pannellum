@@ -7,6 +7,7 @@ import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
 import { ProjectService } from '../../project.service';
 import { ProjectListInteractionService } from '../project-list-interaction.service';
+import { InventoryFilters, NumericFilterComparator, Payload } from './inventory-view.model';
 
 @Component({
   selector: 'app-inventory-view',
@@ -22,16 +23,48 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
   currentUser: AppUser;
   listUpdatedSubscription: Subscription;
   showFilters: boolean = true
-  yesNo: NgOption[] = [
+  inventoryFiltersForm: InventoryFilters<NgOption> = new InventoryFilters<NgOption>();
+  readonly yesNoOptions: NgOption[] = [
+    {
+      label: 'Unspecified',
+      value: undefined
+    },
     {
       label: 'Yes',
-      value: "Yes"
+      value: true
     },
     {
       label: 'No',
-      value: "No"
+      value: false
     },
-]
+  ]
+  readonly garageTypeOptions: NgOption[] = [
+    {
+      label: 'Unspecified',
+      value: undefined
+    },
+    {
+      label: 'Attached',
+      value: 1
+    },
+    {
+      label: 'Detached',
+      value: 2
+    }
+  ]
+  readonly numericFilterOptions: {
+    text: string,
+    value: NumericFilterComparator
+  }[] = [
+    {
+      text: 'Or Less',
+      value: NumericFilterComparator.OrLess
+    },
+    {
+      text: 'Or More',
+      value: NumericFilterComparator.OrMore
+    },
+  ]
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -42,6 +75,7 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
       this.listUpdatedSubscription = this._projectListInteractionService.listUpdated.subscribe(() => {
         this.GetAllproject()
       })
+      this.inventoryFiltersForm.isInventoryMode = true;
     }
   ngOnDestroy(): void {
     this.listUpdatedSubscription.unsubscribe();
@@ -49,15 +83,31 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
   async GetAllproject(): Promise<void> {
     this.isLoading = true;
     try {
-      let response: any = await this._projectService.GetAllProject(-1, -1, '', [], this.currentUser.TeamId, [], true).toPromise();
+      const filters = this._prepareFilters();
+      const response: any = await this._projectService.GetAllProject(-1, -1, '', [], this.currentUser.TeamId, [], filters).toPromise();
       this.inventoryItems = response.data;
     }
-    catch {
+    catch(err) {
+      console.error(err)
       this.toastr.error(common_error_message);
     }
     finally {
       this.isLoading = false;
     }
+  }
+  private _prepareFilters(): InventoryFilters<Payload> {
+    let filters: InventoryFilters<Payload> = new InventoryFilters();
+    filters.isInventoryMode = this.inventoryFiltersForm?.isInventoryMode;
+    filters.squareFootage = this.inventoryFiltersForm?.squareFootage;
+    filters.heatedSquareFootage = this.inventoryFiltersForm?.heatedSquareFootage;
+    filters.beds = this.inventoryFiltersForm?.beds;
+    filters.baths = this.inventoryFiltersForm?.baths;
+    filters.floors = this.inventoryFiltersForm?.floors;
+    filters.garage = this.inventoryFiltersForm?.garage;
+    filters.garageTypes = this.inventoryFiltersForm?.garageTypes?.map(x => (x.value ? parseFloat((x as NgOption).value.toString()) : null));
+    filters.frontPatios = this.inventoryFiltersForm?.frontPatios?.map(x => (x as NgOption).value as boolean);
+    filters.decks = this.inventoryFiltersForm.decks?.map(x => (x as NgOption).value as boolean);
+    return filters;
   }
 
   async ngOnInit(): Promise<void> {
