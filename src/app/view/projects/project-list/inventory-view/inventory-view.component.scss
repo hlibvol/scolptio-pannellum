@@ -1,10 +1,43 @@
-.inventory-items-container{
-    .card{
-        @media(min-width: 768px){
+.row{
+    &.filter-row{
+        cursor: pointer;
+    }
+}
+
+@media(min-width: 768px){
+    .row{
+        &.filter-row{
+            display: none;
+        }
+    }
+    .inventory-items-container{
+        .card{
             &.inventory-item{
-                min-width: 320px;
-                max-width: 480px;
+                /*min-width: 160px;*/
+                max-width: 240px;
             }
         }
     }
+    .filter-form{
+        .form-control-label{
+            font-size: 0.8rem;
+            &.numeric-filter-label{
+                margin-bottom: 0.7rem;
+            }
+            &.multiselect-filter-label{
+                margin-bottom: 0rem;
+            }
+        }
+        .search-submit{
+            width: auto;
+        }
+    }
 }
+@media(min-width: 1200px) {
+    .filter-form{
+        .form-control-label{
+            font-size: 0.9rem;
+        }
+    }
+}
+
