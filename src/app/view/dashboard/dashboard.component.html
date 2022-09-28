@@ -2,15 +2,24 @@
 	<div class="content-i">
 		<div class="content-box">
 			<div class="element-wrapper compact pt-4">
-				<div *ngIf="!isHide" class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list/project-mode']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
-					routerLinkActiveOptions="{exact:true}"><i
-						class="os-icon os-icon-ui-22"></i><span>Add Project</span></a>
-					<a class="btn btn-success btn-sm"
-					href="#" [routerLink]="['/users']" [state]="{data: actions.AddNewClient}" routerLinkActive="router-link-active"
-					routerLinkActiveOptions="{exact:true}"
-					><i class="os-icon os-icon-grid-10"></i><span>Add Client</span></a>
+				
+				<div class="element-container">
+					<div class="element-header">Project Overview</div>
+					<input *ngIf="!isHide" type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+					[alwaysShowCalendars]="true"
+					[ranges]="ranges"
+					[linkedCalendars]="true"
+					[showClearButton]="true" (datesUpdated)="choosedDate($event)" class="form-control datepicker-control"/>
+					<div *ngIf="!isHide" class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list/project-mode']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
+						routerLinkActiveOptions="{exact:true}"><i
+							class="os-icon os-icon-ui-22"></i><span>Add Project</span></a>
+						<a class="btn btn-success btn-sm"
+						href="#" [routerLink]="['/users']" [state]="{data: actions.AddNewClient}" routerLinkActive="router-link-active"
+						routerLinkActiveOptions="{exact:true}"
+						><i class="os-icon os-icon-grid-10"></i><span>Add Client</span></a>
+					</div>
 				</div>
-				<h6 class="element-header">Project Overview</h6>
+				
 				<div class="element-box-tp">
 					<div class="row">
 						<div [ngClass]="{ 'col-lg-9' : !isHide ,'col-lg-7' : isHide  }" class="col-xxl-6">
@@ -38,6 +47,12 @@
 										<a class="element-box el-tablo" href="#">
 											<div class="label">Designers</div>
 											<div class="value">{{dashboard?.totalDesigner}}</div>
+										</a>
+									</div>
+									<div *ngIf="!isHide" [ngClass]="{ 'col-sm-3' : !isHide ,'col-sm-4' : isHide  }" class="col-xxxl-3">
+										<a class="element-box el-tablo" href="#">
+											<div class="label">Total Revenue</div>
+											<div class="value">{{dashboard?.totalRevenue}}</div>
 										</a>
 									</div>
 								</div>

@@ -11,6 +11,7 @@ import { IncomeService } from '../income/income.service';
 import { ExpenditureService } from '../expenditure/expenditure.service';
 import { NgChartjsModule } from 'ng-chartjs';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
+import { LocaleService, NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 const chartAnnotation = ChartAnnotation;
 
 @NgModule({
@@ -18,6 +19,7 @@ const chartAnnotation = ChartAnnotation;
   imports: [
     SharedModule,
     NgChartjsModule.registerPlugin([chartAnnotation]),
+    NgxDaterangepickerMd.forRoot(),
     RouterModule.forChild([
       {
         path:'',
@@ -25,6 +27,6 @@ const chartAnnotation = ChartAnnotation;
       },
     ]),
   ],
-  providers : [PropertiesService,DatePipe,UserService,ListingService,IncomeService,ExpenditureService  ]
+  providers : [PropertiesService,DatePipe,UserService,ListingService,IncomeService,ExpenditureService ,LocaleService ]
 })
 export class DashboardModule { }
