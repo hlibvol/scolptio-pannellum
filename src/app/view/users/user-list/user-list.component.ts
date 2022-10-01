@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AddNewClient } from 'src/app/shared/router-interaction-constants';
+import { RouterAction } from 'src/app/shared/router-interaction-types';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
     this.checkState();
   }
   checkState(): void {
-    if(history?.state?.data !== AddNewClient)
+    if(history?.state?.data as RouterAction !== 'add-new-client')
       return;
     this.addUserType = 'Client';
     $('#addclient').modal('toggle');

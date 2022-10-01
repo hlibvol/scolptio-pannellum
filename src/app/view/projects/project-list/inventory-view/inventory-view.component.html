@@ -1,0 +1,159 @@
+<div class="p-3">
+	<div class="p-3 bg-white border-primary-light rounded-xl-top">
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h4 class="m-0">Inventory</h4>
+			<div appPermission module="Projects" action="create" class="d-flex align-items-center">
+				<button type="button" class="btn-orange d-flex align-items-center py-3" data-toggle="modal"
+					data-target="#addproject">
+					<div class="icon icon-control_point"></div>
+					<div class="pl-1">Add Item</div>
+				</button>
+			</div>
+		</div>
+		<div class="row filter-row mb-2" (click)="showFilters=!showFilters">
+			<div class="col-sm-12 d-flex justify-content-between">
+				<label>
+					Show Filters
+				</label>
+				<div class="os-icon os-icon-chevron-down accordion-chevron" *ngIf="!showFilters" ></div>
+            	<div class="os-icon os-icon-chevron-up accordion-chevron" *ngIf="showFilters"></div>	
+			</div>
+		</div>
+		<div class="row" *ngIf="showFilters">
+			<div class="col-sm-12">
+				<form class="filter-form">
+					<div class="form-row">
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Square Footage
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.squareFootage.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.squareFootage.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Heated Square Footage
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.heatedSquareFootage.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.heatedSquareFootage.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Beds
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.beds.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.beds.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Baths
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.baths.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.baths.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Floor
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.floors.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.floors.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label numeric-filter-label">
+								Garage
+							</label>
+							<div class="input-group">
+								<input type="number" class="form-control" [(ngModel)]="inventoryFiltersForm.garage.value" [ngModelOptions]="{standalone: true}">
+								<select class="custom-select" [(ngModel)]="inventoryFiltersForm.garage.numericFilterComparator" [ngModelOptions]="{standalone: true}">
+									<option *ngFor="let option of numericFilterOptions" [value]="option.value">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label multiselect-filter-label">
+								Garage Type
+							</label>
+							<ng-select [items]="garageTypeOptions" [multiple]="true"
+                            [closeOnSelect]="false" [(ngModel)]="inventoryFiltersForm.garageTypes" [ngModelOptions]="{standalone: true}"></ng-select>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label multiselect-filter-label">
+								Front Patio
+							</label>
+							<ng-select [items]="yesNoOptions" [multiple]="true"
+                            [closeOnSelect]="false" [(ngModel)]="inventoryFiltersForm.frontPatios" [ngModelOptions]="{standalone: true}"></ng-select>
+						</div>
+						<div class="form-group col-lg">
+							<label class="form-control-label multiselect-filter-label">
+								Deck
+							</label>
+							<ng-select [items]="yesNoOptions" [multiple]="true"
+                            [closeOnSelect]="false" [(ngModel)]="inventoryFiltersForm.decks" [ngModelOptions]="{standalone: true}"></ng-select>
+						</div>
+						<div class="form-group col-lg-auto d-flex align-items-center">
+							<button class="btn-block btn-primary search-submit" (click)="GetAllproject()">Search</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-12 text-primary text-center mt-4 bg-white h-100 p-4" *ngIf="isLoading">
+			<i class="fa fa-spinner fa-spin" style="font-size:40px"></i>
+		</div>
+		<div *ngIf="!isLoading">
+			<div class="col-sm-12 inventory-items-container">
+				<div class="card-deck">
+					<div class="card inventory-item mb-3" *ngFor="let item of inventoryItems">
+						<img src="{{item.featuredImage || '../../../assets/img/no-property.jpg'}}" class="card-img-top" alt="Image unavailable">
+						<div class="card-body">
+							<h6 class="card-title">{{item.projectName}}</h6>
+							<div class="d-flex justify-content-between">
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Beds</div>
+									<div class="card-text text-muted">{{item.beds}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Baths</div>
+									<div class="card-text text-muted">{{item.baths}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Floors</div>
+									<div class="card-text text-muted">{{item.floors}}</div>
+								</div>
+								<div class="d-flex flex-column justify-content-center align-items-center summary-item">
+									<div class="card-text">Sq.Ft.</div>
+									<div class="card-text text-muted">{{item.squareFootage}}</div>
+								</div>
+							</div>
+              				<a href="javascript:void(0);" class="card-link" (click)="detailsClicked(item)">Details</a>
+							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
+								data-target="#editproject">Edit</a>
+							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
+								data-target="#deleteproject">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

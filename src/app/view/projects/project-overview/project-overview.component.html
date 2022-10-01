@@ -37,7 +37,7 @@
             </ul>
           </div>
         </div>
-        <div class="todo-sidebar-section-sub-section">
+        <div class="todo-sidebar-section-sub-section" *ngIf="projectsViewMode === 'project-mode'">
           <div class="todo-sidebar-section-sub-section-toggler"></div>
           <div class="todo-sidebar-section-sub-header d-flex justify-content-between" (click)="expandAccordion(2)"><i class="os-icon os-icon-codepen"></i>
             <h6>3D Models</h6>
@@ -74,15 +74,18 @@
       header="Reference Photos"></app-images>
     <app-videos [module]="module" [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
       header="Reference Videos"></app-videos>
-    <app-images [module]="module" [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
-      header="Pre-rendered Photos"></app-images>
-    <app-images [module]="module" [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"
-      header="Rendered Photos"></app-images>
-    <app-videos [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
-      header="Videos / Animations"></app-videos>
-    <app-models [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"
-      header="3D Model Viewer"></app-models> 
-    <app-documents [projectId]="id" documentType="SourceFiles" *ngIf="activeSection==='SourceFiles'"
-      header="All Source Files"></app-documents>
+    <ng-template [ngIf]="projectsViewMode === 'project-mode'">
+      <app-images [module]="module" [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
+        header="Pre-rendered Photos"></app-images>
+      <app-images [module]="module" [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"
+        header="Rendered Photos"></app-images>
+      <app-videos [module]="module" [projectId]="id" documentType="VideosOrAnimations" *ngIf="activeSection==='VideosOrAnimations'"
+        header="Videos / Animations"></app-videos>
+      <app-models [projectId]="id" documentType="3DModelViewer" *ngIf="activeSection==='3DModelViewer'"
+        header="3D Model Viewer"></app-models> 
+      <app-documents [projectId]="id" documentType="SourceFiles" *ngIf="activeSection==='SourceFiles'"
+        header="All Source Files"></app-documents>
+    </ng-template>
+    
   </div>
 </div>

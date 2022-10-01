@@ -94,10 +94,13 @@
                   <div class="sub-menu-i">
                     <ul class="sub-menu">
                       <li>
-                        <a [routerLink]="['/projects/project-list']">Project List</a>
+                        <a [routerLink]="['/projects/project-list/project-mode']">Project List</a>
                       </li>
                       <li appPermission2 module="Projects.Tags" action="view">
                         <a [routerLink]="['/projects/tags']">Tags</a>
+                      </li>
+                      <li appPermission2 module="Projects.Inventory" action="view">
+                        <a [routerLink]="['/projects/project-list/inventory-mode']">Inventory</a>
                       </li>
                     </ul>
                   </div>

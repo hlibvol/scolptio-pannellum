@@ -3,7 +3,7 @@
         <h6 class="modal-title">
             <div class="d-flex align-items-center">
                 <div class="icon icon-control_point"></div>
-                <div class="pl-1">Edit project</div>
+                <div class="pl-1">{{labels.header}}</div>
             </div>
         </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(projectForm)">
@@ -12,17 +12,17 @@
     </div>
     <form (keydown.enter)="$event.preventDefault()" [formGroup]="projectForm"
         (ngSubmit)="onSubmit(projectForm.value,projectForm.valid)" *ngIf="projectForm">
-        <div class="modal-body">
-            <input type="hidden" formControlName="Id">
+        <div class="modal-body  {{projectsViewMode}}">
+
             <div class="form-row col-12">
-                <div class="form-group col-12"><label for="">Project Name</label>
-                    <input formControlName="ProjectName" class="form-control" placeholder="Enter project name"
+                <div class="form-group col"><label for="">{{labels.name}}</label>
+                    <input formControlName="ProjectName" class="form-control" placeholder="Enter {{labels.name}}"
                         type="text">
                     <div class="text-danger" *ngIf="HasValidationError('ProjectName','required')">
-                        <ng-container>Project Name is required</ng-container>
+                        <ng-container>{{labels.name}} is required</ng-container>
                     </div>
                 </div>
-                <div class="form-group col-12"><label for="">Client</label>
+                <div class="form-group project-form-control-container col"><label for="">Client</label>
                     <select class="form-control" formControlName="clientId">
                         <option value="">Select Client</option>
                         <option *ngFor="let c of clientList" [ngValue]="c.id">{{c.name}}</option>
@@ -31,9 +31,12 @@
                         <ng-container>Client is required</ng-container>
                     </div>
                 </div>
-                <div class="col-sm-12">
+            </div>
+            <div class="form-row col-12">
+                <div class="col-sm project-form-control-container">
                     <div class="form-group">
-                        <label for=""> Designer &nbsp;&nbsp;</label><select class="form-control select2" multiple="true"
+                        <label for=""> Designer &nbsp;&nbsp;</label>
+                        <select class="form-control select2" multiple="true"
                             name="edit-user-role" name="user-role-edit" id="user-role-edit">
                             <option *ngFor="let designer of DesignerList" [value]="designer.id">
                                 {{designer.name}}
@@ -41,42 +44,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group col-12"><label for="">Start Date</label>
-                    <input formControlName="StartDate" class="form-control" placeholder="Enter start date" type="date">
-                    <div class="text-danger" *ngIf="HasValidationError('StartDate','required')">
-                        <ng-container>Start Date is required</ng-container>
-                    </div>
-                </div>
-                <div class="form-group col-12"><label for="">Dead Line</label>
-                    <input formControlName="Deadline" class="form-control" placeholder="Enter deadline" type="date">
-                    <div class="text-danger" *ngIf="HasValidationError('Deadline','required')">
-                        <ng-container>Deadline is required</ng-container>
-                    </div>
-                </div>
-                <div class="form-group col-12"><label for="">Cost</label>
-                    <input formControlName="Cost" class="form-control" placeholder="Enter Cost" type="text">
-                </div>
-                <div class="form-group col-12"><label for="">Square Footage</label>
-                    <input formControlName="SquareFootage" class="form-control" placeholder="Enter Square Footage" type="text">
-                </div>
-                <div class="form-group col-12"><label for="">Status</label>
-                    <select class="form-control" formControlName="Status">
-                        <option *ngFor="let status of statusList" [value]="status.value">
-                            {{status.label}}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group col-12"><label for="">Status Mail</label>
-                    <div class="d-flex align-items-center">
-                        <input type="checkbox" class="form-control mr-2 " formControlName="IsSendMail">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Send Status Change Mail
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-12">
+                <div class="col-sm">
                     <div class="form-group">
-                        <label for=""> Project Type &nbsp;&nbsp;</label>
+                        <label for=""> {{labels.type}} &nbsp;&nbsp;</label>
                         <select class="form-control select2" multiple="true"
                             name="ProjectType" name="ProjectType" id="ProjectType-edit">
                             <option [value]="0">Architectural Drawings</option>
@@ -88,6 +58,193 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="form-row col-12 project-form-control-container">
+                <div class="form-group col"><label for="">Start Date</label>
+                    <input formControlName="StartDate" class="form-control" placeholder="Enter start date" type="date">
+                    <div class="text-danger" *ngIf="HasValidationError('StartDate','required')">
+                        <ng-container>Start Date is required</ng-container>
+                    </div>
+                </div>
+                <div class="form-group col"><label for="">Dead Line</label>
+                    <input formControlName="Deadline" class="form-control" placeholder="Enter deadline" type="date">
+                    <div class="text-danger" *ngIf="HasValidationError('Deadline','required')">
+                        <ng-container>Deadline is required</ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col">
+                    <label for="">Cost</label>
+                    <input formControlName="Cost" class="form-control" placeholder="Enter Cost" type="text">
+                </div>
+                <div class="form-group col"><label for="">Status</label>
+                    <select class="form-control" formControlName="Status">
+                        <option *ngFor="let status of statusList" [value]="status.value">
+                            {{status.label}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row col">
+                <div class="form-group col-12"><label for="">Status Mail</label>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" class="form-control mr-2 " formControlName="IsSendMail">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Send Status Change Mail
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-6"><label for="">Square Footage</label>
+                    <input formControlName="SquareFootage" class="form-control" placeholder="Enter Square Footage" type="text">
+                </div>
+                <div class="form-group col"><label for="">Heated Square Footage</label>
+                    <input formControlName="HeatedSquareFootage" class="form-control" placeholder="Enter Heated Square Footage" type="text">
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for=""> Beds &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Beds" name="Beds" id="Beds">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+                            <option [value]="6">6</option>
+                            <option [value]="7">7</option>
+                            <option [value]="8">8</option>
+                            <option [value]="9">9</option>
+                            <option [value]="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for=""> Baths &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Baths" name="Baths" id="Baths">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="1">1</option>
+                            <option [value]="1.5">1.5</option>
+                            <option [value]="2">2</option>
+                            <option [value]="2.5">2.5</option>
+                            <option [value]="3">3</option>
+                            <option [value]="3.5">3.5</option>
+                            <option [value]="4">4</option>
+                            <option [value]="4.5">4.5</option>
+                            <option [value]="5">5</option>
+                            <option [value]="5.5">5.5</option>
+                            <option [value]="6">6</option>
+                            <option [value]="6.5">6.5</option>
+                            <option [value]="7">7</option>
+                            <option [value]="7.5">7.5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for=""> Garage &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Garage" name="Garage" id="Garage">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+                            <option [value]="6">6</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for=""> Garage Type &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="GarageType" name="GarageType" id="GarageType">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="1">Attached</option>
+                            <option [value]="2">Detached</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for=""> Floor &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Floors" name="Floors" id="Floors">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for=""> Front Patio &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="FrontPatio" name="FrontPatio" id="FrontPatio">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="">Deck &nbsp;&nbsp;</label>
+                        <select class="form-control" 
+                        formControlName="Deck" name="Deck" id="Deck">
+                            <option [value]="undefined">Unspecified</option>
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <app-ngx-copper (returnData)="onReturnData($event)" [ratioWidth]="1" [ratioHeight]="1" [fileSize]="300000"
+                    #editcropper></app-ngx-copper>
+                    <label for="">Featured Image</label>
+                    <div class="d-flex align-items-center">
+                      <img *ngIf="!imageData" class="img-fluid" height="100" width="100" src="../../../assets/img/no-property.jpg" alt="avatar"
+                        class="shadow avatar">
+                      <img *ngIf="imageData && imageData.length > 10" height="100" width="100" [src]="imageData" alt="avatar"
+                        class="shadow avatar">
+                        <button type="button"
+                        class="form-control form-control-sm border-0 ml-3" id="my-file"
+                        (click)="editcropper.inputImage.nativeElement.click()"
+                        style="width: auto; background-color: transparent;">Change</button>
+                      <button type="button" class="form-control form-control-sm border-0 ml-3"
+                        style="width: auto; background-color: transparent;" (click)="removeImage()">Remove</button>
+                    </div>
+                    <!-- <input type="file" name="user-image-upload" accept="image/*" (change)="onChangeImg($event)"
+                      id="userUpload" class="form-control d-none" placeholder="" required> -->
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <label for="" class="form-control-label inventory-control-{{project.hasInventory}}">Inventory</label>
+                <div class="col-sm inventory-control-{{project.hasInventory}}">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hasInventory">
+                        <label class="form-check-label">
+                            {{labels.hasInventory}}
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" formControlName="isInventory"/>
             </div>
         </div>
         <div class="modal-footer">

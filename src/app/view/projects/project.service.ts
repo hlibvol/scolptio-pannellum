@@ -1,10 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from 'src/app/shared/base.service';
 import { S3File } from 'src/app/shared/models/s3-items-model';
 import { FileUpload } from '../properties/properties.model';
+import { InventoryFilters, NumericFilter, Payload } from './project-list/inventory-view/inventory-view.model';
 import { Notes } from './project-overview/notes/notes.model';
 import { Question } from './project-questionnaire/question.model';
 import { Room } from './project-questionnaire/room.model';
@@ -18,14 +19,15 @@ export class ProjectService extends BaseService {
     super(_injector);
   }
 
-  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, searchStatuses: string[],teamId:any, searchTypes: string[] = []): any => {
+  public GetAllProject = (pageNumber: number, pageSize: number, searchKey: string, searchStatuses: string[],teamId:any, searchTypes: string[] = [], inventoryFilters: InventoryFilters<Payload> = null): any => {
     const requestBody = {
       searchKey,
       pageNumber,
       pageSize,
       searchStatuses,
       teamId,
-      searchTypes
+      searchTypes,
+      inventoryFilters
     };
     return this.post('Project/GetAll', requestBody).pipe(
       catchError(this.handleError)
@@ -52,9 +54,10 @@ export class ProjectService extends BaseService {
     );
   };
 
-  public DeleteProject = (id: any): any => {
+  public DeleteProject = (id: string, inventoryMode: boolean = false): any => {
     const requestBody = {
       Id: id,
+      inventoryMode
     };
     return this.post('Project/Delete', requestBody).pipe(
       catchError(this.handleError)

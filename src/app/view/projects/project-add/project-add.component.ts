@@ -1,10 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subscriber } from 'rxjs';
 import { AwsService } from 'src/app/services/aws.service';
 import { FormValidationService } from 'src/app/shared/form-validation.service';
+import { statusList } from 'src/app/shared/project-status.list';
+import { ProjectsViewMode } from 'src/app/shared/router-interaction-types';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { project_add } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../auth-register/auth-register.model';
@@ -20,7 +23,7 @@ declare const google;
   '../../../../assets/css/icons.css']
 })
 
-export class ProjectAddComponent implements OnInit, AfterViewInit {
+export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Output() addSuccessEvent = new EventEmitter<string>();
 
@@ -32,15 +35,16 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   incomeAmount: string;
   incomeType: string;
   isSaving = false;
-  websiteLogoImage: any = "../../../assets/img/weblogo.png";
   imageProp: any;
   clientList:any=[];
   DesignerList:any=[];
   startDate:any;
   deadLine:any;
   currentUser:AppUser;
+  readonly statusList: NgOption[] = statusList;
+  imageData:any;
   @Input()
-  statusList: NgOption[] = [];
+  projectsViewMode:ProjectsViewMode = 'project-mode';
   constructor(private userService : UserService, private appSessionStorageService: AppSessionStorageService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _projectService: ProjectService,private _clientService : ClientsService) {
     this.incomeType = null;
@@ -48,8 +52,17 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
   }
+  ngOnChanges(): void {
+    if(!this.projectForm?.controls)
+      return;
+    (this.projectForm.controls.hasInventory as FormControl)
+      .setValue(this.projectsViewMode === 'inventory-mode');
+    (this.projectForm.controls.isInventory as FormControl)
+      .setValue(this.projectsViewMode === 'inventory-mode');
+  }
 
   ngOnInit(): void {
+    console.log('project add init')
     this.projectForm = this._formbuilder.group({
       ProjectName: ['', Validators.compose([Validators.required])],
       clientId: ['', Validators.compose([Validators.required])],
@@ -59,7 +72,17 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       Status: [''],
       IsSendMail:[false],
       ProjectTypeIds : [''],
-      SquareFootage : ['']
+      SquareFootage : [''],
+      Beds : [''],
+      Baths : [''],
+      Garage : [''],
+      GarageType : [''],
+      Floors : [''],
+      HeatedSquareFootage : [''],
+      FrontPatio : ['false'],
+      Deck : ['false'],
+      hasInventory: [this.projectsViewMode === 'inventory-mode'],
+      isInventory: [this.projectsViewMode === 'inventory-mode']
     });
     
     this.getClients();
@@ -82,6 +105,8 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
   }
 
   HasValidationError(key, keyError) {
+    if(this.projectsViewMode === 'inventory-mode')
+      return false;
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
   }
 
@@ -92,7 +117,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
-    if (!isValid)
+    if (!isValid && this.projectsViewMode === 'project-mode')
       return false;
     const DesignerIds = [];
     const members = document.getElementById('add-designer');
@@ -121,9 +146,11 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
     }
 
     this.isSaving = true;
-    model.Logo = this.websiteLogoImage;
     model.DesignerIds = DesignerIds;
     model.ProjectTypeIds = projectTypeIds;
+    model.FeaturedImage = this.imageData;
+    if(model.hasInventory)
+      model.isInventory = true;
     this._projectService.SaveProject(model).subscribe(res => {
       this.isSaving = false;
       this.formSubmitAttempt = false;
@@ -162,11 +189,11 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       image: croppedImage.image,
       imageName: croppedImage.filename
     };
-    this.websiteLogoImage = croppedImage.image;
+    this.imageData = croppedImage.image;
   }
 
   removeWebsiteLogo() {
-    this.websiteLogoImage = "../../../assets/img/weblogo.png"
+    this.imageData = null;
   }
 
   initAutocomplete() {
@@ -238,4 +265,56 @@ export class ProjectAddComponent implements OnInit, AfterViewInit {
       .setValue(date);
     this.projectForm.get('Deadline').clearValidators();
   }
+
+  onChangeImg($event: Event) {
+    this.isSaving = true;
+    const file = ($event.target as HTMLInputElement).files[0];
+    this.convertToBase64(file);
+  }
+
+  convertToBase64(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    observable.subscribe((data) => {
+      this.imageData = data;
+      this.isSaving = false;
+    });
+  }
+
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      subscriber.next(fileReader.result);
+      subscriber.complete();
+    }
+
+    fileReader.onerror = (error) => {
+      subscriber.error(error);
+      subscriber.complete();
+    }
+    
+  }
+  removeImage() {
+    this.imageData = null;
+  }
+
+  public get labels() {
+    if(this.projectsViewMode === 'project-mode') return {
+      header: 'Add Project',
+      name: 'Project Name',
+      type: 'Project Type',
+      hasInventory: 'Add to Inventory'
+    }
+    else return {
+      header: 'Add to Inventory',
+      name: 'Name',
+      type: 'Type',
+      hasInventory: 'Add to Projects'
+    }
+  }
+  
+
 }
