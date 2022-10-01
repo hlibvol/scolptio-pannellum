@@ -130,6 +130,7 @@
       <table class="table bg-white rounded-xl">
         <thead>
           <tr>
+            <th>Image</th>
             <th>Project Name</th>
             <th>Project Type</th>
             <th appPermission module="Projects.Designers" action="view" default-display-style-xs="block" default-display-style="table-cell">Designers</th>
@@ -142,6 +143,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let project of projectList; let i = index">
+            <td data-label="Image">
+              <div class="multi-item-container">
+                <span class="pl-1"><img class="img-fluid" [src]="porject?.featuredImage" height="50" width="50" onerror="this.src='../../../assets/img/no-property.jpg';" /></span>
+              </div>
+            </td>
             <td data-label="project Name">
               <div class="multi-item-container">
                 <span class="pl-1">{{project.projectName}}</span>
