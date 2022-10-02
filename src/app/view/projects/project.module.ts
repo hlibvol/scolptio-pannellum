@@ -34,6 +34,7 @@ import { S3MultiVideoUploadComponent } from 'src/app/shared/components/s3-multi-
 import { VersionComponent } from './version/version.component';
 import { ProjectsViewComponent } from './project-list/projects-view/projects-view.component';
 import { InventoryViewComponent } from './project-list/inventory-view/inventory-view.component';
+import { DueInPipe } from 'src/app/shared/pipes/due-in.pipe';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { InventoryViewComponent } from './project-list/inventory-view/inventory-
     S3MultiVideoUploadComponent,
     VersionComponent,
     ProjectsViewComponent,
-    InventoryViewComponent
+    InventoryViewComponent,
+    DueInPipe
   ],
   imports: [
     CommonModule,
@@ -92,6 +94,6 @@ import { InventoryViewComponent } from './project-list/inventory-view/inventory-
     NgSelectModule,
     QuillModule.forRoot()
   ],
-    providers: [BsModalService, UserService]
+    providers: [BsModalService, UserService, DueInPipe]
 })
 export class ProjectModule { }
