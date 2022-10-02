@@ -5,16 +5,13 @@
 }
 
 @media(min-width: 768px){
-    .row{
-        &.filter-row{
-            display: none;
-        }
-    }
     .inventory-items-container{
-        .card{
-            &.inventory-item{
-                /*min-width: 160px;*/
-                max-width: 240px;
+        .card-deck{
+            .card{
+                &.inventory-item{
+                    max-width: 240px;
+                    margin-left: 0px;
+                }
             }
         }
     }
