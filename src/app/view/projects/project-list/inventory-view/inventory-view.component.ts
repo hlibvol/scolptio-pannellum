@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NgOption } from '@ng-select/ng-select';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
@@ -24,6 +25,7 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
   listUpdatedSubscription: Subscription;
   showFilters: boolean = true
   inventoryFiltersForm: InventoryFilters<NgOption> = new InventoryFilters<NgOption>();
+  modalRef: BsModalRef<any> = new BsModalRef();
   readonly yesNoOptions: NgOption[] = [
     {
       label: 'Unspecified',
@@ -68,7 +70,8 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
-    private _projectListInteractionService: ProjectListInteractionService) { 
+    private _projectListInteractionService: ProjectListInteractionService,
+    private _bsModalService: BsModalService) { 
       if (this.appSessionStorageService.getCurrentUser() != null) {
         this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
       }
@@ -120,5 +123,15 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
 
   detailsClicked(item: any): void {
     this._projectListInteractionService.broadcastOpenDetails(item);
+  }
+
+  openSearch(template: TemplateRef<any>): void {
+    this.modalRef = this._bsModalService.show(template, {
+      class: 'modal-lg'
+    })
+  }
+  async doSearch(): Promise<void>{
+    this.modalRef.hide();
+    await this.GetAllproject();
   }
 }
