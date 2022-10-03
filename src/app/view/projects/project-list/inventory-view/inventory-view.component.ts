@@ -127,7 +127,7 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
 
   openSearch(template: TemplateRef<any>): void {
     this.modalRef = this._bsModalService.show(template, {
-      class: 'modal-lg'
+      class: 'modal-md'
     })
   }
   async doSearch(): Promise<void>{
