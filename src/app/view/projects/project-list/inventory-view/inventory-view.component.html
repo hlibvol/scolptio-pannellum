@@ -1,4 +1,21 @@
 <div class="p-3">
+	<div class="rounded-xl mb-3 get__app">
+		<div class="row">
+		  <div class="col-md-4 col-lg-5 col-xl-4">
+			<div class="d-flex justify-content-between align-items-center">
+			  <img src="../../../../assets/banner_img/15.svg" class="get__app__img">
+			</div>
+		  </div>
+		  <div class="col-md-4 col-lg-5 col-xl-6 text-center-md">
+			<div class="py-4">
+			  <h5 class="text-purple font-weight-bolder mb-1">Manage Your Inventory</h5>
+			  <p class="text-primary-dark mb-1">
+				View and update items in your inventory and add new items or delete unused items
+			  </p>
+			</div>
+		  </div>
+		</div>
+	</div>
 	<div class="p-3 bg-white border-primary-light rounded-xl-top">
 		<div class="d-flex justify-content-between align-items-center mb-3">
 			<h4 class="m-0">Inventory</h4>
@@ -86,8 +103,6 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label numeric-filter-label">
 								Heated Square Footage
@@ -99,8 +114,6 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label numeric-filter-label">
 								Beds
@@ -125,8 +138,6 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label numeric-filter-label">
 								Floor
@@ -138,8 +149,6 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label numeric-filter-label">
 								Garage
@@ -160,8 +169,6 @@
 							<ng-select [items]="garageTypeOptions" [multiple]="true"
 							[closeOnSelect]="false" [(ngModel)]="inventoryFiltersForm.garageTypes" [ngModelOptions]="{standalone: true}"></ng-select>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label multiselect-filter-label">
 								Front Patio
@@ -169,8 +176,6 @@
 							<ng-select [items]="yesNoOptions" [multiple]="true"
 							[closeOnSelect]="false" [(ngModel)]="inventoryFiltersForm.frontPatios" [ngModelOptions]="{standalone: true}"></ng-select>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-lg">
 							<label class="form-control-label multiselect-filter-label">
 								Deck
