@@ -151,7 +151,7 @@
             <td data-label="project Name">
               <div class="multi-item-container">
                 <span class="pl-1">{{project.projectName}}</span>
-                <span class="pl-1 text-muted" style="font-size:small"><i class="os-icon os-icon-ui-90"></i> {{project.clientName}}</span>
+                <span class="pl-1 text-muted" style="font-size:small" *ngIf="currentUser?.Role=='Admin'"><i class="os-icon os-icon-ui-90"></i> {{project.clientName}}</span>
               </div>
             </td>
             <td data-label="project Type">

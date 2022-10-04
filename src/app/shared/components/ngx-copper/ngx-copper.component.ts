@@ -90,8 +90,8 @@ export class NgxCopperComponent implements OnInit,AfterViewInit {
       aspectRatio: this.viewConfig.aspectRatio,
       autoCrop: true,
       dragMode: DragMode.Move,
-      cropBoxMovable: false,
-      cropBoxResizable: false
+      cropBoxMovable: true,
+      cropBoxResizable: true
     };
 
     this.cropper = new Cropper(cropBox, options);
