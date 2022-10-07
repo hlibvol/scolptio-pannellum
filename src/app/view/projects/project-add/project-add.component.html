@@ -12,7 +12,7 @@
     </div>
     <form (keydown.enter)="$event.preventDefault()" [formGroup]="projectForm"
         (ngSubmit)="onSubmit(projectForm.value,projectForm.valid)" *ngIf="projectForm">
-        <div class="modal-body {{projectsViewMode}}">
+        <div class="modal-body {{projectsViewMode}}-{{projectForm?.value?.hasInventory}}">
 
             <div class="form-row col-12">
                 <div class="form-group col"><label for="">{{labels.name}}</label>

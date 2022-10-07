@@ -12,7 +12,7 @@ declare var $: any;
 export class ProjectDeleteComponent {
 
   @Input() project:any;
-  @Input() projectsViewMode:ProjectsViewMode = 'project-mode';
+  @Input() projectsViewMode:ProjectsViewMode = 'project-list';
   @Output() deleteSuccessEvent = new EventEmitter<string>();
 
   errorMsg: string;
@@ -25,18 +25,18 @@ export class ProjectDeleteComponent {
 
   delete() {
     this.hasError = false;
-    this._projectService.DeleteProject(this.project.id, this.projectsViewMode === 'inventory-mode').subscribe((data: any) => {
+    this._projectService.DeleteProject(this.project.id, this.projectsViewMode === 'inventory').subscribe((data: any) => {
       if (data === false) {
         this.hasError = true;
       } else {
         this.hasError = false;
         this.deleteSuccessEvent.emit("value");
-        this.toastr.info(this.projectsViewMode === 'inventory-mode' ? inventory_delete.delete_success : project_delete.delete_project_success);
+        this.toastr.info(this.projectsViewMode === 'inventory' ? inventory_delete.delete_success : project_delete.delete_project_success);
         $('#deleteproject').modal('toggle');
       }
     }, (error) => {
       this.errorMsg = error;
-      this.toastr.error(this.projectsViewMode === 'inventory-mode' ? inventory_delete.delete_error : project_delete.delete_project_error);
+      this.toastr.error(this.projectsViewMode === 'inventory' ? inventory_delete.delete_error : project_delete.delete_project_error);
       this.hasError = false;
     })
   }

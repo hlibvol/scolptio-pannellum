@@ -39,7 +39,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   readonly statusList: NgOption[] = statusList;
   imageData:any;
   @Input()
-  projectsViewMode:ProjectsViewMode = 'project-mode';
+  projectsViewMode:ProjectsViewMode = 'project-list';
   constructor(private userService: UserService, private _clientService: ClientsService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private projectService: ProjectService) {
     this.incomeType = null;
@@ -93,8 +93,8 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
         HeatedSquareFootage: [''],
         FrontPatio: [''],
         Deck: [''],
-        hasInventory: [this.projectsViewMode === 'inventory-mode'],
-        isInventory: [this.projectsViewMode === 'inventory-mode']
+        hasInventory: [this.projectsViewMode === 'inventory'],
+        isInventory: [this.projectsViewMode === 'inventory']
       });
       this.formData();
     }
@@ -184,7 +184,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   HasValidationError(key, keyError) {
-    if(this.projectsViewMode === 'inventory-mode')
+    if(this.projectsViewMode === 'inventory' && !this.projectForm.value.hasInventory)
       return false;
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
   }
@@ -196,7 +196,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
-    if (!isValid && this.projectsViewMode === 'project-mode')
+    if (!isValid && (this.projectsViewMode === 'project-list'|| this.projectForm.value.hasInventory))
       return false;
     const DesignerIds = [];
     const members = document.getElementById('user-role-edit');
@@ -309,7 +309,7 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   public get labels() {
-    if(this.projectsViewMode === 'project-mode') return {
+    if(this.projectsViewMode === 'project-list') return {
       header: 'Edit Project',
       name: 'Project Name',
       type: 'Project Type',

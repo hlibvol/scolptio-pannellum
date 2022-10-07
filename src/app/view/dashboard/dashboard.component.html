@@ -10,7 +10,7 @@
 					[ranges]="ranges"
 					[linkedCalendars]="true"
 					[showClearButton]="true" (datesUpdated)="choosedDate($event)" class="form-control datepicker-control"/>
-					<div *ngIf="!isHide" class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list/project-mode']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
+					<div *ngIf="!isHide" class="element-actions"><a class="btn btn-primary btn-sm" href="#" [routerLink]="['/projects/project-list']" [state]="{data: actions.AddNewProject}" routerLinkActive="router-link-active"
 						routerLinkActiveOptions="{exact:true}"><i
 							class="os-icon os-icon-ui-22"></i><span>Add Project</span></a>
 						<a class="btn btn-success btn-sm"
@@ -86,7 +86,7 @@
 								<tr *ngFor="let project of dashboard?.recentProjects">
 									<td class="nowrap"><span> {{project.startDate | date:'short'}} </span></td>
 									<td><span>{{project.deadline | date:'short'}}</span></td>
-									<td class="cell-with-media"><a [routerLink]="['/projects/project-overview/', project.id, 'project-mode']">{{project.projectName}}</a></td>
+									<td class="cell-with-media"><a [routerLink]="['/projects/project-overview/', project.id, 'project-list']">{{project.projectName}}</a></td>
 									<td class="text-center"><a class="badge badge-success" href=""> {{project.status}} </a></td>
 									<!-- <td class="text-right bolder nowrap"><span class="text-success">{{project.cost | currency}}</span></td> -->
 								</tr>

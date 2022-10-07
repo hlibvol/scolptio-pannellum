@@ -56,7 +56,7 @@ export class ProjectOverviewComponent implements OnInit {
               {"pathname": "Dashboard",
               "url": '/dashboard'},
               {"pathname": "Projects",
-              "url": "/projects/project-list/project-mode"
+              "url": "/projects/project-list"
               },
               {"pathname": "Project-overview",
               "url": "javascript:void(0)"

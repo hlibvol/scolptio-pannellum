@@ -44,7 +44,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
   readonly statusList: NgOption[] = statusList;
   imageData:any;
   @Input()
-  projectsViewMode:ProjectsViewMode = 'project-mode';
+  projectsViewMode:ProjectsViewMode = 'project-list';
   constructor(private userService : UserService, private appSessionStorageService: AppSessionStorageService,private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private _awsService: AwsService, private _formValidationService: FormValidationService, private _formbuilder: FormBuilder,
     private toastr: ToastrService, private cdRef: ChangeDetectorRef, private _projectService: ProjectService,private _clientService : ClientsService) {
     this.incomeType = null;
@@ -56,13 +56,12 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
     if(!this.projectForm?.controls)
       return;
     (this.projectForm.controls.hasInventory as FormControl)
-      .setValue(this.projectsViewMode === 'inventory-mode');
+      .setValue(this.projectsViewMode === 'inventory');
     (this.projectForm.controls.isInventory as FormControl)
-      .setValue(this.projectsViewMode === 'inventory-mode');
+      .setValue(this.projectsViewMode === 'inventory');
   }
 
   ngOnInit(): void {
-    console.log('project add init')
     this.projectForm = this._formbuilder.group({
       ProjectName: ['', Validators.compose([Validators.required])],
       clientId: ['', Validators.compose([Validators.required])],
@@ -81,8 +80,8 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
       HeatedSquareFootage : [''],
       FrontPatio : ['false'],
       Deck : ['false'],
-      hasInventory: [this.projectsViewMode === 'inventory-mode'],
-      isInventory: [this.projectsViewMode === 'inventory-mode']
+      hasInventory: [this.projectsViewMode === 'inventory'],
+      isInventory: [this.projectsViewMode === 'inventory']
     });
     
     this.getClients();
@@ -105,7 +104,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   HasValidationError(key, keyError) {
-    if(this.projectsViewMode === 'inventory-mode')
+    if(this.projectsViewMode === 'inventory' && !this.projectForm.value.hasInventory)
       return false;
     return this._formValidationService.HasError(this.projectForm, key, keyError, this.formSubmitAttempt);
   }
@@ -117,7 +116,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
 
   onSubmit(model, isValid) {
     this.formSubmitAttempt = true;
-    if (!isValid && this.projectsViewMode === 'project-mode')
+    if (!isValid && (this.projectsViewMode === 'project-list' || this.projectForm.value.hasInventory))
       return false;
     const DesignerIds = [];
     const members = document.getElementById('add-designer');
@@ -302,7 +301,7 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   public get labels() {
-    if(this.projectsViewMode === 'project-mode') return {
+    if(this.projectsViewMode === 'project-list') return {
       header: 'Add Project',
       name: 'Project Name',
       type: 'Project Type',
@@ -318,3 +317,10 @@ export class ProjectAddComponent implements OnInit, AfterViewInit, OnChanges {
   
 
 }
+
+/**
+ * edit project with inventory
+ * edit project without inventory
+ * edit inventory with project
+ * edit inventory without project
+ */

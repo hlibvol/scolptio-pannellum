@@ -5,3 +5,11 @@
 .margin-right {
     margin-right:10px;
 }
+
+.modal-body{
+    &.inventory-false{
+        .project-form-control-container{
+            display: none;
+        }
+    }
+}
