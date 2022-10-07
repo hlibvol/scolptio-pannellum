@@ -37,7 +37,7 @@
             </ul>
           </div>
         </div>
-        <div class="todo-sidebar-section-sub-section" *ngIf="projectsViewMode === 'project-mode'">
+        <div class="todo-sidebar-section-sub-section" *ngIf="projectsViewMode === 'project-list'">
           <div class="todo-sidebar-section-sub-section-toggler"></div>
           <div class="todo-sidebar-section-sub-header d-flex justify-content-between" (click)="expandAccordion(2)"><i class="os-icon os-icon-codepen"></i>
             <h6>3D Models</h6>
@@ -74,7 +74,7 @@
       header="Reference Photos"></app-images>
     <app-videos [module]="module" [projectId]="id" documentType="ReferenceVideos" *ngIf="activeSection==='ReferenceVideos'"
       header="Reference Videos"></app-videos>
-    <ng-template [ngIf]="projectsViewMode === 'project-mode'">
+    <ng-template [ngIf]="projectsViewMode === 'project-list'">
       <app-images [module]="module" [projectId]="id" documentType="PrerenderedPhotos" *ngIf="activeSection==='PrerenderedPhotos'"
         header="Pre-rendered Photos"></app-images>
       <app-images [module]="module" [projectId]="id" documentType="RenderedPhotos" *ngIf="activeSection==='RenderedPhotos'"

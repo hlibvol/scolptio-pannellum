@@ -57,7 +57,7 @@ export class AuthLoginComponent implements OnInit {
         currentUser.teamName = data.teamName;
         this.appSessionStorageService.storeCurrentUser(JSON.stringify(currentUser));
         if(currentUser.Role && currentUser.Role.toLowerCase() == "designer"){
-          this.router.navigate(['/projects/project-list/project-mode']);
+          this.router.navigate(['/projects/project-list']);
         }
         else{
           this.router.navigate(['/dashboard']);

@@ -3,7 +3,8 @@ import { statusList } from 'src/app/shared/project-status.list';
 import { Subscription } from 'rxjs';
 import { ProjectListInteractionService } from './project-list-interaction.service';
 import { ProjectsViewMode, allViewModes } from 'src/app/shared/router-interaction-types';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { BroadcasterService } from 'ng-broadcaster';
 
 declare var $: any;
@@ -19,7 +20,7 @@ export class ProjectListComponent implements OnDestroy {
   selectedproject: any;
   selectedUpdatedSubscription: Subscription;
   detailsOpenedSubscription: Subscription;
-  urlSubscription: Subscription;
+  breadcrumbSubscription: Subscription;
   readonly statusList = statusList;
   projectsViewMode:ProjectsViewMode = allViewModes[0];
   constructor(private _projectListInteractionService: ProjectListInteractionService,
@@ -32,7 +33,7 @@ export class ProjectListComponent implements OnDestroy {
     this.detailsOpenedSubscription = this._projectListInteractionService.openDetails.subscribe((item) => {
       this.router.navigate(['/projects/project-overview/', item.id, this.projectsViewMode]);
     })
-    this.urlSubscription = this.activatedRoute.url.subscribe(() => {
+    this.breadcrumbSubscription = this.router.events.pipe(filter(ev => ev instanceof NavigationEnd)).subscribe(() => {
       this.handleUrlChange();
     })
   }
@@ -44,33 +45,25 @@ export class ProjectListComponent implements OnDestroy {
     }, 
     {
       "pathname": "",
-      "url": "/projects/project-list/" + this.projectsViewMode
+      "url": "/projects/" + this.projectsViewMode
     }]
-    if(this.projectsViewMode === 'project-mode')
+    if(this.projectsViewMode === 'project-list')
       breadcrumb[1].pathname = "Project List"
-    else if(this.projectsViewMode === 'inventory-mode'){
+    else if(this.projectsViewMode === 'inventory'){
       breadcrumb[1].pathname = "Inventory"
     }
     else
       breadcrumb = null;
     if(breadcrumb)
       this.broadcaster.broadcast('onLogin',breadcrumb);
+      
   }
   ngOnDestroy(): void {
     this.selectedUpdatedSubscription.unsubscribe();
     this.detailsOpenedSubscription.unsubscribe();
-    this.urlSubscription.unsubscribe();
+    this.breadcrumbSubscription.unsubscribe();
   }
   onListUpdate(){
     this._projectListInteractionService.broadcastListUpdated();
   }
 }
-/**
- * - Search feature
-   - Update breadcrumb (hide url segment)
-   - Retest breadcrumb
-   - Resize card
-   - Remove add/edit inventory fields
-   - Details section image/thumbnail
-   - Documentation
- */

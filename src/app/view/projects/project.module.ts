@@ -73,15 +73,15 @@ import { DueInPipe } from 'src/app/shared/pipes/due-in.pipe';
     SharedModule,
     RouterModule.forChild([
       { 
-        path: 'project-list',
+        path: '',
         component: ProjectListComponent,
         children: [
           {
-            path: 'project-mode',
+            path: 'project-list',
             component: ProjectsViewComponent
           },
           {
-            path: 'inventory-mode',
+            path: 'inventory',
             component: InventoryViewComponent
           }
         ]
