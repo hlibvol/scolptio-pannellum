@@ -65,6 +65,8 @@ export class ProjectsViewComponent implements OnInit, OnDestroy {
       label: 'Pool - Architectural Drawings'
     }
   ] 
+  readonly imageLoading = '~~LOADING~~';
+  readonly defaultImagePath = '../../../assets/img/no-property.jpg';
   constructor(private _projectService: ProjectService,
     private appSessionStorageService: AppSessionStorageService,
     private toastr: ToastrService,
@@ -100,6 +102,7 @@ export class ProjectsViewComponent implements OnInit, OnDestroy {
       let response: any = await this._projectService.GetAllProject(this.pageNumber, this.pageSize, this.searchKey, searchStatuses, this.currentUser.TeamId, searchTypes).toPromise();
       this.projectList = response.data;
       this.total = response.count;
+      Promise.all(this.projectList.map(x => this.loadFeaturedImage(x))) // Load all images in parallel. Background process, do not await
     }
     catch {
       this.toastr.error(common_error_message);
@@ -108,6 +111,18 @@ export class ProjectsViewComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     }
   }
+  async loadFeaturedImage(project: any) {
+    project.featuredImage = this.imageLoading;
+    var image = this.defaultImagePath;
+    try{
+      image = (await this._projectService.featuredImage(project.id).toPromise()) || image
+    }
+    catch{}
+    finally{
+      project.featuredImage = image;
+    }
+  }
+
 
   setSelectedproject(project: any) {
     this._projectListInteractionService.broadcastSelectedUpdated({ ...project });
