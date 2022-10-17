@@ -35,6 +35,7 @@ import { VersionComponent } from './version/version.component';
 import { ProjectsViewComponent } from './project-list/projects-view/projects-view.component';
 import { InventoryViewComponent } from './project-list/inventory-view/inventory-view.component';
 import { DueInPipe } from 'src/app/shared/pipes/due-in.pipe';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { DueInPipe } from 'src/app/shared/pipes/due-in.pipe';
       { path: 'project-questionnaire/fill/:id', component: FillQuestionnaireComponent },
     ]),
     NgSelectModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    PopoverModule.forRoot()
   ],
     providers: [BsModalService, UserService, DueInPipe]
 })

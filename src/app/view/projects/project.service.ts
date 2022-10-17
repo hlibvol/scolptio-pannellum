@@ -183,4 +183,7 @@ export class ProjectService extends BaseService {
       files
     })
   }
+  public featuredImage = (id: any): Observable<string> => {
+    return this.get('Project/featuredImage?projectId=' + id, {responseType: 'text'})
+  }
 }

@@ -144,8 +144,11 @@
             <td data-label="Featured Image" >
               <div class="multi-item-container">
                 <span class="pl-1">
-                  <img class="img-fluid" [src]="project?.featuredImage" 
-                  onerror="this.src='../../../assets/img/no-property.jpg';" height="50" width="50"></span>
+                  <ng-template #hoverImg>
+                    <img class="img-fluid" *ngIf="project?.featuredImage !== imageLoading" [src]="project?.featuredImage" height="300" width="300" />
+                  </ng-template>
+                  <img class="img-fluid" *ngIf="project?.featuredImage !== imageLoading" [src]="project?.featuredImage" height="50" width="50" [popover]="hoverImg" triggers="mouseenter:mouseleave"></span>
+                  <i class="fa fa-spinner fa-spin" style="font-size:40px" *ngIf="project?.featuredImage === imageLoading"></i>
               </div>
             </td>
             <td data-label="project Name">
