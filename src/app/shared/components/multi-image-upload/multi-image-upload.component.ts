@@ -87,6 +87,7 @@ export class MultiImageUploadComponent implements OnInit {
       imgFile.status = 'uploading';
       let formData = new FormData();
       formData.append('fileData', imgFile.file);
+      formData.append('compressImage', 'true');
       let {s3Key, safeUrl} = await this.projectService.uploadToS3(formData).toPromise()
       imgFile.data.src = imgFile.data.thumb = safeUrl as string;
       imgFile.s3Key = s3Key;
