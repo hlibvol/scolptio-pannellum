@@ -145,8 +145,8 @@ export class ProjectService extends BaseService {
   public deleteRoomById = (roomId: string) => {
     return this.delete('Project/Room?id=' + roomId, {responseType: 'text'})
   }
-  public uploadToS3 = (newFile: FormData): Observable<S3File> => {
-    return this.post('Project/UploadToS3', newFile)
+  public uploadToS3 = (payload: FormData): Observable<S3File> => {
+    return this.post('Project/UploadToS3', payload)
   }
   public roomList = (projectId: string): Observable<Room<Question>[]> => {
     return this.get('Project/RoomList?ProjectId=' + projectId);
