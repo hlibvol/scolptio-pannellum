@@ -142,13 +142,13 @@ export class ProjectEditComponent implements OnInit, AfterViewInit, OnChanges {
   prepareMemberData() {
     setTimeout(() => {
       debugger
-      if (this.project && this.project.designerIds != null && this.project.designerIds.length > 0) {
+      if (this.project?.designers?.length) {
         const role = document.getElementById('user-role-edit');
         if (role) {
           const options = role['options'];
           if (options && options.length > 0) {
             for (let i = 0; i < options.length; i++) {
-              const isExist = this.project.designerIds.find((x: any) => x === options[i].value);
+              const isExist = this.project.designers.find((x: any) => x.id === options[i].value);
               if (isExist) {
                 $('#user-role-edit')[0]['options'][i].selected = true;
               } else {
