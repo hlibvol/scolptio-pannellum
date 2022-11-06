@@ -1,11 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NgOption } from '@ng-select/ng-select';
-import { Gallery, ImageSize, ThumbnailsMode, ThumbnailsPosition } from 'ng-gallery';
+import { Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectS3GalleryItem, ProjectS3ImageItem } from 'src/app/shared/models/s3-items-model';
+import { SafeUrlService } from 'src/app/shared/safe-url.service';
 import { TagMultiSelectHelperService } from 'src/app/shared/tag-multi-select-helper.service';
 import { common_error_message, s3_image } from 'src/app/shared/toast-message-text';
 import { AppUser } from 'src/app/view/auth-register/auth-register.model';
@@ -32,6 +33,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   header: string = '';
   @Input() module:any;
   items: ProjectS3ImageItem[] = [];
+  filteredItems: ProjectS3ImageItem[] = [];
   @ViewChild(VersionComponent)
   versionComponent!: VersionComponent;
   isMultiSelect = false;
@@ -56,23 +58,24 @@ export class ImagesComponent implements OnInit, OnChanges {
     private appSessionStorageService: AppSessionStorageService,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer,
-    private _tagHelperService: TagMultiSelectHelperService) {
+    private _tagHelperService: TagMultiSelectHelperService,
+    private _safeUrlService: SafeUrlService) {
     if (this.appSessionStorageService.getCurrentUser() != null) {
       this.currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
     }
   }
   async prepareImages(): Promise<void> {
-    var items = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
-    this.prepareSlideData(items);
+    this.activeCallsCount++;
+    this.items = await this.projectService.GetDocuments(this.projectId, this.documentType).toPromise()
+    this.activeCallsCount--;
+    this.filterAndPrepareSlideData();
   }
 
   async ngOnInit(): Promise<void> {
-    this.activeCallsCount++;
     await Promise.all([
       this.prepareImages(),
       this.prepareTagOptions()
     ])
-    this.activeCallsCount--;
   }
   async prepareTagOptions(): Promise<void> {
     let tagOptions = await this._tagHelperService.getAllTagOptions();
@@ -97,16 +100,24 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
   }
 
-  async prepareSlideData(items: any[]): Promise<void> {
-    if(!items?.length)
+  async filterAndPrepareSlideData(): Promise<void> {
+    if(!this.items?.length)
       return;
-    for (let item of items) {
-      let url = await this.projectService.getS3ObjectUrl(item.s3Key).toPromise()
+    this.filteredItems = [];
+    for (let item of this.items) {
+      if(!this.showItem(item))
+        continue;
+      let url: string = this._safeUrlService.getAsString(item.safeUrl);
+      if(!url) {
+        this.activeCallsCount++;
+        url = await this.projectService.getS3ObjectUrl(item.s3Key).toPromise();
+        this.activeCallsCount--;
+      }
       let imageItem: ProjectS3ImageItem = new ProjectS3ImageItem(this.sanitizer, url)
-      if(this.items)
-        this.items.push(Object.assign(imageItem, item))
+      if(this.filteredItems)
+        this.filteredItems.push(Object.assign(imageItem, item))
       else
-        this.items = [item];
+        this.filteredItems = [item];
     }
 
     const lightboxRef = this.gallery.ref('lightbox');
@@ -118,7 +129,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     });
 
     // Load items into the lightbox gallery ref
-    lightboxRef.load(this.items);
+    lightboxRef.load(this.filteredItems);
   }
 
   openImage(index: number): void {
@@ -126,8 +137,9 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
 
   async ImageUploadSuccess(imageUploads: ProjectS3ImageItem[]): Promise<void> {
-    await this.prepareSlideData(imageUploads);
+    this.items = this.items.concat(imageUploads);
     await this.UpdateProjectResource();
+    await this.prepareImages();
   }
 
   async UpdateProjectResource(): Promise<void> {
@@ -149,13 +161,14 @@ export class ImagesComponent implements OnInit, OnChanges {
   }
 
   async DeleteAll(): Promise<void> {
-    if(!this.items.some(x => x.isChecked)){
+    if(!this.filteredItems.some(x => x.isChecked)){
       this.toastr.error(s3_image.image_select_count_error);
       return;
     }
     let copy: ProjectS3ImageItem[] = [];
     for(let item of this.items){
-      if(!item.isChecked)
+      let filteredItem = this.filteredItems.find(x => x.id === item.id || x.s3Key === item.s3Key);
+      if(!filteredItem?.isChecked)
         copy.push(item)
       else if(!this.versionComponent.selectedVersion?.id || item.versions.length === 1) 
         continue;
@@ -166,7 +179,9 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
     this.items = copy;
     await this.UpdateProjectResource();
+    this.filterAndPrepareSlideData();
     this.setAllSelected(false);
+    this.isMultiSelect = false;
   }
 
   onMultiSelect(): void {
@@ -177,7 +192,7 @@ export class ImagesComponent implements OnInit, OnChanges {
   setAllSelected(value: boolean): void {
     if(value)
       this.isMultiSelect = true;
-    this.items.map(x => x.isChecked = value);
+    this.filteredItems.map(x => x.isChecked = value);
   }
 
   close(): void {
@@ -209,20 +224,23 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
   }
   filterClass(item: ProjectS3GalleryItem): string{
+    return this.showItem(item) ? '' : 'hidden'
+  }
+  showItem(filteredItem: ProjectS3GalleryItem): boolean {
     let tagFilter = false;
-    if(!item.tags.length)
+    if(!filteredItem.tags.length)
       tagFilter = (!this.selectedTags?.length || this.selectedTags.some(x => x.value === this.untaggedValue));
     else
-      tagFilter = this.selectedTags.some(x => item.tags.map(y => y.id).includes(x.value as string));
+      tagFilter = this.selectedTags.some(x => filteredItem.tags.map(y => y.id).includes(x.value as string));
     let versionFilter = false;
-    if(!item.versions?.length)
+    if(!filteredItem.versions?.length)
       versionFilter = !this.versionComponent?.selectedVersion?.id
     else
-      versionFilter = item.versions.some(x => x.id === this.versionComponent?.selectedVersion.id)
-    return (tagFilter && versionFilter) ? '' : 'hidden'
+      versionFilter = filteredItem.versions.some(x => x.id === this.versionComponent?.selectedVersion.id)
+    return tagFilter && versionFilter;
   }
   async downloadAll(): Promise<void>{
-    let checkedItems = this.items.filter(x => x.isChecked)
+    let checkedItems = this.filteredItems.filter(x => x.isChecked)
     if(!checkedItems.length)
       this.toastr.error('Please select one or more images');
     await Promise.all(checkedItems.map(x =>  this.download(x)));
@@ -245,7 +263,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     return this.versionComponent?.versions.filter(x => x.id !== this.selectedVersion?.id)
   }
   openVersionModal(template: TemplateRef<any>){
-    if(!this.items.some(x => x.isChecked)){
+    if(!this.filteredItems.some(x => x.isChecked)){
       this.toastr.error(s3_image.image_select_count_error);
       return;
     }
@@ -264,7 +282,8 @@ export class ImagesComponent implements OnInit, OnChanges {
       }
     }
     for(let item of this.items){
-      if(!item.isChecked)
+      let filteredItem = this.filteredItems.find(x => x.id === item.id || x.s3Key === item.s3Key);
+      if(!filteredItem?.isChecked)
         continue;
       let targetVersion = Object.assign({}, this.versionComponent.versions.find(x => x.id === this.versionUpdateForm.targetVersionId));
       switch(this.versionUpdateForm.action){
@@ -286,6 +305,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     await this.UpdateProjectResource();
     this.setAllSelected(false);
     this.isMultiSelect = false;
+    this.filterAndPrepareSlideData();
   }
   versionError(ev: Error | string){
     if(typeof ev === 'string')
@@ -307,6 +327,7 @@ export class ImagesComponent implements OnInit, OnChanges {
     }
     this.items = copy;
     await this.UpdateProjectResource();
+    this.filterAndPrepareSlideData();
   }
   loadStateChange(isLoading: boolean): void {
     if(isLoading)

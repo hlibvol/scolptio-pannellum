@@ -4,7 +4,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Version</span>
             </div>
-            <select class="form-control" [(ngModel)]="selectedVersion.id">
+            <select class="form-control" [(ngModel)]="selectedVersion.id" (change)="selectedVersionChange.emit(selectedVersion.id)">
                 <option *ngFor="let version of versions" [value]="version.id">
                     {{version.versionName}}
                 </option>

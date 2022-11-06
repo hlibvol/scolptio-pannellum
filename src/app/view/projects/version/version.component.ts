@@ -21,7 +21,11 @@ export class VersionComponent implements OnInit {
   @Output()
   loadStateChange: EventEmitter<boolean> = new EventEmitter();
   @Output()
-  error: EventEmitter<Error | string> = new EventEmitter()
+  error: EventEmitter<Error | string> = new EventEmitter();
+  @Output()
+  selectedVersionChange: EventEmitter<string> = new EventEmitter();
+  @Output()
+  versionAddedOrUpdated: EventEmitter<Version> = new EventEmitter();
   versions: Version[] = [];
   selectedVersion: Version = new Version;
   versionForm: VersionForm = new VersionForm;
@@ -76,6 +80,7 @@ export class VersionComponent implements OnInit {
         this.versions.find(v => v.id === this.versionForm.id).versionName = this.versionForm.versionName
         this.selectedVersion.versionName = this.versionForm.versionName;
       }
+      this.versionAddedOrUpdated.emit(this.selectedVersion);
       this.modalRef.hide();
     }
     catch(err){

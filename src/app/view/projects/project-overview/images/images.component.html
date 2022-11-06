@@ -51,6 +51,8 @@
 							(error)="versionError($event)"
 							(versionDeleted)="versionDeleted($event)"
 							(loadStateChange)="loadStateChange($event)"
+							(selectedVersionChange)="filterAndPrepareSlideData()"
+							(versionAddedOrUpdated)="filterAndPrepareSlideData()"
 						></app-version>		
 						<div class="row mt-2">
 							<div class="col-sm-12 d-flex">
@@ -85,13 +87,14 @@
 								<div class="form-group">									
 									<ng-select [multiple]="true"
 										[items]="tagOptions" 
-										[(ngModel)]="selectedTags">
+										[(ngModel)]="selectedTags"
+										(change)="filterAndPrepareSlideData()">
 									</ng-select>
 								</div>
 							</div>
 						</div>
 						<div class="row mt-2">
-							<div class="col-lg-4 mb-4 flex-column" *ngFor="let item of items; let i = index" class="{{'image-grid-container ' + filterClass(item) }}">
+							<div class="col-lg-4 mb-4 flex-column" *ngFor="let item of filteredItems; let i = index" class="image-grid-container">
 								<input type="checkbox" [(ngModel)]="item.isChecked" [hidden]="!isMultiSelect" />
 								<label for="imageCheckbox_{{i}}" *ngIf="isMultiSelect" (click)="item.isChecked = !item.isChecked"></label>
 								<img [src]="item.safeUrl" style="cursor: pointer; width: 280px; height: 200px; object-fit: cover;" (click)="openImage(i)">
