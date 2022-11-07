@@ -12,6 +12,8 @@ export class SafeUrlService {
     return window.open(urlStr, '_blank');
   }
   getAsString(url: SafeUrl): string {
+    if(!url)
+      return null;
     if(typeof(url) === 'string')
       return url;
     else
