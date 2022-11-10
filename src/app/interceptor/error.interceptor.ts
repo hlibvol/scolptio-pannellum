@@ -14,7 +14,16 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     if (error.status === 401) {
-                        this.router.navigate(['login']);
+                        if(['', ' ', '/', '\\'].includes(this.router.url)) {
+                            this.router.navigate(['login']);
+                          }
+                          else{
+                            this.router.navigate(['login'], {
+                              queryParams: {
+                                'login_redirect': this.router.url
+                              }
+                            });
+                          }
                     }
                     return throwError(error);
                 })

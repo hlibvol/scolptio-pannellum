@@ -7,10 +7,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigsLoaderService } from '../services/configs-loader.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private configLoaderService: ConfigsLoaderService) {}
+  constructor(private configLoaderService: ConfigsLoaderService, private cookieService: CookieService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -18,7 +19,10 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     let token = sessionStorage.getItem('key_token');
-
+    if(!token){
+      token = this.cookieService.get('jwt');
+    }
+      
     if (token && request.url.includes(this.configLoaderService.ApiUrl)) { // Call is authenticated and internal
       if(request.body instanceof FormData){
         request = request.clone({

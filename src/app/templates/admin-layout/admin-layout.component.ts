@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { AppSessionStorageService } from '../../shared/session-storage.service';
@@ -18,8 +18,18 @@ export class AdminLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     /* will be removed later*/
-    if (this.appSessionStorageService.getCurrentUser() == null) {
-      this.router.navigate(['login']);
+    if (!this.appSessionStorageService.getCurrentUser()) {
+      if(['', ' ', '/', '\\'].includes(this.router.url)) {
+        this.router.navigate(['login']);
+      }
+      else{
+        this.router.navigate(['login'], {
+          queryParams: {
+            'login_redirect': this.router.url
+          }
+        });
+      }
+      
     } else {
       const mainLayout = document.getElementById('main-layout');
       if (mainLayout.hasAttribute('hidden')) {
