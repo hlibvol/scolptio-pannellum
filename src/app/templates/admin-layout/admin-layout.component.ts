@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { AppSessionStorageService } from '../../shared/session-storage.service';
 
@@ -12,14 +12,16 @@ export class AdminLayoutComponent implements OnInit {
 
   sidebarOpen: boolean = true;
   constructor(private appSessionStorageService: AppSessionStorageService,
-    private router: Router, private sharedService: SharedService) { 
+    private router: Router,
+    private sharedService: SharedService,
+    private route: ActivatedRoute) { 
       this.sharedService.scrollAdminLayout$().subscribe(this.scrollBy)
     }
 
   ngOnInit(): void {
     /* will be removed later*/
     if (!this.appSessionStorageService.getCurrentUser()) {
-      if(['', ' ', '/', '\\'].includes(this.router.url)) {
+      if(['', ' ', '/', '\\'].includes(this.router.url) || this.route.snapshot.queryParamMap.get('login_redirect')) {
         this.router.navigate(['login']);
       }
       else{

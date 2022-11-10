@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import { AppUser } from '../auth-register/auth-register.model';
 import { SharedService } from 'src/app/services/shared.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth-login',
@@ -26,13 +27,15 @@ export class AuthLoginComponent implements OnInit {
     private appSessionStorageService: AppSessionStorageService,
     private sharedService: SharedService,
     private route: ActivatedRoute,
-    private cookieService: CookieService) { 
+    private cookieService: CookieService,
+    private toastr: ToastrService) { 
       this.sharedService.reloadUserInformation$().subscribe(this.getUserInformation);
     }
 
   ngOnInit(): void {
     const cookie = this.cookieService.get('jwt');
     if(cookie && this.route.snapshot.queryParamMap.get('login_redirect')){
+      this.toastr.info('You\'re already logged it. Redirecting...')
       this.storeUserData(cookie)
       this.getUserInformation();
     }
