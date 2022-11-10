@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Properties } from '../view/properties/properties.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AppSessionStorageService {
     private key_token = 'key_token';
     private current_user = 'current_user';
     private user_permissions = 'user_permissions';
-    private selected_property = 'selected_property';
 
-    constructor() {
+    constructor(private cookieService: CookieService) {
     }
     resetStorage() {
         sessionStorage.clear();
+        this.cookieService.deleteAll();
     }
 
     storeToken(value: any) {
@@ -23,7 +23,6 @@ export class AppSessionStorageService {
     }
 
     storeCurrentUser(value: any) {
-        debugger;
         sessionStorage.setItem(this.current_user, value);
     }
 
@@ -39,11 +38,11 @@ export class AppSessionStorageService {
         return sessionStorage.getItem(this.user_permissions);
     }
 
-    storeProperty(value: Properties) {
-        sessionStorage.setItem(this.selected_property, JSON.stringify(value));
+    storeProperty<T = any>(key: string, value: T) {
+        sessionStorage.setItem(key, JSON.stringify(value));
     }
 
-    getProperty(): Properties {
-        return JSON.parse(sessionStorage.getItem(this.selected_property)) as Properties;
+    getProperty<T = any>(key: string): T {
+        return JSON.parse(sessionStorage.getItem(key)) as T;
     }
 }
