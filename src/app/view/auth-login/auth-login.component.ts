@@ -35,7 +35,7 @@ export class AuthLoginComponent implements OnInit {
   ngOnInit(): void {
     const cookie = this.cookieService.get('jwt');
     if(cookie && this.route.snapshot.queryParamMap.get('login_redirect')){
-      this.toastr.info('You\'re already logged it. Redirecting...')
+      this.toastr.info('You\'re already logged in. Redirecting...')
       this.storeUserData(cookie)
       this.getUserInformation();
     }
@@ -58,6 +58,7 @@ export class AuthLoginComponent implements OnInit {
   }
 
   storeUserData(data: string){
+    this.cookieService.deleteAll();
     this.appSessionStorageService.storeToken(data);
     this.cookieService.set('jwt', data);
     const currentUser = jwt_decode(data) as AppUser;
