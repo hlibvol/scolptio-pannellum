@@ -29,8 +29,17 @@ export class AuthLoginComponent implements OnInit {
     private route: ActivatedRoute,
     private cookieService: CookieService,
     private toastr: ToastrService) { 
-      this.sharedService.reloadUserInformation$().subscribe(this.getUserInformation);
-    }
+    this.sharedService.reloadUserInformation$().subscribe(async () => {
+      const cookie = this.cookieService.get('jwt');
+      if(cookie){
+        this.storeUserData(cookie)
+        await this.getUserInformation();
+      }
+      else
+        this.appSessionStorageService.resetStorage();
+      window.location.reload();
+    });
+  }
 
   ngOnInit(): void {
     const cookie = this.cookieService.get('jwt');
@@ -46,9 +55,9 @@ export class AuthLoginComponent implements OnInit {
   login() {
     this.errorMsg = '';
     this.isSaving = true;
-    this.authLoginService.Login(this.email, this.password).subscribe((data: any) => {
+    this.authLoginService.Login(this.email, this.password).subscribe(async(data: any) => {
       this.storeUserData(data)
-      this.getUserInformation();
+      await this.getUserInformation();
     }, (error) => {
       this.errorMsg = 'Username or password incorrect.';
       this.isSaving = false;
@@ -67,8 +76,9 @@ export class AuthLoginComponent implements OnInit {
     this.appSessionStorageService.storeUserPermissions(JSON.stringify(user_permissions));
   }
 
-  getUserInformation() {
-    this.authLoginService.GetUserInformation().subscribe((data: any) => {
+  async getUserInformation() {
+    try{
+      let data = await this.authLoginService.GetUserInformation().toPromise();
       if (this.appSessionStorageService.getCurrentUser() != null) {
         const currentUser = JSON.parse(this.appSessionStorageService.getCurrentUser()) as AppUser;
         currentUser.DisplayName = data.firstName + ' ' + data.lastName;
@@ -89,13 +99,12 @@ export class AuthLoginComponent implements OnInit {
           this.router.navigateByUrl(decodeURIComponent(redirectUrl));
         }
       }
-      
-      
-    }, (error) => {
+    }
+    catch(error){
       this.errorMsg = 'Username or password incorrect.';
       this.isSaving = false;
 
-    })
+    }
   }
 
 }

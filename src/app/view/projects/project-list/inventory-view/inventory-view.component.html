@@ -67,7 +67,7 @@
 									<div class="card-text text-muted">{{item.squareFootage}}</div>
 								</div>
 							</div>
-              				<a href="javascript:void(0);" class="card-link" (click)="detailsClicked(item)">Details</a>
+              				<a [routerLink]="['/projects/project-overview', item.id, 'inventory']" class="card-link">Details</a>
 							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
 								data-target="#editproject">Edit</a>
 							<a href="#" class="card-link" (click)="selectedUpdated(item)" data-toggle="modal"
