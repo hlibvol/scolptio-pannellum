@@ -88,6 +88,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
         ]
       },
       { path: 'project-overview/:id/:projectsViewMode', component: ProjectOverviewComponent },
+      { path: 'project-overview/:id/:projectsViewMode/:section', component: ProjectOverviewComponent },
       { path: 'tags', component: TagListComponent },
       { path: 'project-questionnaire/prepare/:id', component: PrepareQuestionnaireComponent },
       { path: 'project-questionnaire/fill/:id', component: FillQuestionnaireComponent },

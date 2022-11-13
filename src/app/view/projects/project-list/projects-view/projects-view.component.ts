@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgOption } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
-import { ProjectsViewMode, RouterAction } from '../../../../shared/router-interaction-types';
+import { RouterAction } from '../../../../shared/router-interaction-types';
 import { AppSessionStorageService } from 'src/app/shared/session-storage.service';
 import { common_error_message } from 'src/app/shared/toast-message-text';
 import { AppUser } from '../../../auth-register/auth-register.model';
@@ -36,7 +36,6 @@ export class ProjectsViewComponent implements OnInit, OnDestroy {
   searchStatuses: NgOption[] = [];
   searchTypes: NgOption[] = []
   defaultDisplayStyle: string = 'table-cell'
-  projectsViewMode: ProjectsViewMode;
   listUpdatedSubscription: Subscription;
   readonly statusList = statusList;
   readonly typeList: NgOption[] = [ // TO-DO: Refactor - create a single type for this
@@ -149,10 +148,6 @@ export class ProjectsViewComponent implements OnInit, OnDestroy {
 
   getLogo(logo) {
     return logo + "?v=" + Math.random()
-  }
-
-  openProject(project) {
-    this._projectListInteractionService.broadcastOpenDetails(project);
   }
 
   openQuestionnaire(project: any, segment: string): void {

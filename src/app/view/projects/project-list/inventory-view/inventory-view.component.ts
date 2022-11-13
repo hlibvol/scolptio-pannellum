@@ -121,10 +121,6 @@ export class InventoryViewComponent implements OnInit, OnDestroy {
     this._projectListInteractionService.broadcastSelectedUpdated(item);
   }
 
-  detailsClicked(item: any): void {
-    this._projectListInteractionService.broadcastOpenDetails(item);
-  }
-
   openSearch(template: TemplateRef<any>): void {
     this.modalRef = this._bsModalService.show(template, {
       class: 'modal-md'

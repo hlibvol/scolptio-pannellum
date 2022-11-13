@@ -19,7 +19,6 @@ export class ProjectListComponent implements OnDestroy {
 
   selectedproject: any;
   selectedUpdatedSubscription: Subscription;
-  detailsOpenedSubscription: Subscription;
   breadcrumbSubscription: Subscription;
   readonly statusList = statusList;
   projectsViewMode:ProjectsViewMode = allViewModes[0];
@@ -29,9 +28,6 @@ export class ProjectListComponent implements OnDestroy {
      private broadcaster: BroadcasterService) { 
     this.selectedUpdatedSubscription = this._projectListInteractionService.selectedUpdated.subscribe((newSelected) => {
       this.selectedproject = newSelected;
-    })
-    this.detailsOpenedSubscription = this._projectListInteractionService.openDetails.subscribe((item) => {
-      this.router.navigate(['/projects/project-overview/', item.id, this.projectsViewMode]);
     })
     this.breadcrumbSubscription = this.router.events.pipe(filter(ev => ev instanceof NavigationEnd)).subscribe(() => {
       this.handleUrlChange();
@@ -60,7 +56,6 @@ export class ProjectListComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     this.selectedUpdatedSubscription.unsubscribe();
-    this.detailsOpenedSubscription.unsubscribe();
     this.breadcrumbSubscription.unsubscribe();
   }
   onListUpdate(){
