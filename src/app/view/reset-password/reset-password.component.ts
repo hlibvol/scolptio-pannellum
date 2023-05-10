@@ -22,7 +22,8 @@ export class ResetPasswordComponent implements OnInit {
   conPassword: string;
 
   symbolFormat = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-  letterFormat = /[a-zA-Z]/;
+  lowerCaseLetterFormat = /[a-z]/;
+  upperCaseLetterFormat = /[A-Z]/
   numberFormat = /[0-9]/;
 
   constructor(private reserPasswordService: ResetPasswordService,
@@ -58,8 +59,12 @@ export class ResetPasswordComponent implements OnInit {
     return this.symbolFormat.test(text);
   }
 
-  hasLetter(text: string) {
-    return this.letterFormat.test(text);
+  hasLowerCaseLetter(text: string) {
+    return this.lowerCaseLetterFormat.test(text);
+  }
+
+  hasUpperCaseLetter(text: string){
+    return this.upperCaseLetterFormat.test(text);
   }
 
   hasNumber(text: string) {
