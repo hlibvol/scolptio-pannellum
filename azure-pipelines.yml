@@ -7,7 +7,7 @@ name: scolptio-crm-ui
 trigger:
 - Development
 
-pool: Default
+pool: MacAgents
 
 variables:
   - group: scolptio-crm-ui
