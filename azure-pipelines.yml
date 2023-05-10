@@ -44,9 +44,9 @@ steps:
     artifactName: artifact
     targetPath: 'dist'
 
-- task: S3Upload@1
-  inputs:
-    awsCredentials: 's3-bucket-in-ph-acc'
-    bucketName: 'sd-app-ui-fe-bucket'
-    globExpressions: '**'
-    filesAcl: 'bucket-owner-full-control'
+# - task: S3Upload@1
+#   inputs:
+#     awsCredentials: 's3-bucket-in-ph-acc'
+#     bucketName: 'sd-app-ui-fe-bucket'
+#     globExpressions: '**'
+#     filesAcl: 'bucket-owner-full-control'
