@@ -33,12 +33,12 @@ steps:
   env:
     AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
     AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY_ID)
-# - task: Docker@2
-#   displayName: Build docker image
-#   inputs:
-#     repository: $(DOCKER_REPOSITORY)
-#     command: buildAndPush
-#     Dockerfile: '**/Dockerfile'
+- task: Docker@2
+  displayName: Build docker image
+  inputs:
+    repository: $(DOCKER_REPOSITORY)
+    command: buildAndPush
+    Dockerfile: '**/Dockerfile'
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: artifact
